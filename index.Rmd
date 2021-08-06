@@ -1,0 +1,209 @@
+---
+title: '**Results Template**'
+subtitle: A Subtitle
+output:
+  html_document:
+    theme: cerulean
+    highlight: pygments
+    toc: yes
+    toc_depth: 3
+    toc_float: yes
+    number_sections: no
+    df_print: kable
+    code_folding: hide
+    code_download: yes
+  word_document:
+    reference_docx: utils/Template_Word.docx
+    highlight: pygments
+    toc: no
+    toc_depth: 3
+    df_print: kable
+    number_sections: yes
+  rmarkdown::html_vignette:
+    toc: yes
+    toc_depth: 3
+  pdf_document:
+    toc: yes
+    toc_depth: '2'
+    latex_engine: xelatex
+editor_options:
+  chunk_output_type: console
+bibliography: utils/bibliography.bib
+csl: utils/apa.csl
+---
+
+
+<!-- 
+!!!! IMPORTANT: run `source("utils/render.R")` to publish instead of clicking on 'Knit'
+-->
+
+```{r setup, warning=FALSE, message=TRUE, include=FALSE}
+# Set up the environment (or use local alternative `source("utils/config.R")`)
+source("https://raw.githubusercontent.com/RealityBending/TemplateResults/main/utils/config.R")  
+
+fast <- FALSE  # Make this false to skip the chunks
+```
+
+# Introduction
+
+```{r badges, echo=FALSE, message=TRUE, warning=FALSE, results='asis'}
+# This chunk is a bit complex so don't worry about it: it's made to add badges to the HTML versions
+# NOTE: You have to replace the links accordingly to have working "buttons" on the HTML versions
+if (!knitr::is_latex_output() && knitr::is_html_output()) {
+  cat("![Build](https://github.com/RealityBending/TemplateResults/workflows/Build/badge.svg)
+      [![Website](https://img.shields.io/badge/repo-Readme-2196F3)](https://github.com/RealityBending/TemplateResults)
+      [![Website](https://img.shields.io/badge/visit-website-E91E63)](https://realitybending.github.io/TemplateResults/)
+      [![Website](https://img.shields.io/badge/download-.docx-FF5722)](https://github.com/RealityBending/TemplateResults/raw/main/word_and_pdf/SupplementaryMaterials.docx)
+      [![Website](https://img.shields.io/badge/see-.pdf-FF9800)](https://github.com/RealityBending/TemplateResults/blob/main/word_and_pdf/SupplementaryMaterials.pdf)")
+}
+```
+
+This is a template for a data analysis folder that can be easily exported as a [**webpage**](https://realitybending.github.io/TemplateResults/) or as **Supplementary Materials** (e.g., as a [**Word document**](https://github.com/RealityBending/TemplateResults/raw/main/word_and_pdf/SupplementaryMaterials.docx) or a [**PDF**](https://github.com/RealityBending/TemplateResults/blob/main/word_and_pdf/SupplementaryMaterials.pdf)).
+
+How does it look like? Just like this! The README page of this repository, alongside the [webpage](https://realitybending.github.io/TemplateResults/) and the word and PDF documents, were all created from the [index.Rmd](https://github.com/RealityBending/TemplateResults/blob/main/index.Rmd) file.
+
+This means you can easily **share your data analysis**, either by attaching the *PDF* or *Word* file to the publication (as **Supplementary Materials**), or by directly providing the URL of your GitHub repository: the readers can then enjoy your awesome open-access work in a convenient and transparent way.
+
+## Features
+
+- [x] Automatically generates different types of document:
+  - [**README page**](https://github.com/RealityBending/TemplateResults/blob/main/README.md)
+  - [**Published website**](https://realitybending.github.io/TemplateResults/)
+  - [**Word document**](https://github.com/RealityBending/TemplateResults/raw/main/word_and_pdf/SupplementaryMaterials.docx)
+  - [**PDF document**](https://github.com/RealityBending/TemplateResults/blob/main/word_and_pdf/SupplementaryMaterials.pdf)
+- [x] APA citations
+- [x] Automatic citations and [reference list](https://github.com/RealityBending/TemplateResults#package-references) for all packages
+- [x] Tidy organisation (separate files for independent analyses)
+- [x] Great default configuration
+- [x] And more!
+
+```{r demo_gif, echo=FALSE, message=TRUE, warning=FALSE}
+# Let's include a demo GIF (this doesn't work in PDF documents)
+if (!knitr::is_latex_output()) {
+  knitr::include_graphics("figures/demo.gif")
+}
+```
+
+
+## Installation
+
+- **What is this?**
+
+This repository is a template to set up a reproducible, convenient and shareable workflow for your data analysis. It consists of several [*Rmarkdown*](https://rmarkdown.rstudio.com/lesson-1.html) files (`.Rmd`), that allow you to have R code and text (markdown) in the same document. Importantly, these files can be transformed into other documents formats.
+
+- **How to use this template?**
+
+Download it ([**click here to download**](https://github.com/RealityBending/TemplateResults/archive/main.zip)), unzip it and edit.
+Alternatively, you click on the [**Use this template**](https://github.com/RealityBending/TemplateResults/generate) button at the top of this screen to create a GitHub repository with all the content copied (then you just need to clone the repo to your local machine).
+
+The main files you need to edit are the `.Rmd` files, that you can open with some editor (e.g., [Rstudio](https://rstudio.com/)), and edit the text and the R chunks of code.
+
+
+- **How to upload it to a website?**
+
+If your repo is not already connected to GitHub, then create a new repository and upload all the content (so that it looks like this repo). Then, go to settings of the repo and enable **GitHub pages** (i.e., that gives you a webpage from an html stored on GitHub), and select the `docs/` folder as the location of the webpage. Indeed, rendering (knitting) the files will generate an "index.html" file in the `/docs/` folder, which is used as the website. You can see an example at [https://realitybending.github.io/TemplateResults/](https://realitybending.github.io/TemplateResults/).
+
+- **To knit or not to knit**
+
+In this repo, with have set up a [GitHub action](https://github.com/RealityBending/TemplateResults/blob/main/.github/workflows/website.yml) that generates all the output files everytime someone commit to the repository. This means that the final documents here are always "up-to-date" with the *Rmds* (as shown by the green badge). That said, you can remove this GitHub action (just remove the `.github/workflows/website.yml` file) if you prefer to generate the documents manually only.
+
+- **But I don't want do upload all my data**
+
+In that case, you'll need to 1) deactivate (i.e., remove the action file) the automatic rendering by GitHub (as no data will be stored on GitHub) and 2) mark the **data** folder as "to be ignored" (so that it won't be uploaded). This can be done by adding `/data/` to the [**.gitignore**](https://github.com/RealityBending/TemplateResults/blob/main/.gitignore) file (that you can open with a notepad). This means that you can still store the data here locally, and generate the documents accordingly, but the data folder will be ignored by git and never uploaded to GitHub. This way, you can still have a cool website, an open-access script, but the data is safe with you. The only down side is that you have to build it manually (cannot use GitHub actions).
+
+- **How to add references?**
+
+References have to be added in `bib` format in the [*utils/bibliography.bib*](https://github.com/RealityBending/TemplateResults/blob/main/utils/bibliography.bib) file, and further referenced in the text like this `[@ludecke2019insight]` [@ludecke2019insight].
+
+- **I don't like the Word (.docx) theme**
+
+The theme for the word document is defined in the [**Template_Word.docx](https://github.com/RealityBending/TemplateResults/tree/main/utils) file, in the `/utils/` folder. You need to edit the "styles" (not just the content, but the style itself) to your preference.
+
+- **I have Python code**
+
+Thanks to R's possibilities when it comes to integration with Python, it's super easy to enable it in your pipeline. Just uncomment the [Python installation line](https://github.com/RealityBending/TemplateResults/blob/main/utils/config.R#L24) in the `utils/config.R` file and you're ready to go!
+
+- **It doesn't work / I have questions / I have ideas**
+
+Just [**open an issue**](https://github.com/RealityBending/TemplateResults/issues) and we'll be happy to assist ☺
+
+## Structure
+
+Most files that you'll need to create / edit will be written in [**rmarkdown**](https://rmarkdown.rstudio.com/lesson-1.html), which consists of a mix of markdown text and R chunks of code.
+
+The main file is named [**index.Rmd**](https://github.com/RealityBending/TemplateResults/blob/main/index.Rmd). However, to avoid having overly long files, the different (and independent) analyses parts are actually split in other documents. For instance, in this template example, the descriptive statistics section is in the [**1_descriptive.Rmd**](https://github.com/RealityBending/TemplateResults/blob/main/1_descriptive.Rmd) file. As you can [see in the index file](https://github.com/RealityBending/TemplateResults/blob/690f7947da0fc8ac85eaf6fb87fafeaa46fb3c50/index.Rmd#L89-L90), this file is then integrated as a child document (i.e., it is merged). This makes it very convenient to have a clear structure with well-organized files, that are put together only when merged.
+
+## Render and Publish
+
+Importantly, in order to render all the files, do not Knit this document by pressing the 'Knit' button. If you do, it will create an output file (for instance `index.html`) in the root folder, alongside `index.Rmd`. This is **not what we want**, as we want to keep the output files tidy in separate folders (for instance, the html version should be in the `/docs/` folder, as this is where the website will look for).
+
+There an R script, [utils/render.R](https://github.com/RealityBending/TemplateResults/blob/main/utils/render.R), that contains the lines to render everything in its correct location. So, when you have the "index.Rmd" file opened (and your working directory is at its root), simply run **`source("utils/render.R")`** in the console (or the relevant lines in that file). This will run the rendering file and create all the files.
+
+## Contribution
+
+Do not hesitate to improve this template by updating, documenting, or expanding it!
+
+
+# Packages & Data
+
+## Packages
+
+This document was prepared on `r format(Sys.Date())`. 
+
+```{r warning=FALSE, message=TRUE, results='asis'}
+library(bayestestR)
+library(parameters)
+library(performance)
+library(report)
+library(see)
+library(ggplot2)
+
+summary(report::report(sessionInfo()))
+```
+
+
+## Data
+
+```{r warning=FALSE, message=TRUE, results='asis'}
+df <- read.csv("data/data.csv")
+
+cat(paste("The data consists of",
+          report::report_participants(df,
+                                      participants = "Participant",
+                                      age = "Age")))
+```
+
+
+
+Note that the chunks generating figures in the code below have some arguments specified in their header, such as `fig.width` and `fig.height`, which controls the figure size. These were filled with an eponym argument defined in [`utils/config.R`](https://github.com/RealityBending/TemplateResults/blob/main/utils/config.R#L26-L27). We also set the resolution, i.e., `dpi`, to a low value so that the resulting file is lighter. But **don't forget to crank this value up** (to 300-600) to get nice-looking results.
+
+
+# Descriptive Stats {.tabset}
+
+Notice the `{.tabset}` tag after the section name. This will show the subsections as different tabs (in the [html version](https://realitybending.github.io/TemplateResults/#Descriptive_Stats) only, because the other formats are static).
+
+
+```{r child=if (fast == FALSE) '1_descriptive.Rmd'}
+```
+
+# Inferential Stats
+
+```{r child=if (fast == FALSE) '2_inferential.Rmd'}
+```
+
+
+# Full Code
+
+The full script of executive code contained in this document is reproduced here.
+
+```{r full_code, ref.label=knitr::all_labels(), eval=FALSE}
+```
+
+# Package References
+
+```{r warning=FALSE, message=FALSE, results='asis'}
+report::cite_packages(sessionInfo())
+```
+
+
+# References
