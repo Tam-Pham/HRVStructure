@@ -1,0 +1,47 @@
+---
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+
+### Factor Analysis
+
+
+#### How many factors
+
+```{r, message=FALSE, warning=FALSE}
+r <- correlation::correlation(data[hrv_cols]) %>%
+  as.matrix()
+
+n <- parameters::n_factors(data, cor=r, type = "PCA")
+
+n
+
+plot(n) 
+```
+
+#### Exploratory Factor Analysis (EFA)
+
+<!-- ```{r, message=FALSE, warning=FALSE, fig.width=15, fig.height=15} -->
+<!-- efa <- parameters::factor_analysis(data, cor=cor, n=7, rotation="varimax", fm="ml") -->
+
+<!-- print(efa, threshold="max", sort=TRUE) -->
+
+<!-- plot(efa) + -->
+<!--   see::theme_modern() -->
+<!-- ``` -->
+
+<!-- #### Confirmatory Factor Analysis (CFA) -->
+
+<!-- ```{r, message=FALSE, warning=FALSE, fig.width=15, fig.height=15} -->
+<!-- library(lavaan) -->
+
+<!-- model <- parameters::efa_to_cfa(efa, threshold = "max") -->
+<!-- cfa <- lavaan::cfa(model, data=data) %>% -->
+<!--   parameters::parameters(standardize=TRUE) -->
+
+<!-- cfa -->
+
+<!-- plot(cfa) -->
+<!-- ``` -->

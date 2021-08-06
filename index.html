@@ -1,0 +1,947 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Conceptual vs. Observed Structure of Heart Rate Variability (HRV) Indices</title>
+
+<script src="index_files/header-attrs-2.9/header-attrs.js"></script>
+<script src="index_files/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="index_files/bootstrap-3.3.5/css/cerulean.min.css" rel="stylesheet" />
+<script src="index_files/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="index_files/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="index_files/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="index_files/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="index_files/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="index_files/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="index_files/navigation-1.1/tabsets.js"></script>
+<script src="index_files/navigation-1.1/codefolding.js"></script>
+<script src="index_files/navigation-1.1/sourceembed.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+
+<style type="text/css">
+  code {
+    white-space: pre;
+  }
+  .sourceCode {
+    overflow: visible;
+  }
+</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+
+.sourceCode .row {
+  width: 100%;
+}
+.sourceCode {
+  overflow-x: auto;
+}
+.code-folding-btn {
+  margin-right: -30px;
+}
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    for (var j = 0; j < rules.length; j++) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+<style type="text/css">
+#rmd-source-code {
+  display: none;
+}
+</style>
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div id="header">
+
+<div class="btn-group pull-right float-right">
+<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+<li role="separator" class="divider"></li>
+<li><a id="rmd-download-source" href="#">Download Rmd</a></li>
+</ul>
+</div>
+
+
+
+<h1 class="title toc-ignore"><strong>Conceptual vs. Observed Structure of Heart Rate Variability (HRV) Indices</strong></h1>
+<h3 class="subtitle">Data Analysis</h3>
+
+</div>
+
+
+<!-- 
+!!!! IMPORTANT: run `source("utils/render.R")` to publish instead of clicking on 'Knit'
+-->
+<div id="introduction" class="section level1">
+<h1>Introduction</h1>
+<p><img src="https://github.com/Tam-Pham/HRVStructure/workflows/Build/badge.svg" alt="Build" /> <a href="https://github.com/Tam-Pham/HRVStructure"><img src="https://img.shields.io/badge/repo-Readme-2196F3" alt="Website" /></a> <a href="https://realitybending.github.io/TemplateResults/"><img src="https://img.shields.io/badge/visit-website-E91E63" alt="Website" /></a> <a href="https://github.com/RealityBending/TemplateResults/raw/main/word_and_pdf/SupplementaryMaterials.docx"><img src="https://img.shields.io/badge/download-.docx-FF5722" alt="Website" /></a> <a href="https://github.com/RealityBending/TemplateResults/blob/main/word_and_pdf/SupplementaryMaterials.pdf"><img src="https://img.shields.io/badge/see-.pdf-FF9800" alt="Website" /></a></p>
+<p>The aim of this study is to explore the factor structure of HRV indices.</p>
+</div>
+<div id="methods" class="section level1">
+<h1>Methods</h1>
+<div id="databases" class="section level2">
+<h2>Databases</h2>
+<div id="glasgow-university-database" class="section level3">
+<h3>Glasgow University Database</h3>
+<p>The GUDB Database <span class="citation">(<strong>howell2018high?</strong>)</span> contains ECGs from 25 subjects. Each subject was recorded performing 5 different tasks for two minutes (sitting, doing a maths test on a tablet, walking on a treadmill, running on a treadmill, using a hand bike). The sampling rate is 250Hz for all the conditions.</p>
+<p>The script to download and format the database using the <a href="https://github.com/berndporr/ECG-GUDB"><strong>ECG-GUDB</strong></a> Python package by Bernd Porr can be found <a href="https://github.com/neuropsychology/NeuroKit/blob/dev/data/gudb/download_gudb.py"><strong>here</strong></a>.</p>
+</div>
+<div id="mit-bih-arrhythmia-database" class="section level3">
+<h3>MIT-BIH Arrhythmia Database</h3>
+<p>The MIT-BIH Arrhythmia Database [MIT-Arrhythmia; <span class="citation">(<strong>moody2001impact?</strong>)</span>] contains 48 excerpts of 30-min of two-channel ambulatory ECG recordings sampled at 360Hz and 25 additional recordings from the same participants including common but clinically significant arrhythmias (denoted as the <code>MIT-Arrhythmia-x</code> database).</p>
+<p>The script to download and format the database using the can be found <a href="https://github.com/neuropsychology/NeuroKit/blob/dev/data/mit_arrhythmia/download_mit_arrhythmia.py"><strong>here</strong></a>.</p>
+</div>
+<div id="mit-bih-normal-sinus-rhythm-database" class="section level3">
+<h3>MIT-BIH Normal Sinus Rhythm Database</h3>
+<p>This database includes 18 clean long-term ECG recordings of subjects. Due to memory limits, we only kept the second hour of recording of each participant.</p>
+<p>The script to download and format the database using the can be found <a href="https://github.com/neuropsychology/NeuroKit/blob/dev/data/mit_normal/download_mit_normal.py"><strong>here</strong></a>.</p>
+<!-- ### Lobachevsky University Electrocardiography Database -->
+<!-- The Lobachevsky University Electrocardiography Database [LUDB; @kalyakulina2018lu] consists of 200 10-second 12-lead ECG signal records representing different morphologies of the ECG signal. The ECGs were collected from healthy volunteers and patients, which had various cardiovascular diseases. The boundaries of P, T waves and QRS complexes were manually annotated by cardiologists for all 200 records. -->
+</div>
+<div id="fantasia-database" class="section level3">
+<h3>Fantasia Database</h3>
+<p>The Fantasia database <span class="citation">(<strong>iyengar1996age?</strong>)</span> consists of twenty young and twenty elderly healthy subjects. All subjects remained in a resting state in sinus rhythm while watching the movie Fantasia (Disney, 1940) to help maintain wakefulness. The continuous ECG signals were digitized at 250 Hz. Each heartbeat was annotated using an automated arrhythmia detection algorithm, and each beat annotation was verified by visual inspection.</p>
+</div>
+</div>
+<div id="procedure" class="section level2">
+<h2>Procedure</h2>
+</div>
+</div>
+<div id="results" class="section level1">
+<h1>Results</h1>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(easystats)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;data/data.csv&quot;</span>, <span class="at">stringsAsFactors =</span> <span class="cn">FALSE</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>HRV_ULF, <span class="sc">-</span>HRV_VLF) <span class="sc">%&gt;%</span>  <span class="co"># Empty</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># filter(Database != &quot;LUDB&quot;) %&gt;% # too short recordings, many indices didn&#39;t converge</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">setNames</span>(stringr<span class="sc">::</span><span class="fu">str_remove</span>(<span class="fu">names</span>(.), <span class="st">&quot;HRV_&quot;</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate_all</span>(<span class="cf">function</span>(x) {</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    x[<span class="fu">is.infinite</span>(x)] <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(x) })</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;This study includes&quot;</span>, </span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">nrow</span>(data), </span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;participants from&quot;</span>, </span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">length</span>(<span class="fu">unique</span>(data<span class="sc">$</span>Database)), </span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;databases.&quot;</span>)</span></code></pre></div>
+<p>This study includes 452 participants from 10 databases.</p>
+<div id="preprocessing" class="section level2">
+<h2>Preprocessing</h2>
+<div id="convenience-functions" class="section level3">
+<h3>Convenience Functions</h3>
+<div id="cleaning" class="section level4">
+<h4>Cleaning</h4>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>clean_names <span class="ot">&lt;-</span> <span class="cf">function</span>(n) {</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  n[n <span class="sc">==</span> <span class="st">&quot;Recording_Length&quot;</span>] <span class="ot">&lt;-</span> <span class="st">&quot;Recording Length&quot;</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  n[n <span class="sc">==</span> <span class="st">&quot;CSI_Modified&quot;</span>] <span class="ot">&lt;-</span> <span class="st">&quot;CSI (modified)&quot;</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  n</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+</div>
+<div id="correlations" class="section level4">
+<h4>Correlations</h4>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>plot_correlation <span class="ot">&lt;-</span> <span class="cf">function</span>(data, <span class="at">x =</span> <span class="st">&quot;Recording_Length&quot;</span>, <span class="at">y =</span> <span class="st">&quot;RMSSD&quot;</span>, <span class="at">xlab =</span> x, <span class="at">ylab =</span> y, <span class="at">color =</span> <span class="st">&quot;red&quot;</span>, <span class="at">label =</span> <span class="cn">NULL</span>) {</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  data <span class="sc">%&gt;%</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes_string</span>(<span class="at">x =</span> x, <span class="at">y =</span> y)) <span class="sc">+</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point2</span>(<span class="at">size =</span> <span class="dv">4</span>, <span class="at">alpha =</span> <span class="fl">0.66</span>) <span class="sc">+</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="at">formula =</span> y <span class="sc">~</span> <span class="fu">poly</span>(x, <span class="dv">2</span>), <span class="at">color =</span> color, <span class="at">fill =</span> color, <span class="at">alpha =</span> <span class="fl">0.1</span>, <span class="at">size =</span> <span class="fl">1.5</span>, <span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">annotate</span>(<span class="st">&quot;label&quot;</span>,</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>      <span class="at">x =</span> <span class="fu">min</span>(data[[x]], <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>      <span class="at">y =</span> <span class="fu">max</span>(data[[y]], <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>      <span class="at">label =</span> label,</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>      <span class="at">hjust =</span> <span class="dv">0</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">+</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">xlab</span>(xlab) <span class="sc">+</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ylab</span>(ylab) <span class="sc">+</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_modern</span>() <span class="sc">+</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>    ggside<span class="sc">::</span><span class="fu">geom_xsidedensity</span>() <span class="sc">+</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>    ggside<span class="sc">::</span><span class="fu">geom_ysidedensity</span>() <span class="sc">+</span></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>    ggside<span class="sc">::</span><span class="fu">scale_xsidey_continuous</span>(<span class="at">breaks =</span> <span class="cn">NULL</span>, <span class="at">labels =</span> <span class="st">&quot;&quot;</span>, <span class="at">expand =</span> <span class="fu">expansion</span>(<span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>))) <span class="sc">+</span></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>    ggside<span class="sc">::</span><span class="fu">scale_ysidex_continuous</span>(<span class="at">breaks =</span> <span class="cn">NULL</span>, <span class="at">labels =</span> <span class="st">&quot;&quot;</span>, <span class="at">expand =</span> <span class="fu">expansion</span>(<span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>)))</span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>plot_correlations <span class="ot">&lt;-</span> <span class="cf">function</span>(data, r, <span class="at">color =</span> <span class="cn">NA</span>) {</span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>  r<span class="sc">$</span>label <span class="ot">&lt;-</span> <span class="fu">paste0</span>(</span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>      <span class="st">&quot;r = &quot;</span>,</span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>      insight<span class="sc">::</span><span class="fu">format_value</span>(r<span class="sc">$</span>r),</span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>      insight<span class="sc">::</span><span class="fu">format_p</span>(r<span class="sc">$</span>p, <span class="at">stars_only =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>      <span class="st">&quot;, &quot;</span>,</span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>      insight<span class="sc">::</span><span class="fu">format_ci</span>(r<span class="sc">$</span>CI_low, r<span class="sc">$</span>CI_high, r<span class="sc">$</span>CI, <span class="at">zap_small =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a>  r<span class="sc">$</span>xlab <span class="ot">&lt;-</span> <span class="fu">clean_names</span>(r<span class="sc">$</span>Parameter1)</span>
+<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a>  r<span class="sc">$</span>ylab <span class="ot">&lt;-</span> <span class="fu">clean_names</span>(r<span class="sc">$</span>Parameter2)</span>
+<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a>  ps <span class="ot">&lt;-</span> <span class="fu">list</span>()</span>
+<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(r)) {</span>
+<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a>    ps[[i]] <span class="ot">&lt;-</span> <span class="fu">plot_correlation</span>(data, </span>
+<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a>                                <span class="at">x =</span> r<span class="sc">$</span>Parameter1[i], </span>
+<span id="cb4-37"><a href="#cb4-37" aria-hidden="true" tabindex="-1"></a>                                <span class="at">y =</span> r<span class="sc">$</span>Parameter2[i], </span>
+<span id="cb4-38"><a href="#cb4-38" aria-hidden="true" tabindex="-1"></a>                                <span class="at">xlab =</span> r<span class="sc">$</span>xlab[i], </span>
+<span id="cb4-39"><a href="#cb4-39" aria-hidden="true" tabindex="-1"></a>                                <span class="at">ylab =</span> r<span class="sc">$</span>ylab[i], </span>
+<span id="cb4-40"><a href="#cb4-40" aria-hidden="true" tabindex="-1"></a>                                <span class="at">color =</span> <span class="st">&quot;red&quot;</span>, </span>
+<span id="cb4-41"><a href="#cb4-41" aria-hidden="true" tabindex="-1"></a>                                <span class="at">label =</span> r<span class="sc">$</span>label[i]) <span class="sc">+</span></span>
+<span id="cb4-42"><a href="#cb4-42" aria-hidden="true" tabindex="-1"></a>      <span class="fu">theme</span>(<span class="at">axis.title.x =</span> <span class="fu">element_blank</span>())</span>
+<span id="cb4-43"><a href="#cb4-43" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb4-44"><a href="#cb4-44" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb4-45"><a href="#cb4-45" aria-hidden="true" tabindex="-1"></a>  ggpubr<span class="sc">::</span><span class="fu">ggarrange</span>(<span class="at">plotlist =</span> ps)</span>
+<span id="cb4-46"><a href="#cb4-46" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+</div>
+</div>
+<div id="indices-selection" class="section level3">
+<h3>Indices Selection</h3>
+<div id="remove-equivalent" class="section level4">
+<h4>Remove Equivalent</h4>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>data <span class="sc">%&gt;%</span> </span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>Participant, <span class="sc">-</span>Recording_Length, <span class="sc">-</span>Database) <span class="sc">%&gt;%</span> </span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  correlation<span class="sc">::</span><span class="fu">correlation</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">abs</span>(r) <span class="sc">&gt;</span> <span class="fl">0.999</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(Parameter1, <span class="fu">desc</span>(<span class="fu">abs</span>(r))) <span class="sc">%&gt;%</span> </span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">format</span>()</span></code></pre></div>
+<div class="kable-table">
+<table>
+<thead>
+<tr class="header">
+<th align="left">Parameter1</th>
+<th align="left">Parameter2</th>
+<th align="left">r</th>
+<th align="left">95% CI</th>
+<th align="left">t(450)</th>
+<th align="left">p</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">C1d</td>
+<td align="left">C1a</td>
+<td align="left">-1.00</td>
+<td align="left">[-1.00, -1.00]</td>
+<td align="left">-Inf</td>
+<td align="left">&lt; .001***</td>
+</tr>
+<tr class="even">
+<td align="left">C2d</td>
+<td align="left">C2a</td>
+<td align="left">-1.00</td>
+<td align="left">[-1.00, -1.00]</td>
+<td align="left">-Inf</td>
+<td align="left">&lt; .001***</td>
+</tr>
+<tr class="odd">
+<td align="left">Cd</td>
+<td align="left">Ca</td>
+<td align="left">-1.00</td>
+<td align="left">[-1.00, -1.00]</td>
+<td align="left">-Inf</td>
+<td align="left">&lt; .001***</td>
+</tr>
+<tr class="even">
+<td align="left">GI</td>
+<td align="left">SI</td>
+<td align="left">1.00</td>
+<td align="left">[ 1.00, 1.00]</td>
+<td align="left">491.57</td>
+<td align="left">&lt; .001***</td>
+</tr>
+<tr class="odd">
+<td align="left">GI</td>
+<td align="left">AI</td>
+<td align="left">1.00</td>
+<td align="left">[ 1.00, 1.00]</td>
+<td align="left">483.37</td>
+<td align="left">&lt; .001***</td>
+</tr>
+<tr class="even">
+<td align="left">RMSSD</td>
+<td align="left">SDSD</td>
+<td align="left">1.00</td>
+<td align="left">[ 1.00, 1.00]</td>
+<td align="left">593.29</td>
+<td align="left">&lt; .001***</td>
+</tr>
+<tr class="odd">
+<td align="left">RMSSD</td>
+<td align="left">SD1</td>
+<td align="left">1.00</td>
+<td align="left">[ 1.00, 1.00]</td>
+<td align="left">593.29</td>
+<td align="left">&lt; .001***</td>
+</tr>
+<tr class="even">
+<td align="left">SDSD</td>
+<td align="left">SD1</td>
+<td align="left">1.00</td>
+<td align="left">[ 1.00, 1.00]</td>
+<td align="left">Inf</td>
+<td align="left">&lt; .001***</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span> </span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>SDSD, <span class="sc">-</span>SD1, <span class="sc">-</span>SD1d, <span class="sc">-</span>SD1a, <span class="sc">-</span>CVSD) <span class="sc">%&gt;%</span>  <span class="co"># Same as RMSSD </span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>SDNNd, <span class="sc">-</span>SDNNa) <span class="sc">%&gt;%</span>  <span class="co"># Same as SDNN</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>SD2d, <span class="sc">-</span>SD2a) <span class="sc">%&gt;%</span>   <span class="co"># Same as SD2</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>Cd) <span class="sc">%&gt;%</span>   <span class="co"># Same as Ca</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>C1d, <span class="sc">-</span>C2d)  <span class="co"># Same as C1a and C2a</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>hrv_cols <span class="ot">&lt;-</span> <span class="fu">names</span>(<span class="fu">select</span>(data, <span class="sc">-</span>Participant, <span class="sc">-</span>Recording_Length, <span class="sc">-</span>Database))</span></code></pre></div>
+<!-- #### Remove Strongly Correlated (r higher than .98) -->
+<!-- ```{r, message=FALSE, warning=FALSE, fig.width=17, fig.height=17} -->
+<!-- data %>% -->
+<!--   correlation::correlation() %>% -->
+<!--   filter(abs(r) > 0.95) %>% -->
+<!--   arrange(Parameter1, desc(abs(r))) %>% -->
+<!--   format() -->
+<!-- data <- data %>% -->
+<!--   select(-GI, -SI) %>%  # Same as AI -->
+<!--   select(-SD2) %>%  # Same as SDNN -->
+<!--   select(-MedianNN) %>%  # Same as MeanNN -->
+<!--   select(-IALS) %>%  # Same as PIP -->
+<!--   select(-SDNN, -CVNN) # Same as RMSSD -->
+<!-- ``` -->
+</div>
+</div>
+<div id="outliers-removal" class="section level3">
+<h3>Outliers Removal</h3>
+<div id="before-removal" class="section level4">
+<h4>Before Removal</h4>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>data[hrv_cols] <span class="sc">%&gt;%</span> </span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">normalize</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">estimate_density</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>() <span class="sc">+</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>Parameter, <span class="at">scales =</span> <span class="st">&quot;free&quot;</span>) <span class="sc">+</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;none&quot;</span>,</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.title.x =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.title.y =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.text.y =</span> <span class="fu">element_blank</span>())</span></code></pre></div>
+<p><img src="figures/unnamed-chunk-11-1.png" width="10200" /></p>
+</div>
+<div id="after-removal" class="section level4">
+<h4>After Removal</h4>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> hrv_cols) {</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  outliers <span class="ot">&lt;-</span> <span class="fu">as.logical</span>(performance<span class="sc">::</span><span class="fu">check_outliers</span>(data[[i]], <span class="at">method =</span> <span class="st">&quot;zscore_robust&quot;</span>, <span class="at">threshold =</span> <span class="fu">qnorm</span>(<span class="fl">0.9995</span>)))</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  data[outliers, i] <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="fu">paste0</span>(<span class="st">&quot;</span><span class="sc">\n</span><span class="st">-&quot;</span>, </span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>             i, <span class="st">&quot;: &quot;</span>, </span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>             <span class="fu">sum</span>(outliers), </span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>             <span class="st">&quot; outliers (&quot;</span>,</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>             insight<span class="sc">::</span><span class="fu">format_value</span>(<span class="fu">sum</span>(outliers) <span class="sc">/</span> <span class="fu">nrow</span>(data), <span class="at">as_percent =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>             <span class="st">&quot;) detected and removed.&quot;</span>))</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<pre><code>&gt; 
+&gt; -RMSSD: 63 outliers (13.94%) detected and removed.
+&gt; -MeanNN: 0 outliers (0.00%) detected and removed.
+&gt; -SDNN: 32 outliers (7.08%) detected and removed.
+&gt; -CVNN: 29 outliers (6.42%) detected and removed.
+&gt; -MedianNN: 0 outliers (0.00%) detected and removed.
+&gt; -MadNN: 24 outliers (5.31%) detected and removed.
+&gt; -MCVNN: 23 outliers (5.09%) detected and removed.
+&gt; -IQRNN: 29 outliers (6.42%) detected and removed.
+&gt; -pNN50: 60 outliers (13.27%) detected and removed.
+&gt; -pNN20: 0 outliers (0.00%) detected and removed.
+&gt; -TINN: 60 outliers (13.27%) detected and removed.
+&gt; -HTI: 40 outliers (8.85%) detected and removed.
+&gt; -LF: 50 outliers (11.06%) detected and removed.
+&gt; -HF: 28 outliers (6.19%) detected and removed.
+&gt; -VHF: 44 outliers (9.73%) detected and removed.
+&gt; -LFHF: 18 outliers (3.98%) detected and removed.
+&gt; -LFn: 0 outliers (0.00%) detected and removed.
+&gt; -HFn: 0 outliers (0.00%) detected and removed.
+&gt; -LnHF: 1 outliers (0.22%) detected and removed.
+&gt; -SD2: 16 outliers (3.54%) detected and removed.
+&gt; -SD1SD2: 17 outliers (3.76%) detected and removed.
+&gt; -S: 90 outliers (19.91%) detected and removed.
+&gt; -CSI: 33 outliers (7.30%) detected and removed.
+&gt; -CVI: 3 outliers (0.66%) detected and removed.
+&gt; -CSI_Modified: 32 outliers (7.08%) detected and removed.
+&gt; -PIP: 4 outliers (0.88%) detected and removed.
+&gt; -IALS: 1 outliers (0.22%) detected and removed.
+&gt; -PSS: 5 outliers (1.11%) detected and removed.
+&gt; -PAS: 42 outliers (9.29%) detected and removed.
+&gt; -GI: 109 outliers (24.12%) detected and removed.
+&gt; -SI: 110 outliers (24.34%) detected and removed.
+&gt; -AI: 112 outliers (24.78%) detected and removed.
+&gt; -PI: 36 outliers (7.96%) detected and removed.
+&gt; -C1a: 34 outliers (7.52%) detected and removed.
+&gt; -C2a: 49 outliers (10.84%) detected and removed.
+&gt; -Ca: 60 outliers (13.27%) detected and removed.
+&gt; -ApEn: 0 outliers (0.00%) detected and removed.
+&gt; -SampEn: 0 outliers (0.00%) detected and removed.
+&gt; -MSE: 0 outliers (0.00%) detected and removed.
+&gt; -CMSE: 0 outliers (0.00%) detected and removed.
+&gt; -RCMSE: 0 outliers (0.00%) detected and removed.
+&gt; -DFA: 3 outliers (0.66%) detected and removed.
+&gt; -CorrDim: 0 outliers (0.00%) detected and removed.</code></pre>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>data[hrv_cols] <span class="sc">%&gt;%</span> </span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">normalize</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">estimate_density</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>() <span class="sc">+</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>Parameter, <span class="at">scales =</span> <span class="st">&quot;free&quot;</span>) <span class="sc">+</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;none&quot;</span>,</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.title.x =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.title.y =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.text.y =</span> <span class="fu">element_blank</span>())</span></code></pre></div>
+<p><img src="figures/unnamed-chunk-13-1.png" width="10200" /></p>
+</div>
+</div>
+</div>
+<div id="effect-of-recording-length" class="section level2">
+<h2>Effect of Recording Length</h2>
+<div id="descriptive" class="section level3">
+<h3>Descriptive</h3>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>data <span class="sc">%&gt;%</span> </span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Recording_Length =</span> <span class="fu">as.factor</span>(<span class="fu">round</span>(Recording_Length))) <span class="sc">%&gt;%</span> </span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Recording_Length, <span class="at">fill =</span> Recording_Length)) <span class="sc">+</span> </span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>() <span class="sc">+</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_viridis_d</span>(<span class="at">guide =</span> <span class="st">&quot;none&quot;</span>) <span class="sc">+</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Recording Length&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Number of Participants&quot;</span>)</span></code></pre></div>
+<p><img src="figures/unnamed-chunk-14-1.png" width="10200" /></p>
+</div>
+<div id="investigate-effect" class="section level3">
+<h3>Investigate effect</h3>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>r <span class="ot">&lt;-</span> <span class="fu">correlation</span>(data[<span class="st">&quot;Recording_Length&quot;</span>],</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>                 data[hrv_cols], </span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>                 <span class="at">method =</span> <span class="st">&quot;distance&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(<span class="fu">abs</span>(r)))</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="fu">format</span>(r)</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_correlations</span>(data, r[<span class="dv">1</span><span class="sc">:</span><span class="dv">9</span>, ])</span></code></pre></div>
+<p><img src="figures/unnamed-chunk-15-1.png" width="5824.92235949962" /></p>
+<!-- ### Adjust the data for recording length -->
+<!-- ```{r, message=FALSE, warning=FALSE, results='hide'} -->
+<!-- data <- effectsize::adjust(data, effect="Recording_Length") %>%  -->
+<!--   select(-Recording_Length) -->
+<!-- ``` -->
+</div>
+</div>
+<div id="dimensional-structure" class="section level2">
+<h2>Dimensional Structure</h2>
+<div id="factor-analysis" class="section level3">
+<h3>Factor Analysis</h3>
+<div id="how-many-factors" class="section level4">
+<h4>How many factors</h4>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>r <span class="ot">&lt;-</span> correlation<span class="sc">::</span><span class="fu">correlation</span>(data[hrv_cols]) <span class="sc">%&gt;%</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.matrix</span>()</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> parameters<span class="sc">::</span><span class="fu">n_factors</span>(data, <span class="at">cor=</span>r, <span class="at">type =</span> <span class="st">&quot;PCA&quot;</span>)</span></code></pre></div>
+<pre><code>&gt; 
+&gt;  These indices are only valid with a principal component solution.
+&gt;  ...................... So, only positive eugenvalues are permitted.</code></pre>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>n</span></code></pre></div>
+<div class="kable-table">
+<table>
+<thead>
+<tr class="header">
+<th align="right">n_Factors</th>
+<th align="left">Method</th>
+<th align="left">Family</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">1</td>
+<td align="left">Acceleration factor</td>
+<td align="left">Scree</td>
+</tr>
+<tr class="even">
+<td align="right">2</td>
+<td align="left">t</td>
+<td align="left">Multiple_regression</td>
+</tr>
+<tr class="odd">
+<td align="right">2</td>
+<td align="left">p</td>
+<td align="left">Multiple_regression</td>
+</tr>
+<tr class="even">
+<td align="right">3</td>
+<td align="left">CNG</td>
+<td align="left">CNG</td>
+</tr>
+<tr class="odd">
+<td align="right">4</td>
+<td align="left">beta</td>
+<td align="left">Multiple_regression</td>
+</tr>
+<tr class="even">
+<td align="right">8</td>
+<td align="left">Optimal coordinates</td>
+<td align="left">Scree</td>
+</tr>
+<tr class="odd">
+<td align="right">8</td>
+<td align="left">Parallel analysis</td>
+<td align="left">Scree</td>
+</tr>
+<tr class="even">
+<td align="right">8</td>
+<td align="left">Kaiser criterion</td>
+<td align="left">Scree</td>
+</tr>
+<tr class="odd">
+<td align="right">28</td>
+<td align="left">R2</td>
+<td align="left">Scree_SE</td>
+</tr>
+<tr class="even">
+<td align="right">41</td>
+<td align="left">SE Scree</td>
+<td align="left">Scree_SE</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(n) </span></code></pre></div>
+<p><img src="figures/unnamed-chunk-16-1.png" width="5824.92235949962" /></p>
+</div>
+<div id="exploratory-factor-analysis-efa" class="section level4">
+<h4>Exploratory Factor Analysis (EFA)</h4>
+<!-- ```{r, message=FALSE, warning=FALSE, fig.width=15, fig.height=15} -->
+<!-- efa <- parameters::factor_analysis(data, cor=cor, n=7, rotation="varimax", fm="ml") -->
+<!-- print(efa, threshold="max", sort=TRUE) -->
+<!-- plot(efa) + -->
+<!--   see::theme_modern() -->
+<!-- ``` -->
+<!-- #### Confirmatory Factor Analysis (CFA) -->
+<!-- ```{r, message=FALSE, warning=FALSE, fig.width=15, fig.height=15} -->
+<!-- library(lavaan) -->
+<!-- model <- parameters::efa_to_cfa(efa, threshold = "max") -->
+<!-- cfa <- lavaan::cfa(model, data=data) %>% -->
+<!--   parameters::parameters(standardize=TRUE) -->
+<!-- cfa -->
+<!-- plot(cfa) -->
+<!-- ``` -->
+<!-- ### Gaussian Graphical Model -->
+<!-- ```{r, message=FALSE, warning=FALSE, fig.width=17, fig.height=17} -->
+<!-- library(ggraph) -->
+<!-- data %>%  -->
+<!--   correlation::correlation(partial=FALSE) %>%  -->
+<!--   correlation::cor_to_pcor() %>%  -->
+<!--   filter(abs(r) > 0.2) %>% -->
+<!--   tidygraph::as_tbl_graph(directed=FALSE) %>%  -->
+<!--   dplyr::mutate(closeness = tidygraph::centrality_closeness(normalized = TRUE), -->
+<!--                 degree = tidygraph::centrality_degree(normalized = TRUE), -->
+<!--                 betweeness = tidygraph::centrality_betweenness(normalized = TRUE)) %>% -->
+<!--   tidygraph::activate(nodes) %>% -->
+<!--   dplyr::mutate(group1 = as.factor(tidygraph::group_edge_betweenness()), -->
+<!--                 # group2 = as.factor(tidygraph::group_optimal()), -->
+<!--                 # group3 = as.factor(tidygraph::group_walktrap()), -->
+<!--                 # group4 = as.factor(tidygraph::group_spinglass()), -->
+<!--                 group5 = as.factor(tidygraph::group_louvain())) %>%  -->
+<!--   ggraph::ggraph(layout = "fr") + -->
+<!--     ggraph::geom_edge_arc(aes(colour = r, edge_width = abs(r)), strength = 0.1, show.legend = FALSE) + -->
+<!--     ggraph::geom_node_point(aes(size = degree, color = group5), show.legend = FALSE) + -->
+<!--     ggraph::geom_node_text(aes(label = name), colour = "white") + -->
+<!--     ggraph::scale_edge_color_gradient2(low = "#a20025", high = "#008a00", name = "r") + -->
+<!--     ggraph::theme_graph() + -->
+<!--     guides(edge_width = FALSE) + -->
+<!--     scale_x_continuous(expand = expansion(c(.10, .10))) + -->
+<!--     scale_y_continuous(expand = expansion(c(.10, .10))) + -->
+<!--     scale_size_continuous(range = c(20, 30)) + -->
+<!--     scale_edge_width_continuous(range = c(0.5, 2)) + -->
+<!--     see::scale_color_material_d(palette="rainbow", reverse=TRUE) -->
+<!-- ``` -->
+<!-- Groups were identified using the [tidygraph::group_optimal](https://rdrr.io/cran/tidygraph/man/group_graph.html) algorithm. -->
+<!-- ### Cluster Analysis -->
+<!-- #### How many clusters -->
+<!-- ```{r, message=FALSE, warning=FALSE} -->
+<!-- dat <- effectsize::standardize(data[sapply(data, is.numeric)]) -->
+<!-- n <- parameters::n_clusters(t(dat), package = c("mclust", "cluster")) -->
+<!-- n -->
+<!-- plot(n) + -->
+<!--   theme_modern() -->
+<!-- ``` -->
+<!-- ```{r, message=FALSE, warning=FALSE, fig.width=7, fig.height=10} -->
+<!-- library(dendextend) -->
+<!-- dat <- effectsize::standardize(data[sapply(data, is.numeric)]) -->
+<!-- result <- pvclust::pvclust(dat, method.dist="euclidean", method.hclust="ward.D2", nboot=10, quiet=TRUE) -->
+<!-- result %>%  -->
+<!--   as.dendrogram() %>%  -->
+<!--   sort() %>%  -->
+<!--   dendextend::pvclust_show_signif_gradient(result, signif_col_fun = grDevices::colorRampPalette(c("black", "red"))) %>%  -->
+<!--   dendextend::pvclust_show_signif(result, signif_value = c(2, 1)) %>% -->
+<!--   dendextend::as.ggdend() %>%  -->
+<!--   ggplot2::ggplot(horiz=TRUE, offset_labels = -1) -->
+<!-- ``` -->
+</div>
+</div>
+</div>
+<div id="references" class="section level2">
+<h2>References</h2>
+</div>
+</div>
+
+<div id="rmd-source-code">LS0tDQp0aXRsZTogJyoqQ29uY2VwdHVhbCB2cy4gT2JzZXJ2ZWQgU3RydWN0dXJlIG9mIEhlYXJ0IFJhdGUgVmFyaWFiaWxpdHkgKEhSVikgSW5kaWNlcyoqJw0Kc3VidGl0bGU6ICJEYXRhIEFuYWx5c2lzIg0Kb3V0cHV0Og0KICBodG1sX2RvY3VtZW50Og0KICAgIHNlbGZfY29udGFpbmVkOiBmYWxzZQ0KICAgIHRoZW1lOiBjZXJ1bGVhbg0KICAgIGhpZ2hsaWdodDogcHlnbWVudHMNCiAgICB0b2M6IHllcw0KICAgIHRvY19kZXB0aDogMw0KICAgIHRvY19mbG9hdDogeWVzDQogICAgbnVtYmVyX3NlY3Rpb25zOiBubw0KICAgIGRmX3ByaW50OiBrYWJsZQ0KICAgIGNvZGVfZm9sZGluZzogaGlkZQ0KICAgIGNvZGVfZG93bmxvYWQ6IHllcw0KICB3b3JkX2RvY3VtZW50Og0KICAgIHJlZmVyZW5jZV9kb2N4OiB1dGlscy9UZW1wbGF0ZV9Xb3JkLmRvY3gNCiAgICBoaWdobGlnaHQ6IHB5Z21lbnRzDQogICAgdG9jOiBubw0KICAgIHRvY19kZXB0aDogMw0KICAgIGRmX3ByaW50OiBrYWJsZQ0KICAgIG51bWJlcl9zZWN0aW9uczogeWVzDQogIHJtYXJrZG93bjo6aHRtbF92aWduZXR0ZToNCiAgICB0b2M6IHllcw0KICAgIHRvY19kZXB0aDogMw0KICBwZGZfZG9jdW1lbnQ6DQogICAgdG9jOiB5ZXMNCiAgICB0b2NfZGVwdGg6ICcyJw0KICAgIGxhdGV4X2VuZ2luZTogeGVsYXRleA0KZWRpdG9yX29wdGlvbnM6DQogIGNodW5rX291dHB1dF90eXBlOiBjb25zb2xlDQpiaWJsaW9ncmFwaHk6IHV0aWxzL2JpYmxpb2dyYXBoeS5iaWINCmNzbDogdXRpbHMvYXBhLmNzbA0KLS0tDQoNCg0KPCEtLSANCiEhISEgSU1QT1JUQU5UOiBydW4gYHNvdXJjZSgidXRpbHMvcmVuZGVyLlIiKWAgdG8gcHVibGlzaCBpbnN0ZWFkIG9mIGNsaWNraW5nIG9uICdLbml0Jw0KLS0+DQoNCmBgYHtyIHNldHVwLCB3YXJuaW5nPUZBTFNFLCBtZXNzYWdlPVRSVUUsIGluY2x1ZGU9RkFMU0V9DQojIFNldCB1cCB0aGUgZW52aXJvbm1lbnQgKG9yIHVzZSBsb2NhbCBhbHRlcm5hdGl2ZSBgc291cmNlKCJ1dGlscy9jb25maWcuUiIpYCkNCnNvdXJjZSgiaHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL1JlYWxpdHlCZW5kaW5nL1RlbXBsYXRlUmVzdWx0cy9tYWluL3V0aWxzL2NvbmZpZy5SIikgIA0KDQpmYXN0IDwtIEZBTFNFICAjIE1ha2UgdGhpcyBmYWxzZSB0byBza2lwIHRoZSBjaHVua3MNCg0KIyBTZXQgdGhlbWUNCmdncGxvdDI6OnRoZW1lX3NldChzZWU6OnRoZW1lX21vZGVybigpKQ0KDQpgYGANCg0KIyBJbnRyb2R1Y3Rpb24NCmBgYHtyIGJhZGdlcywgZWNobz1GQUxTRSwgbWVzc2FnZT1UUlVFLCB3YXJuaW5nPUZBTFNFLCByZXN1bHRzPSdhc2lzJ30NCiMgVGhpcyBjaHVuayBpcyBhIGJpdCBjb21wbGV4IHNvIGRvbid0IHdvcnJ5IGFib3V0IGl0OiBpdCdzIG1hZGUgdG8gYWRkIGJhZGdlcyB0byB0aGUgSFRNTCB2ZXJzaW9ucw0KIyBOT1RFOiBZb3UgaGF2ZSB0byByZXBsYWNlIHRoZSBsaW5rcyBhY2NvcmRpbmdseSB0byBoYXZlIHdvcmtpbmcgImJ1dHRvbnMiIG9uIHRoZSBIVE1MIHZlcnNpb25zDQppZiAoIWtuaXRyOjppc19sYXRleF9vdXRwdXQoKSAmJiBrbml0cjo6aXNfaHRtbF9vdXRwdXQoKSkgew0KICBjYXQoIiFbQnVpbGRdKGh0dHBzOi8vZ2l0aHViLmNvbS9UYW0tUGhhbS9IUlZTdHJ1Y3R1cmUvd29ya2Zsb3dzL0J1aWxkL2JhZGdlLnN2ZykNCiAgICAgIFshW1dlYnNpdGVdKGh0dHBzOi8vaW1nLnNoaWVsZHMuaW8vYmFkZ2UvcmVwby1SZWFkbWUtMjE5NkYzKV0oaHR0cHM6Ly9naXRodWIuY29tL1RhbS1QaGFtL0hSVlN0cnVjdHVyZSkNCiAgICAgIFshW1dlYnNpdGVdKGh0dHBzOi8vaW1nLnNoaWVsZHMuaW8vYmFkZ2UvdmlzaXQtd2Vic2l0ZS1FOTFFNjMpXShodHRwczovL3JlYWxpdHliZW5kaW5nLmdpdGh1Yi5pby9UZW1wbGF0ZVJlc3VsdHMvKQ0KICAgICAgWyFbV2Vic2l0ZV0oaHR0cHM6Ly9pbWcuc2hpZWxkcy5pby9iYWRnZS9kb3dubG9hZC0uZG9jeC1GRjU3MjIpXShodHRwczovL2dpdGh1Yi5jb20vUmVhbGl0eUJlbmRpbmcvVGVtcGxhdGVSZXN1bHRzL3Jhdy9tYWluL3dvcmRfYW5kX3BkZi9TdXBwbGVtZW50YXJ5TWF0ZXJpYWxzLmRvY3gpDQogICAgICBbIVtXZWJzaXRlXShodHRwczovL2ltZy5zaGllbGRzLmlvL2JhZGdlL3NlZS0ucGRmLUZGOTgwMCldKGh0dHBzOi8vZ2l0aHViLmNvbS9SZWFsaXR5QmVuZGluZy9UZW1wbGF0ZVJlc3VsdHMvYmxvYi9tYWluL3dvcmRfYW5kX3BkZi9TdXBwbGVtZW50YXJ5TWF0ZXJpYWxzLnBkZikiKQ0KfQ0KYGBgDQoNCg0KDQpUaGUgYWltIG9mIHRoaXMgc3R1ZHkgaXMgdG8gZXhwbG9yZSB0aGUgZmFjdG9yIHN0cnVjdHVyZSBvZiBIUlYgaW5kaWNlcy4NCg0KIyBNZXRob2RzDQoNCg0KIyMgRGF0YWJhc2VzDQoNCiMjIyBHbGFzZ293IFVuaXZlcnNpdHkgRGF0YWJhc2UNCg0KVGhlIEdVREIgRGF0YWJhc2UgW0Bob3dlbGwyMDE4aGlnaF0gY29udGFpbnMgRUNHcyBmcm9tIDI1IHN1YmplY3RzLiBFYWNoIHN1YmplY3Qgd2FzIHJlY29yZGVkIHBlcmZvcm1pbmcgNSBkaWZmZXJlbnQgdGFza3MgZm9yIHR3byBtaW51dGVzIChzaXR0aW5nLCBkb2luZyBhIG1hdGhzIHRlc3Qgb24gYSB0YWJsZXQsIHdhbGtpbmcgb24gYSB0cmVhZG1pbGwsIHJ1bm5pbmcgb24gYSB0cmVhZG1pbGwsIHVzaW5nIGEgaGFuZCBiaWtlKS4gVGhlIHNhbXBsaW5nIHJhdGUgaXMgMjUwSHogZm9yIGFsbCB0aGUgY29uZGl0aW9ucy4NCg0KVGhlIHNjcmlwdCB0byBkb3dubG9hZCBhbmQgZm9ybWF0IHRoZSBkYXRhYmFzZSB1c2luZyB0aGUgWyoqRUNHLUdVREIqKl0oaHR0cHM6Ly9naXRodWIuY29tL2Jlcm5kcG9yci9FQ0ctR1VEQikgUHl0aG9uIHBhY2thZ2UgYnkgQmVybmQgUG9yciBjYW4gYmUgZm91bmQgWyoqaGVyZSoqXShodHRwczovL2dpdGh1Yi5jb20vbmV1cm9wc3ljaG9sb2d5L05ldXJvS2l0L2Jsb2IvZGV2L2RhdGEvZ3VkYi9kb3dubG9hZF9ndWRiLnB5KS4NCg0KIyMjIE1JVC1CSUggQXJyaHl0aG1pYSBEYXRhYmFzZQ0KDQpUaGUgTUlULUJJSCBBcnJoeXRobWlhIERhdGFiYXNlIFtNSVQtQXJyaHl0aG1pYTsgQG1vb2R5MjAwMWltcGFjdF0gY29udGFpbnMgNDggZXhjZXJwdHMgb2YgMzAtbWluIG9mIHR3by1jaGFubmVsIGFtYnVsYXRvcnkgRUNHIHJlY29yZGluZ3Mgc2FtcGxlZCBhdCAzNjBIeiBhbmQgMjUgYWRkaXRpb25hbCByZWNvcmRpbmdzIGZyb20gdGhlIHNhbWUgcGFydGljaXBhbnRzIGluY2x1ZGluZyBjb21tb24gYnV0IGNsaW5pY2FsbHkgc2lnbmlmaWNhbnQgYXJyaHl0aG1pYXMgKGRlbm90ZWQgYXMgdGhlIGBNSVQtQXJyaHl0aG1pYS14YCBkYXRhYmFzZSkuDQoNClRoZSBzY3JpcHQgdG8gZG93bmxvYWQgYW5kIGZvcm1hdCB0aGUgZGF0YWJhc2UgdXNpbmcgdGhlIGNhbiBiZSBmb3VuZCBbKipoZXJlKipdKGh0dHBzOi8vZ2l0aHViLmNvbS9uZXVyb3BzeWNob2xvZ3kvTmV1cm9LaXQvYmxvYi9kZXYvZGF0YS9taXRfYXJyaHl0aG1pYS9kb3dubG9hZF9taXRfYXJyaHl0aG1pYS5weSkuDQoNCg0KIyMjIE1JVC1CSUggTm9ybWFsIFNpbnVzIFJoeXRobSBEYXRhYmFzZQ0KDQpUaGlzIGRhdGFiYXNlIGluY2x1ZGVzIDE4IGNsZWFuIGxvbmctdGVybSBFQ0cgcmVjb3JkaW5ncyBvZiBzdWJqZWN0cy4gRHVlIHRvIG1lbW9yeSBsaW1pdHMsIHdlIG9ubHkga2VwdCB0aGUgc2Vjb25kIGhvdXIgb2YgcmVjb3JkaW5nIG9mIGVhY2ggcGFydGljaXBhbnQuDQoNClRoZSBzY3JpcHQgdG8gZG93bmxvYWQgYW5kIGZvcm1hdCB0aGUgZGF0YWJhc2UgdXNpbmcgdGhlIGNhbiBiZSBmb3VuZCBbKipoZXJlKipdKGh0dHBzOi8vZ2l0aHViLmNvbS9uZXVyb3BzeWNob2xvZ3kvTmV1cm9LaXQvYmxvYi9kZXYvZGF0YS9taXRfbm9ybWFsL2Rvd25sb2FkX21pdF9ub3JtYWwucHkpLg0KDQoNCjwhLS0gIyMjIExvYmFjaGV2c2t5IFVuaXZlcnNpdHkgRWxlY3Ryb2NhcmRpb2dyYXBoeSBEYXRhYmFzZSAtLT4NCg0KPCEtLSBUaGUgTG9iYWNoZXZza3kgVW5pdmVyc2l0eSBFbGVjdHJvY2FyZGlvZ3JhcGh5IERhdGFiYXNlIFtMVURCOyBAa2FseWFrdWxpbmEyMDE4bHVdIGNvbnNpc3RzIG9mIDIwMCAxMC1zZWNvbmQgMTItbGVhZCBFQ0cgc2lnbmFsIHJlY29yZHMgcmVwcmVzZW50aW5nIGRpZmZlcmVudCBtb3JwaG9sb2dpZXMgb2YgdGhlIEVDRyBzaWduYWwuIFRoZSBFQ0dzIHdlcmUgY29sbGVjdGVkIGZyb20gaGVhbHRoeSB2b2x1bnRlZXJzIGFuZCBwYXRpZW50cywgd2hpY2ggaGFkIHZhcmlvdXMgY2FyZGlvdmFzY3VsYXIgZGlzZWFzZXMuIFRoZSBib3VuZGFyaWVzIG9mIFAsIFQgd2F2ZXMgYW5kIFFSUyBjb21wbGV4ZXMgd2VyZSBtYW51YWxseSBhbm5vdGF0ZWQgYnkgY2FyZGlvbG9naXN0cyBmb3IgYWxsIDIwMCByZWNvcmRzLiAtLT4NCg0KIyMjIEZhbnRhc2lhIERhdGFiYXNlDQoNClRoZSBGYW50YXNpYSBkYXRhYmFzZSBbQGl5ZW5nYXIxOTk2YWdlXSBjb25zaXN0cyBvZiB0d2VudHkgeW91bmcgYW5kIHR3ZW50eSBlbGRlcmx5IGhlYWx0aHkgc3ViamVjdHMuIEFsbCBzdWJqZWN0cyByZW1haW5lZCBpbiBhIHJlc3Rpbmcgc3RhdGUgaW4gc2ludXMgcmh5dGhtIHdoaWxlIHdhdGNoaW5nIHRoZSBtb3ZpZSBGYW50YXNpYSAoRGlzbmV5LCAxOTQwKSB0byBoZWxwIG1haW50YWluIHdha2VmdWxuZXNzLiBUaGUgY29udGludW91cyBFQ0cgc2lnbmFscyB3ZXJlIGRpZ2l0aXplZCBhdCAyNTAgSHouIEVhY2ggaGVhcnRiZWF0IHdhcyBhbm5vdGF0ZWQgdXNpbmcgYW4gYXV0b21hdGVkIGFycmh5dGhtaWEgZGV0ZWN0aW9uIGFsZ29yaXRobSwgYW5kIGVhY2ggYmVhdCBhbm5vdGF0aW9uIHdhcyB2ZXJpZmllZCBieSB2aXN1YWwgaW5zcGVjdGlvbi4NCg0KDQoNCg0KIyMgUHJvY2VkdXJlDQoNCmBgYHtweXRob24sIGV2YWw9RkFMU0UsIGVjaG89RkFMU0V9DQppbXBvcnQgcGFuZGFzIGFzIHBkDQppbXBvcnQgbnVtcHkgYXMgbnANCmltcG9ydCBuZXVyb2tpdDIgYXMgbmsNCg0KIyBMb2FkIFRydWUgUi1wZWFrcyBsb2NhdGlvbg0KZGF0YWZpbGVzID0gW3BkLnJlYWRfY3N2KCIuLi8uLi9kYXRhL2d1ZGIvUnBlYWtzLmNzdiIpLA0KICAgICAgICAgICAgIHBkLnJlYWRfY3N2KCIuLi8uLi9kYXRhL21pdF9hcnJoeXRobWlhL1JwZWFrcy5jc3YiKSwNCiAgICAgICAgICAgICBwZC5yZWFkX2NzdigiLi4vLi4vZGF0YS9taXRfbm9ybWFsL1JwZWFrcy5jc3YiKSwNCiAgICAgICAgICAgICBwZC5yZWFkX2NzdigiLi4vLi4vZGF0YS9mYW50YXNpYS9ScGVha3MuY3N2IildDQoNCiMgR2V0IHJlc3VsdHMNCmFsbF9yZXN1bHRzID0gcGQuRGF0YUZyYW1lKCkNCg0KZm9yIGZpbGUgaW4gZGF0YWZpbGVzOg0KICAgIGZvciBkYXRhYmFzZSBpbiBucC51bmlxdWUoZmlsZVsiRGF0YWJhc2UiXSk6DQogICAgICAgIGRhdGEgPSBmaWxlW2ZpbGVbIkRhdGFiYXNlIl0gPT0gZGF0YWJhc2VdDQogICAgICAgIGZvciBwYXJ0aWNpcGFudCBpbiBucC51bmlxdWUoZGF0YVsiUGFydGljaXBhbnQiXSk6DQogICAgICAgICAgICBkYXRhX3BhcnRpY2lwYW50ID0gZGF0YVtkYXRhWyJQYXJ0aWNpcGFudCJdID09IHBhcnRpY2lwYW50XQ0KICAgICAgICAgICAgc2FtcGxpbmdfcmF0ZSA9IG5wLnVuaXF1ZShkYXRhX3BhcnRpY2lwYW50WyJTYW1wbGluZ19SYXRlIl0pWzBdDQogICAgICAgICAgICBycGVha3MgPSBkYXRhX3BhcnRpY2lwYW50WyJScGVha3MiXS52YWx1ZXMNCg0KICAgICAgICAgICAgcmVzdWx0cyA9IG5rLmhydihycGVha3MsIHNhbXBsaW5nX3JhdGU9c2FtcGxpbmdfcmF0ZSkNCiAgICAgICAgICAgIHJlc3VsdHNbIlBhcnRpY2lwYW50Il0gPSBwYXJ0aWNpcGFudA0KICAgICAgICAgICAgcmVzdWx0c1siRGF0YWJhc2UiXSA9IGRhdGFiYXNlDQogICAgICAgICAgICByZXN1bHRzWyJSZWNvcmRpbmdfTGVuZ3RoIl0gPSBycGVha3NbLTFdIC8gc2FtcGxpbmdfcmF0ZSAvIDYwDQoNCiAgICAgICAgICAgIGFsbF9yZXN1bHRzID0gcGQuY29uY2F0KFthbGxfcmVzdWx0cywgcmVzdWx0c10sIGF4aXM9MCkNCg0KYWxsX3Jlc3VsdHMudG9fY3N2KCJkYXRhL2RhdGEuY3N2IiwgaW5kZXg9RmFsc2UpDQpgYGANCg0KIyBSZXN1bHRzDQoNCmBgYHtyLCBtZXNzYWdlPUZBTFNFLCB3YXJuaW5nPUZBTFNFLCByZXN1bHRzPSdoaWRlJ30NCmxpYnJhcnkodGlkeXZlcnNlKQ0KbGlicmFyeShlYXN5c3RhdHMpDQoNCmRhdGEgPC0gcmVhZC5jc3YoImRhdGEvZGF0YS5jc3YiLCBzdHJpbmdzQXNGYWN0b3JzID0gRkFMU0UpICU+JSANCiAgc2VsZWN0KC1IUlZfVUxGLCAtSFJWX1ZMRikgJT4lICAjIEVtcHR5DQogICMgZmlsdGVyKERhdGFiYXNlICE9ICJMVURCIikgJT4lICMgdG9vIHNob3J0IHJlY29yZGluZ3MsIG1hbnkgaW5kaWNlcyBkaWRuJ3QgY29udmVyZ2UNCiAgc2V0TmFtZXMoc3RyaW5ncjo6c3RyX3JlbW92ZShuYW1lcyguKSwgIkhSVl8iKSkgJT4lIA0KICBtdXRhdGVfYWxsKGZ1bmN0aW9uKHgpIHsNCiAgICB4W2lzLmluZmluaXRlKHgpXSA8LSBOQQ0KICAgIHJldHVybih4KSB9KQ0KYGBgDQoNCg0KYGBge3Igd2FybmluZz1GQUxTRSwgbWVzc2FnZT1UUlVFLCByZXN1bHRzPSdhc2lzJ30NCmNhdCgiVGhpcyBzdHVkeSBpbmNsdWRlcyIsIA0KICAgIG5yb3coZGF0YSksIA0KICAgICJwYXJ0aWNpcGFudHMgZnJvbSIsIA0KICAgIGxlbmd0aCh1bmlxdWUoZGF0YSREYXRhYmFzZSkpLCANCiAgICAiZGF0YWJhc2VzLiIpDQpgYGANCg0KDQpgYGB7ciBjb252ZW5pZW5jZV9jaHVua19mb3JfbG9jYWxfcnVubmluZywgaW5jbHVkZSA9IEZBTFNFLCBldmFsID0gRkFMU0V9DQpsaWJyYXJ5KGJybXMpDQpsaWJyYXJ5KHBhdGNod29yaykNCmxpYnJhcnkodGlkeXZlcnNlKQ0KbGlicmFyeShlYXN5c3RhdHMpDQoNCiMgIyBUbyBydW4gdGhpbmdzIGxvY2FsbHk6IENUUkwgKyBBTFQgKyBTSElGVCArIFAsIGFuZCB0aGVuIHRoZSBuZXh0IHR3byBsaW5lcw0Kc291cmNlX3JtZCgiMF9Db252ZW5pZW5jZUZ1bmN0aW9ucy5SbWQiKQ0Kc291cmNlX3JtZCgiMV9QcmVwcm9jZXNzaW5nLlJtZCIpDQojIHNvdXJjZV9ybWQoIjRfQ29udmVuaWVuY2VGdW5jdGlvbnMuUm1kIikNCiMgIyBzb3VyY2Vfcm1kKCI1X0JlaGF2aW91cmFsTW9kZWxzLlJtZCIpDQojIA0KIyBjaGFpbnMgPC0gNQ0KIyBpdGVyIDwtIDUwMDANCiMgDQojIGZpbmRfY2FjaGUgPC0gZnVuY3Rpb24ocGF0dGVybiA9ICIiKSB7DQojICAgZmlsZXMgPC0gcGFzdGUwKCJpbmRleF9jYWNoZS9odG1sLyIsIGxpc3QuZmlsZXMoImluZGV4X2NhY2hlL2h0bWwvIiwgcGF0dGVybiA9ICJcXC5yZHgkIikpDQojICAgZmlsZXMgPC0gZmlsZXNbc3RyaW5ncjo6c3RyX2RldGVjdChmaWxlcywgcGF0dGVybildDQojICAgc3RyaW5ncjo6c3RyX3JlbW92ZShmaWxlcywgIi5yZHgiKQ0KIyB9DQojIA0KIyBsYXBwbHkoZmluZF9jYWNoZSgpLCBsYXp5TG9hZCwgZW52aXJvbm1lbnQoKSkNCiMgDQojIGxhcHBseShmaW5kX2NhY2hlKCJpbmRleF9jYWNoZS9odG1sL21vZGVsX2Jhc2VsaW5lX1BTX1JUIiksIGxhenlMb2FkLCBlbnZpcm9ubWVudCgpKQ0KIyBsYXBwbHkoZmluZF9jYWNoZSgiaW5kZXhfY2FjaGUvaHRtbC9tb2RlbF9iYXNlbGluZV9SU19SVCIpLCBsYXp5TG9hZCwgZW52aXJvbm1lbnQoKSkNCiMgbGFwcGx5KGZpbmRfY2FjaGUoImluZGV4X2NhY2hlL2h0bWwvbW9kZWxfYmFzZWxpbmVfUklfUlQiKSwgbGF6eUxvYWQsIGVudmlyb25tZW50KCkpDQojIGxhcHBseShmaW5kX2NhY2hlKCJpbmRleF9jYWNoZS9odG1sL21vZGVsX2Jhc2VsaW5lX1JJX0VyciIpLCBsYXp5TG9hZCwgZW52aXJvbm1lbnQoKSkNCiMgbGFwcGx5KGZpbmRfY2FjaGUoImluZGV4X2NhY2hlL2h0bWwvbW9kZWxfYmFzZWxpbmVfQ1JfUlQiKSwgbGF6eUxvYWQsIGVudmlyb25tZW50KCkpDQojIGxhcHBseShmaW5kX2NhY2hlKCJpbmRleF9jYWNoZS9odG1sL21vZGVsX2Jhc2VsaW5lX0NSX0VyciIpLCBsYXp5TG9hZCwgZW52aXJvbm1lbnQoKSkNCmBgYA0KDQoNCg0KIyMgUHJlcHJvY2Vzc2luZw0KDQpgYGB7ciBjaGlsZD0nMF9Db252ZW5pZW5jZUZ1bmN0aW9ucy5SbWQnfQ0KYGBgDQoNCg0KYGBge3IgY2hpbGQ9JzFfUHJlcHJvY2Vzc2luZy5SbWQnfQ0KYGBgDQoNCiMjIEVmZmVjdCBvZiBSZWNvcmRpbmcgTGVuZ3RoDQoNCmBgYHtyIGNoaWxkPScyX1JlY29yZGluZ0xlbmd0aC5SbWQnfQ0KYGBgDQoNCg0KIyMgRGltZW5zaW9uYWwgU3RydWN0dXJlDQoNCmBgYHtyIGNoaWxkPSczX0RpbWVuc2lvbnMuUm1kJ30NCmBgYA0KDQo8IS0tICMjIyBHYXVzc2lhbiBHcmFwaGljYWwgTW9kZWwgLS0+DQoNCg0KPCEtLSBgYGB7ciwgbWVzc2FnZT1GQUxTRSwgd2FybmluZz1GQUxTRSwgZmlnLndpZHRoPTE3LCBmaWcuaGVpZ2h0PTE3fSAtLT4NCjwhLS0gbGlicmFyeShnZ3JhcGgpIC0tPg0KDQo8IS0tIGRhdGEgJT4lICAtLT4NCjwhLS0gICBjb3JyZWxhdGlvbjo6Y29ycmVsYXRpb24ocGFydGlhbD1GQUxTRSkgJT4lICAtLT4NCjwhLS0gICBjb3JyZWxhdGlvbjo6Y29yX3RvX3Bjb3IoKSAlPiUgIC0tPg0KPCEtLSAgIGZpbHRlcihhYnMocikgPiAwLjIpICU+JSAtLT4NCjwhLS0gICB0aWR5Z3JhcGg6OmFzX3RibF9ncmFwaChkaXJlY3RlZD1GQUxTRSkgJT4lICAtLT4NCjwhLS0gICBkcGx5cjo6bXV0YXRlKGNsb3NlbmVzcyA9IHRpZHlncmFwaDo6Y2VudHJhbGl0eV9jbG9zZW5lc3Mobm9ybWFsaXplZCA9IFRSVUUpLCAtLT4NCjwhLS0gICAgICAgICAgICAgICAgIGRlZ3JlZSA9IHRpZHlncmFwaDo6Y2VudHJhbGl0eV9kZWdyZWUobm9ybWFsaXplZCA9IFRSVUUpLCAtLT4NCjwhLS0gICAgICAgICAgICAgICAgIGJldHdlZW5lc3MgPSB0aWR5Z3JhcGg6OmNlbnRyYWxpdHlfYmV0d2Vlbm5lc3Mobm9ybWFsaXplZCA9IFRSVUUpKSAlPiUgLS0+DQo8IS0tICAgdGlkeWdyYXBoOjphY3RpdmF0ZShub2RlcykgJT4lIC0tPg0KPCEtLSAgIGRwbHlyOjptdXRhdGUoZ3JvdXAxID0gYXMuZmFjdG9yKHRpZHlncmFwaDo6Z3JvdXBfZWRnZV9iZXR3ZWVubmVzcygpKSwgLS0+DQo8IS0tICAgICAgICAgICAgICAgICAjIGdyb3VwMiA9IGFzLmZhY3Rvcih0aWR5Z3JhcGg6Omdyb3VwX29wdGltYWwoKSksIC0tPg0KPCEtLSAgICAgICAgICAgICAgICAgIyBncm91cDMgPSBhcy5mYWN0b3IodGlkeWdyYXBoOjpncm91cF93YWxrdHJhcCgpKSwgLS0+DQo8IS0tICAgICAgICAgICAgICAgICAjIGdyb3VwNCA9IGFzLmZhY3Rvcih0aWR5Z3JhcGg6Omdyb3VwX3NwaW5nbGFzcygpKSwgLS0+DQo8IS0tICAgICAgICAgICAgICAgICBncm91cDUgPSBhcy5mYWN0b3IodGlkeWdyYXBoOjpncm91cF9sb3V2YWluKCkpKSAlPiUgIC0tPg0KPCEtLSAgIGdncmFwaDo6Z2dyYXBoKGxheW91dCA9ICJmciIpICsgLS0+DQo8IS0tICAgICBnZ3JhcGg6Omdlb21fZWRnZV9hcmMoYWVzKGNvbG91ciA9IHIsIGVkZ2Vfd2lkdGggPSBhYnMocikpLCBzdHJlbmd0aCA9IDAuMSwgc2hvdy5sZWdlbmQgPSBGQUxTRSkgKyAtLT4NCjwhLS0gICAgIGdncmFwaDo6Z2VvbV9ub2RlX3BvaW50KGFlcyhzaXplID0gZGVncmVlLCBjb2xvciA9IGdyb3VwNSksIHNob3cubGVnZW5kID0gRkFMU0UpICsgLS0+DQo8IS0tICAgICBnZ3JhcGg6Omdlb21fbm9kZV90ZXh0KGFlcyhsYWJlbCA9IG5hbWUpLCBjb2xvdXIgPSAid2hpdGUiKSArIC0tPg0KPCEtLSAgICAgZ2dyYXBoOjpzY2FsZV9lZGdlX2NvbG9yX2dyYWRpZW50Mihsb3cgPSAiI2EyMDAyNSIsIGhpZ2ggPSAiIzAwOGEwMCIsIG5hbWUgPSAiciIpICsgLS0+DQo8IS0tICAgICBnZ3JhcGg6OnRoZW1lX2dyYXBoKCkgKyAtLT4NCjwhLS0gICAgIGd1aWRlcyhlZGdlX3dpZHRoID0gRkFMU0UpICsgLS0+DQo8IS0tICAgICBzY2FsZV94X2NvbnRpbnVvdXMoZXhwYW5kID0gZXhwYW5zaW9uKGMoLjEwLCAuMTApKSkgKyAtLT4NCjwhLS0gICAgIHNjYWxlX3lfY29udGludW91cyhleHBhbmQgPSBleHBhbnNpb24oYyguMTAsIC4xMCkpKSArIC0tPg0KPCEtLSAgICAgc2NhbGVfc2l6ZV9jb250aW51b3VzKHJhbmdlID0gYygyMCwgMzApKSArIC0tPg0KPCEtLSAgICAgc2NhbGVfZWRnZV93aWR0aF9jb250aW51b3VzKHJhbmdlID0gYygwLjUsIDIpKSArIC0tPg0KPCEtLSAgICAgc2VlOjpzY2FsZV9jb2xvcl9tYXRlcmlhbF9kKHBhbGV0dGU9InJhaW5ib3ciLCByZXZlcnNlPVRSVUUpIC0tPg0KPCEtLSBgYGAgLS0+DQoNCjwhLS0gR3JvdXBzIHdlcmUgaWRlbnRpZmllZCB1c2luZyB0aGUgW3RpZHlncmFwaDo6Z3JvdXBfb3B0aW1hbF0oaHR0cHM6Ly9yZHJyLmlvL2NyYW4vdGlkeWdyYXBoL21hbi9ncm91cF9ncmFwaC5odG1sKSBhbGdvcml0aG0uIC0tPg0KDQoNCg0KDQo8IS0tICMjIyBDbHVzdGVyIEFuYWx5c2lzIC0tPg0KDQo8IS0tICMjIyMgSG93IG1hbnkgY2x1c3RlcnMgLS0+DQoNCjwhLS0gYGBge3IsIG1lc3NhZ2U9RkFMU0UsIHdhcm5pbmc9RkFMU0V9IC0tPg0KPCEtLSBkYXQgPC0gZWZmZWN0c2l6ZTo6c3RhbmRhcmRpemUoZGF0YVtzYXBwbHkoZGF0YSwgaXMubnVtZXJpYyldKSAtLT4NCg0KPCEtLSBuIDwtIHBhcmFtZXRlcnM6Om5fY2x1c3RlcnModChkYXQpLCBwYWNrYWdlID0gYygibWNsdXN0IiwgImNsdXN0ZXIiKSkgLS0+DQoNCjwhLS0gbiAtLT4NCg0KPCEtLSBwbG90KG4pICsgLS0+DQo8IS0tICAgdGhlbWVfbW9kZXJuKCkgLS0+DQo8IS0tIGBgYCAtLT4NCg0KDQo8IS0tIGBgYHtyLCBtZXNzYWdlPUZBTFNFLCB3YXJuaW5nPUZBTFNFLCBmaWcud2lkdGg9NywgZmlnLmhlaWdodD0xMH0gLS0+DQo8IS0tIGxpYnJhcnkoZGVuZGV4dGVuZCkgLS0+DQoNCjwhLS0gZGF0IDwtIGVmZmVjdHNpemU6OnN0YW5kYXJkaXplKGRhdGFbc2FwcGx5KGRhdGEsIGlzLm51bWVyaWMpXSkgLS0+DQoNCjwhLS0gcmVzdWx0IDwtIHB2Y2x1c3Q6OnB2Y2x1c3QoZGF0LCBtZXRob2QuZGlzdD0iZXVjbGlkZWFuIiwgbWV0aG9kLmhjbHVzdD0id2FyZC5EMiIsIG5ib290PTEwLCBxdWlldD1UUlVFKSAtLT4NCg0KPCEtLSByZXN1bHQgJT4lICAtLT4NCjwhLS0gICBhcy5kZW5kcm9ncmFtKCkgJT4lICAtLT4NCjwhLS0gICBzb3J0KCkgJT4lICAtLT4NCjwhLS0gICBkZW5kZXh0ZW5kOjpwdmNsdXN0X3Nob3dfc2lnbmlmX2dyYWRpZW50KHJlc3VsdCwgc2lnbmlmX2NvbF9mdW4gPSBnckRldmljZXM6OmNvbG9yUmFtcFBhbGV0dGUoYygiYmxhY2siLCAicmVkIikpKSAlPiUgIC0tPg0KPCEtLSAgIGRlbmRleHRlbmQ6OnB2Y2x1c3Rfc2hvd19zaWduaWYocmVzdWx0LCBzaWduaWZfdmFsdWUgPSBjKDIsIDEpKSAlPiUgLS0+DQo8IS0tICAgZGVuZGV4dGVuZDo6YXMuZ2dkZW5kKCkgJT4lICAtLT4NCjwhLS0gICBnZ3Bsb3QyOjpnZ3Bsb3QoaG9yaXo9VFJVRSwgb2Zmc2V0X2xhYmVscyA9IC0xKSAtLT4NCjwhLS0gYGBgIC0tPg0KDQoNCg0KIyMgUmVmZXJlbmNlcw0K</div>
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeSourceEmbed("index.Rmd");
+  window.initializeCodeFolding("hide" === "show");
+});
+</script>
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
