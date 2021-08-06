@@ -16,3 +16,4 @@ rmarkdown::render('index.Rmd', output_format = "word_document", output_dir = "wo
 
 # Render PDF
 rmarkdown::render('index.Rmd', output_format = "pdf_document", output_dir = "word_and_pdf/", output_file = "SupplementaryMaterials")
+

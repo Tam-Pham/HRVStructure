@@ -2,424 +2,423 @@
 !!!! IMPORTANT: run `source("utils/render.R")` to publish instead of clicking on 'Knit'
 -->
 
-Introduction
-============
+# Introduction
 
-![Build](https://github.com/RealityBending/TemplateResults/workflows/Build/badge.svg)
-[![Website](https://img.shields.io/badge/repo-Readme-2196F3)](https://github.com/RealityBending/TemplateResults)
+![Build](https://github.com/Tam-Pham/HRVStructure/workflows/Build/badge.svg)
+[![Website](https://img.shields.io/badge/repo-Readme-2196F3)](https://github.com/Tam-Pham/HRVStructure)
 [![Website](https://img.shields.io/badge/visit-website-E91E63)](https://realitybending.github.io/TemplateResults/)
 [![Website](https://img.shields.io/badge/download-.docx-FF5722)](https://github.com/RealityBending/TemplateResults/raw/main/word_and_pdf/SupplementaryMaterials.docx)
 [![Website](https://img.shields.io/badge/see-.pdf-FF9800)](https://github.com/RealityBending/TemplateResults/blob/main/word_and_pdf/SupplementaryMaterials.pdf)
 
-This is a template for a data analysis folder that can be easily
-exported as a
-[**webpage**](https://realitybending.github.io/TemplateResults/) or as
-**Supplementary Materials** (e.g., as a [**Word
-document**](https://github.com/RealityBending/TemplateResults/raw/main/word_and_pdf/SupplementaryMaterials.docx)
-or a
-[**PDF**](https://github.com/RealityBending/TemplateResults/blob/main/word_and_pdf/SupplementaryMaterials.pdf)).
+## Introduction
 
-How does it look like? Just like this! The README page of this
-repository, alongside the
-[webpage](https://realitybending.github.io/TemplateResults/) and the
-word and PDF documents, were all created from the
-[index.Rmd](https://github.com/RealityBending/TemplateResults/blob/main/index.Rmd)
-file.
+The aim of this study is to explore the factor structure of HRV indices.
 
-This means you can easily **share your data analysis**, either by
-attaching the *PDF* or *Word* file to the publication (as
-**Supplementary Materials**), or by directly providing the URL of your
-GitHub repository: the readers can then enjoy your awesome open-access
-work in a convenient and transparent way.
+## Databases
 
-Features
---------
+### Glasgow University Database
 
--   [x] Automatically generates different types of document:
-    -   [**README
-        page**](https://github.com/RealityBending/TemplateResults/blob/main/README.md)
-    -   [**Published
-        website**](https://realitybending.github.io/TemplateResults/)
-    -   [**Word
-        document**](https://github.com/RealityBending/TemplateResults/raw/main/word_and_pdf/SupplementaryMaterials.docx)
-    -   [**PDF
-        document**](https://github.com/RealityBending/TemplateResults/blob/main/word_and_pdf/SupplementaryMaterials.pdf)
--   [x] APA citations
--   [x] Automatic citations and [reference
-    list](https://github.com/RealityBending/TemplateResults#package-references)
-    for all packages
--   [x] Tidy organisation (separate files for independent analyses)
--   [x] Great default configuration
--   [x] And more!
+The GUDB Database (**howell2018high?**) contains ECGs from 25 subjects.
+Each subject was recorded performing 5 different tasks for two minutes
+(sitting, doing a maths test on a tablet, walking on a treadmill,
+running on a treadmill, using a hand bike). The sampling rate is 250Hz
+for all the conditions.
 
-![](figures/demo.gif)
+The script to download and format the database using the
+[**ECG-GUDB**](https://github.com/berndporr/ECG-GUDB) Python package by
+Bernd Porr can be found
+[**here**](https://github.com/neuropsychology/NeuroKit/blob/dev/data/gudb/download_gudb.py).
 
-Installation
-------------
+### MIT-BIH Arrhythmia Database
 
--   **What is this?**
+The MIT-BIH Arrhythmia Database \[MIT-Arrhythmia;
+(**moody2001impact?**)\] contains 48 excerpts of 30-min of two-channel
+ambulatory ECG recordings sampled at 360Hz and 25 additional recordings
+from the same participants including common but clinically significant
+arrhythmias (denoted as the `MIT-Arrhythmia-x` database).
 
-This repository is a template to set up a reproducible, convenient and
-shareable workflow for your data analysis. It consists of several
-[*Rmarkdown*](https://rmarkdown.rstudio.com/lesson-1.html) files
-(`.Rmd`), that allow you to have R code and text (markdown) in the same
-document. Importantly, these files can be transformed into other
-documents formats.
+The script to download and format the database using the can be found
+[**here**](https://github.com/neuropsychology/NeuroKit/blob/dev/data/mit_arrhythmia/download_mit_arrhythmia.py).
 
--   **How to use this template?**
+### MIT-BIH Normal Sinus Rhythm Database
 
-Download it ([**click here to
-download**](https://github.com/RealityBending/TemplateResults/archive/main.zip)),
-unzip it and edit. Alternatively, you click on the [**Use this
-template**](https://github.com/RealityBending/TemplateResults/generate)
-button at the top of this screen to create a GitHub repository with all
-the content copied (then you just need to clone the repo to your local
-machine).
+This database includes 18 clean long-term ECG recordings of subjects.
+Due to memory limits, we only kept the second hour of recording of each
+participant.
 
-The main files you need to edit are the `.Rmd` files, that you can open
-with some editor (e.g., [Rstudio](https://rstudio.com/)), and edit the
-text and the R chunks of code.
+The script to download and format the database using the can be found
+[**here**](https://github.com/neuropsychology/NeuroKit/blob/dev/data/mit_normal/download_mit_normal.py).
 
--   **How to upload it to a website?**
+<!-- ### Lobachevsky University Electrocardiography Database -->
+<!-- The Lobachevsky University Electrocardiography Database [LUDB; @kalyakulina2018lu] consists of 200 10-second 12-lead ECG signal records representing different morphologies of the ECG signal. The ECGs were collected from healthy volunteers and patients, which had various cardiovascular diseases. The boundaries of P, T waves and QRS complexes were manually annotated by cardiologists for all 200 records. -->
 
-If your repo is not already connected to GitHub, then create a new
-repository and upload all the content (so that it looks like this repo).
-Then, go to settings of the repo and enable **GitHub pages** (i.e., that
-gives you a webpage from an html stored on GitHub), and select the
-`docs/` folder as the location of the webpage. Indeed, rendering
-(knitting) the files will generate an “index.html” file in the `/docs/`
-folder, which is used as the website. You can see an example at
-<https://realitybending.github.io/TemplateResults/>.
+### Fantasia Database
 
--   **To knit or not to knit**
+The Fantasia database (**iyengar1996age?**) consists of twenty young and
+twenty elderly healthy subjects. All subjects remained in a resting
+state in sinus rhythm while watching the movie Fantasia (Disney, 1940)
+to help maintain wakefulness. The continuous ECG signals were digitized
+at 250 Hz. Each heartbeat was annotated using an automated arrhythmia
+detection algorithm, and each beat annotation was verified by visual
+inspection.
 
-In this repo, with have set up a [GitHub
-action](https://github.com/RealityBending/TemplateResults/blob/main/.github/workflows/website.yml)
-that generates all the output files everytime someone commit to the
-repository. This means that the final documents here are always
-“up-to-date” with the *Rmds* (as shown by the green badge). That said,
-you can remove this GitHub action (just remove the
-`.github/workflows/website.yml` file) if you prefer to generate the
-documents manually only.
+## Procedure
 
--   **But I don’t want do upload all my data**
-
-In that case, you’ll need to 1) deactivate (i.e., remove the action
-file) the automatic rendering by GitHub (as no data will be stored on
-GitHub) and 2) mark the **data** folder as “to be ignored” (so that it
-won’t be uploaded). This can be done by adding `/data/` to the
-[**.gitignore**](https://github.com/RealityBending/TemplateResults/blob/main/.gitignore)
-file (that you can open with a notepad). This means that you can still
-store the data here locally, and generate the documents accordingly, but
-the data folder will be ignored by git and never uploaded to GitHub.
-This way, you can still have a cool website, an open-access script, but
-the data is safe with you. The only down side is that you have to build
-it manually (cannot use GitHub actions).
-
--   **How to add references?**
-
-References have to be added in `bib` format in the
-[*utils/bibliography.bib*](https://github.com/RealityBending/TemplateResults/blob/main/utils/bibliography.bib)
-file, and further referenced in the text like this
-`[@ludecke2019insight]` (Lüdecke, Waggoner, & Makowski, 2019).
-
--   **I don’t like the Word (.docx) theme**
-
-The theme for the word document is defined in the
-[\*\*Template\_Word.docx](https://github.com/RealityBending/TemplateResults/tree/main/utils)
-file, in the `/utils/` folder. You need to edit the “styles” (not just
-the content, but the style itself) to your preference.
-
--   **I have Python code**
-
-Thanks to R’s possibilities when it comes to integration with Python,
-it’s super easy to enable it in your pipeline. Just uncomment the
-[Python installation
-line](https://github.com/RealityBending/TemplateResults/blob/main/utils/config.R#L24)
-in the `utils/config.R` file and you’re ready to go!
-
--   **It doesn’t work / I have questions / I have ideas**
-
-Just [**open an
-issue**](https://github.com/RealityBending/TemplateResults/issues) and
-we’ll be happy to assist ☺
-
-Structure
----------
-
-Most files that you’ll need to create / edit will be written in
-[**rmarkdown**](https://rmarkdown.rstudio.com/lesson-1.html), which
-consists of a mix of markdown text and R chunks of code.
-
-The main file is named
-[**index.Rmd**](https://github.com/RealityBending/TemplateResults/blob/main/index.Rmd).
-However, to avoid having overly long files, the different (and
-independent) analyses parts are actually split in other documents. For
-instance, in this template example, the descriptive statistics section
-is in the
-[**1\_descriptive.Rmd**](https://github.com/RealityBending/TemplateResults/blob/main/1_descriptive.Rmd)
-file. As you can [see in the index
-file](https://github.com/RealityBending/TemplateResults/blob/690f7947da0fc8ac85eaf6fb87fafeaa46fb3c50/index.Rmd#L89-L90),
-this file is then integrated as a child document (i.e., it is merged).
-This makes it very convenient to have a clear structure with
-well-organized files, that are put together only when merged.
-
-Render and Publish
-------------------
-
-Importantly, in order to render all the files, do not Knit this document
-by pressing the ‘Knit’ button. If you do, it will create an output file
-(for instance `index.html`) in the root folder, alongside `index.Rmd`.
-This is **not what we want**, as we want to keep the output files tidy
-in separate folders (for instance, the html version should be in the
-`/docs/` folder, as this is where the website will look for).
-
-There an R script,
-[utils/render.R](https://github.com/RealityBending/TemplateResults/blob/main/utils/render.R),
-that contains the lines to render everything in its correct location.
-So, when you have the “index.Rmd” file opened (and your working
-directory is at its root), simply run **`source("utils/render.R")`** in
-the console (or the relevant lines in that file). This will run the
-rendering file and create all the files.
-
-Contribution
-------------
-
-Do not hesitate to improve this template by updating, documenting, or
-expanding it!
-
-Packages & Data
-===============
-
-Packages
---------
-
-This document was prepared on 2021-08-02.
+## Results
 
 ``` r
-library(bayestestR)
-library(parameters)
-library(performance)
-library(report)
-library(see)
-library(ggplot2)
+library(tidyverse)
+library(easystats)
 
-summary(report::report(sessionInfo()))
+data <- read.csv("data/data.csv", stringsAsFactors = FALSE) %>% 
+  select(-HRV_ULF, -HRV_VLF) %>%  # Empty
+  filter(Database != "LUDB") # too short recordings, many indices didn't converge
+names(data) <- stringr::str_remove(names(data), "HRV_")
 ```
 
-The analysis was done using the R Statistical language (v4.1.0; R Core
-Team, 2021) on macOS Catalina 10.15.7, using the packages ggplot2
-(v3.3.5), stringr (v1.4.0), forcats (v0.5.1), tidyr (v1.1.3), readr
-(v2.0.0), dplyr (v1.0.7), rmarkdown (v2.9), tibble (v3.1.3), purrr
-(v0.3.4), parameters (v0.14.0.1), performance (v0.7.3.1), see (v0.6.4),
-bayestestR (v0.10.5), report (v0.3.5) and tidyverse (v1.3.1).
+### Redundant Indices
 
-Data
-----
+#### Remove Equivalent (r higher than .995)
 
 ``` r
-df <- read.csv("data/data.csv")
-
-cat(paste("The data consists of",
-          report::report_participants(df,
-                                      participants = "Participant",
-                                      age = "Age")))
+data %>% 
+  correlation::correlation() %>% 
+  filter(abs(r) > 0.995) %>% 
+  arrange(Parameter1, desc(abs(r)))
 ```
 
-The data consists of 10 participants (Mean age = 29.9, SD = 0.5, range:
-\[29.0, 30.91\])
-
-Note that the chunks generating figures in the code below have some
-arguments specified in their header, such as `fig.width` and
-`fig.height`, which controls the figure size. These were filled with an
-eponym argument defined in
-[`utils/config.R`](https://github.com/RealityBending/TemplateResults/blob/main/utils/config.R#L26-L27).
-We also set the resolution, i.e., `dpi`, to a low value so that the
-resulting file is lighter. But **don’t forget to crank this value up**
-(to 300-600) to get nice-looking results.
-
-Descriptive Stats
-=================
-
-Notice the `{.tabset}` tag after the section name. This will show the
-subsections as different tabs (in the [html
-version](https://realitybending.github.io/TemplateResults/#Descriptive_Stats)
-only, because the other formats are static).
-
-Part 1
-------
-
-Here’s a cool plot:
+    > Parameter1 | Parameter2 |     r |         95% CI |    t(250) |      p |  Method | n_Obs
+    > ---------------------------------------------------------------------------------------
+    > C1d        |        C1a | -1.00 | [-1.00, -1.00] | -1.06e+09 | < .001 | Pearson |   252
+    > C2d        |        C2a | -1.00 | [-1.00, -1.00] |      -Inf | < .001 | Pearson |   252
+    > Cd         |         Ca | -1.00 | [-1.00, -1.00] |      -Inf | < .001 | Pearson |   252
+    > RMSSD      |       SDSD |  1.00 | [ 1.00,  1.00] |  49985.56 | < .001 | Pearson |   252
+    > RMSSD      |        SD1 |  1.00 | [ 1.00,  1.00] |  49985.56 | < .001 | Pearson |   252
+    > RMSSD      |       SD1d |  1.00 | [ 1.00,  1.00] |    536.98 | < .001 | Pearson |   252
+    > RMSSD      |       SD1a |  1.00 | [ 1.00,  1.00] |    466.36 | < .001 | Pearson |   252
+    > SD1        |       SD1d |  1.00 | [ 1.00,  1.00] |    537.53 | < .001 | Pearson |   252
+    > SD1        |       SD1a |  1.00 | [ 1.00,  1.00] |    465.97 | < .001 | Pearson |   252
+    > SD1d       |       SD1a |  1.00 | [ 1.00,  1.00] |    249.46 | < .001 | Pearson |   252
+    > SD2        |       SD2a |  1.00 | [ 1.00,  1.00] |    289.38 | < .001 | Pearson |   252
+    > SD2        |       SD2d |  1.00 | [ 1.00,  1.00] |    201.76 | < .001 | Pearson |   252
+    > SDNN       |      SDNNa |  1.00 | [ 1.00,  1.00] |    727.31 | < .001 | Pearson |   252
+    > SDNN       |      SDNNd |  1.00 | [ 1.00,  1.00] |    578.75 | < .001 | Pearson |   252
+    > SDNNd      |      SDNNa |  1.00 | [ 1.00,  1.00] |    324.46 | < .001 | Pearson |   252
+    > SDSD       |        SD1 |  1.00 | [ 1.00,  1.00] |       Inf | < .001 | Pearson |   252
+    > SDSD       |       SD1d |  1.00 | [ 1.00,  1.00] |    537.53 | < .001 | Pearson |   252
+    > SDSD       |       SD1a |  1.00 | [ 1.00,  1.00] |    465.97 | < .001 | Pearson |   252
+    > 
+    > p-value adjustment method: Holm (1979)
 
 ``` r
-ggplot(df, aes(x=V1, y=V2, color=Participant)) + 
-  geom_point() +
+data <- data %>% 
+  select(-SDSD, -SD1, -SD1d, -SD1a, -CVSD) %>%  # Same as RMSSD 
+  select(-SDNNd, -SDNNa) %>%  # Same as SDNN
+  select(-SD2d, -SD2a) %>%   # Same as SD2
+  select(-Cd) %>%   # Same as Ca
+  select(-C1d, -C2d) # Same as C1a and C2a
+```
+
+#### Remove Strongly Correlated (r higher than .98)
+
+``` r
+data %>% 
+  correlation::correlation() %>% 
+  filter(abs(r) > 0.95) %>%
+  arrange(Parameter1, desc(abs(r)))
+```
+
+    > Parameter1 | Parameter2 |    r |       95% CI | t(250) |      p |  Method | n_Obs
+    > ---------------------------------------------------------------------------------
+    > CVNN       |        SD2 | 0.97 | [0.96, 0.98] |  64.63 | < .001 | Pearson |   252
+    > GI         |         AI | 0.99 | [0.99, 0.99] | 138.11 | < .001 | Pearson |   252
+    > GI         |         SI | 0.99 | [0.99, 0.99] | 115.38 | < .001 | Pearson |   252
+    > MeanNN     |   MedianNN | 0.99 | [0.98, 0.99] |  99.44 | < .001 | Pearson |   252
+    > PIP        |       IALS | 0.98 | [0.98, 0.99] |  86.82 | < .001 | Pearson |   252
+    > RMSSD      |       SDNN | 0.98 | [0.98, 0.99] |  79.71 | < .001 | Pearson |   252
+    > RMSSD      |       CVNN | 0.97 | [0.96, 0.98] |  62.71 | < .001 | Pearson |   252
+    > SDNN       |        SD2 | 0.99 | [0.99, 0.99] | 119.74 | < .001 | Pearson |   252
+    > SDNN       |       CVNN | 0.98 | [0.98, 0.99] |  88.51 | < .001 | Pearson |   252
+    > SI         |         AI | 0.97 | [0.96, 0.98] |  62.76 | < .001 | Pearson |   252
+    > TINN       |          S | 0.95 | [0.94, 0.96] |  50.54 | < .001 | Pearson |   252
+    > 
+    > p-value adjustment method: Holm (1979)
+
+``` r
+data <- data %>% 
+  select(-GI, -SI) %>%  # Same as AI 
+  select(-SD2) %>%  # Same as SDNN
+  select(-MedianNN) %>%  # Same as MeanNN
+  select(-IALS) %>%  # Same as PIP
+  select(-SDNN, -CVNN) # Same as RMSSD
+```
+
+### Recording Length
+
+#### Investigate effect
+
+``` r
+correlation(data) %>% 
+  filter(Parameter2 == "Recording_Length") %>% 
+  arrange(desc(abs(r)))
+```
+
+#### Adjust the data for recording length
+
+``` r
+data <- effectsize::adjust(data, effect="Recording_Length") %>% 
+  select(-Recording_Length)
+```
+
+### Gaussian Graphical Model
+
+``` r
+library(ggraph)
+
+data %>% 
+  correlation::correlation(partial=FALSE) %>% 
+  correlation::cor_to_pcor() %>% 
+  filter(abs(r) > 0.2) %>%
+  tidygraph::as_tbl_graph(directed=FALSE) %>% 
+  dplyr::mutate(closeness = tidygraph::centrality_closeness(normalized = TRUE),
+                degree = tidygraph::centrality_degree(normalized = TRUE),
+                betweeness = tidygraph::centrality_betweenness(normalized = TRUE)) %>%
+  tidygraph::activate(nodes) %>%
+  dplyr::mutate(group1 = as.factor(tidygraph::group_edge_betweenness()),
+                # group2 = as.factor(tidygraph::group_optimal()),
+                # group3 = as.factor(tidygraph::group_walktrap()),
+                # group4 = as.factor(tidygraph::group_spinglass()),
+                group5 = as.factor(tidygraph::group_louvain())) %>% 
+  ggraph::ggraph(layout = "fr") +
+    ggraph::geom_edge_arc(aes(colour = r, edge_width = abs(r)), strength = 0.1, show.legend = FALSE) +
+    ggraph::geom_node_point(aes(size = degree, color = group5), show.legend = FALSE) +
+    ggraph::geom_node_text(aes(label = name), colour = "white") +
+    ggraph::scale_edge_color_gradient2(low = "#a20025", high = "#008a00", name = "r") +
+    ggraph::theme_graph() +
+    guides(edge_width = FALSE) +
+    scale_x_continuous(expand = expansion(c(.10, .10))) +
+    scale_y_continuous(expand = expansion(c(.10, .10))) +
+    scale_size_continuous(range = c(20, 30)) +
+    scale_edge_width_continuous(range = c(0.5, 2)) +
+    see::scale_color_material_d(palette="rainbow", reverse=TRUE)
+```
+
+![](figures/unnamed-chunk-7-1.png)
+
+Groups were identified using the
+[tidygraph::group_optimal](https://rdrr.io/cran/tidygraph/man/group_graph.html)
+algorithm.
+
+### Factor Analysis
+
+#### How many factors
+
+``` r
+cor <- correlation::correlation(data[sapply(data, is.numeric)]) %>% 
+  as.matrix()
+
+n <- parameters::n_factors(data, cor=cor)
+
+n
+```
+
+    > # Method Agreement Procedure:
+    > 
+    > The choice of 8 dimensions is supported by 3 (16.67%) methods out of 18 (Optimal coordinates, Parallel analysis, Kaiser criterion).
+
+``` r
+plot(n) +
   see::theme_modern()
 ```
 
-![](figures/1_plot_scatter_basic-1.png)
+![](figures/unnamed-chunk-8-1.png)
 
-Part 2
-------
-
-That’s another great plot:
+#### Exploratory Factor Analysis (EFA)
 
 ``` r
-plot(bayestestR::estimate_density(df[c("V1", "V2")])) +
-  see::theme_blackboard()
+efa <- parameters::factor_analysis(data, cor=cor, n=7, rotation="varimax", fm="ml")
+
+print(efa, threshold="max", sort=TRUE)
 ```
 
-![](figures/1_plot_density-1.png)
-
-Part 3
-------
-
-Did you ever hear the tragedy of Darth Plagueis The Wise? I thought not.
-It’s not a story the Jedi would tell you. It’s a Sith legend. Darth
-Plagueis was a Dark Lord of the Sith, so powerful and so wise he could
-use the Force to influence the midichlorians to create life… He had such
-a knowledge of the dark side that he could even keep the ones he cared
-about from dying. The dark side of the Force is a pathway to many
-abilities some consider to be unnatural. He became so powerful… the only
-thing he was afraid of was losing his power, which eventually, of
-course, he did. Unfortunately, he taught his apprentice everything he
-knew, then his apprentice killed him in his sleep. Ironic. He could save
-others from death, but not himself.
-
-Inferential Stats
-=================
-
-Here is another analysis that is contained in a separate file. Let’s
-check-out this linear regression model (note that, in the code chunk
-parameters, I multiplied `figheight` by 2 to have a taller plot):
+    > # Rotated loadings from Factor Analysis (varimax-rotation)
+    > 
+    > Variable     |  ML4  | ML1  | ML3  |  ML2  |  ML7  | ML5  | ML6  | Complexity | Uniqueness
+    > ------------------------------------------------------------------------------------------
+    > SD1SD2       | 0.86  |      |      |       |       |      |      |    1.28    |    0.17   
+    > DFA          | -0.79 |      |      |       |       |      |      |    1.24    |    0.31   
+    > CSI          | -0.77 |      |      |       |       |      |      |    2.06    |    0.06   
+    > LnHF         | 0.72  |      |      |       |       |      |      |    2.22    |    0.20   
+    > HFn          | 0.66  |      |      |       |       |      |      |    1.47    |    0.46   
+    > CSI_Modified | -0.64 |      |      |       |       |      |      |    3.47    |    0.12   
+    > LFn          | -0.62 |      |      |       |       |      |      |    1.67    |    0.49   
+    > C1a          | -0.56 |      |      |       |       |      |      |    1.71    |    0.57   
+    > HF           | 0.55  |      |      |       |       |      |      |    1.22    |    0.67   
+    > VHF          | 0.54  |      |      |       |       |      |      |    1.47    |    0.65   
+    > HTI          | 0.35  |      |      |       |       |      |      |    2.12    |    0.78   
+    > MCVNN        |       | 0.97 |      |       |       |      |      |    1.12    |  4.99e-03 
+    > MadNN        |       | 0.96 |      |       |       |      |      |    1.06    |    0.05   
+    > IQRNN        |       | 0.81 |      |       |       |      |      |    1.15    |    0.29   
+    > pNN50        |       | 0.65 |      |       |       |      |      |    3.08    |    0.11   
+    > CVI          |       | 0.61 |      |       |       |      |      |    3.93    |    0.02   
+    > pNN20        |       | 0.55 |      |       |       |      |      |    3.90    |    0.05   
+    > S            |       |      | 0.99 |       |       |      |      |    1.00    |    0.02   
+    > TINN         |       |      | 0.97 |       |       |      |      |    1.03    |    0.04   
+    > RMSSD        |       |      | 0.92 |       |       |      |      |    1.30    |    0.03   
+    > LFHF         |       |      | 0.79 |       |       |      |      |    1.45    |    0.25   
+    > PIP          |       |      |      | 0.99  |       |      |      |    1.02    |  4.87e-03 
+    > PSS          |       |      |      | 0.94  |       |      |      |    1.03    |    0.11   
+    > PAS          |       |      |      | 0.79  |       |      |      |    1.46    |    0.24   
+    > LF           |       |      |      | -0.40 |       |      |      |    2.79    |    0.68   
+    > RCMSE        |       |      |      |       | -0.67 |      |      |    2.49    |    0.21   
+    > CMSE         |       |      |      |       | -0.67 |      |      |    2.38    |    0.26   
+    > C2a          |       |      |      |       | 0.58  |      |      |    1.91    |    0.49   
+    > AI           |       |      |      |       | -0.57 |      |      |    2.48    |    0.31   
+    > PI           |       |      |      |       | 0.54  |      |      |    1.68    |    0.62   
+    > Ca           |       |      |      |       | 0.51  |      |      |    1.51    |    0.67   
+    > SampEn       |       |      |      |       |       | 0.74 |      |    2.38    |    0.09   
+    > ApEn         |       |      |      |       |       | 0.73 |      |    1.88    |    0.24   
+    > CorrDim      |       |      |      |       |       | 0.68 |      |    2.22    |    0.27   
+    > MSE          |       |      |      |       |       | 0.41 |      |    2.00    |    0.75   
+    > MeanNN       |       |      |      |       |       |      | 0.64 |    2.25    |    0.37   
+    > 
+    > The 7 latent factors (varimax rotation) accounted for 70.43% of the total variance of the original data (ML4 = 17.93%, ML1 = 10.90%, ML3 = 10.87%, ML2 = 10.17%, ML7 = 9.55%, ML5 = 7.45%, ML6 = 3.57%).
 
 ``` r
-model <- lm(Petal.Length ~ Sepal.Length, data=iris)
-performance::check_model(model)
-```
-
-![](figures/2_plot_model-1.png)
-
-Full Code
-=========
-
-The full script of executive code contained in this document is
-reproduced here.
-
-``` r
-# Set up the environment (or use local alternative `source("utils/config.R")`)
-source("https://raw.githubusercontent.com/RealityBending/TemplateResults/main/utils/config.R")  
-
-fast <- FALSE  # Make this false to skip the chunks
-# This chunk is a bit complex so don't worry about it: it's made to add badges to the HTML versions
-# NOTE: You have to replace the links accordingly to have working "buttons" on the HTML versions
-if (!knitr::is_latex_output() && knitr::is_html_output()) {
-  cat("![Build](https://github.com/RealityBending/TemplateResults/workflows/Build/badge.svg)
-      [![Website](https://img.shields.io/badge/repo-Readme-2196F3)](https://github.com/RealityBending/TemplateResults)
-      [![Website](https://img.shields.io/badge/visit-website-E91E63)](https://realitybending.github.io/TemplateResults/)
-      [![Website](https://img.shields.io/badge/download-.docx-FF5722)](https://github.com/RealityBending/TemplateResults/raw/main/word_and_pdf/SupplementaryMaterials.docx)
-      [![Website](https://img.shields.io/badge/see-.pdf-FF9800)](https://github.com/RealityBending/TemplateResults/blob/main/word_and_pdf/SupplementaryMaterials.pdf)")
-}
-# Let's include a demo GIF (this doesn't work in PDF documents)
-if (!knitr::is_latex_output()) {
-  knitr::include_graphics("figures/demo.gif")
-}
-library(bayestestR)
-library(parameters)
-library(performance)
-library(report)
-library(see)
-library(ggplot2)
-
-summary(report::report(sessionInfo()))
-df <- read.csv("data/data.csv")
-
-cat(paste("The data consists of",
-          report::report_participants(df,
-                                      participants = "Participant",
-                                      age = "Age")))
-report::cite_packages(sessionInfo())
-ggplot(df, aes(x=V1, y=V2, color=Participant)) + 
-  geom_point() +
+plot(efa) +
   see::theme_modern()
-plot(bayestestR::estimate_density(df[c("V1", "V2")])) +
-  see::theme_blackboard()
-model <- lm(Petal.Length ~ Sepal.Length, data=iris)
-performance::check_model(model)
 ```
 
-Package References
-==================
+![](figures/unnamed-chunk-9-1.png)
+
+#### Confirmatory Factor Analysis (CFA)
 
 ``` r
-report::cite_packages(sessionInfo())
+library(lavaan)
+
+model <- parameters::efa_to_cfa(efa, threshold = "max")
+cfa <- lavaan::cfa(model, data=data) %>%
+  parameters::parameters(standardize=TRUE)
 ```
 
--   H. Wickham. ggplot2: Elegant Graphics for Data Analysis.
-    Springer-Verlag New York, 2016.
--   Hadley Wickham (2019). stringr: Simple, Consistent Wrappers for
-    Common String Operations. R package version 1.4.0.
-    <a href="https://CRAN.R-project.org/package=stringr" class="uri">https://CRAN.R-project.org/package=stringr</a>
--   Hadley Wickham (2021). forcats: Tools for Working with Categorical
-    Variables (Factors). R package version 0.5.1.
-    <a href="https://CRAN.R-project.org/package=forcats" class="uri">https://CRAN.R-project.org/package=forcats</a>
--   Hadley Wickham (2021). tidyr: Tidy Messy Data. R package version
-    1.1.3.
-    <a href="https://CRAN.R-project.org/package=tidyr" class="uri">https://CRAN.R-project.org/package=tidyr</a>
--   Hadley Wickham and Jim Hester (2021). readr: Read Rectangular Text
-    Data. R package version 2.0.0.
-    <a href="https://CRAN.R-project.org/package=readr" class="uri">https://CRAN.R-project.org/package=readr</a>
--   Hadley Wickham, Romain François, Lionel Henry and Kirill Müller
-    (2021). dplyr: A Grammar of Data Manipulation. R package version
-    1.0.7.
-    <a href="https://CRAN.R-project.org/package=dplyr" class="uri">https://CRAN.R-project.org/package=dplyr</a>
--   JJ Allaire and Yihui Xie and Jonathan McPherson and Javier Luraschi
-    and Kevin Ushey and Aron Atkins and Hadley Wickham and Joe Cheng and
-    Winston Chang and Richard Iannone (2021). rmarkdown: Dynamic
-    Documents for R. R package version 2.9. URL
-    <a href="https://rmarkdown.rstudio.com" class="uri">https://rmarkdown.rstudio.com</a>.
--   Kirill Müller and Hadley Wickham (2021). tibble: Simple Data Frames.
-    R package version 3.1.3.
-    <a href="https://CRAN.R-project.org/package=tibble" class="uri">https://CRAN.R-project.org/package=tibble</a>
--   Lionel Henry and Hadley Wickham (2020). purrr: Functional
-    Programming Tools. R package version 0.3.4.
-    <a href="https://CRAN.R-project.org/package=purrr" class="uri">https://CRAN.R-project.org/package=purrr</a>
--   Lüdecke D, Ben-Shachar M, Patil I, Makowski D (2020).
-    “Extracting,Computing and Exploring the Parameters of Statistical
-    Models using R.”*Journal of Open Source Software*, *5*(53), 2445.
-    <a href="doi:10.21105/joss.02445" class="uri">doi:10.21105/joss.02445</a>
-    (URL:
-    <a href="https://doi.org/10.21105/joss.02445" class="uri">https://doi.org/10.21105/joss.02445</a>).
--   Lüdecke et al., (2021). performance: An R Package for Assessment,
-    Comparison and Testing of Statistical Models. Journal of Open Source
-    Software, 6(60), 3139.
-    <a href="https://doi.org/10.21105/joss.03139" class="uri">https://doi.org/10.21105/joss.03139</a>
--   Lüdecke, Patil, Ben-Shachar, Wiernik, Waggoner & Makowski (2020).
-    Visualisation Toolbox for ‘easystats’ and Extra Geoms, Themes and
-    Color Palettes for ‘ggplot2’. CRAN. Available from
-    <a href="https://easystats.github.io/see/" class="uri">https://easystats.github.io/see/</a>
--   Makowski, D., Ben-Shachar, M., & Lüdecke, D. (2019). bayestestR:
-    Describing Effects and their Uncertainty, Existence and Significance
-    within the Bayesian Framework. Journal of Open Source Software,
-    4(40), 1541.
-    <a href="doi:10.21105/joss.01541" class="uri">doi:10.21105/joss.01541</a>
--   Makowski, D., Ben-Shachar, M.S., Patil, I. & Lüdecke, D. (2020).
-    Automated Results Reporting as a Practical Tool to Improve
-    Reproducibility and Methodological Best Practices Adoption. CRAN.
-    Available from
-    <a href="https://github.com/easystats/report" class="uri">https://github.com/easystats/report</a>.
-    doi: .
--   R Core Team (2021). R: A language and environment for statistical
-    computing. R Foundation for Statistical Computing, Vienna, Austria.
-    URL
-    <a href="https://www.R-project.org/" class="uri">https://www.R-project.org/</a>.
--   Wickham et al., (2019). Welcome to the tidyverse. Journal of Open
-    Source Software, 4(43), 1686,
-    <a href="https://doi.org/10.21105/joss.01686" class="uri">https://doi.org/10.21105/joss.01686</a>
+    > Error in if (ncol(S) == 1L) { : argument is of length zero
 
-References
-==========
+``` r
+cfa
+```
 
-Lüdecke, D., Waggoner, P. D., & Makowski, D. (2019). Insight: A unified
-interface to access information from model objects in r. *Journal of
-Open Source Software*, *4*(38), 1412.
+    > # Loading
+    > 
+    > Link                | Coefficient |      p
+    > ------------------------------------------
+    > ML4 =~ HTI          |        0.91 | < .001
+    > ML4 =~ HF           |       -1.00 | < .001
+    > ML4 =~ VHF          |       -1.00 | < .001
+    > ML4 =~ LFn          |       -1.00 | < .001
+    > ML4 =~ HFn          |       -1.00 | < .001
+    > ML4 =~ LnHF         |       -1.00 | < .001
+    > ML4 =~ SD1SD2       |       -1.00 | < .001
+    > ML4 =~ CSI          |       -1.00 | < .001
+    > ML4 =~ CSI_Modified |        1.00 | < .001
+    > ML4 =~ C1a          |       -1.00 | < .001
+    > ML4 =~ DFA          |       -1.00 | < .001
+    > ML1 =~ MadNN        |        0.96 | < .001
+    > ML1 =~ MCVNN        |       -1.00 | < .001
+    > ML1 =~ IQRNN        |       -1.00 | < .001
+    > ML1 =~ pNN50        |       -1.00 | < .001
+    > ML1 =~ pNN20        |       -1.00 | < .001
+    > ML1 =~ CVI          |       -1.00 | < .001
+    > ML3 =~ RMSSD        |        0.72 | < .001
+    > ML3 =~ TINN         |        0.86 | < .001
+    > ML3 =~ LFHF         |    8.53e-04 | < .001
+    > ML3 =~ S            |        1.00 | < .001
+    > ML2 =~ LF           |        0.83 | < .001
+    > ML2 =~ PIP          |       -1.00 | < .001
+    > ML2 =~ PSS          |       -1.00 | < .001
+    > ML2 =~ PAS          |       -1.00 | < .001
+    > ML7 =~ AI           |        0.85 | < .001
+    > ML7 =~ PI           |        1.00 | < .001
+    > ML7 =~ C2a          |        1.00 | < .001
+    > ML7 =~ Ca           |        1.00 | < .001
+    > ML7 =~ CMSE         |        1.00 | < .001
+    > ML7 =~ RCMSE        |        1.00 | < .001
+    > ML5 =~ ApEn         |        0.80 | < .001
+    > ML5 =~ SampEn       |       -0.90 | < .001
+    > ML5 =~ MSE          |        0.82 | < .001
+    > ML5 =~ CorrDim      |       -0.06 | < .001
+    > ML6 =~ MeanNN       |        1.00 | < .001
+    > 
+    > # Correlation
+    > 
+    > Link       | Coefficient |      p
+    > ---------------------------------
+    > ML4 ~~ ML1 |        0.39 | < .001
+    > ML4 ~~ ML3 |       -0.07 | < .001
+    > ML4 ~~ ML2 |        0.76 | < .001
+    > ML4 ~~ ML7 |        0.39 | < .001
+    > ML4 ~~ ML5 |       -0.66 | < .001
+    > ML4 ~~ ML6 |       -0.06 | < .001
+    > ML1 ~~ ML3 |       -0.03 | < .001
+    > ML1 ~~ ML2 |        0.46 | < .001
+    > ML1 ~~ ML7 |        0.48 | < .001
+    > ML1 ~~ ML5 |       -0.89 | < .001
+    > ML1 ~~ ML6 |       -0.47 | < .001
+    > ML3 ~~ ML2 |       -0.07 | < .001
+    > ML3 ~~ ML7 |       -0.01 | < .001
+    > ML3 ~~ ML5 |        0.05 | < .001
+    > ML3 ~~ ML6 |   -7.85e-03 | < .001
+    > ML2 ~~ ML7 |        0.33 | < .001
+    > ML2 ~~ ML5 |       -0.64 | < .001
+    > ML2 ~~ ML6 |        0.04 | < .001
+    > ML7 ~~ ML5 |       -0.42 | < .001
+    > ML7 ~~ ML6 |       -0.32 | < .001
+    > ML5 ~~ ML6 |        0.42 | < .001
+
+``` r
+plot(cfa)
+```
+
+![](figures/unnamed-chunk-10-1.png)
+
+### Cluster Analysis
+
+#### How many clusters
+
+``` r
+dat <- effectsize::standardize(data[sapply(data, is.numeric)])
+
+n <- parameters::n_clusters(t(dat), package = c("mclust", "cluster"))
+
+n
+```
+
+    > # Method Agreement Procedure:
+    > 
+    > The choice of 1 clusters is supported by 1 (50.00%) methods out of 2 (Tibs2001SEmax).
+
+``` r
+plot(n) +
+  theme_modern()
+```
+
+![](figures/unnamed-chunk-11-1.png)
+
+``` r
+library(dendextend)
+
+dat <- effectsize::standardize(data[sapply(data, is.numeric)])
+
+result <- pvclust::pvclust(dat, method.dist="euclidean", method.hclust="ward.D2", nboot=10, quiet=TRUE)
+
+result %>% 
+  as.dendrogram() %>% 
+  sort() %>% 
+  dendextend::pvclust_show_signif_gradient(result, signif_col_fun = grDevices::colorRampPalette(c("black", "red"))) %>% 
+  dendextend::pvclust_show_signif(result, signif_value = c(2, 1)) %>%
+  dendextend::as.ggdend() %>% 
+  ggplot2::ggplot(horiz=TRUE, offset_labels = -1)
+```
+
+![](figures/unnamed-chunk-12-1.png)
+
+## References
