@@ -1,8 +1,9 @@
 ---
-title: '**Conceptual vs. Observed Structure of HRV indices**'
-subtitle: "Data Analaysis"
+title: '**Conceptual vs. Observed Structure of Heart Rate Variability (HRV) Indices**'
+subtitle: "Data Analysis"
 output:
   html_document:
+    self_contained: false
     theme: cerulean
     highlight: pygments
     toc: yes
@@ -49,7 +50,6 @@ ggplot2::theme_set(see::theme_modern())
 ```
 
 # Introduction
-
 ```{r badges, echo=FALSE, message=TRUE, warning=FALSE, results='asis'}
 # This chunk is a bit complex so don't worry about it: it's made to add badges to the HTML versions
 # NOTE: You have to replace the links accordingly to have working "buttons" on the HTML versions
@@ -62,9 +62,11 @@ if (!knitr::is_latex_output() && knitr::is_html_output()) {
 }
 ```
 
-## Introduction
+
 
 The aim of this study is to explore the factor structure of HRV indices.
+
+# Methods
 
 
 ## Databases
@@ -96,6 +98,7 @@ The script to download and format the database using the can be found [**here**]
 ### Fantasia Database
 
 The Fantasia database [@iyengar1996age] consists of twenty young and twenty elderly healthy subjects. All subjects remained in a resting state in sinus rhythm while watching the movie Fantasia (Disney, 1940) to help maintain wakefulness. The continuous ECG signals were digitized at 250 Hz. Each heartbeat was annotated using an automated arrhythmia detection algorithm, and each beat annotation was verified by visual inspection.
+
 
 
 
@@ -133,8 +136,7 @@ for file in datafiles:
 all_results.to_csv("data/data.csv", index=False)
 ```
 
-## Results
-
+# Results
 
 ```{r, message=FALSE, warning=FALSE, results='hide'}
 library(tidyverse)
@@ -142,175 +144,146 @@ library(easystats)
 
 data <- read.csv("data/data.csv", stringsAsFactors = FALSE) %>% 
   select(-HRV_ULF, -HRV_VLF) %>%  # Empty
-  filter(Database != "LUDB") # too short recordings, many indices didn't converge
-names(data) <- stringr::str_remove(names(data), "HRV_")
+  # filter(Database != "LUDB") %>% # too short recordings, many indices didn't converge
+  setNames(stringr::str_remove(names(.), "HRV_")) %>% 
+  mutate_all(function(x) {
+    x[is.infinite(x)] <- NA
+    return(x) })
 ```
 
 
-### Redundant Indices
-
-#### Remove Equivalent (r higher than .995)
-
-```{r, message=FALSE, warning=FALSE, fig.width=17, fig.height=17}
-data %>% 
-  correlation::correlation() %>% 
-  filter(abs(r) > 0.995) %>% 
-  arrange(Parameter1, desc(abs(r)))
-
-data <- data %>% 
-  select(-SDSD, -SD1, -SD1d, -SD1a, -CVSD) %>%  # Same as RMSSD 
-  select(-SDNNd, -SDNNa) %>%  # Same as SDNN
-  select(-SD2d, -SD2a) %>%   # Same as SD2
-  select(-Cd) %>%   # Same as Ca
-  select(-C1d, -C2d) # Same as C1a and C2a
-```
-
-#### Remove Strongly Correlated (r higher than .98)
-
-```{r, message=FALSE, warning=FALSE, fig.width=17, fig.height=17}
-data %>% 
-  correlation::correlation() %>% 
-  filter(abs(r) > 0.95) %>%
-  arrange(Parameter1, desc(abs(r)))
-
-data <- data %>% 
-  select(-GI, -SI) %>%  # Same as AI 
-  select(-SD2) %>%  # Same as SDNN
-  select(-MedianNN) %>%  # Same as MeanNN
-  select(-IALS) %>%  # Same as PIP
-  select(-SDNN, -CVNN) # Same as RMSSD
+```{r warning=FALSE, message=TRUE, results='asis'}
+cat("This study includes", 
+    nrow(data), 
+    "participants from", 
+    length(unique(data$Database)), 
+    "databases.")
 ```
 
 
+```{r convenience_chunk_for_local_running, include = FALSE, eval = FALSE}
+library(brms)
+library(patchwork)
+library(tidyverse)
+library(easystats)
 
-### Recording Length
-
-#### Investigate effect
-
-```{r, message=FALSE, warning=FALSE, results='hide'}
-correlation(data) %>% 
-  filter(Parameter2 == "Recording_Length") %>% 
-  arrange(desc(abs(r)))
-```
-
-#### Adjust the data for recording length
-
-```{r, message=FALSE, warning=FALSE, results='hide'}
-data <- effectsize::adjust(data, effect="Recording_Length") %>% 
-  select(-Recording_Length)
-```
-
-### Gaussian Graphical Model
-
-
-```{r, message=FALSE, warning=FALSE, fig.width=17, fig.height=17}
-library(ggraph)
-
-data %>% 
-  correlation::correlation(partial=FALSE) %>% 
-  correlation::cor_to_pcor() %>% 
-  filter(abs(r) > 0.2) %>%
-  tidygraph::as_tbl_graph(directed=FALSE) %>% 
-  dplyr::mutate(closeness = tidygraph::centrality_closeness(normalized = TRUE),
-                degree = tidygraph::centrality_degree(normalized = TRUE),
-                betweeness = tidygraph::centrality_betweenness(normalized = TRUE)) %>%
-  tidygraph::activate(nodes) %>%
-  dplyr::mutate(group1 = as.factor(tidygraph::group_edge_betweenness()),
-                # group2 = as.factor(tidygraph::group_optimal()),
-                # group3 = as.factor(tidygraph::group_walktrap()),
-                # group4 = as.factor(tidygraph::group_spinglass()),
-                group5 = as.factor(tidygraph::group_louvain())) %>% 
-  ggraph::ggraph(layout = "fr") +
-    ggraph::geom_edge_arc(aes(colour = r, edge_width = abs(r)), strength = 0.1, show.legend = FALSE) +
-    ggraph::geom_node_point(aes(size = degree, color = group5), show.legend = FALSE) +
-    ggraph::geom_node_text(aes(label = name), colour = "white") +
-    ggraph::scale_edge_color_gradient2(low = "#a20025", high = "#008a00", name = "r") +
-    ggraph::theme_graph() +
-    guides(edge_width = FALSE) +
-    scale_x_continuous(expand = expansion(c(.10, .10))) +
-    scale_y_continuous(expand = expansion(c(.10, .10))) +
-    scale_size_continuous(range = c(20, 30)) +
-    scale_edge_width_continuous(range = c(0.5, 2)) +
-    see::scale_color_material_d(palette="rainbow", reverse=TRUE)
-```
-
-Groups were identified using the [tidygraph::group_optimal](https://rdrr.io/cran/tidygraph/man/group_graph.html) algorithm.
-
-
-### Factor Analysis
-
-
-#### How many factors 
-
-```{r, message=FALSE, warning=FALSE}
-cor <- correlation::correlation(data[sapply(data, is.numeric)]) %>% 
-  as.matrix()
-
-n <- parameters::n_factors(data, cor=cor)
-
-n
-
-plot(n) +
-  see::theme_modern()
-```
-
-#### Exploratory Factor Analysis (EFA)
-
-```{r, message=FALSE, warning=FALSE, fig.width=15, fig.height=15}
-efa <- parameters::factor_analysis(data, cor=cor, n=7, rotation="varimax", fm="ml")
-
-print(efa, threshold="max", sort=TRUE)
-
-plot(efa) +
-  see::theme_modern()
-```
-
-#### Confirmatory Factor Analysis (CFA)
-
-```{r, message=FALSE, warning=FALSE, fig.width=15, fig.height=15}
-library(lavaan)
-
-model <- parameters::efa_to_cfa(efa, threshold = "max")
-cfa <- lavaan::cfa(model, data=data) %>%
-  parameters::parameters(standardize=TRUE)
-
-cfa
-
-plot(cfa)
+# # To run things locally: CTRL + ALT + SHIFT + P, and then the next two lines
+source_rmd("0_ConvenienceFunctions.Rmd")
+source_rmd("1_Preprocessing.Rmd")
+# source_rmd("4_ConvenienceFunctions.Rmd")
+# # source_rmd("5_BehaviouralModels.Rmd")
+# 
+# chains <- 5
+# iter <- 5000
+# 
+# find_cache <- function(pattern = "") {
+#   files <- paste0("index_cache/html/", list.files("index_cache/html/", pattern = "\\.rdx$"))
+#   files <- files[stringr::str_detect(files, pattern)]
+#   stringr::str_remove(files, ".rdx")
+# }
+# 
+# lapply(find_cache(), lazyLoad, environment())
+# 
+# lapply(find_cache("index_cache/html/model_baseline_PS_RT"), lazyLoad, environment())
+# lapply(find_cache("index_cache/html/model_baseline_RS_RT"), lazyLoad, environment())
+# lapply(find_cache("index_cache/html/model_baseline_RI_RT"), lazyLoad, environment())
+# lapply(find_cache("index_cache/html/model_baseline_RI_Err"), lazyLoad, environment())
+# lapply(find_cache("index_cache/html/model_baseline_CR_RT"), lazyLoad, environment())
+# lapply(find_cache("index_cache/html/model_baseline_CR_Err"), lazyLoad, environment())
 ```
 
 
-### Cluster Analysis
 
-#### How many clusters
+## Preprocessing
 
-```{r, message=FALSE, warning=FALSE}
-dat <- effectsize::standardize(data[sapply(data, is.numeric)])
-
-n <- parameters::n_clusters(t(dat), package = c("mclust", "cluster"))
-
-n
-
-plot(n) +
-  theme_modern()
+```{r child='0_ConvenienceFunctions.Rmd'}
 ```
 
 
-```{r, message=FALSE, warning=FALSE, fig.width=7, fig.height=10}
-library(dendextend)
-
-dat <- effectsize::standardize(data[sapply(data, is.numeric)])
-
-result <- pvclust::pvclust(dat, method.dist="euclidean", method.hclust="ward.D2", nboot=10, quiet=TRUE)
-
-result %>% 
-  as.dendrogram() %>% 
-  sort() %>% 
-  dendextend::pvclust_show_signif_gradient(result, signif_col_fun = grDevices::colorRampPalette(c("black", "red"))) %>% 
-  dendextend::pvclust_show_signif(result, signif_value = c(2, 1)) %>%
-  dendextend::as.ggdend() %>% 
-  ggplot2::ggplot(horiz=TRUE, offset_labels = -1)
+```{r child='1_Preprocessing.Rmd'}
 ```
+
+## Effect of Recording Length
+
+```{r child='2_RecordingLength.Rmd'}
+```
+
+
+## Dimensional Structure
+
+```{r child='3_Dimensions.Rmd'}
+```
+
+<!-- ### Gaussian Graphical Model -->
+
+
+<!-- ```{r, message=FALSE, warning=FALSE, fig.width=17, fig.height=17} -->
+<!-- library(ggraph) -->
+
+<!-- data %>%  -->
+<!--   correlation::correlation(partial=FALSE) %>%  -->
+<!--   correlation::cor_to_pcor() %>%  -->
+<!--   filter(abs(r) > 0.2) %>% -->
+<!--   tidygraph::as_tbl_graph(directed=FALSE) %>%  -->
+<!--   dplyr::mutate(closeness = tidygraph::centrality_closeness(normalized = TRUE), -->
+<!--                 degree = tidygraph::centrality_degree(normalized = TRUE), -->
+<!--                 betweeness = tidygraph::centrality_betweenness(normalized = TRUE)) %>% -->
+<!--   tidygraph::activate(nodes) %>% -->
+<!--   dplyr::mutate(group1 = as.factor(tidygraph::group_edge_betweenness()), -->
+<!--                 # group2 = as.factor(tidygraph::group_optimal()), -->
+<!--                 # group3 = as.factor(tidygraph::group_walktrap()), -->
+<!--                 # group4 = as.factor(tidygraph::group_spinglass()), -->
+<!--                 group5 = as.factor(tidygraph::group_louvain())) %>%  -->
+<!--   ggraph::ggraph(layout = "fr") + -->
+<!--     ggraph::geom_edge_arc(aes(colour = r, edge_width = abs(r)), strength = 0.1, show.legend = FALSE) + -->
+<!--     ggraph::geom_node_point(aes(size = degree, color = group5), show.legend = FALSE) + -->
+<!--     ggraph::geom_node_text(aes(label = name), colour = "white") + -->
+<!--     ggraph::scale_edge_color_gradient2(low = "#a20025", high = "#008a00", name = "r") + -->
+<!--     ggraph::theme_graph() + -->
+<!--     guides(edge_width = FALSE) + -->
+<!--     scale_x_continuous(expand = expansion(c(.10, .10))) + -->
+<!--     scale_y_continuous(expand = expansion(c(.10, .10))) + -->
+<!--     scale_size_continuous(range = c(20, 30)) + -->
+<!--     scale_edge_width_continuous(range = c(0.5, 2)) + -->
+<!--     see::scale_color_material_d(palette="rainbow", reverse=TRUE) -->
+<!-- ``` -->
+
+<!-- Groups were identified using the [tidygraph::group_optimal](https://rdrr.io/cran/tidygraph/man/group_graph.html) algorithm. -->
+
+
+
+
+<!-- ### Cluster Analysis -->
+
+<!-- #### How many clusters -->
+
+<!-- ```{r, message=FALSE, warning=FALSE} -->
+<!-- dat <- effectsize::standardize(data[sapply(data, is.numeric)]) -->
+
+<!-- n <- parameters::n_clusters(t(dat), package = c("mclust", "cluster")) -->
+
+<!-- n -->
+
+<!-- plot(n) + -->
+<!--   theme_modern() -->
+<!-- ``` -->
+
+
+<!-- ```{r, message=FALSE, warning=FALSE, fig.width=7, fig.height=10} -->
+<!-- library(dendextend) -->
+
+<!-- dat <- effectsize::standardize(data[sapply(data, is.numeric)]) -->
+
+<!-- result <- pvclust::pvclust(dat, method.dist="euclidean", method.hclust="ward.D2", nboot=10, quiet=TRUE) -->
+
+<!-- result %>%  -->
+<!--   as.dendrogram() %>%  -->
+<!--   sort() %>%  -->
+<!--   dendextend::pvclust_show_signif_gradient(result, signif_col_fun = grDevices::colorRampPalette(c("black", "red"))) %>%  -->
+<!--   dendextend::pvclust_show_signif(result, signif_value = c(2, 1)) %>% -->
+<!--   dendextend::as.ggdend() %>%  -->
+<!--   ggplot2::ggplot(horiz=TRUE, offset_labels = -1) -->
+<!-- ``` -->
 
 
 

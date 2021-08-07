@@ -1,0 +1,90 @@
+---
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+
+
+### Indices Selection
+
+
+#### Remove Equivalent
+
+```{r, message=FALSE, warning=FALSE}
+data %>% 
+  select(-Participant, -Recording_Length, -Database) %>% 
+  correlation::correlation() %>% 
+  filter(abs(r) > 0.999) %>% 
+  arrange(Parameter1, desc(abs(r))) %>% 
+  format()
+
+data <- data %>% 
+  select(-SDSD, -SD1, -SD1d, -SD1a, -CVSD) %>%  # Same as RMSSD 
+  select(-SDNNd, -SDNNa) %>%  # Same as SDNN
+  select(-SD2d, -SD2a) %>%   # Same as SD2
+  select(-Cd) %>%   # Same as Ca
+  select(-C1d, -C2d)  # Same as C1a and C2a
+
+hrv_cols <- names(select(data, -Participant, -Recording_Length, -Database))
+```
+
+<!-- #### Remove Strongly Correlated (r higher than .98) -->
+
+<!-- ```{r, message=FALSE, warning=FALSE, fig.width=17, fig.height=17} -->
+<!-- data %>% -->
+<!--   correlation::correlation() %>% -->
+<!--   filter(abs(r) > 0.95) %>% -->
+<!--   arrange(Parameter1, desc(abs(r))) %>% -->
+<!--   format() -->
+
+<!-- data <- data %>% -->
+<!--   select(-GI, -SI) %>%  # Same as AI -->
+<!--   select(-SD2) %>%  # Same as SDNN -->
+<!--   select(-MedianNN) %>%  # Same as MeanNN -->
+<!--   select(-IALS) %>%  # Same as PIP -->
+<!--   select(-SDNN, -CVNN) # Same as RMSSD -->
+<!-- ``` -->
+
+### Outliers Removal
+
+#### Before Removal 
+
+```{r, message=FALSE, warning=FALSE}
+data[hrv_cols] %>% 
+  normalize() %>% 
+  estimate_density() %>% 
+  plot() +
+  facet_wrap(~Parameter, scales = "free") +
+  theme(legend.position = "none",
+        axis.title.x = element_blank(),
+        axis.title.y = element_blank(),
+        axis.text.y = element_blank())
+```
+
+#### After Removal
+
+```{r, message=FALSE, warning=FALSE}
+for(i in hrv_cols) {
+  outliers <- as.logical(performance::check_outliers(data[[i]], method = "zscore_robust", threshold = qnorm(0.9995)))
+  data[outliers, i] <- NA
+  cat(paste0("\n-", 
+             i, ": ", 
+             sum(outliers), 
+             " outliers (",
+             insight::format_value(sum(outliers) / nrow(data), as_percent = TRUE),
+             ") detected and removed."))
+}
+```
+
+```{r, message=FALSE, warning=FALSE}
+data[hrv_cols] %>% 
+  normalize() %>% 
+  estimate_density() %>% 
+  plot() +
+  facet_wrap(~Parameter, scales = "free") +
+  theme(legend.position = "none",
+        axis.title.x = element_blank(),
+        axis.title.y = element_blank(),
+        axis.text.y = element_blank())
+```

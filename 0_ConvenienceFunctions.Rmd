@@ -1,0 +1,71 @@
+---
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+
+
+### Convenience Functions
+
+#### Cleaning
+
+```{r eval=TRUE}
+clean_names <- function(n) {
+  n[n == "Recording_Length"] <- "Recording Length"
+  n[n == "CSI_Modified"] <- "CSI (modified)"
+  n
+}
+```
+
+
+#### Correlations
+
+```{r eval=TRUE}
+plot_correlation <- function(data, x = "Recording_Length", y = "RMSSD", xlab = x, ylab = y, color = "red", label = NULL) {
+  data %>%
+    ggplot(aes_string(x = x, y = y)) +
+    geom_point2(size = 4, alpha = 0.66) +
+    geom_smooth(method = "lm", formula = y ~ poly(x, 2), color = color, fill = color, alpha = 0.1, size = 1.5, se = FALSE) +
+    annotate("label",
+      x = min(data[[x]], na.rm = TRUE),
+      y = max(data[[y]], na.rm = TRUE),
+      label = label,
+      hjust = 0
+    ) +
+    xlab(xlab) +
+    ylab(ylab) +
+    theme_modern() +
+    ggside::geom_xsidedensity() +
+    ggside::geom_ysidedensity() +
+    ggside::scale_xsidey_continuous(breaks = NULL, labels = "", expand = expansion(c(0, 0))) +
+    ggside::scale_ysidex_continuous(breaks = NULL, labels = "", expand = expansion(c(0, 0)))
+}
+
+
+plot_correlations <- function(data, r, color = NA) {
+  r$label <- paste0(
+      "r = ",
+      insight::format_value(r$r),
+      insight::format_p(r$p, stars_only = TRUE),
+      ", ",
+      insight::format_ci(r$CI_low, r$CI_high, r$CI, zap_small = TRUE)
+    )
+  r$xlab <- clean_names(r$Parameter1)
+  r$ylab <- clean_names(r$Parameter2)
+  
+  ps <- list()
+  for(i in 1:nrow(r)) {
+    ps[[i]] <- plot_correlation(data, 
+                                x = r$Parameter1[i], 
+                                y = r$Parameter2[i], 
+                                xlab = r$xlab[i], 
+                                ylab = r$ylab[i], 
+                                color = "red", 
+                                label = r$label[i]) +
+      theme(axis.title.x = element_blank())
+  }
+  
+  ggpubr::ggarrange(plotlist = ps)
+}
+```

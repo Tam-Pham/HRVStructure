@@ -1,0 +1,37 @@
+---
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+
+### Descriptive
+
+```{r, message=FALSE, warning=FALSE}
+data %>% 
+  mutate(Recording_Length = as.factor(round(Recording_Length))) %>% 
+  ggplot(aes(x = Recording_Length, fill = Recording_Length)) + 
+  geom_bar() +
+  scale_fill_viridis_d(guide = "none") +
+  labs(x = "Recording Length", y = "Number of Participants")
+```
+
+### Investigate effect
+
+```{r, message=FALSE, warning=FALSE}
+r <- correlation(data["Recording_Length"],
+                 data[hrv_cols], 
+                 method = "distance") %>% 
+  arrange(desc(abs(r)))
+
+format(r)
+
+plot_correlations(data, r[1:9, ])
+```
+
+<!-- ### Adjust the data for recording length -->
+
+<!-- ```{r, message=FALSE, warning=FALSE, results='hide'} -->
+<!-- data <- effectsize::adjust(data, effect="Recording_Length") %>%  -->
+<!--   select(-Recording_Length) -->
+<!-- ``` -->
