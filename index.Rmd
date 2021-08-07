@@ -28,7 +28,7 @@ output:
     latex_engine: xelatex
 editor_options:
   chunk_output_type: console
-bibliography: utils/bibliography.bib
+bibliography: utils/references.bib
 csl: utils/apa.csl
 ---
 
