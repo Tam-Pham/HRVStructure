@@ -6,7 +6,7 @@ if(!file.exists("index.Rmd") && file.exists("../index.Rmd")) {
 }
 
 # Render as README
-# rmarkdown::render('index.Rmd', output_format = rmarkdown::md_document(variant = "markdown_github"), output_file = "README")
+rmarkdown::render('index.Rmd', output_format = rmarkdown::md_document(variant = "markdown_github"), output_file = "README")
 
 # Render HTML
 rmarkdown::render('index.Rmd', output_format = "html_document", output_dir = "docs/", output_file = "index")
