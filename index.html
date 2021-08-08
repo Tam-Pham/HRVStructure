@@ -13,7 +13,7 @@
 
 <title>Conceptual vs. Observed Structure of Heart Rate Variability (HRV) Indices</title>
 
-<script src="index_files/header-attrs-2.9/header-attrs.js"></script>
+<script src="index_files/header-attrs-2.7/header-attrs.js"></script>
 <script src="index_files/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="index_files/bootstrap-3.3.5/css/cerulean.min.css" rel="stylesheet" />
@@ -158,6 +158,28 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 }
 </style>
 
+<style type="text/css">
+/* for pandoc --citeproc since 2.11 */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
 
 
 
@@ -327,12 +349,12 @@ div.tocify {
 
 <!-- setup 3col/9col grid for toc_float and main content  -->
 <div class="row">
-<div class="col-xs-12 col-sm-4 col-md-3">
+<div class="col-sm-12 col-md-4 col-lg-3">
 <div id="TOC" class="tocify">
 </div>
 </div>
 
-<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+<div class="toc-content col-sm-12 col-md-8 col-lg-9">
 
 
 
@@ -371,12 +393,12 @@ div.tocify {
 <h2>Databases</h2>
 <div id="glasgow-university-database" class="section level3">
 <h3>Glasgow University Database</h3>
-<p>The GUDB Database <span class="citation">(<strong>howell2018high?</strong>)</span> contains ECGs from 25 subjects. Each subject was recorded performing 5 different tasks for two minutes (sitting, doing a maths test on a tablet, walking on a treadmill, running on a treadmill, using a hand bike). The sampling rate is 250Hz for all the conditions.</p>
+<p>The GUDB Database <span class="citation">(Howell &amp; Porr, 2018)</span> contains ECGs from 25 subjects. Each subject was recorded performing 5 different tasks for two minutes (sitting, doing a maths test on a tablet, walking on a treadmill, running on a treadmill, using a hand bike). The sampling rate is 250Hz for all the conditions.</p>
 <p>The script to download and format the database using the <a href="https://github.com/berndporr/ECG-GUDB"><strong>ECG-GUDB</strong></a> Python package by Bernd Porr can be found <a href="https://github.com/neuropsychology/NeuroKit/blob/dev/data/gudb/download_gudb.py"><strong>here</strong></a>.</p>
 </div>
 <div id="mit-bih-arrhythmia-database" class="section level3">
 <h3>MIT-BIH Arrhythmia Database</h3>
-<p>The MIT-BIH Arrhythmia Database [MIT-Arrhythmia; <span class="citation">(<strong>moody2001impact?</strong>)</span>] contains 48 excerpts of 30-min of two-channel ambulatory ECG recordings sampled at 360Hz and 25 additional recordings from the same participants including common but clinically significant arrhythmias (denoted as the <code>MIT-Arrhythmia-x</code> database).</p>
+<p>The MIT-BIH Arrhythmia Database [MIT-Arrhythmia; <span class="citation">Moody &amp; Mark (2001)</span>] contains 48 excerpts of 30-min of two-channel ambulatory ECG recordings sampled at 360Hz and 25 additional recordings from the same participants including common but clinically significant arrhythmias (denoted as the <code>MIT-Arrhythmia-x</code> database).</p>
 <p>The script to download and format the database using the can be found <a href="https://github.com/neuropsychology/NeuroKit/blob/dev/data/mit_arrhythmia/download_mit_arrhythmia.py"><strong>here</strong></a>.</p>
 </div>
 <div id="mit-bih-normal-sinus-rhythm-database" class="section level3">
@@ -388,7 +410,7 @@ div.tocify {
 </div>
 <div id="fantasia-database" class="section level3">
 <h3>Fantasia Database</h3>
-<p>The Fantasia database <span class="citation">(<strong>iyengar1996age?</strong>)</span> consists of twenty young and twenty elderly healthy subjects. All subjects remained in a resting state in sinus rhythm while watching the movie Fantasia (Disney, 1940) to help maintain wakefulness. The continuous ECG signals were digitized at 250 Hz. Each heartbeat was annotated using an automated arrhythmia detection algorithm, and each beat annotation was verified by visual inspection.</p>
+<p>The Fantasia database <span class="citation">(Iyengar, Peng, Morin, Goldberger, &amp; Lipsitz, 1996)</span> consists of twenty young and twenty elderly healthy subjects. All subjects remained in a resting state in sinus rhythm while watching the movie Fantasia (Disney, 1940) to help maintain wakefulness. The continuous ECG signals were digitized at 250 Hz. Each heartbeat was annotated using an automated arrhythmia detection algorithm, and each beat annotation was verified by visual inspection.</p>
 </div>
 </div>
 <div id="procedure" class="section level2">
@@ -485,23 +507,94 @@ div.tocify {
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">abs</span>(r) <span class="sc">&gt;</span> <span class="fl">0.999</span>) <span class="sc">%&gt;%</span> </span>
 <span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(Parameter1, <span class="fu">desc</span>(<span class="fu">abs</span>(r))) <span class="sc">%&gt;%</span> </span>
 <span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">format</span>()</span></code></pre></div>
-<pre><code>&gt;   Parameter1 Parameter2     r         95% CI t(450)         p
-&gt; 1        C1d        C1a -1.00 [-1.00, -1.00]   -Inf &lt; .001***
-&gt; 2        C2d        C2a -1.00 [-1.00, -1.00]   -Inf &lt; .001***
-&gt; 3         Cd         Ca -1.00 [-1.00, -1.00]   -Inf &lt; .001***
-&gt; 4         GI         SI  1.00 [ 1.00,  1.00] 491.57 &lt; .001***
-&gt; 5         GI         AI  1.00 [ 1.00,  1.00] 483.37 &lt; .001***
-&gt; 6      RMSSD       SDSD  1.00 [ 1.00,  1.00] 593.29 &lt; .001***
-&gt; 7      RMSSD        SD1  1.00 [ 1.00,  1.00] 593.29 &lt; .001***
-&gt; 8       SDSD        SD1  1.00 [ 1.00,  1.00]    Inf &lt; .001***</code></pre>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span> </span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>SDSD, <span class="sc">-</span>SD1, <span class="sc">-</span>SD1d, <span class="sc">-</span>SD1a, <span class="sc">-</span>CVSD) <span class="sc">%&gt;%</span>  <span class="co"># Same as RMSSD </span></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>SDNNd, <span class="sc">-</span>SDNNa) <span class="sc">%&gt;%</span>  <span class="co"># Same as SDNN</span></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>SD2d, <span class="sc">-</span>SD2a) <span class="sc">%&gt;%</span>   <span class="co"># Same as SD2</span></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>Cd) <span class="sc">%&gt;%</span>   <span class="co"># Same as Ca</span></span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>C1d, <span class="sc">-</span>C2d)  <span class="co"># Same as C1a and C2a</span></span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>hrv_cols <span class="ot">&lt;-</span> <span class="fu">names</span>(<span class="fu">select</span>(data, <span class="sc">-</span>Participant, <span class="sc">-</span>Recording_Length, <span class="sc">-</span>Database))</span></code></pre></div>
+<div class="kable-table">
+<table>
+<thead>
+<tr class="header">
+<th align="left">Parameter1</th>
+<th align="left">Parameter2</th>
+<th align="left">r</th>
+<th align="left">95% CI</th>
+<th align="left">t(450)</th>
+<th align="left">p</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">C1d</td>
+<td align="left">C1a</td>
+<td align="left">-1.00</td>
+<td align="left">[-1.00, -1.00]</td>
+<td align="left">-Inf</td>
+<td align="left">&lt; .001***</td>
+</tr>
+<tr class="even">
+<td align="left">C2d</td>
+<td align="left">C2a</td>
+<td align="left">-1.00</td>
+<td align="left">[-1.00, -1.00]</td>
+<td align="left">-Inf</td>
+<td align="left">&lt; .001***</td>
+</tr>
+<tr class="odd">
+<td align="left">Cd</td>
+<td align="left">Ca</td>
+<td align="left">-1.00</td>
+<td align="left">[-1.00, -1.00]</td>
+<td align="left">-Inf</td>
+<td align="left">&lt; .001***</td>
+</tr>
+<tr class="even">
+<td align="left">GI</td>
+<td align="left">SI</td>
+<td align="left">1.00</td>
+<td align="left">[ 1.00, 1.00]</td>
+<td align="left">491.57</td>
+<td align="left">&lt; .001***</td>
+</tr>
+<tr class="odd">
+<td align="left">GI</td>
+<td align="left">AI</td>
+<td align="left">1.00</td>
+<td align="left">[ 1.00, 1.00]</td>
+<td align="left">483.37</td>
+<td align="left">&lt; .001***</td>
+</tr>
+<tr class="even">
+<td align="left">RMSSD</td>
+<td align="left">SDSD</td>
+<td align="left">1.00</td>
+<td align="left">[ 1.00, 1.00]</td>
+<td align="left">593.29</td>
+<td align="left">&lt; .001***</td>
+</tr>
+<tr class="odd">
+<td align="left">RMSSD</td>
+<td align="left">SD1</td>
+<td align="left">1.00</td>
+<td align="left">[ 1.00, 1.00]</td>
+<td align="left">593.29</td>
+<td align="left">&lt; .001***</td>
+</tr>
+<tr class="even">
+<td align="left">SDSD</td>
+<td align="left">SD1</td>
+<td align="left">1.00</td>
+<td align="left">[ 1.00, 1.00]</td>
+<td align="left">Inf</td>
+<td align="left">&lt; .001***</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span> </span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>SDSD, <span class="sc">-</span>SD1, <span class="sc">-</span>SD1d, <span class="sc">-</span>SD1a, <span class="sc">-</span>CVSD) <span class="sc">%&gt;%</span>  <span class="co"># Same as RMSSD </span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>SDNNd, <span class="sc">-</span>SDNNa) <span class="sc">%&gt;%</span>  <span class="co"># Same as SDNN</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>SD2d, <span class="sc">-</span>SD2a) <span class="sc">%&gt;%</span>   <span class="co"># Same as SD2</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>Cd) <span class="sc">%&gt;%</span>   <span class="co"># Same as Ca</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>C1d, <span class="sc">-</span>C2d)  <span class="co"># Same as C1a and C2a</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>hrv_cols <span class="ot">&lt;-</span> <span class="fu">names</span>(<span class="fu">select</span>(data, <span class="sc">-</span>Participant, <span class="sc">-</span>Recording_Length, <span class="sc">-</span>Database))</span></code></pre></div>
 <!-- #### Remove Strongly Correlated (r higher than .98) -->
 <!-- ```{r, message=FALSE, warning=FALSE, fig.width=17, fig.height=17} -->
 <!-- data %>% -->
@@ -522,29 +615,29 @@ div.tocify {
 <h3>Outliers Removal</h3>
 <div id="before-removal" class="section level4">
 <h4>Before Removal</h4>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>data[hrv_cols] <span class="sc">%&gt;%</span> </span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">normalize</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">estimate_density</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>() <span class="sc">+</span></span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>Parameter, <span class="at">scales =</span> <span class="st">&quot;free&quot;</span>) <span class="sc">+</span></span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;none&quot;</span>,</span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.title.x =</span> <span class="fu">element_blank</span>(),</span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.title.y =</span> <span class="fu">element_blank</span>(),</span>
-<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.text.y =</span> <span class="fu">element_blank</span>())</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>data[hrv_cols] <span class="sc">%&gt;%</span> </span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">normalize</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">estimate_density</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>() <span class="sc">+</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>Parameter, <span class="at">scales =</span> <span class="st">&quot;free&quot;</span>) <span class="sc">+</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;none&quot;</span>,</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.title.x =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.title.y =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.text.y =</span> <span class="fu">element_blank</span>())</span></code></pre></div>
 <p><img src="figures/unnamed-chunk-11-1.png" width="5824.92235949962" /></p>
 </div>
 <div id="after-removal" class="section level4">
 <h4>After Removal</h4>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> hrv_cols) {</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  outliers <span class="ot">&lt;-</span> <span class="fu">as.logical</span>(performance<span class="sc">::</span><span class="fu">check_outliers</span>(data[[i]], <span class="at">method =</span> <span class="st">&quot;zscore_robust&quot;</span>, <span class="at">threshold =</span> <span class="fu">qnorm</span>(<span class="fl">0.9995</span>)))</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  data[outliers, i] <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="fu">paste0</span>(<span class="st">&quot;</span><span class="sc">\n</span><span class="st">-&quot;</span>, </span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>             i, <span class="st">&quot;: &quot;</span>, </span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>             <span class="fu">sum</span>(outliers), </span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>             <span class="st">&quot; outliers (&quot;</span>,</span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>             insight<span class="sc">::</span><span class="fu">format_value</span>(<span class="fu">sum</span>(outliers) <span class="sc">/</span> <span class="fu">nrow</span>(data), <span class="at">as_percent =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>             <span class="st">&quot;) detected and removed.&quot;</span>))</span>
-<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> hrv_cols) {</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  outliers <span class="ot">&lt;-</span> <span class="fu">as.logical</span>(performance<span class="sc">::</span><span class="fu">check_outliers</span>(data[[i]], <span class="at">method =</span> <span class="st">&quot;zscore_robust&quot;</span>, <span class="at">threshold =</span> <span class="fu">qnorm</span>(<span class="fl">0.9995</span>)))</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  data[outliers, i] <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="fu">paste0</span>(<span class="st">&quot;</span><span class="sc">\n</span><span class="st">-&quot;</span>, </span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>             i, <span class="st">&quot;: &quot;</span>, </span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>             <span class="fu">sum</span>(outliers), </span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>             <span class="st">&quot; outliers (&quot;</span>,</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>             insight<span class="sc">::</span><span class="fu">format_value</span>(<span class="fu">sum</span>(outliers) <span class="sc">/</span> <span class="fu">nrow</span>(data), <span class="at">as_percent =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>             <span class="st">&quot;) detected and removed.&quot;</span>))</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 <pre><code>&gt; 
 &gt; -RMSSD: 63 outliers (13.94%) detected and removed.
 &gt; -MeanNN: 0 outliers (0.00%) detected and removed.
@@ -589,15 +682,15 @@ div.tocify {
 &gt; -RCMSE: 0 outliers (0.00%) detected and removed.
 &gt; -DFA: 3 outliers (0.66%) detected and removed.
 &gt; -CorrDim: 0 outliers (0.00%) detected and removed.</code></pre>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>data[hrv_cols] <span class="sc">%&gt;%</span> </span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">normalize</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">estimate_density</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>() <span class="sc">+</span></span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>Parameter, <span class="at">scales =</span> <span class="st">&quot;free&quot;</span>) <span class="sc">+</span></span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;none&quot;</span>,</span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.title.x =</span> <span class="fu">element_blank</span>(),</span>
-<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.title.y =</span> <span class="fu">element_blank</span>(),</span>
-<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.text.y =</span> <span class="fu">element_blank</span>())</span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>data[hrv_cols] <span class="sc">%&gt;%</span> </span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">normalize</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">estimate_density</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>() <span class="sc">+</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>Parameter, <span class="at">scales =</span> <span class="st">&quot;free&quot;</span>) <span class="sc">+</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;none&quot;</span>,</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.title.x =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.title.y =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.text.y =</span> <span class="fu">element_blank</span>())</span></code></pre></div>
 <p><img src="figures/unnamed-chunk-13-1.png" width="5824.92235949962" /></p>
 </div>
 </div>
@@ -606,67 +699,427 @@ div.tocify {
 <h2>Effect of Recording Length</h2>
 <div id="descriptive" class="section level3">
 <h3>Descriptive</h3>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>data <span class="sc">%&gt;%</span> </span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Recording_Length =</span> <span class="fu">as.factor</span>(<span class="fu">round</span>(Recording_Length))) <span class="sc">%&gt;%</span> </span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Recording_Length, <span class="at">fill =</span> Recording_Length)) <span class="sc">+</span> </span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>() <span class="sc">+</span></span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_viridis_d</span>(<span class="at">guide =</span> <span class="st">&quot;none&quot;</span>) <span class="sc">+</span></span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Recording Length&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Number of Participants&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>data <span class="sc">%&gt;%</span> </span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Recording_Length =</span> <span class="fu">as.factor</span>(<span class="fu">round</span>(Recording_Length))) <span class="sc">%&gt;%</span> </span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Recording_Length, <span class="at">fill =</span> Recording_Length)) <span class="sc">+</span> </span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>() <span class="sc">+</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_viridis_d</span>(<span class="at">guide =</span> <span class="st">&quot;none&quot;</span>) <span class="sc">+</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Recording Length&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Number of Participants&quot;</span>)</span></code></pre></div>
 <p><img src="figures/unnamed-chunk-14-1.png" width="5824.92235949962" /></p>
 </div>
 <div id="investigate-effect" class="section level3">
 <h3>Investigate effect</h3>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>r <span class="ot">&lt;-</span> <span class="fu">correlation</span>(data[<span class="st">&quot;Recording_Length&quot;</span>],</span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>                 data[hrv_cols], </span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>                 <span class="at">method =</span> <span class="st">&quot;distance&quot;</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(<span class="fu">abs</span>(r)))</span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="fu">format</span>(r)</span></code></pre></div>
-<pre><code>&gt;          Parameter1   Parameter2    r        95% CI      t     df         p
-&gt; 1  Recording_Length          HTI 0.72 [ 0.67, 0.76] 302.42  84253 &lt; .001***
-&gt; 2  Recording_Length          MSE 0.52 [ 0.42, 0.60] 107.31  31373 &lt; .001***
-&gt; 3  Recording_Length         TINN 0.39 [ 0.31, 0.47] 117.85  76243 &lt; .001***
-&gt; 4  Recording_Length         ApEn 0.38 [ 0.30, 0.45] 129.69 101473 &lt; .001***
-&gt; 5  Recording_Length          LFn 0.35 [ 0.24, 0.46]  66.96  31373 &lt; .001***
-&gt; 6  Recording_Length          VHF 0.18 [ 0.05, 0.31]  27.24  21319 &lt; .001***
-&gt; 7  Recording_Length          SD2 0.18 [ 0.09, 0.27]  56.89  94393 &lt; .001***
-&gt; 8  Recording_Length          CVI 0.18 [ 0.09, 0.27]  57.08 100126 &lt; .001***
-&gt; 9  Recording_Length         SDNN 0.17 [ 0.07, 0.26]  50.30  87569 &lt; .001***
-&gt; 10 Recording_Length        IQRNN 0.16 [ 0.06, 0.25]  47.95  88829 &lt; .001***
-&gt; 11 Recording_Length            S 0.16 [ 0.05, 0.25]  40.24  64978 &lt; .001***
-&gt; 12 Recording_Length        MadNN 0.15 [ 0.06, 0.25]  47.02  90949 &lt; .001***
-&gt; 13 Recording_Length           GI 0.15 [ 0.05, 0.25]  36.74  58309 &lt; .001***
-&gt; 14 Recording_Length           SI 0.15 [ 0.04, 0.25]  36.00  57968 &lt; .001***
-&gt; 15 Recording_Length          DFA 0.14 [ 0.02, 0.26]  25.58  30626 &lt; .001***
-&gt; 16 Recording_Length        RMSSD 0.14 [ 0.05, 0.24]  40.02  75076 &lt; .001***
-&gt; 17 Recording_Length          PAS 0.14 [ 0.05, 0.24]  41.49  81808 &lt; .001***
-&gt; 18 Recording_Length           AI 0.14 [ 0.03, 0.24]  33.81  57289 &lt; .001***
-&gt; 19 Recording_Length        RCMSE 0.13 [ 0.01, 0.25]  23.36  31373 &lt; .001***
-&gt; 20 Recording_Length         LnHF 0.13 [ 0.01, 0.25]  23.07  31123 &lt; .001***
-&gt; 21 Recording_Length CSI_Modified 0.12 [ 0.03, 0.21]  36.00  87569 &lt; .001***
-&gt; 22 Recording_Length           HF 0.12 [-0.01, 0.25]  19.03  24751 &lt; .001***
-&gt; 23 Recording_Length         CVNN 0.11 [ 0.01, 0.20]  32.59  88829 &lt; .001***
-&gt; 24 Recording_Length           LF 0.11 [-0.03, 0.24]  15.44  20098 &lt; .001***
-&gt; 25 Recording_Length          PIP 0.10 [ 0.01, 0.19]  32.55  99679 &lt; .001***
-&gt; 26 Recording_Length         LFHF 0.10 [-0.03, 0.22]  15.93  27026 &lt; .001***
-&gt; 27 Recording_Length        MCVNN 0.09 [-0.01, 0.18]  27.20  91376 &lt; .001***
-&gt; 28 Recording_Length           Ca 0.07 [-0.03, 0.17]  20.07  76243 &lt; .001***
-&gt; 29 Recording_Length          C2a 0.06 [-0.04, 0.16]  16.98  80599 &lt; .001***
-&gt; 30 Recording_Length           PI 0.06 [-0.04, 0.15]  16.56  85903 &lt; .001***
-&gt; 31 Recording_Length       MeanNN 0.06 [-0.04, 0.15]  17.91 101473 &lt; .001***
-&gt; 32 Recording_Length     MedianNN 0.06 [-0.04, 0.15]  17.60 101473 &lt; .001***
-&gt; 33 Recording_Length          C1a 0.05 [-0.04, 0.15]  15.99  86734 &lt; .001***
-&gt; 34 Recording_Length          HFn 0.04 [-0.08, 0.16]   7.21  31373 &lt; .001***
-&gt; 35 Recording_Length          PSS 0.04 [-0.05, 0.13]  12.67  99233 &lt; .001***
-&gt; 36 Recording_Length        pNN20 0.04 [-0.05, 0.13]  12.72 101473 &lt; .001***
-&gt; 37 Recording_Length        pNN50 0.04 [-0.06, 0.14]  10.63  76243 &lt; .001***
-&gt; 38 Recording_Length      CorrDim 0.04 [-0.05, 0.13]  12.17 101473 &lt; .001***
-&gt; 39 Recording_Length         CMSE 0.03 [-0.09, 0.16]   5.98  31373 &lt; .001***
-&gt; 40 Recording_Length         IALS 0.03 [-0.07, 0.12]   8.67 101023 &lt; .001***
-&gt; 41 Recording_Length       SD1SD2 0.02 [-0.08, 0.11]   5.68  93959 &lt; .001***
-&gt; 42 Recording_Length          CSI 0.01 [-0.08, 0.11]   4.42  87151 &lt; .001***
-&gt; 43 Recording_Length       SampEn 0.01 [-0.11, 0.13]   2.72  36313 0.003**</code></pre>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_correlations</span>(data, r[<span class="dv">1</span><span class="sc">:</span><span class="dv">9</span>, ])</span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>r <span class="ot">&lt;-</span> <span class="fu">correlation</span>(data[<span class="st">&quot;Recording_Length&quot;</span>],</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>                 data[hrv_cols], </span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>                 <span class="at">method =</span> <span class="st">&quot;distance&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(<span class="fu">abs</span>(r)))</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="fu">format</span>(r)</span></code></pre></div>
+<div class="kable-table">
+<table>
+<thead>
+<tr class="header">
+<th align="left">Parameter1</th>
+<th align="left">Parameter2</th>
+<th align="left">r</th>
+<th align="left">95% CI</th>
+<th align="left">t</th>
+<th align="left">df</th>
+<th align="left">p</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Recording_Length</td>
+<td align="left">HTI</td>
+<td align="left">0.72</td>
+<td align="left">[ 0.67, 0.76]</td>
+<td align="left">302.42</td>
+<td align="left">84253</td>
+<td align="left">&lt; .001***</td>
+</tr>
+<tr class="even">
+<td align="left">Recording_Length</td>
+<td align="left">MSE</td>
+<td align="left">0.52</td>
+<td align="left">[ 0.42, 0.60]</td>
+<td align="left">107.31</td>
+<td align="left">31373</td>
+<td align="left">&lt; .001***</td>
+</tr>
+<tr class="odd">
+<td align="left">Recording_Length</td>
+<td align="left">TINN</td>
+<td align="left">0.39</td>
+<td align="left">[ 0.31, 0.47]</td>
+<td align="left">117.85</td>
+<td align="left">76243</td>
+<td align="left">&lt; .001***</td>
+</tr>
+<tr class="even">
+<td align="left">Recording_Length</td>
+<td align="left">ApEn</td>
+<td align="left">0.38</td>
+<td align="left">[ 0.30, 0.45]</td>
+<td align="left">129.69</td>
+<td align="left">101473</td>
+<td align="left">&lt; .001***</td>
+</tr>
+<tr class="odd">
+<td align="left">Recording_Length</td>
+<td align="left">LFn</td>
+<td align="left">0.35</td>
+<td align="left">[ 0.24, 0.46]</td>
+<td align="left">66.96</td>
+<td align="left">31373</td>
+<td align="left">&lt; .001***</td>
+</tr>
+<tr class="even">
+<td align="left">Recording_Length</td>
+<td align="left">VHF</td>
+<td align="left">0.18</td>
+<td align="left">[ 0.05, 0.31]</td>
+<td align="left">27.24</td>
+<td align="left">21319</td>
+<td align="left">&lt; .001***</td>
+</tr>
+<tr class="odd">
+<td align="left">Recording_Length</td>
+<td align="left">SD2</td>
+<td align="left">0.18</td>
+<td align="left">[ 0.09, 0.27]</td>
+<td align="left">56.89</td>
+<td align="left">94393</td>
+<td align="left">&lt; .001***</td>
+</tr>
+<tr class="even">
+<td align="left">Recording_Length</td>
+<td align="left">CVI</td>
+<td align="left">0.18</td>
+<td align="left">[ 0.09, 0.27]</td>
+<td align="left">57.08</td>
+<td align="left">100126</td>
+<td align="left">&lt; .001***</td>
+</tr>
+<tr class="odd">
+<td align="left">Recording_Length</td>
+<td align="left">SDNN</td>
+<td align="left">0.17</td>
+<td align="left">[ 0.07, 0.26]</td>
+<td align="left">50.30</td>
+<td align="left">87569</td>
+<td align="left">&lt; .001***</td>
+</tr>
+<tr class="even">
+<td align="left">Recording_Length</td>
+<td align="left">IQRNN</td>
+<td align="left">0.16</td>
+<td align="left">[ 0.06, 0.25]</td>
+<td align="left">47.95</td>
+<td align="left">88829</td>
+<td align="left">&lt; .001***</td>
+</tr>
+<tr class="odd">
+<td align="left">Recording_Length</td>
+<td align="left">S</td>
+<td align="left">0.16</td>
+<td align="left">[ 0.05, 0.25]</td>
+<td align="left">40.24</td>
+<td align="left">64978</td>
+<td align="left">&lt; .001***</td>
+</tr>
+<tr class="even">
+<td align="left">Recording_Length</td>
+<td align="left">MadNN</td>
+<td align="left">0.15</td>
+<td align="left">[ 0.06, 0.25]</td>
+<td align="left">47.02</td>
+<td align="left">90949</td>
+<td align="left">&lt; .001***</td>
+</tr>
+<tr class="odd">
+<td align="left">Recording_Length</td>
+<td align="left">GI</td>
+<td align="left">0.15</td>
+<td align="left">[ 0.05, 0.25]</td>
+<td align="left">36.74</td>
+<td align="left">58309</td>
+<td align="left">&lt; .001***</td>
+</tr>
+<tr class="even">
+<td align="left">Recording_Length</td>
+<td align="left">SI</td>
+<td align="left">0.15</td>
+<td align="left">[ 0.04, 0.25]</td>
+<td align="left">36.00</td>
+<td align="left">57968</td>
+<td align="left">&lt; .001***</td>
+</tr>
+<tr class="odd">
+<td align="left">Recording_Length</td>
+<td align="left">DFA</td>
+<td align="left">0.14</td>
+<td align="left">[ 0.02, 0.26]</td>
+<td align="left">25.58</td>
+<td align="left">30626</td>
+<td align="left">&lt; .001***</td>
+</tr>
+<tr class="even">
+<td align="left">Recording_Length</td>
+<td align="left">RMSSD</td>
+<td align="left">0.14</td>
+<td align="left">[ 0.05, 0.24]</td>
+<td align="left">40.02</td>
+<td align="left">75076</td>
+<td align="left">&lt; .001***</td>
+</tr>
+<tr class="odd">
+<td align="left">Recording_Length</td>
+<td align="left">PAS</td>
+<td align="left">0.14</td>
+<td align="left">[ 0.05, 0.24]</td>
+<td align="left">41.49</td>
+<td align="left">81808</td>
+<td align="left">&lt; .001***</td>
+</tr>
+<tr class="even">
+<td align="left">Recording_Length</td>
+<td align="left">AI</td>
+<td align="left">0.14</td>
+<td align="left">[ 0.03, 0.24]</td>
+<td align="left">33.81</td>
+<td align="left">57289</td>
+<td align="left">&lt; .001***</td>
+</tr>
+<tr class="odd">
+<td align="left">Recording_Length</td>
+<td align="left">RCMSE</td>
+<td align="left">0.13</td>
+<td align="left">[ 0.01, 0.25]</td>
+<td align="left">23.36</td>
+<td align="left">31373</td>
+<td align="left">&lt; .001***</td>
+</tr>
+<tr class="even">
+<td align="left">Recording_Length</td>
+<td align="left">LnHF</td>
+<td align="left">0.13</td>
+<td align="left">[ 0.01, 0.25]</td>
+<td align="left">23.07</td>
+<td align="left">31123</td>
+<td align="left">&lt; .001***</td>
+</tr>
+<tr class="odd">
+<td align="left">Recording_Length</td>
+<td align="left">CSI_Modified</td>
+<td align="left">0.12</td>
+<td align="left">[ 0.03, 0.21]</td>
+<td align="left">36.00</td>
+<td align="left">87569</td>
+<td align="left">&lt; .001***</td>
+</tr>
+<tr class="even">
+<td align="left">Recording_Length</td>
+<td align="left">HF</td>
+<td align="left">0.12</td>
+<td align="left">[-0.01, 0.25]</td>
+<td align="left">19.03</td>
+<td align="left">24751</td>
+<td align="left">&lt; .001***</td>
+</tr>
+<tr class="odd">
+<td align="left">Recording_Length</td>
+<td align="left">CVNN</td>
+<td align="left">0.11</td>
+<td align="left">[ 0.01, 0.20]</td>
+<td align="left">32.59</td>
+<td align="left">88829</td>
+<td align="left">&lt; .001***</td>
+</tr>
+<tr class="even">
+<td align="left">Recording_Length</td>
+<td align="left">LF</td>
+<td align="left">0.11</td>
+<td align="left">[-0.03, 0.24]</td>
+<td align="left">15.44</td>
+<td align="left">20098</td>
+<td align="left">&lt; .001***</td>
+</tr>
+<tr class="odd">
+<td align="left">Recording_Length</td>
+<td align="left">PIP</td>
+<td align="left">0.10</td>
+<td align="left">[ 0.01, 0.19]</td>
+<td align="left">32.55</td>
+<td align="left">99679</td>
+<td align="left">&lt; .001***</td>
+</tr>
+<tr class="even">
+<td align="left">Recording_Length</td>
+<td align="left">LFHF</td>
+<td align="left">0.10</td>
+<td align="left">[-0.03, 0.22]</td>
+<td align="left">15.93</td>
+<td align="left">27026</td>
+<td align="left">&lt; .001***</td>
+</tr>
+<tr class="odd">
+<td align="left">Recording_Length</td>
+<td align="left">MCVNN</td>
+<td align="left">0.09</td>
+<td align="left">[-0.01, 0.18]</td>
+<td align="left">27.20</td>
+<td align="left">91376</td>
+<td align="left">&lt; .001***</td>
+</tr>
+<tr class="even">
+<td align="left">Recording_Length</td>
+<td align="left">Ca</td>
+<td align="left">0.07</td>
+<td align="left">[-0.03, 0.17]</td>
+<td align="left">20.07</td>
+<td align="left">76243</td>
+<td align="left">&lt; .001***</td>
+</tr>
+<tr class="odd">
+<td align="left">Recording_Length</td>
+<td align="left">C2a</td>
+<td align="left">0.06</td>
+<td align="left">[-0.04, 0.16]</td>
+<td align="left">16.98</td>
+<td align="left">80599</td>
+<td align="left">&lt; .001***</td>
+</tr>
+<tr class="even">
+<td align="left">Recording_Length</td>
+<td align="left">PI</td>
+<td align="left">0.06</td>
+<td align="left">[-0.04, 0.15]</td>
+<td align="left">16.56</td>
+<td align="left">85903</td>
+<td align="left">&lt; .001***</td>
+</tr>
+<tr class="odd">
+<td align="left">Recording_Length</td>
+<td align="left">MeanNN</td>
+<td align="left">0.06</td>
+<td align="left">[-0.04, 0.15]</td>
+<td align="left">17.91</td>
+<td align="left">101473</td>
+<td align="left">&lt; .001***</td>
+</tr>
+<tr class="even">
+<td align="left">Recording_Length</td>
+<td align="left">MedianNN</td>
+<td align="left">0.06</td>
+<td align="left">[-0.04, 0.15]</td>
+<td align="left">17.60</td>
+<td align="left">101473</td>
+<td align="left">&lt; .001***</td>
+</tr>
+<tr class="odd">
+<td align="left">Recording_Length</td>
+<td align="left">C1a</td>
+<td align="left">0.05</td>
+<td align="left">[-0.04, 0.15]</td>
+<td align="left">15.99</td>
+<td align="left">86734</td>
+<td align="left">&lt; .001***</td>
+</tr>
+<tr class="even">
+<td align="left">Recording_Length</td>
+<td align="left">HFn</td>
+<td align="left">0.04</td>
+<td align="left">[-0.08, 0.16]</td>
+<td align="left">7.21</td>
+<td align="left">31373</td>
+<td align="left">&lt; .001***</td>
+</tr>
+<tr class="odd">
+<td align="left">Recording_Length</td>
+<td align="left">PSS</td>
+<td align="left">0.04</td>
+<td align="left">[-0.05, 0.13]</td>
+<td align="left">12.67</td>
+<td align="left">99233</td>
+<td align="left">&lt; .001***</td>
+</tr>
+<tr class="even">
+<td align="left">Recording_Length</td>
+<td align="left">pNN20</td>
+<td align="left">0.04</td>
+<td align="left">[-0.05, 0.13]</td>
+<td align="left">12.72</td>
+<td align="left">101473</td>
+<td align="left">&lt; .001***</td>
+</tr>
+<tr class="odd">
+<td align="left">Recording_Length</td>
+<td align="left">pNN50</td>
+<td align="left">0.04</td>
+<td align="left">[-0.06, 0.14]</td>
+<td align="left">10.63</td>
+<td align="left">76243</td>
+<td align="left">&lt; .001***</td>
+</tr>
+<tr class="even">
+<td align="left">Recording_Length</td>
+<td align="left">CorrDim</td>
+<td align="left">0.04</td>
+<td align="left">[-0.05, 0.13]</td>
+<td align="left">12.17</td>
+<td align="left">101473</td>
+<td align="left">&lt; .001***</td>
+</tr>
+<tr class="odd">
+<td align="left">Recording_Length</td>
+<td align="left">CMSE</td>
+<td align="left">0.03</td>
+<td align="left">[-0.09, 0.16]</td>
+<td align="left">5.98</td>
+<td align="left">31373</td>
+<td align="left">&lt; .001***</td>
+</tr>
+<tr class="even">
+<td align="left">Recording_Length</td>
+<td align="left">IALS</td>
+<td align="left">0.03</td>
+<td align="left">[-0.07, 0.12]</td>
+<td align="left">8.67</td>
+<td align="left">101023</td>
+<td align="left">&lt; .001***</td>
+</tr>
+<tr class="odd">
+<td align="left">Recording_Length</td>
+<td align="left">SD1SD2</td>
+<td align="left">0.02</td>
+<td align="left">[-0.08, 0.11]</td>
+<td align="left">5.68</td>
+<td align="left">93959</td>
+<td align="left">&lt; .001***</td>
+</tr>
+<tr class="even">
+<td align="left">Recording_Length</td>
+<td align="left">CSI</td>
+<td align="left">0.01</td>
+<td align="left">[-0.08, 0.11]</td>
+<td align="left">4.42</td>
+<td align="left">87151</td>
+<td align="left">&lt; .001***</td>
+</tr>
+<tr class="odd">
+<td align="left">Recording_Length</td>
+<td align="left">SampEn</td>
+<td align="left">0.01</td>
+<td align="left">[-0.11, 0.13]</td>
+<td align="left">2.72</td>
+<td align="left">36313</td>
+<td align="left">0.336</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_correlations</span>(data, r[<span class="dv">1</span><span class="sc">:</span><span class="dv">9</span>, ])</span></code></pre></div>
 <p><img src="figures/unnamed-chunk-15-1.png" width="5824.92235949962" /></p>
 <!-- ### Adjust the data for recording length -->
 <!-- ```{r, message=FALSE, warning=FALSE, results='hide'} -->
@@ -681,76 +1134,88 @@ div.tocify {
 <h3>Factor Analysis</h3>
 <div id="how-many-factors" class="section level4">
 <h4>How many factors</h4>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>r <span class="ot">&lt;-</span> correlation<span class="sc">::</span><span class="fu">correlation</span>(data[hrv_cols]) <span class="sc">%&gt;%</span> </span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.matrix</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  psych<span class="sc">::</span><span class="fu">cor.smooth</span>()</span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> parameters<span class="sc">::</span><span class="fu">n_factors</span>(data, <span class="at">cor=</span>r, <span class="at">type =</span> <span class="st">&quot;FA&quot;</span>, <span class="at">package =</span> <span class="st">&quot;all&quot;</span>)</span>
-<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>n</span></code></pre></div>
-<pre><code>&gt; # Method Agreement Procedure:
-&gt; 
-&gt; The choice of 8 dimensions is supported by 4 (23.53%) methods out of 17 (Optimal coordinates, Parallel analysis, Kaiser criterion, EGA (glasso)).</code></pre>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(n) </span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>r <span class="ot">&lt;-</span> correlation<span class="sc">::</span><span class="fu">correlation</span>(data[hrv_cols]) <span class="sc">%&gt;%</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.matrix</span>()</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> parameters<span class="sc">::</span><span class="fu">n_factors</span>(data, <span class="at">cor=</span>r, <span class="at">type =</span> <span class="st">&quot;PCA&quot;</span>)</span></code></pre></div>
+<pre><code>&gt; 
+&gt;  These indices are only valid with a principal component solution.
+&gt;  ...................... So, only positive eugenvalues are permitted.</code></pre>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>n</span></code></pre></div>
+<div class="kable-table">
+<table>
+<thead>
+<tr class="header">
+<th align="right">n_Factors</th>
+<th align="left">Method</th>
+<th align="left">Family</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">1</td>
+<td align="left">Acceleration factor</td>
+<td align="left">Scree</td>
+</tr>
+<tr class="even">
+<td align="right">2</td>
+<td align="left">t</td>
+<td align="left">Multiple_regression</td>
+</tr>
+<tr class="odd">
+<td align="right">2</td>
+<td align="left">p</td>
+<td align="left">Multiple_regression</td>
+</tr>
+<tr class="even">
+<td align="right">3</td>
+<td align="left">CNG</td>
+<td align="left">CNG</td>
+</tr>
+<tr class="odd">
+<td align="right">4</td>
+<td align="left">beta</td>
+<td align="left">Multiple_regression</td>
+</tr>
+<tr class="even">
+<td align="right">8</td>
+<td align="left">Optimal coordinates</td>
+<td align="left">Scree</td>
+</tr>
+<tr class="odd">
+<td align="right">8</td>
+<td align="left">Parallel analysis</td>
+<td align="left">Scree</td>
+</tr>
+<tr class="even">
+<td align="right">8</td>
+<td align="left">Kaiser criterion</td>
+<td align="left">Scree</td>
+</tr>
+<tr class="odd">
+<td align="right">28</td>
+<td align="left">R2</td>
+<td align="left">Scree_SE</td>
+</tr>
+<tr class="even">
+<td align="right">41</td>
+<td align="left">SE Scree</td>
+<td align="left">Scree_SE</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(n) </span></code></pre></div>
 <p><img src="figures/unnamed-chunk-16-1.png" width="5824.92235949962" /></p>
 </div>
 <div id="exploratory-factor-analysis-efa" class="section level4">
 <h4>Exploratory Factor Analysis (EFA)</h4>
-<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>efa <span class="ot">&lt;-</span> parameters<span class="sc">::</span><span class="fu">factor_analysis</span>(data, <span class="at">cor=</span>r, <span class="at">n=</span><span class="dv">8</span>, <span class="at">rotation=</span><span class="st">&quot;varimax&quot;</span>, <span class="at">fm=</span><span class="st">&quot;ml&quot;</span>)</span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(efa, <span class="at">threshold=</span><span class="st">&quot;max&quot;</span>, <span class="at">sort=</span><span class="cn">TRUE</span>)</span></code></pre></div>
-<pre><code>&gt; # Rotated loadings from Factor Analysis (varimax-rotation)
-&gt; 
-&gt; Variable     | ML3  |  ML6  | ML5  |  ML1  | ML7  | ML2  | ML4  | ML8 | Complexity | Uniqueness
-&gt; -----------------------------------------------------------------------------------------------
-&gt; SDNN         | 0.93 |       |      |       |      |      |      |     |    1.11    |    0.10   
-&gt; SD2          | 0.92 |       |      |       |      |      |      |     |    1.14    |    0.10   
-&gt; IQRNN        | 0.90 |       |      |       |      |      |      |     |    1.38    |    0.03   
-&gt; CVI          | 0.90 |       |      |       |      |      |      |     |    1.25    |    0.09   
-&gt; MadNN        | 0.89 |       |      |       |      |      |      |     |    1.45    |    0.04   
-&gt; MCVNN        | 0.84 |       |      |       |      |      |      |     |    1.55    |    0.11   
-&gt; CVNN         | 0.82 |       |      |       |      |      |      |     |    1.62    |    0.13   
-&gt; S            | 0.79 |       |      |       |      |      |      |     |    1.25    |    0.30   
-&gt; RMSSD        | 0.71 |       |      |       |      |      |      |     |    1.70    |    0.33   
-&gt; pNN20        | 0.67 |       |      |       |      |      |      |     |    2.53    |    0.25   
-&gt; TINN         | 0.66 |       |      |       |      |      |      |     |    2.38    |    0.27   
-&gt; pNN50        | 0.62 |       |      |       |      |      |      |     |    1.77    |    0.48   
-&gt; CSI          |      | 0.89  |      |       |      |      |      |     |    1.20    |    0.14   
-&gt; SD1SD2       |      | -0.85 |      |       |      |      |      |     |    1.22    |    0.20   
-&gt; LFHF         |      | 0.66  |      |       |      |      |      |     |    2.11    |    0.32   
-&gt; HFn          |      | -0.66 |      |       |      |      |      |     |    2.04    |    0.34   
-&gt; CSI_Modified |      | 0.66  |      |       |      |      |      |     |    2.29    |    0.22   
-&gt; DFA          |      | 0.63  |      |       |      |      |      |     |    2.62    |    0.33   
-&gt; LFn          |      | 0.62  |      |       |      |      |      |     |    3.07    |    0.19   
-&gt; LnHF         |      |       | 0.77 |       |      |      |      |     |    1.94    |    0.13   
-&gt; HF           |      |       | 0.74 |       |      |      |      |     |    1.41    |    0.34   
-&gt; VHF          |      |       | 0.69 |       |      |      |      |     |    1.28    |    0.45   
-&gt; CorrDim      |      |       | 0.68 |       |      |      |      |     |    2.94    |    0.11   
-&gt; SampEn       |      |       | 0.60 |       |      |      |      |     |    3.53    |    0.13   
-&gt; LF           |      |       | 0.58 |       |      |      |      |     |    1.77    |    0.54   
-&gt; RCMSE        |      |       | 0.54 |       |      |      |      |     |    4.01    |    0.13   
-&gt; CMSE         |      |       | 0.46 |       |      |      |      |     |    5.48    |    0.23   
-&gt; GI           |      |       |      | 0.98  |      |      |      |     |    1.06    |  4.28e-03 
-&gt; SI           |      |       |      | 0.98  |      |      |      |     |    1.05    |    0.02   
-&gt; AI           |      |       |      | 0.95  |      |      |      |     |    1.14    |    0.03   
-&gt; Ca           |      |       |      | -0.49 |      |      |      |     |    1.40    |    0.72   
-&gt; PI           |      |       |      | -0.35 |      |      |      |     |    1.70    |    0.84   
-&gt; C1a          |      |       |      | -0.33 |      |      |      |     |    3.53    |    0.76   
-&gt; C2a          |      |       |      | -0.22 |      |      |      |     |    3.02    |    0.87   
-&gt; ApEn         |      |       |      |       | 0.92 |      |      |     |    1.30    |    0.03   
-&gt; HTI          |      |       |      |       | 0.84 |      |      |     |    1.39    |    0.15   
-&gt; MSE          |      |       |      |       | 0.59 |      |      |     |    3.46    |    0.23   
-&gt; MedianNN     |      |       |      |       |      | 0.96 |      |     |    1.14    |  9.37e-03 
-&gt; MeanNN       |      |       |      |       |      | 0.96 |      |     |    1.14    |    0.01   
-&gt; PIP          |      |       |      |       |      |      | 0.88 |     |    1.54    |    0.03   
-&gt; IALS         |      |       |      |       |      |      | 0.86 |     |    1.40    |    0.11   
-&gt; PSS          |      |       |      |       |      |      | 0.76 |     |    1.40    |    0.31   
-&gt; PAS          |      |       |      |       |      |      | 0.56 |     |    3.73    |    0.29   
-&gt; 
-&gt; The 8 latent factors (varimax rotation) accounted for 75.64% of the total variance of the original data (ML3 = 20.62%, ML6 = 12.44%, ML5 = 9.53%, ML1 = 8.68%, ML7 = 8.25%, ML2 = 7.08%, ML4 = 7.00%, ML8 = 2.05%).</code></pre>
-<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(efa)</span></code></pre></div>
-<p><img src="figures/unnamed-chunk-17-1.png" width="9000" /></p>
+<!-- ```{r, message=FALSE, warning=FALSE, fig.width=15, fig.height=15} -->
+<!-- efa <- parameters::factor_analysis(data, cor=cor, n=7, rotation="varimax", fm="ml") -->
+<!-- print(efa, threshold="max", sort=TRUE) -->
+<!-- plot(efa) + -->
+<!--   see::theme_modern() -->
+<!-- ``` -->
 <!-- #### Confirmatory Factor Analysis (CFA) -->
 <!-- ```{r, message=FALSE, warning=FALSE, fig.width=15, fig.height=15} -->
 <!-- library(lavaan) -->
@@ -815,12 +1280,23 @@ div.tocify {
 </div>
 </div>
 </div>
-<div id="references" class="section level2">
-<h2>References</h2>
+<div id="references" class="section level2 unnumbered">
+<h2 class="unnumbered">References</h2>
+<div id="refs" class="references csl-bib-body hanging-indent" line-spacing="2">
+<div id="ref-howell2018high" class="csl-entry">
+Howell, L., &amp; Porr, B. (2018). <em>High precision ecg database with annotated r peaks, recorded and filmed under realistic conditions</em>.
+</div>
+<div id="ref-iyengar1996age" class="csl-entry">
+Iyengar, N., Peng, C., Morin, R., Goldberger, A. L., &amp; Lipsitz, L. A. (1996). Age-related alterations in the fractal scaling of cardiac interbeat interval dynamics. <em>American Journal of Physiology-Regulatory, Integrative and Comparative Physiology</em>, <em>271</em>(4), R1078–R1084.
+</div>
+<div id="ref-moody2001impact" class="csl-entry">
+Moody, G. B., &amp; Mark, R. G. (2001). The impact of the MIT-BIH arrhythmia database. <em>IEEE Engineering in Medicine and Biology Magazine</em>, <em>20</em>(3), 45–50.
+</div>
+</div>
 </div>
 </div>
 
-<div id="rmd-source-code">LS0tDQp0aXRsZTogJyoqQ29uY2VwdHVhbCB2cy4gT2JzZXJ2ZWQgU3RydWN0dXJlIG9mIEhlYXJ0IFJhdGUgVmFyaWFiaWxpdHkgKEhSVikgSW5kaWNlcyoqJw0Kc3VidGl0bGU6ICJEYXRhIEFuYWx5c2lzIg0Kb3V0cHV0Og0KICBodG1sX2RvY3VtZW50Og0KICAgIHNlbGZfY29udGFpbmVkOiBmYWxzZQ0KICAgIHRoZW1lOiBjZXJ1bGVhbg0KICAgIGhpZ2hsaWdodDogcHlnbWVudHMNCiAgICB0b2M6IHllcw0KICAgIHRvY19kZXB0aDogMw0KICAgIHRvY19mbG9hdDogeWVzDQogICAgbnVtYmVyX3NlY3Rpb25zOiBubw0KICAgIGRmX3ByaW50OiBkZWZhdWx0DQogICAgY29kZV9mb2xkaW5nOiBoaWRlDQogICAgY29kZV9kb3dubG9hZDogeWVzDQogIHdvcmRfZG9jdW1lbnQ6DQogICAgcmVmZXJlbmNlX2RvY3g6IHV0aWxzL1RlbXBsYXRlX1dvcmQuZG9jeA0KICAgIGhpZ2hsaWdodDogcHlnbWVudHMNCiAgICB0b2M6IG5vDQogICAgdG9jX2RlcHRoOiAzDQogICAgZGZfcHJpbnQ6IGthYmxlDQogICAgbnVtYmVyX3NlY3Rpb25zOiB5ZXMNCiAgcm1hcmtkb3duOjpodG1sX3ZpZ25ldHRlOg0KICAgIHRvYzogeWVzDQogICAgdG9jX2RlcHRoOiAzDQogIHBkZl9kb2N1bWVudDoNCiAgICB0b2M6IHllcw0KICAgIHRvY19kZXB0aDogJzInDQogICAgbGF0ZXhfZW5naW5lOiB4ZWxhdGV4DQplZGl0b3Jfb3B0aW9uczoNCiAgY2h1bmtfb3V0cHV0X3R5cGU6IGNvbnNvbGUNCmJpYmxpb2dyYXBoeTogdXRpbHMvYmlibGlvZ3JhcGh5LmJpYg0KY3NsOiB1dGlscy9hcGEuY3NsDQotLS0NCg0KDQo8IS0tIA0KISEhISBJTVBPUlRBTlQ6IHJ1biBgc291cmNlKCJ1dGlscy9yZW5kZXIuUiIpYCB0byBwdWJsaXNoIGluc3RlYWQgb2YgY2xpY2tpbmcgb24gJ0tuaXQnDQotLT4NCg0KYGBge3Igc2V0dXAsIHdhcm5pbmc9RkFMU0UsIG1lc3NhZ2U9VFJVRSwgaW5jbHVkZT1GQUxTRX0NCiMgU2V0IHVwIHRoZSBlbnZpcm9ubWVudCAob3IgdXNlIGxvY2FsIGFsdGVybmF0aXZlIGBzb3VyY2UoInV0aWxzL2NvbmZpZy5SIilgKQ0Kc291cmNlKCJodHRwczovL3Jhdy5naXRodWJ1c2VyY29udGVudC5jb20vUmVhbGl0eUJlbmRpbmcvVGVtcGxhdGVSZXN1bHRzL21haW4vdXRpbHMvY29uZmlnLlIiKSAgDQoNCmZhc3QgPC0gRkFMU0UgICMgTWFrZSB0aGlzIGZhbHNlIHRvIHNraXAgdGhlIGNodW5rcw0KDQojIFNldCB0aGVtZQ0KZ2dwbG90Mjo6dGhlbWVfc2V0KHNlZTo6dGhlbWVfbW9kZXJuKCkpDQoNCnNvdXJjZV9ybWQgPC0gZnVuY3Rpb24oeCl7DQogIGZpbGUgPC0ga25pdHI6OnB1cmwoeCwgcXVpZXQ9VFJVRSkNCiAgc291cmNlKGZpbGUpDQogIGlmIChmaWxlLmV4aXN0cyhmaWxlKSkgZmlsZS5yZW1vdmUoZmlsZSkNCn0NCmBgYA0KDQojIEludHJvZHVjdGlvbg0KYGBge3IgYmFkZ2VzLCBlY2hvPUZBTFNFLCBtZXNzYWdlPVRSVUUsIHdhcm5pbmc9RkFMU0UsIHJlc3VsdHM9J2FzaXMnfQ0KIyBUaGlzIGNodW5rIGlzIGEgYml0IGNvbXBsZXggc28gZG9uJ3Qgd29ycnkgYWJvdXQgaXQ6IGl0J3MgbWFkZSB0byBhZGQgYmFkZ2VzIHRvIHRoZSBIVE1MIHZlcnNpb25zDQojIE5PVEU6IFlvdSBoYXZlIHRvIHJlcGxhY2UgdGhlIGxpbmtzIGFjY29yZGluZ2x5IHRvIGhhdmUgd29ya2luZyAiYnV0dG9ucyIgb24gdGhlIEhUTUwgdmVyc2lvbnMNCmlmICgha25pdHI6OmlzX2xhdGV4X291dHB1dCgpICYmIGtuaXRyOjppc19odG1sX291dHB1dCgpKSB7DQogIGNhdCgiIVtCdWlsZF0oaHR0cHM6Ly9naXRodWIuY29tL1RhbS1QaGFtL0hSVlN0cnVjdHVyZS93b3JrZmxvd3MvQnVpbGQvYmFkZ2Uuc3ZnKQ0KICAgICAgWyFbV2Vic2l0ZV0oaHR0cHM6Ly9pbWcuc2hpZWxkcy5pby9iYWRnZS9yZXBvLVJlYWRtZS0yMTk2RjMpXShodHRwczovL2dpdGh1Yi5jb20vVGFtLVBoYW0vSFJWU3RydWN0dXJlKQ0KICAgICAgWyFbV2Vic2l0ZV0oaHR0cHM6Ly9pbWcuc2hpZWxkcy5pby9iYWRnZS92aXNpdC13ZWJzaXRlLUU5MUU2MyldKGh0dHBzOi8vcmVhbGl0eWJlbmRpbmcuZ2l0aHViLmlvL1RlbXBsYXRlUmVzdWx0cy8pDQogICAgICBbIVtXZWJzaXRlXShodHRwczovL2ltZy5zaGllbGRzLmlvL2JhZGdlL2Rvd25sb2FkLS5kb2N4LUZGNTcyMildKGh0dHBzOi8vZ2l0aHViLmNvbS9SZWFsaXR5QmVuZGluZy9UZW1wbGF0ZVJlc3VsdHMvcmF3L21haW4vd29yZF9hbmRfcGRmL1N1cHBsZW1lbnRhcnlNYXRlcmlhbHMuZG9jeCkNCiAgICAgIFshW1dlYnNpdGVdKGh0dHBzOi8vaW1nLnNoaWVsZHMuaW8vYmFkZ2Uvc2VlLS5wZGYtRkY5ODAwKV0oaHR0cHM6Ly9naXRodWIuY29tL1JlYWxpdHlCZW5kaW5nL1RlbXBsYXRlUmVzdWx0cy9ibG9iL21haW4vd29yZF9hbmRfcGRmL1N1cHBsZW1lbnRhcnlNYXRlcmlhbHMucGRmKSIpDQp9DQpgYGANCg0KDQoNClRoZSBhaW0gb2YgdGhpcyBzdHVkeSBpcyB0byBleHBsb3JlIHRoZSBmYWN0b3Igc3RydWN0dXJlIG9mIEhSViBpbmRpY2VzLg0KDQojIE1ldGhvZHMNCg0KDQojIyBEYXRhYmFzZXMNCg0KIyMjIEdsYXNnb3cgVW5pdmVyc2l0eSBEYXRhYmFzZQ0KDQpUaGUgR1VEQiBEYXRhYmFzZSBbQGhvd2VsbDIwMThoaWdoXSBjb250YWlucyBFQ0dzIGZyb20gMjUgc3ViamVjdHMuIEVhY2ggc3ViamVjdCB3YXMgcmVjb3JkZWQgcGVyZm9ybWluZyA1IGRpZmZlcmVudCB0YXNrcyBmb3IgdHdvIG1pbnV0ZXMgKHNpdHRpbmcsIGRvaW5nIGEgbWF0aHMgdGVzdCBvbiBhIHRhYmxldCwgd2Fsa2luZyBvbiBhIHRyZWFkbWlsbCwgcnVubmluZyBvbiBhIHRyZWFkbWlsbCwgdXNpbmcgYSBoYW5kIGJpa2UpLiBUaGUgc2FtcGxpbmcgcmF0ZSBpcyAyNTBIeiBmb3IgYWxsIHRoZSBjb25kaXRpb25zLg0KDQpUaGUgc2NyaXB0IHRvIGRvd25sb2FkIGFuZCBmb3JtYXQgdGhlIGRhdGFiYXNlIHVzaW5nIHRoZSBbKipFQ0ctR1VEQioqXShodHRwczovL2dpdGh1Yi5jb20vYmVybmRwb3JyL0VDRy1HVURCKSBQeXRob24gcGFja2FnZSBieSBCZXJuZCBQb3JyIGNhbiBiZSBmb3VuZCBbKipoZXJlKipdKGh0dHBzOi8vZ2l0aHViLmNvbS9uZXVyb3BzeWNob2xvZ3kvTmV1cm9LaXQvYmxvYi9kZXYvZGF0YS9ndWRiL2Rvd25sb2FkX2d1ZGIucHkpLg0KDQojIyMgTUlULUJJSCBBcnJoeXRobWlhIERhdGFiYXNlDQoNClRoZSBNSVQtQklIIEFycmh5dGhtaWEgRGF0YWJhc2UgW01JVC1BcnJoeXRobWlhOyBAbW9vZHkyMDAxaW1wYWN0XSBjb250YWlucyA0OCBleGNlcnB0cyBvZiAzMC1taW4gb2YgdHdvLWNoYW5uZWwgYW1idWxhdG9yeSBFQ0cgcmVjb3JkaW5ncyBzYW1wbGVkIGF0IDM2MEh6IGFuZCAyNSBhZGRpdGlvbmFsIHJlY29yZGluZ3MgZnJvbSB0aGUgc2FtZSBwYXJ0aWNpcGFudHMgaW5jbHVkaW5nIGNvbW1vbiBidXQgY2xpbmljYWxseSBzaWduaWZpY2FudCBhcnJoeXRobWlhcyAoZGVub3RlZCBhcyB0aGUgYE1JVC1BcnJoeXRobWlhLXhgIGRhdGFiYXNlKS4NCg0KVGhlIHNjcmlwdCB0byBkb3dubG9hZCBhbmQgZm9ybWF0IHRoZSBkYXRhYmFzZSB1c2luZyB0aGUgY2FuIGJlIGZvdW5kIFsqKmhlcmUqKl0oaHR0cHM6Ly9naXRodWIuY29tL25ldXJvcHN5Y2hvbG9neS9OZXVyb0tpdC9ibG9iL2Rldi9kYXRhL21pdF9hcnJoeXRobWlhL2Rvd25sb2FkX21pdF9hcnJoeXRobWlhLnB5KS4NCg0KDQojIyMgTUlULUJJSCBOb3JtYWwgU2ludXMgUmh5dGhtIERhdGFiYXNlDQoNClRoaXMgZGF0YWJhc2UgaW5jbHVkZXMgMTggY2xlYW4gbG9uZy10ZXJtIEVDRyByZWNvcmRpbmdzIG9mIHN1YmplY3RzLiBEdWUgdG8gbWVtb3J5IGxpbWl0cywgd2Ugb25seSBrZXB0IHRoZSBzZWNvbmQgaG91ciBvZiByZWNvcmRpbmcgb2YgZWFjaCBwYXJ0aWNpcGFudC4NCg0KVGhlIHNjcmlwdCB0byBkb3dubG9hZCBhbmQgZm9ybWF0IHRoZSBkYXRhYmFzZSB1c2luZyB0aGUgY2FuIGJlIGZvdW5kIFsqKmhlcmUqKl0oaHR0cHM6Ly9naXRodWIuY29tL25ldXJvcHN5Y2hvbG9neS9OZXVyb0tpdC9ibG9iL2Rldi9kYXRhL21pdF9ub3JtYWwvZG93bmxvYWRfbWl0X25vcm1hbC5weSkuDQoNCg0KPCEtLSAjIyMgTG9iYWNoZXZza3kgVW5pdmVyc2l0eSBFbGVjdHJvY2FyZGlvZ3JhcGh5IERhdGFiYXNlIC0tPg0KDQo8IS0tIFRoZSBMb2JhY2hldnNreSBVbml2ZXJzaXR5IEVsZWN0cm9jYXJkaW9ncmFwaHkgRGF0YWJhc2UgW0xVREI7IEBrYWx5YWt1bGluYTIwMThsdV0gY29uc2lzdHMgb2YgMjAwIDEwLXNlY29uZCAxMi1sZWFkIEVDRyBzaWduYWwgcmVjb3JkcyByZXByZXNlbnRpbmcgZGlmZmVyZW50IG1vcnBob2xvZ2llcyBvZiB0aGUgRUNHIHNpZ25hbC4gVGhlIEVDR3Mgd2VyZSBjb2xsZWN0ZWQgZnJvbSBoZWFsdGh5IHZvbHVudGVlcnMgYW5kIHBhdGllbnRzLCB3aGljaCBoYWQgdmFyaW91cyBjYXJkaW92YXNjdWxhciBkaXNlYXNlcy4gVGhlIGJvdW5kYXJpZXMgb2YgUCwgVCB3YXZlcyBhbmQgUVJTIGNvbXBsZXhlcyB3ZXJlIG1hbnVhbGx5IGFubm90YXRlZCBieSBjYXJkaW9sb2dpc3RzIGZvciBhbGwgMjAwIHJlY29yZHMuIC0tPg0KDQojIyMgRmFudGFzaWEgRGF0YWJhc2UNCg0KVGhlIEZhbnRhc2lhIGRhdGFiYXNlIFtAaXllbmdhcjE5OTZhZ2VdIGNvbnNpc3RzIG9mIHR3ZW50eSB5b3VuZyBhbmQgdHdlbnR5IGVsZGVybHkgaGVhbHRoeSBzdWJqZWN0cy4gQWxsIHN1YmplY3RzIHJlbWFpbmVkIGluIGEgcmVzdGluZyBzdGF0ZSBpbiBzaW51cyByaHl0aG0gd2hpbGUgd2F0Y2hpbmcgdGhlIG1vdmllIEZhbnRhc2lhIChEaXNuZXksIDE5NDApIHRvIGhlbHAgbWFpbnRhaW4gd2FrZWZ1bG5lc3MuIFRoZSBjb250aW51b3VzIEVDRyBzaWduYWxzIHdlcmUgZGlnaXRpemVkIGF0IDI1MCBIei4gRWFjaCBoZWFydGJlYXQgd2FzIGFubm90YXRlZCB1c2luZyBhbiBhdXRvbWF0ZWQgYXJyaHl0aG1pYSBkZXRlY3Rpb24gYWxnb3JpdGhtLCBhbmQgZWFjaCBiZWF0IGFubm90YXRpb24gd2FzIHZlcmlmaWVkIGJ5IHZpc3VhbCBpbnNwZWN0aW9uLg0KDQoNCg0KDQojIyBQcm9jZWR1cmUNCg0KYGBge3B5dGhvbiwgZXZhbD1GQUxTRSwgZWNobz1GQUxTRX0NCmltcG9ydCBwYW5kYXMgYXMgcGQNCmltcG9ydCBudW1weSBhcyBucA0KaW1wb3J0IG5ldXJva2l0MiBhcyBuaw0KDQojIExvYWQgVHJ1ZSBSLXBlYWtzIGxvY2F0aW9uDQpkYXRhZmlsZXMgPSBbcGQucmVhZF9jc3YoIi4uLy4uL2RhdGEvZ3VkYi9ScGVha3MuY3N2IiksDQogICAgICAgICAgICAgcGQucmVhZF9jc3YoIi4uLy4uL2RhdGEvbWl0X2Fycmh5dGhtaWEvUnBlYWtzLmNzdiIpLA0KICAgICAgICAgICAgIHBkLnJlYWRfY3N2KCIuLi8uLi9kYXRhL21pdF9ub3JtYWwvUnBlYWtzLmNzdiIpLA0KICAgICAgICAgICAgIHBkLnJlYWRfY3N2KCIuLi8uLi9kYXRhL2ZhbnRhc2lhL1JwZWFrcy5jc3YiKV0NCg0KIyBHZXQgcmVzdWx0cw0KYWxsX3Jlc3VsdHMgPSBwZC5EYXRhRnJhbWUoKQ0KDQpmb3IgZmlsZSBpbiBkYXRhZmlsZXM6DQogICAgZm9yIGRhdGFiYXNlIGluIG5wLnVuaXF1ZShmaWxlWyJEYXRhYmFzZSJdKToNCiAgICAgICAgZGF0YSA9IGZpbGVbZmlsZVsiRGF0YWJhc2UiXSA9PSBkYXRhYmFzZV0NCiAgICAgICAgZm9yIHBhcnRpY2lwYW50IGluIG5wLnVuaXF1ZShkYXRhWyJQYXJ0aWNpcGFudCJdKToNCiAgICAgICAgICAgIGRhdGFfcGFydGljaXBhbnQgPSBkYXRhW2RhdGFbIlBhcnRpY2lwYW50Il0gPT0gcGFydGljaXBhbnRdDQogICAgICAgICAgICBzYW1wbGluZ19yYXRlID0gbnAudW5pcXVlKGRhdGFfcGFydGljaXBhbnRbIlNhbXBsaW5nX1JhdGUiXSlbMF0NCiAgICAgICAgICAgIHJwZWFrcyA9IGRhdGFfcGFydGljaXBhbnRbIlJwZWFrcyJdLnZhbHVlcw0KDQogICAgICAgICAgICByZXN1bHRzID0gbmsuaHJ2KHJwZWFrcywgc2FtcGxpbmdfcmF0ZT1zYW1wbGluZ19yYXRlKQ0KICAgICAgICAgICAgcmVzdWx0c1siUGFydGljaXBhbnQiXSA9IHBhcnRpY2lwYW50DQogICAgICAgICAgICByZXN1bHRzWyJEYXRhYmFzZSJdID0gZGF0YWJhc2UNCiAgICAgICAgICAgIHJlc3VsdHNbIlJlY29yZGluZ19MZW5ndGgiXSA9IHJwZWFrc1stMV0gLyBzYW1wbGluZ19yYXRlIC8gNjANCg0KICAgICAgICAgICAgYWxsX3Jlc3VsdHMgPSBwZC5jb25jYXQoW2FsbF9yZXN1bHRzLCByZXN1bHRzXSwgYXhpcz0wKQ0KDQphbGxfcmVzdWx0cy50b19jc3YoImRhdGEvZGF0YS5jc3YiLCBpbmRleD1GYWxzZSkNCmBgYA0KDQojIFJlc3VsdHMNCg0KYGBge3IsIG1lc3NhZ2U9RkFMU0UsIHdhcm5pbmc9RkFMU0UsIHJlc3VsdHM9J2hpZGUnfQ0KbGlicmFyeSh0aWR5dmVyc2UpDQpsaWJyYXJ5KGVhc3lzdGF0cykNCg0KZGF0YSA8LSByZWFkLmNzdigiZGF0YS9kYXRhLmNzdiIsIHN0cmluZ3NBc0ZhY3RvcnMgPSBGQUxTRSkgJT4lIA0KICBzZWxlY3QoLUhSVl9VTEYsIC1IUlZfVkxGKSAlPiUgICMgRW1wdHkNCiAgIyBmaWx0ZXIoRGF0YWJhc2UgIT0gIkxVREIiKSAlPiUgIyB0b28gc2hvcnQgcmVjb3JkaW5ncywgbWFueSBpbmRpY2VzIGRpZG4ndCBjb252ZXJnZQ0KICBzZXROYW1lcyhzdHJpbmdyOjpzdHJfcmVtb3ZlKG5hbWVzKC4pLCAiSFJWXyIpKSAlPiUgDQogIG11dGF0ZV9hbGwoZnVuY3Rpb24oeCkgew0KICAgIHhbaXMuaW5maW5pdGUoeCldIDwtIE5BDQogICAgcmV0dXJuKHgpIH0pDQpgYGANCg0KDQpgYGB7ciB3YXJuaW5nPUZBTFNFLCBtZXNzYWdlPVRSVUUsIHJlc3VsdHM9J2FzaXMnfQ0KY2F0KCJUaGlzIHN0dWR5IGluY2x1ZGVzIiwgDQogICAgbnJvdyhkYXRhKSwgDQogICAgInBhcnRpY2lwYW50cyBmcm9tIiwgDQogICAgbGVuZ3RoKHVuaXF1ZShkYXRhJERhdGFiYXNlKSksIA0KICAgICJkYXRhYmFzZXMuIikNCmBgYA0KDQoNCmBgYHtyIGNvbnZlbmllbmNlX2NodW5rX2Zvcl9sb2NhbF9ydW5uaW5nLCBpbmNsdWRlID0gRkFMU0UsIGV2YWwgPSBGQUxTRX0NCmxpYnJhcnkocGF0Y2h3b3JrKQ0KbGlicmFyeSh0aWR5dmVyc2UpDQpsaWJyYXJ5KGVhc3lzdGF0cykNCg0KIyAjIFRvIHJ1biB0aGluZ3MgbG9jYWxseTogQ1RSTCArIEFMVCArIFNISUZUICsgUCwgYW5kIHRoZW4gdGhlIG5leHQgdHdvIGxpbmVzDQpzb3VyY2Vfcm1kKCIwX0NvbnZlbmllbmNlRnVuY3Rpb25zLlJtZCIpDQpzb3VyY2Vfcm1kKCIxX1ByZXByb2Nlc3NpbmcuUm1kIikNCiMgc291cmNlX3JtZCgiNF9Db252ZW5pZW5jZUZ1bmN0aW9ucy5SbWQiKQ0KIyAjIHNvdXJjZV9ybWQoIjVfQmVoYXZpb3VyYWxNb2RlbHMuUm1kIikNCiMgDQojIGNoYWlucyA8LSA1DQojIGl0ZXIgPC0gNTAwMA0KIyANCiMgZmluZF9jYWNoZSA8LSBmdW5jdGlvbihwYXR0ZXJuID0gIiIpIHsNCiMgICBmaWxlcyA8LSBwYXN0ZTAoImluZGV4X2NhY2hlL2h0bWwvIiwgbGlzdC5maWxlcygiaW5kZXhfY2FjaGUvaHRtbC8iLCBwYXR0ZXJuID0gIlxcLnJkeCQiKSkNCiMgICBmaWxlcyA8LSBmaWxlc1tzdHJpbmdyOjpzdHJfZGV0ZWN0KGZpbGVzLCBwYXR0ZXJuKV0NCiMgICBzdHJpbmdyOjpzdHJfcmVtb3ZlKGZpbGVzLCAiLnJkeCIpDQojIH0NCiMgDQojIGxhcHBseShmaW5kX2NhY2hlKCksIGxhenlMb2FkLCBlbnZpcm9ubWVudCgpKQ0KIyANCiMgbGFwcGx5KGZpbmRfY2FjaGUoImluZGV4X2NhY2hlL2h0bWwvbW9kZWxfYmFzZWxpbmVfUFNfUlQiKSwgbGF6eUxvYWQsIGVudmlyb25tZW50KCkpDQojIGxhcHBseShmaW5kX2NhY2hlKCJpbmRleF9jYWNoZS9odG1sL21vZGVsX2Jhc2VsaW5lX1JTX1JUIiksIGxhenlMb2FkLCBlbnZpcm9ubWVudCgpKQ0KIyBsYXBwbHkoZmluZF9jYWNoZSgiaW5kZXhfY2FjaGUvaHRtbC9tb2RlbF9iYXNlbGluZV9SSV9SVCIpLCBsYXp5TG9hZCwgZW52aXJvbm1lbnQoKSkNCiMgbGFwcGx5KGZpbmRfY2FjaGUoImluZGV4X2NhY2hlL2h0bWwvbW9kZWxfYmFzZWxpbmVfUklfRXJyIiksIGxhenlMb2FkLCBlbnZpcm9ubWVudCgpKQ0KIyBsYXBwbHkoZmluZF9jYWNoZSgiaW5kZXhfY2FjaGUvaHRtbC9tb2RlbF9iYXNlbGluZV9DUl9SVCIpLCBsYXp5TG9hZCwgZW52aXJvbm1lbnQoKSkNCiMgbGFwcGx5KGZpbmRfY2FjaGUoImluZGV4X2NhY2hlL2h0bWwvbW9kZWxfYmFzZWxpbmVfQ1JfRXJyIiksIGxhenlMb2FkLCBlbnZpcm9ubWVudCgpKQ0KYGBgDQoNCg0KDQojIyBQcmVwcm9jZXNzaW5nDQoNCmBgYHtyIGNoaWxkPScwX0NvbnZlbmllbmNlRnVuY3Rpb25zLlJtZCd9DQpgYGANCg0KDQpgYGB7ciBjaGlsZD0nMV9QcmVwcm9jZXNzaW5nLlJtZCd9DQpgYGANCg0KIyMgRWZmZWN0IG9mIFJlY29yZGluZyBMZW5ndGgNCg0KYGBge3IgY2hpbGQ9JzJfUmVjb3JkaW5nTGVuZ3RoLlJtZCd9DQpgYGANCg0KDQojIyBEaW1lbnNpb25hbCBTdHJ1Y3R1cmUNCg0KYGBge3IgY2hpbGQ9JzNfRGltZW5zaW9ucy5SbWQnfQ0KYGBgDQoNCjwhLS0gIyMjIEdhdXNzaWFuIEdyYXBoaWNhbCBNb2RlbCAtLT4NCg0KDQo8IS0tIGBgYHtyLCBtZXNzYWdlPUZBTFNFLCB3YXJuaW5nPUZBTFNFLCBmaWcud2lkdGg9MTcsIGZpZy5oZWlnaHQ9MTd9IC0tPg0KPCEtLSBsaWJyYXJ5KGdncmFwaCkgLS0+DQoNCjwhLS0gZGF0YSAlPiUgIC0tPg0KPCEtLSAgIGNvcnJlbGF0aW9uOjpjb3JyZWxhdGlvbihwYXJ0aWFsPUZBTFNFKSAlPiUgIC0tPg0KPCEtLSAgIGNvcnJlbGF0aW9uOjpjb3JfdG9fcGNvcigpICU+JSAgLS0+DQo8IS0tICAgZmlsdGVyKGFicyhyKSA+IDAuMikgJT4lIC0tPg0KPCEtLSAgIHRpZHlncmFwaDo6YXNfdGJsX2dyYXBoKGRpcmVjdGVkPUZBTFNFKSAlPiUgIC0tPg0KPCEtLSAgIGRwbHlyOjptdXRhdGUoY2xvc2VuZXNzID0gdGlkeWdyYXBoOjpjZW50cmFsaXR5X2Nsb3NlbmVzcyhub3JtYWxpemVkID0gVFJVRSksIC0tPg0KPCEtLSAgICAgICAgICAgICAgICAgZGVncmVlID0gdGlkeWdyYXBoOjpjZW50cmFsaXR5X2RlZ3JlZShub3JtYWxpemVkID0gVFJVRSksIC0tPg0KPCEtLSAgICAgICAgICAgICAgICAgYmV0d2VlbmVzcyA9IHRpZHlncmFwaDo6Y2VudHJhbGl0eV9iZXR3ZWVubmVzcyhub3JtYWxpemVkID0gVFJVRSkpICU+JSAtLT4NCjwhLS0gICB0aWR5Z3JhcGg6OmFjdGl2YXRlKG5vZGVzKSAlPiUgLS0+DQo8IS0tICAgZHBseXI6Om11dGF0ZShncm91cDEgPSBhcy5mYWN0b3IodGlkeWdyYXBoOjpncm91cF9lZGdlX2JldHdlZW5uZXNzKCkpLCAtLT4NCjwhLS0gICAgICAgICAgICAgICAgICMgZ3JvdXAyID0gYXMuZmFjdG9yKHRpZHlncmFwaDo6Z3JvdXBfb3B0aW1hbCgpKSwgLS0+DQo8IS0tICAgICAgICAgICAgICAgICAjIGdyb3VwMyA9IGFzLmZhY3Rvcih0aWR5Z3JhcGg6Omdyb3VwX3dhbGt0cmFwKCkpLCAtLT4NCjwhLS0gICAgICAgICAgICAgICAgICMgZ3JvdXA0ID0gYXMuZmFjdG9yKHRpZHlncmFwaDo6Z3JvdXBfc3BpbmdsYXNzKCkpLCAtLT4NCjwhLS0gICAgICAgICAgICAgICAgIGdyb3VwNSA9IGFzLmZhY3Rvcih0aWR5Z3JhcGg6Omdyb3VwX2xvdXZhaW4oKSkpICU+JSAgLS0+DQo8IS0tICAgZ2dyYXBoOjpnZ3JhcGgobGF5b3V0ID0gImZyIikgKyAtLT4NCjwhLS0gICAgIGdncmFwaDo6Z2VvbV9lZGdlX2FyYyhhZXMoY29sb3VyID0gciwgZWRnZV93aWR0aCA9IGFicyhyKSksIHN0cmVuZ3RoID0gMC4xLCBzaG93LmxlZ2VuZCA9IEZBTFNFKSArIC0tPg0KPCEtLSAgICAgZ2dyYXBoOjpnZW9tX25vZGVfcG9pbnQoYWVzKHNpemUgPSBkZWdyZWUsIGNvbG9yID0gZ3JvdXA1KSwgc2hvdy5sZWdlbmQgPSBGQUxTRSkgKyAtLT4NCjwhLS0gICAgIGdncmFwaDo6Z2VvbV9ub2RlX3RleHQoYWVzKGxhYmVsID0gbmFtZSksIGNvbG91ciA9ICJ3aGl0ZSIpICsgLS0+DQo8IS0tICAgICBnZ3JhcGg6OnNjYWxlX2VkZ2VfY29sb3JfZ3JhZGllbnQyKGxvdyA9ICIjYTIwMDI1IiwgaGlnaCA9ICIjMDA4YTAwIiwgbmFtZSA9ICJyIikgKyAtLT4NCjwhLS0gICAgIGdncmFwaDo6dGhlbWVfZ3JhcGgoKSArIC0tPg0KPCEtLSAgICAgZ3VpZGVzKGVkZ2Vfd2lkdGggPSBGQUxTRSkgKyAtLT4NCjwhLS0gICAgIHNjYWxlX3hfY29udGludW91cyhleHBhbmQgPSBleHBhbnNpb24oYyguMTAsIC4xMCkpKSArIC0tPg0KPCEtLSAgICAgc2NhbGVfeV9jb250aW51b3VzKGV4cGFuZCA9IGV4cGFuc2lvbihjKC4xMCwgLjEwKSkpICsgLS0+DQo8IS0tICAgICBzY2FsZV9zaXplX2NvbnRpbnVvdXMocmFuZ2UgPSBjKDIwLCAzMCkpICsgLS0+DQo8IS0tICAgICBzY2FsZV9lZGdlX3dpZHRoX2NvbnRpbnVvdXMocmFuZ2UgPSBjKDAuNSwgMikpICsgLS0+DQo8IS0tICAgICBzZWU6OnNjYWxlX2NvbG9yX21hdGVyaWFsX2QocGFsZXR0ZT0icmFpbmJvdyIsIHJldmVyc2U9VFJVRSkgLS0+DQo8IS0tIGBgYCAtLT4NCg0KPCEtLSBHcm91cHMgd2VyZSBpZGVudGlmaWVkIHVzaW5nIHRoZSBbdGlkeWdyYXBoOjpncm91cF9vcHRpbWFsXShodHRwczovL3JkcnIuaW8vY3Jhbi90aWR5Z3JhcGgvbWFuL2dyb3VwX2dyYXBoLmh0bWwpIGFsZ29yaXRobS4gLS0+DQoNCg0KDQoNCjwhLS0gIyMjIENsdXN0ZXIgQW5hbHlzaXMgLS0+DQoNCjwhLS0gIyMjIyBIb3cgbWFueSBjbHVzdGVycyAtLT4NCg0KPCEtLSBgYGB7ciwgbWVzc2FnZT1GQUxTRSwgd2FybmluZz1GQUxTRX0gLS0+DQo8IS0tIGRhdCA8LSBlZmZlY3RzaXplOjpzdGFuZGFyZGl6ZShkYXRhW3NhcHBseShkYXRhLCBpcy5udW1lcmljKV0pIC0tPg0KDQo8IS0tIG4gPC0gcGFyYW1ldGVyczo6bl9jbHVzdGVycyh0KGRhdCksIHBhY2thZ2UgPSBjKCJtY2x1c3QiLCAiY2x1c3RlciIpKSAtLT4NCg0KPCEtLSBuIC0tPg0KDQo8IS0tIHBsb3QobikgKyAtLT4NCjwhLS0gICB0aGVtZV9tb2Rlcm4oKSAtLT4NCjwhLS0gYGBgIC0tPg0KDQoNCjwhLS0gYGBge3IsIG1lc3NhZ2U9RkFMU0UsIHdhcm5pbmc9RkFMU0UsIGZpZy53aWR0aD03LCBmaWcuaGVpZ2h0PTEwfSAtLT4NCjwhLS0gbGlicmFyeShkZW5kZXh0ZW5kKSAtLT4NCg0KPCEtLSBkYXQgPC0gZWZmZWN0c2l6ZTo6c3RhbmRhcmRpemUoZGF0YVtzYXBwbHkoZGF0YSwgaXMubnVtZXJpYyldKSAtLT4NCg0KPCEtLSByZXN1bHQgPC0gcHZjbHVzdDo6cHZjbHVzdChkYXQsIG1ldGhvZC5kaXN0PSJldWNsaWRlYW4iLCBtZXRob2QuaGNsdXN0PSJ3YXJkLkQyIiwgbmJvb3Q9MTAsIHF1aWV0PVRSVUUpIC0tPg0KDQo8IS0tIHJlc3VsdCAlPiUgIC0tPg0KPCEtLSAgIGFzLmRlbmRyb2dyYW0oKSAlPiUgIC0tPg0KPCEtLSAgIHNvcnQoKSAlPiUgIC0tPg0KPCEtLSAgIGRlbmRleHRlbmQ6OnB2Y2x1c3Rfc2hvd19zaWduaWZfZ3JhZGllbnQocmVzdWx0LCBzaWduaWZfY29sX2Z1biA9IGdyRGV2aWNlczo6Y29sb3JSYW1wUGFsZXR0ZShjKCJibGFjayIsICJyZWQiKSkpICU+JSAgLS0+DQo8IS0tICAgZGVuZGV4dGVuZDo6cHZjbHVzdF9zaG93X3NpZ25pZihyZXN1bHQsIHNpZ25pZl92YWx1ZSA9IGMoMiwgMSkpICU+JSAtLT4NCjwhLS0gICBkZW5kZXh0ZW5kOjphcy5nZ2RlbmQoKSAlPiUgIC0tPg0KPCEtLSAgIGdncGxvdDI6OmdncGxvdChob3Jpej1UUlVFLCBvZmZzZXRfbGFiZWxzID0gLTEpIC0tPg0KPCEtLSBgYGAgLS0+DQoNCg0KDQojIyBSZWZlcmVuY2VzDQo=</div>
+<div id="rmd-source-code">LS0tDQp0aXRsZTogJyoqQ29uY2VwdHVhbCB2cy4gT2JzZXJ2ZWQgU3RydWN0dXJlIG9mIEhlYXJ0IFJhdGUgVmFyaWFiaWxpdHkgKEhSVikgSW5kaWNlcyoqJw0Kc3VidGl0bGU6ICJEYXRhIEFuYWx5c2lzIg0Kb3V0cHV0Og0KICBodG1sX2RvY3VtZW50Og0KICAgIHNlbGZfY29udGFpbmVkOiBmYWxzZQ0KICAgIHRoZW1lOiBjZXJ1bGVhbg0KICAgIGhpZ2hsaWdodDogcHlnbWVudHMNCiAgICB0b2M6IHllcw0KICAgIHRvY19kZXB0aDogMw0KICAgIHRvY19mbG9hdDogeWVzDQogICAgbnVtYmVyX3NlY3Rpb25zOiBubw0KICAgIGRmX3ByaW50OiBrYWJsZQ0KICAgIGNvZGVfZm9sZGluZzogaGlkZQ0KICAgIGNvZGVfZG93bmxvYWQ6IHllcw0KICB3b3JkX2RvY3VtZW50Og0KICAgIHJlZmVyZW5jZV9kb2N4OiB1dGlscy9UZW1wbGF0ZV9Xb3JkLmRvY3gNCiAgICBoaWdobGlnaHQ6IHB5Z21lbnRzDQogICAgdG9jOiBubw0KICAgIHRvY19kZXB0aDogMw0KICAgIGRmX3ByaW50OiBrYWJsZQ0KICAgIG51bWJlcl9zZWN0aW9uczogeWVzDQogIHJtYXJrZG93bjo6aHRtbF92aWduZXR0ZToNCiAgICB0b2M6IHllcw0KICAgIHRvY19kZXB0aDogMw0KICBwZGZfZG9jdW1lbnQ6DQogICAgdG9jOiB5ZXMNCiAgICB0b2NfZGVwdGg6ICcyJw0KICAgIGxhdGV4X2VuZ2luZTogeGVsYXRleA0KZWRpdG9yX29wdGlvbnM6DQogIGNodW5rX291dHB1dF90eXBlOiBjb25zb2xlDQpiaWJsaW9ncmFwaHk6IHV0aWxzL3JlZmVyZW5jZXMuYmliDQpjc2w6IHV0aWxzL2FwYS5jc2wNCi0tLQ0KDQoNCjwhLS0gDQohISEhIElNUE9SVEFOVDogcnVuIGBzb3VyY2UoInV0aWxzL3JlbmRlci5SIilgIHRvIHB1Ymxpc2ggaW5zdGVhZCBvZiBjbGlja2luZyBvbiAnS25pdCcNCi0tPg0KDQpgYGB7ciBzZXR1cCwgd2FybmluZz1GQUxTRSwgbWVzc2FnZT1UUlVFLCBpbmNsdWRlPUZBTFNFfQ0KIyBTZXQgdXAgdGhlIGVudmlyb25tZW50IChvciB1c2UgbG9jYWwgYWx0ZXJuYXRpdmUgYHNvdXJjZSgidXRpbHMvY29uZmlnLlIiKWApDQpzb3VyY2UoImh0dHBzOi8vcmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbS9SZWFsaXR5QmVuZGluZy9UZW1wbGF0ZVJlc3VsdHMvbWFpbi91dGlscy9jb25maWcuUiIpICANCg0KZmFzdCA8LSBGQUxTRSAgIyBNYWtlIHRoaXMgZmFsc2UgdG8gc2tpcCB0aGUgY2h1bmtzDQoNCiMgU2V0IHRoZW1lDQpnZ3Bsb3QyOjp0aGVtZV9zZXQoc2VlOjp0aGVtZV9tb2Rlcm4oKSkNCg0KYGBgDQoNCiMgSW50cm9kdWN0aW9uDQpgYGB7ciBiYWRnZXMsIGVjaG89RkFMU0UsIG1lc3NhZ2U9VFJVRSwgd2FybmluZz1GQUxTRSwgcmVzdWx0cz0nYXNpcyd9DQojIFRoaXMgY2h1bmsgaXMgYSBiaXQgY29tcGxleCBzbyBkb24ndCB3b3JyeSBhYm91dCBpdDogaXQncyBtYWRlIHRvIGFkZCBiYWRnZXMgdG8gdGhlIEhUTUwgdmVyc2lvbnMNCiMgTk9URTogWW91IGhhdmUgdG8gcmVwbGFjZSB0aGUgbGlua3MgYWNjb3JkaW5nbHkgdG8gaGF2ZSB3b3JraW5nICJidXR0b25zIiBvbiB0aGUgSFRNTCB2ZXJzaW9ucw0KaWYgKCFrbml0cjo6aXNfbGF0ZXhfb3V0cHV0KCkgJiYga25pdHI6OmlzX2h0bWxfb3V0cHV0KCkpIHsNCiAgY2F0KCIhW0J1aWxkXShodHRwczovL2dpdGh1Yi5jb20vVGFtLVBoYW0vSFJWU3RydWN0dXJlL3dvcmtmbG93cy9CdWlsZC9iYWRnZS5zdmcpDQogICAgICBbIVtXZWJzaXRlXShodHRwczovL2ltZy5zaGllbGRzLmlvL2JhZGdlL3JlcG8tUmVhZG1lLTIxOTZGMyldKGh0dHBzOi8vZ2l0aHViLmNvbS9UYW0tUGhhbS9IUlZTdHJ1Y3R1cmUpDQogICAgICBbIVtXZWJzaXRlXShodHRwczovL2ltZy5zaGllbGRzLmlvL2JhZGdlL3Zpc2l0LXdlYnNpdGUtRTkxRTYzKV0oaHR0cHM6Ly9yZWFsaXR5YmVuZGluZy5naXRodWIuaW8vVGVtcGxhdGVSZXN1bHRzLykNCiAgICAgIFshW1dlYnNpdGVdKGh0dHBzOi8vaW1nLnNoaWVsZHMuaW8vYmFkZ2UvZG93bmxvYWQtLmRvY3gtRkY1NzIyKV0oaHR0cHM6Ly9naXRodWIuY29tL1JlYWxpdHlCZW5kaW5nL1RlbXBsYXRlUmVzdWx0cy9yYXcvbWFpbi93b3JkX2FuZF9wZGYvU3VwcGxlbWVudGFyeU1hdGVyaWFscy5kb2N4KQ0KICAgICAgWyFbV2Vic2l0ZV0oaHR0cHM6Ly9pbWcuc2hpZWxkcy5pby9iYWRnZS9zZWUtLnBkZi1GRjk4MDApXShodHRwczovL2dpdGh1Yi5jb20vUmVhbGl0eUJlbmRpbmcvVGVtcGxhdGVSZXN1bHRzL2Jsb2IvbWFpbi93b3JkX2FuZF9wZGYvU3VwcGxlbWVudGFyeU1hdGVyaWFscy5wZGYpIikNCn0NCmBgYA0KDQoNCg0KVGhlIGFpbSBvZiB0aGlzIHN0dWR5IGlzIHRvIGV4cGxvcmUgdGhlIGZhY3RvciBzdHJ1Y3R1cmUgb2YgSFJWIGluZGljZXMuDQoNCiMgTWV0aG9kcw0KDQoNCiMjIERhdGFiYXNlcw0KDQojIyMgR2xhc2dvdyBVbml2ZXJzaXR5IERhdGFiYXNlDQoNClRoZSBHVURCIERhdGFiYXNlIFtAaG93ZWxsMjAxOGhpZ2hdIGNvbnRhaW5zIEVDR3MgZnJvbSAyNSBzdWJqZWN0cy4gRWFjaCBzdWJqZWN0IHdhcyByZWNvcmRlZCBwZXJmb3JtaW5nIDUgZGlmZmVyZW50IHRhc2tzIGZvciB0d28gbWludXRlcyAoc2l0dGluZywgZG9pbmcgYSBtYXRocyB0ZXN0IG9uIGEgdGFibGV0LCB3YWxraW5nIG9uIGEgdHJlYWRtaWxsLCBydW5uaW5nIG9uIGEgdHJlYWRtaWxsLCB1c2luZyBhIGhhbmQgYmlrZSkuIFRoZSBzYW1wbGluZyByYXRlIGlzIDI1MEh6IGZvciBhbGwgdGhlIGNvbmRpdGlvbnMuDQoNClRoZSBzY3JpcHQgdG8gZG93bmxvYWQgYW5kIGZvcm1hdCB0aGUgZGF0YWJhc2UgdXNpbmcgdGhlIFsqKkVDRy1HVURCKipdKGh0dHBzOi8vZ2l0aHViLmNvbS9iZXJuZHBvcnIvRUNHLUdVREIpIFB5dGhvbiBwYWNrYWdlIGJ5IEJlcm5kIFBvcnIgY2FuIGJlIGZvdW5kIFsqKmhlcmUqKl0oaHR0cHM6Ly9naXRodWIuY29tL25ldXJvcHN5Y2hvbG9neS9OZXVyb0tpdC9ibG9iL2Rldi9kYXRhL2d1ZGIvZG93bmxvYWRfZ3VkYi5weSkuDQoNCiMjIyBNSVQtQklIIEFycmh5dGhtaWEgRGF0YWJhc2UNCg0KVGhlIE1JVC1CSUggQXJyaHl0aG1pYSBEYXRhYmFzZSBbTUlULUFycmh5dGhtaWE7IEBtb29keTIwMDFpbXBhY3RdIGNvbnRhaW5zIDQ4IGV4Y2VycHRzIG9mIDMwLW1pbiBvZiB0d28tY2hhbm5lbCBhbWJ1bGF0b3J5IEVDRyByZWNvcmRpbmdzIHNhbXBsZWQgYXQgMzYwSHogYW5kIDI1IGFkZGl0aW9uYWwgcmVjb3JkaW5ncyBmcm9tIHRoZSBzYW1lIHBhcnRpY2lwYW50cyBpbmNsdWRpbmcgY29tbW9uIGJ1dCBjbGluaWNhbGx5IHNpZ25pZmljYW50IGFycmh5dGhtaWFzIChkZW5vdGVkIGFzIHRoZSBgTUlULUFycmh5dGhtaWEteGAgZGF0YWJhc2UpLg0KDQpUaGUgc2NyaXB0IHRvIGRvd25sb2FkIGFuZCBmb3JtYXQgdGhlIGRhdGFiYXNlIHVzaW5nIHRoZSBjYW4gYmUgZm91bmQgWyoqaGVyZSoqXShodHRwczovL2dpdGh1Yi5jb20vbmV1cm9wc3ljaG9sb2d5L05ldXJvS2l0L2Jsb2IvZGV2L2RhdGEvbWl0X2Fycmh5dGhtaWEvZG93bmxvYWRfbWl0X2Fycmh5dGhtaWEucHkpLg0KDQoNCiMjIyBNSVQtQklIIE5vcm1hbCBTaW51cyBSaHl0aG0gRGF0YWJhc2UNCg0KVGhpcyBkYXRhYmFzZSBpbmNsdWRlcyAxOCBjbGVhbiBsb25nLXRlcm0gRUNHIHJlY29yZGluZ3Mgb2Ygc3ViamVjdHMuIER1ZSB0byBtZW1vcnkgbGltaXRzLCB3ZSBvbmx5IGtlcHQgdGhlIHNlY29uZCBob3VyIG9mIHJlY29yZGluZyBvZiBlYWNoIHBhcnRpY2lwYW50Lg0KDQpUaGUgc2NyaXB0IHRvIGRvd25sb2FkIGFuZCBmb3JtYXQgdGhlIGRhdGFiYXNlIHVzaW5nIHRoZSBjYW4gYmUgZm91bmQgWyoqaGVyZSoqXShodHRwczovL2dpdGh1Yi5jb20vbmV1cm9wc3ljaG9sb2d5L05ldXJvS2l0L2Jsb2IvZGV2L2RhdGEvbWl0X25vcm1hbC9kb3dubG9hZF9taXRfbm9ybWFsLnB5KS4NCg0KDQo8IS0tICMjIyBMb2JhY2hldnNreSBVbml2ZXJzaXR5IEVsZWN0cm9jYXJkaW9ncmFwaHkgRGF0YWJhc2UgLS0+DQoNCjwhLS0gVGhlIExvYmFjaGV2c2t5IFVuaXZlcnNpdHkgRWxlY3Ryb2NhcmRpb2dyYXBoeSBEYXRhYmFzZSBbTFVEQjsgQGthbHlha3VsaW5hMjAxOGx1XSBjb25zaXN0cyBvZiAyMDAgMTAtc2Vjb25kIDEyLWxlYWQgRUNHIHNpZ25hbCByZWNvcmRzIHJlcHJlc2VudGluZyBkaWZmZXJlbnQgbW9ycGhvbG9naWVzIG9mIHRoZSBFQ0cgc2lnbmFsLiBUaGUgRUNHcyB3ZXJlIGNvbGxlY3RlZCBmcm9tIGhlYWx0aHkgdm9sdW50ZWVycyBhbmQgcGF0aWVudHMsIHdoaWNoIGhhZCB2YXJpb3VzIGNhcmRpb3Zhc2N1bGFyIGRpc2Vhc2VzLiBUaGUgYm91bmRhcmllcyBvZiBQLCBUIHdhdmVzIGFuZCBRUlMgY29tcGxleGVzIHdlcmUgbWFudWFsbHkgYW5ub3RhdGVkIGJ5IGNhcmRpb2xvZ2lzdHMgZm9yIGFsbCAyMDAgcmVjb3Jkcy4gLS0+DQoNCiMjIyBGYW50YXNpYSBEYXRhYmFzZQ0KDQpUaGUgRmFudGFzaWEgZGF0YWJhc2UgW0BpeWVuZ2FyMTk5NmFnZV0gY29uc2lzdHMgb2YgdHdlbnR5IHlvdW5nIGFuZCB0d2VudHkgZWxkZXJseSBoZWFsdGh5IHN1YmplY3RzLiBBbGwgc3ViamVjdHMgcmVtYWluZWQgaW4gYSByZXN0aW5nIHN0YXRlIGluIHNpbnVzIHJoeXRobSB3aGlsZSB3YXRjaGluZyB0aGUgbW92aWUgRmFudGFzaWEgKERpc25leSwgMTk0MCkgdG8gaGVscCBtYWludGFpbiB3YWtlZnVsbmVzcy4gVGhlIGNvbnRpbnVvdXMgRUNHIHNpZ25hbHMgd2VyZSBkaWdpdGl6ZWQgYXQgMjUwIEh6LiBFYWNoIGhlYXJ0YmVhdCB3YXMgYW5ub3RhdGVkIHVzaW5nIGFuIGF1dG9tYXRlZCBhcnJoeXRobWlhIGRldGVjdGlvbiBhbGdvcml0aG0sIGFuZCBlYWNoIGJlYXQgYW5ub3RhdGlvbiB3YXMgdmVyaWZpZWQgYnkgdmlzdWFsIGluc3BlY3Rpb24uDQoNCg0KDQoNCiMjIFByb2NlZHVyZQ0KDQpgYGB7cHl0aG9uLCBldmFsPUZBTFNFLCBlY2hvPUZBTFNFfQ0KaW1wb3J0IHBhbmRhcyBhcyBwZA0KaW1wb3J0IG51bXB5IGFzIG5wDQppbXBvcnQgbmV1cm9raXQyIGFzIG5rDQoNCiMgTG9hZCBUcnVlIFItcGVha3MgbG9jYXRpb24NCmRhdGFmaWxlcyA9IFtwZC5yZWFkX2NzdigiLi4vLi4vZGF0YS9ndWRiL1JwZWFrcy5jc3YiKSwNCiAgICAgICAgICAgICBwZC5yZWFkX2NzdigiLi4vLi4vZGF0YS9taXRfYXJyaHl0aG1pYS9ScGVha3MuY3N2IiksDQogICAgICAgICAgICAgcGQucmVhZF9jc3YoIi4uLy4uL2RhdGEvbWl0X25vcm1hbC9ScGVha3MuY3N2IiksDQogICAgICAgICAgICAgcGQucmVhZF9jc3YoIi4uLy4uL2RhdGEvZmFudGFzaWEvUnBlYWtzLmNzdiIpXQ0KDQojIEdldCByZXN1bHRzDQphbGxfcmVzdWx0cyA9IHBkLkRhdGFGcmFtZSgpDQoNCmZvciBmaWxlIGluIGRhdGFmaWxlczoNCiAgICBmb3IgZGF0YWJhc2UgaW4gbnAudW5pcXVlKGZpbGVbIkRhdGFiYXNlIl0pOg0KICAgICAgICBkYXRhID0gZmlsZVtmaWxlWyJEYXRhYmFzZSJdID09IGRhdGFiYXNlXQ0KICAgICAgICBmb3IgcGFydGljaXBhbnQgaW4gbnAudW5pcXVlKGRhdGFbIlBhcnRpY2lwYW50Il0pOg0KICAgICAgICAgICAgZGF0YV9wYXJ0aWNpcGFudCA9IGRhdGFbZGF0YVsiUGFydGljaXBhbnQiXSA9PSBwYXJ0aWNpcGFudF0NCiAgICAgICAgICAgIHNhbXBsaW5nX3JhdGUgPSBucC51bmlxdWUoZGF0YV9wYXJ0aWNpcGFudFsiU2FtcGxpbmdfUmF0ZSJdKVswXQ0KICAgICAgICAgICAgcnBlYWtzID0gZGF0YV9wYXJ0aWNpcGFudFsiUnBlYWtzIl0udmFsdWVzDQoNCiAgICAgICAgICAgIHJlc3VsdHMgPSBuay5ocnYocnBlYWtzLCBzYW1wbGluZ19yYXRlPXNhbXBsaW5nX3JhdGUpDQogICAgICAgICAgICByZXN1bHRzWyJQYXJ0aWNpcGFudCJdID0gcGFydGljaXBhbnQNCiAgICAgICAgICAgIHJlc3VsdHNbIkRhdGFiYXNlIl0gPSBkYXRhYmFzZQ0KICAgICAgICAgICAgcmVzdWx0c1siUmVjb3JkaW5nX0xlbmd0aCJdID0gcnBlYWtzWy0xXSAvIHNhbXBsaW5nX3JhdGUgLyA2MA0KDQogICAgICAgICAgICBhbGxfcmVzdWx0cyA9IHBkLmNvbmNhdChbYWxsX3Jlc3VsdHMsIHJlc3VsdHNdLCBheGlzPTApDQoNCmFsbF9yZXN1bHRzLnRvX2NzdigiZGF0YS9kYXRhLmNzdiIsIGluZGV4PUZhbHNlKQ0KYGBgDQoNCiMgUmVzdWx0cw0KDQpgYGB7ciwgbWVzc2FnZT1GQUxTRSwgd2FybmluZz1GQUxTRSwgcmVzdWx0cz0naGlkZSd9DQpsaWJyYXJ5KHRpZHl2ZXJzZSkNCmxpYnJhcnkoZWFzeXN0YXRzKQ0KDQpkYXRhIDwtIHJlYWQuY3N2KCJkYXRhL2RhdGEuY3N2Iiwgc3RyaW5nc0FzRmFjdG9ycyA9IEZBTFNFKSAlPiUgDQogIHNlbGVjdCgtSFJWX1VMRiwgLUhSVl9WTEYpICU+JSAgIyBFbXB0eQ0KICAjIGZpbHRlcihEYXRhYmFzZSAhPSAiTFVEQiIpICU+JSAjIHRvbyBzaG9ydCByZWNvcmRpbmdzLCBtYW55IGluZGljZXMgZGlkbid0IGNvbnZlcmdlDQogIHNldE5hbWVzKHN0cmluZ3I6OnN0cl9yZW1vdmUobmFtZXMoLiksICJIUlZfIikpICU+JSANCiAgbXV0YXRlX2FsbChmdW5jdGlvbih4KSB7DQogICAgeFtpcy5pbmZpbml0ZSh4KV0gPC0gTkENCiAgICByZXR1cm4oeCkgfSkNCmBgYA0KDQoNCmBgYHtyIHdhcm5pbmc9RkFMU0UsIG1lc3NhZ2U9VFJVRSwgcmVzdWx0cz0nYXNpcyd9DQpjYXQoIlRoaXMgc3R1ZHkgaW5jbHVkZXMiLCANCiAgICBucm93KGRhdGEpLCANCiAgICAicGFydGljaXBhbnRzIGZyb20iLCANCiAgICBsZW5ndGgodW5pcXVlKGRhdGEkRGF0YWJhc2UpKSwgDQogICAgImRhdGFiYXNlcy4iKQ0KYGBgDQoNCg0KYGBge3IgY29udmVuaWVuY2VfY2h1bmtfZm9yX2xvY2FsX3J1bm5pbmcsIGluY2x1ZGUgPSBGQUxTRSwgZXZhbCA9IEZBTFNFfQ0KbGlicmFyeShicm1zKQ0KbGlicmFyeShwYXRjaHdvcmspDQpsaWJyYXJ5KHRpZHl2ZXJzZSkNCmxpYnJhcnkoZWFzeXN0YXRzKQ0KDQojICMgVG8gcnVuIHRoaW5ncyBsb2NhbGx5OiBDVFJMICsgQUxUICsgU0hJRlQgKyBQLCBhbmQgdGhlbiB0aGUgbmV4dCB0d28gbGluZXMNCnNvdXJjZV9ybWQoIjBfQ29udmVuaWVuY2VGdW5jdGlvbnMuUm1kIikNCnNvdXJjZV9ybWQoIjFfUHJlcHJvY2Vzc2luZy5SbWQiKQ0KIyBzb3VyY2Vfcm1kKCI0X0NvbnZlbmllbmNlRnVuY3Rpb25zLlJtZCIpDQojICMgc291cmNlX3JtZCgiNV9CZWhhdmlvdXJhbE1vZGVscy5SbWQiKQ0KIyANCiMgY2hhaW5zIDwtIDUNCiMgaXRlciA8LSA1MDAwDQojIA0KIyBmaW5kX2NhY2hlIDwtIGZ1bmN0aW9uKHBhdHRlcm4gPSAiIikgew0KIyAgIGZpbGVzIDwtIHBhc3RlMCgiaW5kZXhfY2FjaGUvaHRtbC8iLCBsaXN0LmZpbGVzKCJpbmRleF9jYWNoZS9odG1sLyIsIHBhdHRlcm4gPSAiXFwucmR4JCIpKQ0KIyAgIGZpbGVzIDwtIGZpbGVzW3N0cmluZ3I6OnN0cl9kZXRlY3QoZmlsZXMsIHBhdHRlcm4pXQ0KIyAgIHN0cmluZ3I6OnN0cl9yZW1vdmUoZmlsZXMsICIucmR4IikNCiMgfQ0KIyANCiMgbGFwcGx5KGZpbmRfY2FjaGUoKSwgbGF6eUxvYWQsIGVudmlyb25tZW50KCkpDQojIA0KIyBsYXBwbHkoZmluZF9jYWNoZSgiaW5kZXhfY2FjaGUvaHRtbC9tb2RlbF9iYXNlbGluZV9QU19SVCIpLCBsYXp5TG9hZCwgZW52aXJvbm1lbnQoKSkNCiMgbGFwcGx5KGZpbmRfY2FjaGUoImluZGV4X2NhY2hlL2h0bWwvbW9kZWxfYmFzZWxpbmVfUlNfUlQiKSwgbGF6eUxvYWQsIGVudmlyb25tZW50KCkpDQojIGxhcHBseShmaW5kX2NhY2hlKCJpbmRleF9jYWNoZS9odG1sL21vZGVsX2Jhc2VsaW5lX1JJX1JUIiksIGxhenlMb2FkLCBlbnZpcm9ubWVudCgpKQ0KIyBsYXBwbHkoZmluZF9jYWNoZSgiaW5kZXhfY2FjaGUvaHRtbC9tb2RlbF9iYXNlbGluZV9SSV9FcnIiKSwgbGF6eUxvYWQsIGVudmlyb25tZW50KCkpDQojIGxhcHBseShmaW5kX2NhY2hlKCJpbmRleF9jYWNoZS9odG1sL21vZGVsX2Jhc2VsaW5lX0NSX1JUIiksIGxhenlMb2FkLCBlbnZpcm9ubWVudCgpKQ0KIyBsYXBwbHkoZmluZF9jYWNoZSgiaW5kZXhfY2FjaGUvaHRtbC9tb2RlbF9iYXNlbGluZV9DUl9FcnIiKSwgbGF6eUxvYWQsIGVudmlyb25tZW50KCkpDQpgYGANCg0KDQoNCiMjIFByZXByb2Nlc3NpbmcNCg0KYGBge3IgY2hpbGQ9JzBfQ29udmVuaWVuY2VGdW5jdGlvbnMuUm1kJ30NCmBgYA0KDQoNCmBgYHtyIGNoaWxkPScxX1ByZXByb2Nlc3NpbmcuUm1kJ30NCmBgYA0KDQojIyBFZmZlY3Qgb2YgUmVjb3JkaW5nIExlbmd0aA0KDQpgYGB7ciBjaGlsZD0nMl9SZWNvcmRpbmdMZW5ndGguUm1kJ30NCmBgYA0KDQoNCiMjIERpbWVuc2lvbmFsIFN0cnVjdHVyZQ0KDQpgYGB7ciBjaGlsZD0nM19EaW1lbnNpb25zLlJtZCd9DQpgYGANCg0KPCEtLSAjIyMgR2F1c3NpYW4gR3JhcGhpY2FsIE1vZGVsIC0tPg0KDQoNCjwhLS0gYGBge3IsIG1lc3NhZ2U9RkFMU0UsIHdhcm5pbmc9RkFMU0UsIGZpZy53aWR0aD0xNywgZmlnLmhlaWdodD0xN30gLS0+DQo8IS0tIGxpYnJhcnkoZ2dyYXBoKSAtLT4NCg0KPCEtLSBkYXRhICU+JSAgLS0+DQo8IS0tICAgY29ycmVsYXRpb246OmNvcnJlbGF0aW9uKHBhcnRpYWw9RkFMU0UpICU+JSAgLS0+DQo8IS0tICAgY29ycmVsYXRpb246OmNvcl90b19wY29yKCkgJT4lICAtLT4NCjwhLS0gICBmaWx0ZXIoYWJzKHIpID4gMC4yKSAlPiUgLS0+DQo8IS0tICAgdGlkeWdyYXBoOjphc190YmxfZ3JhcGgoZGlyZWN0ZWQ9RkFMU0UpICU+JSAgLS0+DQo8IS0tICAgZHBseXI6Om11dGF0ZShjbG9zZW5lc3MgPSB0aWR5Z3JhcGg6OmNlbnRyYWxpdHlfY2xvc2VuZXNzKG5vcm1hbGl6ZWQgPSBUUlVFKSwgLS0+DQo8IS0tICAgICAgICAgICAgICAgICBkZWdyZWUgPSB0aWR5Z3JhcGg6OmNlbnRyYWxpdHlfZGVncmVlKG5vcm1hbGl6ZWQgPSBUUlVFKSwgLS0+DQo8IS0tICAgICAgICAgICAgICAgICBiZXR3ZWVuZXNzID0gdGlkeWdyYXBoOjpjZW50cmFsaXR5X2JldHdlZW5uZXNzKG5vcm1hbGl6ZWQgPSBUUlVFKSkgJT4lIC0tPg0KPCEtLSAgIHRpZHlncmFwaDo6YWN0aXZhdGUobm9kZXMpICU+JSAtLT4NCjwhLS0gICBkcGx5cjo6bXV0YXRlKGdyb3VwMSA9IGFzLmZhY3Rvcih0aWR5Z3JhcGg6Omdyb3VwX2VkZ2VfYmV0d2Vlbm5lc3MoKSksIC0tPg0KPCEtLSAgICAgICAgICAgICAgICAgIyBncm91cDIgPSBhcy5mYWN0b3IodGlkeWdyYXBoOjpncm91cF9vcHRpbWFsKCkpLCAtLT4NCjwhLS0gICAgICAgICAgICAgICAgICMgZ3JvdXAzID0gYXMuZmFjdG9yKHRpZHlncmFwaDo6Z3JvdXBfd2Fsa3RyYXAoKSksIC0tPg0KPCEtLSAgICAgICAgICAgICAgICAgIyBncm91cDQgPSBhcy5mYWN0b3IodGlkeWdyYXBoOjpncm91cF9zcGluZ2xhc3MoKSksIC0tPg0KPCEtLSAgICAgICAgICAgICAgICAgZ3JvdXA1ID0gYXMuZmFjdG9yKHRpZHlncmFwaDo6Z3JvdXBfbG91dmFpbigpKSkgJT4lICAtLT4NCjwhLS0gICBnZ3JhcGg6OmdncmFwaChsYXlvdXQgPSAiZnIiKSArIC0tPg0KPCEtLSAgICAgZ2dyYXBoOjpnZW9tX2VkZ2VfYXJjKGFlcyhjb2xvdXIgPSByLCBlZGdlX3dpZHRoID0gYWJzKHIpKSwgc3RyZW5ndGggPSAwLjEsIHNob3cubGVnZW5kID0gRkFMU0UpICsgLS0+DQo8IS0tICAgICBnZ3JhcGg6Omdlb21fbm9kZV9wb2ludChhZXMoc2l6ZSA9IGRlZ3JlZSwgY29sb3IgPSBncm91cDUpLCBzaG93LmxlZ2VuZCA9IEZBTFNFKSArIC0tPg0KPCEtLSAgICAgZ2dyYXBoOjpnZW9tX25vZGVfdGV4dChhZXMobGFiZWwgPSBuYW1lKSwgY29sb3VyID0gIndoaXRlIikgKyAtLT4NCjwhLS0gICAgIGdncmFwaDo6c2NhbGVfZWRnZV9jb2xvcl9ncmFkaWVudDIobG93ID0gIiNhMjAwMjUiLCBoaWdoID0gIiMwMDhhMDAiLCBuYW1lID0gInIiKSArIC0tPg0KPCEtLSAgICAgZ2dyYXBoOjp0aGVtZV9ncmFwaCgpICsgLS0+DQo8IS0tICAgICBndWlkZXMoZWRnZV93aWR0aCA9IEZBTFNFKSArIC0tPg0KPCEtLSAgICAgc2NhbGVfeF9jb250aW51b3VzKGV4cGFuZCA9IGV4cGFuc2lvbihjKC4xMCwgLjEwKSkpICsgLS0+DQo8IS0tICAgICBzY2FsZV95X2NvbnRpbnVvdXMoZXhwYW5kID0gZXhwYW5zaW9uKGMoLjEwLCAuMTApKSkgKyAtLT4NCjwhLS0gICAgIHNjYWxlX3NpemVfY29udGludW91cyhyYW5nZSA9IGMoMjAsIDMwKSkgKyAtLT4NCjwhLS0gICAgIHNjYWxlX2VkZ2Vfd2lkdGhfY29udGludW91cyhyYW5nZSA9IGMoMC41LCAyKSkgKyAtLT4NCjwhLS0gICAgIHNlZTo6c2NhbGVfY29sb3JfbWF0ZXJpYWxfZChwYWxldHRlPSJyYWluYm93IiwgcmV2ZXJzZT1UUlVFKSAtLT4NCjwhLS0gYGBgIC0tPg0KDQo8IS0tIEdyb3VwcyB3ZXJlIGlkZW50aWZpZWQgdXNpbmcgdGhlIFt0aWR5Z3JhcGg6Omdyb3VwX29wdGltYWxdKGh0dHBzOi8vcmRyci5pby9jcmFuL3RpZHlncmFwaC9tYW4vZ3JvdXBfZ3JhcGguaHRtbCkgYWxnb3JpdGhtLiAtLT4NCg0KDQoNCg0KPCEtLSAjIyMgQ2x1c3RlciBBbmFseXNpcyAtLT4NCg0KPCEtLSAjIyMjIEhvdyBtYW55IGNsdXN0ZXJzIC0tPg0KDQo8IS0tIGBgYHtyLCBtZXNzYWdlPUZBTFNFLCB3YXJuaW5nPUZBTFNFfSAtLT4NCjwhLS0gZGF0IDwtIGVmZmVjdHNpemU6OnN0YW5kYXJkaXplKGRhdGFbc2FwcGx5KGRhdGEsIGlzLm51bWVyaWMpXSkgLS0+DQoNCjwhLS0gbiA8LSBwYXJhbWV0ZXJzOjpuX2NsdXN0ZXJzKHQoZGF0KSwgcGFja2FnZSA9IGMoIm1jbHVzdCIsICJjbHVzdGVyIikpIC0tPg0KDQo8IS0tIG4gLS0+DQoNCjwhLS0gcGxvdChuKSArIC0tPg0KPCEtLSAgIHRoZW1lX21vZGVybigpIC0tPg0KPCEtLSBgYGAgLS0+DQoNCg0KPCEtLSBgYGB7ciwgbWVzc2FnZT1GQUxTRSwgd2FybmluZz1GQUxTRSwgZmlnLndpZHRoPTcsIGZpZy5oZWlnaHQ9MTB9IC0tPg0KPCEtLSBsaWJyYXJ5KGRlbmRleHRlbmQpIC0tPg0KDQo8IS0tIGRhdCA8LSBlZmZlY3RzaXplOjpzdGFuZGFyZGl6ZShkYXRhW3NhcHBseShkYXRhLCBpcy5udW1lcmljKV0pIC0tPg0KDQo8IS0tIHJlc3VsdCA8LSBwdmNsdXN0OjpwdmNsdXN0KGRhdCwgbWV0aG9kLmRpc3Q9ImV1Y2xpZGVhbiIsIG1ldGhvZC5oY2x1c3Q9IndhcmQuRDIiLCBuYm9vdD0xMCwgcXVpZXQ9VFJVRSkgLS0+DQoNCjwhLS0gcmVzdWx0ICU+JSAgLS0+DQo8IS0tICAgYXMuZGVuZHJvZ3JhbSgpICU+JSAgLS0+DQo8IS0tICAgc29ydCgpICU+JSAgLS0+DQo8IS0tICAgZGVuZGV4dGVuZDo6cHZjbHVzdF9zaG93X3NpZ25pZl9ncmFkaWVudChyZXN1bHQsIHNpZ25pZl9jb2xfZnVuID0gZ3JEZXZpY2VzOjpjb2xvclJhbXBQYWxldHRlKGMoImJsYWNrIiwgInJlZCIpKSkgJT4lICAtLT4NCjwhLS0gICBkZW5kZXh0ZW5kOjpwdmNsdXN0X3Nob3dfc2lnbmlmKHJlc3VsdCwgc2lnbmlmX3ZhbHVlID0gYygyLCAxKSkgJT4lIC0tPg0KPCEtLSAgIGRlbmRleHRlbmQ6OmFzLmdnZGVuZCgpICU+JSAgLS0+DQo8IS0tICAgZ2dwbG90Mjo6Z2dwbG90KGhvcml6PVRSVUUsIG9mZnNldF9sYWJlbHMgPSAtMSkgLS0+DQo8IS0tIGBgYCAtLT4NCg0KDQoNCiMjIFJlZmVyZW5jZXMNCg==</div>
 
 
 </div>
@@ -865,9 +1341,6 @@ $(document).ready(function () {
 
 <script>
 $(document).ready(function ()  {
-
-    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
-    $('.unlisted.unnumbered').addClass('toc-ignore')
 
     // move toc-ignore selectors from section div to header
     $('div.section.toc-ignore')
