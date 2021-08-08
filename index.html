@@ -485,94 +485,23 @@ div.tocify {
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">abs</span>(r) <span class="sc">&gt;</span> <span class="fl">0.999</span>) <span class="sc">%&gt;%</span> </span>
 <span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(Parameter1, <span class="fu">desc</span>(<span class="fu">abs</span>(r))) <span class="sc">%&gt;%</span> </span>
 <span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">format</span>()</span></code></pre></div>
-<div class="kable-table">
-<table>
-<thead>
-<tr class="header">
-<th align="left">Parameter1</th>
-<th align="left">Parameter2</th>
-<th align="left">r</th>
-<th align="left">95% CI</th>
-<th align="left">t(450)</th>
-<th align="left">p</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left">C1d</td>
-<td align="left">C1a</td>
-<td align="left">-1.00</td>
-<td align="left">[-1.00, -1.00]</td>
-<td align="left">-Inf</td>
-<td align="left">&lt; .001***</td>
-</tr>
-<tr class="even">
-<td align="left">C2d</td>
-<td align="left">C2a</td>
-<td align="left">-1.00</td>
-<td align="left">[-1.00, -1.00]</td>
-<td align="left">-Inf</td>
-<td align="left">&lt; .001***</td>
-</tr>
-<tr class="odd">
-<td align="left">Cd</td>
-<td align="left">Ca</td>
-<td align="left">-1.00</td>
-<td align="left">[-1.00, -1.00]</td>
-<td align="left">-Inf</td>
-<td align="left">&lt; .001***</td>
-</tr>
-<tr class="even">
-<td align="left">GI</td>
-<td align="left">SI</td>
-<td align="left">1.00</td>
-<td align="left">[ 1.00, 1.00]</td>
-<td align="left">491.57</td>
-<td align="left">&lt; .001***</td>
-</tr>
-<tr class="odd">
-<td align="left">GI</td>
-<td align="left">AI</td>
-<td align="left">1.00</td>
-<td align="left">[ 1.00, 1.00]</td>
-<td align="left">483.37</td>
-<td align="left">&lt; .001***</td>
-</tr>
-<tr class="even">
-<td align="left">RMSSD</td>
-<td align="left">SDSD</td>
-<td align="left">1.00</td>
-<td align="left">[ 1.00, 1.00]</td>
-<td align="left">593.29</td>
-<td align="left">&lt; .001***</td>
-</tr>
-<tr class="odd">
-<td align="left">RMSSD</td>
-<td align="left">SD1</td>
-<td align="left">1.00</td>
-<td align="left">[ 1.00, 1.00]</td>
-<td align="left">593.29</td>
-<td align="left">&lt; .001***</td>
-</tr>
-<tr class="even">
-<td align="left">SDSD</td>
-<td align="left">SD1</td>
-<td align="left">1.00</td>
-<td align="left">[ 1.00, 1.00]</td>
-<td align="left">Inf</td>
-<td align="left">&lt; .001***</td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span> </span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>SDSD, <span class="sc">-</span>SD1, <span class="sc">-</span>SD1d, <span class="sc">-</span>SD1a, <span class="sc">-</span>CVSD) <span class="sc">%&gt;%</span>  <span class="co"># Same as RMSSD </span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>SDNNd, <span class="sc">-</span>SDNNa) <span class="sc">%&gt;%</span>  <span class="co"># Same as SDNN</span></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>SD2d, <span class="sc">-</span>SD2a) <span class="sc">%&gt;%</span>   <span class="co"># Same as SD2</span></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>Cd) <span class="sc">%&gt;%</span>   <span class="co"># Same as Ca</span></span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>C1d, <span class="sc">-</span>C2d)  <span class="co"># Same as C1a and C2a</span></span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>hrv_cols <span class="ot">&lt;-</span> <span class="fu">names</span>(<span class="fu">select</span>(data, <span class="sc">-</span>Participant, <span class="sc">-</span>Recording_Length, <span class="sc">-</span>Database))</span></code></pre></div>
+<pre><code>&gt;   Parameter1 Parameter2     r         95% CI t(450)         p
+&gt; 1        C1d        C1a -1.00 [-1.00, -1.00]   -Inf &lt; .001***
+&gt; 2        C2d        C2a -1.00 [-1.00, -1.00]   -Inf &lt; .001***
+&gt; 3         Cd         Ca -1.00 [-1.00, -1.00]   -Inf &lt; .001***
+&gt; 4         GI         SI  1.00 [ 1.00,  1.00] 491.57 &lt; .001***
+&gt; 5         GI         AI  1.00 [ 1.00,  1.00] 483.37 &lt; .001***
+&gt; 6      RMSSD       SDSD  1.00 [ 1.00,  1.00] 593.29 &lt; .001***
+&gt; 7      RMSSD        SD1  1.00 [ 1.00,  1.00] 593.29 &lt; .001***
+&gt; 8       SDSD        SD1  1.00 [ 1.00,  1.00]    Inf &lt; .001***</code></pre>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span> </span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>SDSD, <span class="sc">-</span>SD1, <span class="sc">-</span>SD1d, <span class="sc">-</span>SD1a, <span class="sc">-</span>CVSD) <span class="sc">%&gt;%</span>  <span class="co"># Same as RMSSD </span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>SDNNd, <span class="sc">-</span>SDNNa) <span class="sc">%&gt;%</span>  <span class="co"># Same as SDNN</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>SD2d, <span class="sc">-</span>SD2a) <span class="sc">%&gt;%</span>   <span class="co"># Same as SD2</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>Cd) <span class="sc">%&gt;%</span>   <span class="co"># Same as Ca</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>C1d, <span class="sc">-</span>C2d)  <span class="co"># Same as C1a and C2a</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>hrv_cols <span class="ot">&lt;-</span> <span class="fu">names</span>(<span class="fu">select</span>(data, <span class="sc">-</span>Participant, <span class="sc">-</span>Recording_Length, <span class="sc">-</span>Database))</span></code></pre></div>
 <!-- #### Remove Strongly Correlated (r higher than .98) -->
 <!-- ```{r, message=FALSE, warning=FALSE, fig.width=17, fig.height=17} -->
 <!-- data %>% -->
@@ -593,29 +522,29 @@ div.tocify {
 <h3>Outliers Removal</h3>
 <div id="before-removal" class="section level4">
 <h4>Before Removal</h4>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>data[hrv_cols] <span class="sc">%&gt;%</span> </span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">normalize</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">estimate_density</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>() <span class="sc">+</span></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>Parameter, <span class="at">scales =</span> <span class="st">&quot;free&quot;</span>) <span class="sc">+</span></span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;none&quot;</span>,</span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.title.x =</span> <span class="fu">element_blank</span>(),</span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.title.y =</span> <span class="fu">element_blank</span>(),</span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.text.y =</span> <span class="fu">element_blank</span>())</span></code></pre></div>
-<p><img src="figures/unnamed-chunk-11-1.png" width="10200" /></p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>data[hrv_cols] <span class="sc">%&gt;%</span> </span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">normalize</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">estimate_density</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>() <span class="sc">+</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>Parameter, <span class="at">scales =</span> <span class="st">&quot;free&quot;</span>) <span class="sc">+</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;none&quot;</span>,</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.title.x =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.title.y =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.text.y =</span> <span class="fu">element_blank</span>())</span></code></pre></div>
+<p><img src="figures/unnamed-chunk-11-1.png" width="5824.92235949962" /></p>
 </div>
 <div id="after-removal" class="section level4">
 <h4>After Removal</h4>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> hrv_cols) {</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  outliers <span class="ot">&lt;-</span> <span class="fu">as.logical</span>(performance<span class="sc">::</span><span class="fu">check_outliers</span>(data[[i]], <span class="at">method =</span> <span class="st">&quot;zscore_robust&quot;</span>, <span class="at">threshold =</span> <span class="fu">qnorm</span>(<span class="fl">0.9995</span>)))</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  data[outliers, i] <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="fu">paste0</span>(<span class="st">&quot;</span><span class="sc">\n</span><span class="st">-&quot;</span>, </span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>             i, <span class="st">&quot;: &quot;</span>, </span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>             <span class="fu">sum</span>(outliers), </span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>             <span class="st">&quot; outliers (&quot;</span>,</span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>             insight<span class="sc">::</span><span class="fu">format_value</span>(<span class="fu">sum</span>(outliers) <span class="sc">/</span> <span class="fu">nrow</span>(data), <span class="at">as_percent =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>             <span class="st">&quot;) detected and removed.&quot;</span>))</span>
-<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> hrv_cols) {</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  outliers <span class="ot">&lt;-</span> <span class="fu">as.logical</span>(performance<span class="sc">::</span><span class="fu">check_outliers</span>(data[[i]], <span class="at">method =</span> <span class="st">&quot;zscore_robust&quot;</span>, <span class="at">threshold =</span> <span class="fu">qnorm</span>(<span class="fl">0.9995</span>)))</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  data[outliers, i] <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="fu">paste0</span>(<span class="st">&quot;</span><span class="sc">\n</span><span class="st">-&quot;</span>, </span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>             i, <span class="st">&quot;: &quot;</span>, </span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>             <span class="fu">sum</span>(outliers), </span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>             <span class="st">&quot; outliers (&quot;</span>,</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>             insight<span class="sc">::</span><span class="fu">format_value</span>(<span class="fu">sum</span>(outliers) <span class="sc">/</span> <span class="fu">nrow</span>(data), <span class="at">as_percent =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>             <span class="st">&quot;) detected and removed.&quot;</span>))</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 <pre><code>&gt; 
 &gt; -RMSSD: 63 outliers (13.94%) detected and removed.
 &gt; -MeanNN: 0 outliers (0.00%) detected and removed.
@@ -660,16 +589,16 @@ div.tocify {
 &gt; -RCMSE: 0 outliers (0.00%) detected and removed.
 &gt; -DFA: 3 outliers (0.66%) detected and removed.
 &gt; -CorrDim: 0 outliers (0.00%) detected and removed.</code></pre>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>data[hrv_cols] <span class="sc">%&gt;%</span> </span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">normalize</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">estimate_density</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>() <span class="sc">+</span></span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>Parameter, <span class="at">scales =</span> <span class="st">&quot;free&quot;</span>) <span class="sc">+</span></span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;none&quot;</span>,</span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.title.x =</span> <span class="fu">element_blank</span>(),</span>
-<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.title.y =</span> <span class="fu">element_blank</span>(),</span>
-<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.text.y =</span> <span class="fu">element_blank</span>())</span></code></pre></div>
-<p><img src="figures/unnamed-chunk-13-1.png" width="10200" /></p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>data[hrv_cols] <span class="sc">%&gt;%</span> </span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">normalize</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">estimate_density</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>() <span class="sc">+</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>Parameter, <span class="at">scales =</span> <span class="st">&quot;free&quot;</span>) <span class="sc">+</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;none&quot;</span>,</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.title.x =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.title.y =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.text.y =</span> <span class="fu">element_blank</span>())</span></code></pre></div>
+<p><img src="figures/unnamed-chunk-13-1.png" width="5824.92235949962" /></p>
 </div>
 </div>
 </div>
@@ -677,24 +606,67 @@ div.tocify {
 <h2>Effect of Recording Length</h2>
 <div id="descriptive" class="section level3">
 <h3>Descriptive</h3>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>data <span class="sc">%&gt;%</span> </span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Recording_Length =</span> <span class="fu">as.factor</span>(<span class="fu">round</span>(Recording_Length))) <span class="sc">%&gt;%</span> </span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Recording_Length, <span class="at">fill =</span> Recording_Length)) <span class="sc">+</span> </span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>() <span class="sc">+</span></span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_viridis_d</span>(<span class="at">guide =</span> <span class="st">&quot;none&quot;</span>) <span class="sc">+</span></span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Recording Length&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Number of Participants&quot;</span>)</span></code></pre></div>
-<p><img src="figures/unnamed-chunk-14-1.png" width="10200" /></p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>data <span class="sc">%&gt;%</span> </span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Recording_Length =</span> <span class="fu">as.factor</span>(<span class="fu">round</span>(Recording_Length))) <span class="sc">%&gt;%</span> </span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Recording_Length, <span class="at">fill =</span> Recording_Length)) <span class="sc">+</span> </span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>() <span class="sc">+</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_viridis_d</span>(<span class="at">guide =</span> <span class="st">&quot;none&quot;</span>) <span class="sc">+</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Recording Length&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Number of Participants&quot;</span>)</span></code></pre></div>
+<p><img src="figures/unnamed-chunk-14-1.png" width="5824.92235949962" /></p>
 </div>
 <div id="investigate-effect" class="section level3">
 <h3>Investigate effect</h3>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>r <span class="ot">&lt;-</span> <span class="fu">correlation</span>(data[<span class="st">&quot;Recording_Length&quot;</span>],</span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>                 data[hrv_cols], </span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>                 <span class="at">method =</span> <span class="st">&quot;distance&quot;</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(<span class="fu">abs</span>(r)))</span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="fu">format</span>(r)</span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_correlations</span>(data, r[<span class="dv">1</span><span class="sc">:</span><span class="dv">9</span>, ])</span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>r <span class="ot">&lt;-</span> <span class="fu">correlation</span>(data[<span class="st">&quot;Recording_Length&quot;</span>],</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>                 data[hrv_cols], </span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>                 <span class="at">method =</span> <span class="st">&quot;distance&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(<span class="fu">abs</span>(r)))</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="fu">format</span>(r)</span></code></pre></div>
+<pre><code>&gt;          Parameter1   Parameter2    r        95% CI      t     df         p
+&gt; 1  Recording_Length          HTI 0.72 [ 0.67, 0.76] 302.42  84253 &lt; .001***
+&gt; 2  Recording_Length          MSE 0.52 [ 0.42, 0.60] 107.31  31373 &lt; .001***
+&gt; 3  Recording_Length         TINN 0.39 [ 0.31, 0.47] 117.85  76243 &lt; .001***
+&gt; 4  Recording_Length         ApEn 0.38 [ 0.30, 0.45] 129.69 101473 &lt; .001***
+&gt; 5  Recording_Length          LFn 0.35 [ 0.24, 0.46]  66.96  31373 &lt; .001***
+&gt; 6  Recording_Length          VHF 0.18 [ 0.05, 0.31]  27.24  21319 &lt; .001***
+&gt; 7  Recording_Length          SD2 0.18 [ 0.09, 0.27]  56.89  94393 &lt; .001***
+&gt; 8  Recording_Length          CVI 0.18 [ 0.09, 0.27]  57.08 100126 &lt; .001***
+&gt; 9  Recording_Length         SDNN 0.17 [ 0.07, 0.26]  50.30  87569 &lt; .001***
+&gt; 10 Recording_Length        IQRNN 0.16 [ 0.06, 0.25]  47.95  88829 &lt; .001***
+&gt; 11 Recording_Length            S 0.16 [ 0.05, 0.25]  40.24  64978 &lt; .001***
+&gt; 12 Recording_Length        MadNN 0.15 [ 0.06, 0.25]  47.02  90949 &lt; .001***
+&gt; 13 Recording_Length           GI 0.15 [ 0.05, 0.25]  36.74  58309 &lt; .001***
+&gt; 14 Recording_Length           SI 0.15 [ 0.04, 0.25]  36.00  57968 &lt; .001***
+&gt; 15 Recording_Length          DFA 0.14 [ 0.02, 0.26]  25.58  30626 &lt; .001***
+&gt; 16 Recording_Length        RMSSD 0.14 [ 0.05, 0.24]  40.02  75076 &lt; .001***
+&gt; 17 Recording_Length          PAS 0.14 [ 0.05, 0.24]  41.49  81808 &lt; .001***
+&gt; 18 Recording_Length           AI 0.14 [ 0.03, 0.24]  33.81  57289 &lt; .001***
+&gt; 19 Recording_Length        RCMSE 0.13 [ 0.01, 0.25]  23.36  31373 &lt; .001***
+&gt; 20 Recording_Length         LnHF 0.13 [ 0.01, 0.25]  23.07  31123 &lt; .001***
+&gt; 21 Recording_Length CSI_Modified 0.12 [ 0.03, 0.21]  36.00  87569 &lt; .001***
+&gt; 22 Recording_Length           HF 0.12 [-0.01, 0.25]  19.03  24751 &lt; .001***
+&gt; 23 Recording_Length         CVNN 0.11 [ 0.01, 0.20]  32.59  88829 &lt; .001***
+&gt; 24 Recording_Length           LF 0.11 [-0.03, 0.24]  15.44  20098 &lt; .001***
+&gt; 25 Recording_Length          PIP 0.10 [ 0.01, 0.19]  32.55  99679 &lt; .001***
+&gt; 26 Recording_Length         LFHF 0.10 [-0.03, 0.22]  15.93  27026 &lt; .001***
+&gt; 27 Recording_Length        MCVNN 0.09 [-0.01, 0.18]  27.20  91376 &lt; .001***
+&gt; 28 Recording_Length           Ca 0.07 [-0.03, 0.17]  20.07  76243 &lt; .001***
+&gt; 29 Recording_Length          C2a 0.06 [-0.04, 0.16]  16.98  80599 &lt; .001***
+&gt; 30 Recording_Length           PI 0.06 [-0.04, 0.15]  16.56  85903 &lt; .001***
+&gt; 31 Recording_Length       MeanNN 0.06 [-0.04, 0.15]  17.91 101473 &lt; .001***
+&gt; 32 Recording_Length     MedianNN 0.06 [-0.04, 0.15]  17.60 101473 &lt; .001***
+&gt; 33 Recording_Length          C1a 0.05 [-0.04, 0.15]  15.99  86734 &lt; .001***
+&gt; 34 Recording_Length          HFn 0.04 [-0.08, 0.16]   7.21  31373 &lt; .001***
+&gt; 35 Recording_Length          PSS 0.04 [-0.05, 0.13]  12.67  99233 &lt; .001***
+&gt; 36 Recording_Length        pNN20 0.04 [-0.05, 0.13]  12.72 101473 &lt; .001***
+&gt; 37 Recording_Length        pNN50 0.04 [-0.06, 0.14]  10.63  76243 &lt; .001***
+&gt; 38 Recording_Length      CorrDim 0.04 [-0.05, 0.13]  12.17 101473 &lt; .001***
+&gt; 39 Recording_Length         CMSE 0.03 [-0.09, 0.16]   5.98  31373 &lt; .001***
+&gt; 40 Recording_Length         IALS 0.03 [-0.07, 0.12]   8.67 101023 &lt; .001***
+&gt; 41 Recording_Length       SD1SD2 0.02 [-0.08, 0.11]   5.68  93959 &lt; .001***
+&gt; 42 Recording_Length          CSI 0.01 [-0.08, 0.11]   4.42  87151 &lt; .001***
+&gt; 43 Recording_Length       SampEn 0.01 [-0.11, 0.13]   2.72  36313 0.003**</code></pre>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_correlations</span>(data, r[<span class="dv">1</span><span class="sc">:</span><span class="dv">9</span>, ])</span></code></pre></div>
 <p><img src="figures/unnamed-chunk-15-1.png" width="5824.92235949962" /></p>
 <!-- ### Adjust the data for recording length -->
 <!-- ```{r, message=FALSE, warning=FALSE, results='hide'} -->
@@ -709,88 +681,76 @@ div.tocify {
 <h3>Factor Analysis</h3>
 <div id="how-many-factors" class="section level4">
 <h4>How many factors</h4>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>r <span class="ot">&lt;-</span> correlation<span class="sc">::</span><span class="fu">correlation</span>(data[hrv_cols]) <span class="sc">%&gt;%</span></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.matrix</span>()</span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> parameters<span class="sc">::</span><span class="fu">n_factors</span>(data, <span class="at">cor=</span>r, <span class="at">type =</span> <span class="st">&quot;PCA&quot;</span>)</span></code></pre></div>
-<pre><code>&gt; 
-&gt;  These indices are only valid with a principal component solution.
-&gt;  ...................... So, only positive eugenvalues are permitted.</code></pre>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>n</span></code></pre></div>
-<div class="kable-table">
-<table>
-<thead>
-<tr class="header">
-<th align="right">n_Factors</th>
-<th align="left">Method</th>
-<th align="left">Family</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="right">1</td>
-<td align="left">Acceleration factor</td>
-<td align="left">Scree</td>
-</tr>
-<tr class="even">
-<td align="right">2</td>
-<td align="left">t</td>
-<td align="left">Multiple_regression</td>
-</tr>
-<tr class="odd">
-<td align="right">2</td>
-<td align="left">p</td>
-<td align="left">Multiple_regression</td>
-</tr>
-<tr class="even">
-<td align="right">3</td>
-<td align="left">CNG</td>
-<td align="left">CNG</td>
-</tr>
-<tr class="odd">
-<td align="right">4</td>
-<td align="left">beta</td>
-<td align="left">Multiple_regression</td>
-</tr>
-<tr class="even">
-<td align="right">8</td>
-<td align="left">Optimal coordinates</td>
-<td align="left">Scree</td>
-</tr>
-<tr class="odd">
-<td align="right">8</td>
-<td align="left">Parallel analysis</td>
-<td align="left">Scree</td>
-</tr>
-<tr class="even">
-<td align="right">8</td>
-<td align="left">Kaiser criterion</td>
-<td align="left">Scree</td>
-</tr>
-<tr class="odd">
-<td align="right">28</td>
-<td align="left">R2</td>
-<td align="left">Scree_SE</td>
-</tr>
-<tr class="even">
-<td align="right">41</td>
-<td align="left">SE Scree</td>
-<td align="left">Scree_SE</td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(n) </span></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>r <span class="ot">&lt;-</span> correlation<span class="sc">::</span><span class="fu">correlation</span>(data[hrv_cols]) <span class="sc">%&gt;%</span> </span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.matrix</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  psych<span class="sc">::</span><span class="fu">cor.smooth</span>()</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> parameters<span class="sc">::</span><span class="fu">n_factors</span>(data, <span class="at">cor=</span>r, <span class="at">type =</span> <span class="st">&quot;FA&quot;</span>, <span class="at">package =</span> <span class="st">&quot;all&quot;</span>)</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>n</span></code></pre></div>
+<pre><code>&gt; # Method Agreement Procedure:
+&gt; 
+&gt; The choice of 8 dimensions is supported by 4 (23.53%) methods out of 17 (Optimal coordinates, Parallel analysis, Kaiser criterion, EGA (glasso)).</code></pre>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(n) </span></code></pre></div>
 <p><img src="figures/unnamed-chunk-16-1.png" width="5824.92235949962" /></p>
 </div>
 <div id="exploratory-factor-analysis-efa" class="section level4">
 <h4>Exploratory Factor Analysis (EFA)</h4>
-<!-- ```{r, message=FALSE, warning=FALSE, fig.width=15, fig.height=15} -->
-<!-- efa <- parameters::factor_analysis(data, cor=cor, n=7, rotation="varimax", fm="ml") -->
-<!-- print(efa, threshold="max", sort=TRUE) -->
-<!-- plot(efa) + -->
-<!--   see::theme_modern() -->
-<!-- ``` -->
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>efa <span class="ot">&lt;-</span> parameters<span class="sc">::</span><span class="fu">factor_analysis</span>(data, <span class="at">cor=</span>r, <span class="at">n=</span><span class="dv">8</span>, <span class="at">rotation=</span><span class="st">&quot;varimax&quot;</span>, <span class="at">fm=</span><span class="st">&quot;ml&quot;</span>)</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(efa, <span class="at">threshold=</span><span class="st">&quot;max&quot;</span>, <span class="at">sort=</span><span class="cn">TRUE</span>)</span></code></pre></div>
+<pre><code>&gt; # Rotated loadings from Factor Analysis (varimax-rotation)
+&gt; 
+&gt; Variable     | ML3  |  ML6  | ML5  |  ML1  | ML7  | ML2  | ML4  | ML8 | Complexity | Uniqueness
+&gt; -----------------------------------------------------------------------------------------------
+&gt; SDNN         | 0.93 |       |      |       |      |      |      |     |    1.11    |    0.10   
+&gt; SD2          | 0.92 |       |      |       |      |      |      |     |    1.14    |    0.10   
+&gt; IQRNN        | 0.90 |       |      |       |      |      |      |     |    1.38    |    0.03   
+&gt; CVI          | 0.90 |       |      |       |      |      |      |     |    1.25    |    0.09   
+&gt; MadNN        | 0.89 |       |      |       |      |      |      |     |    1.45    |    0.04   
+&gt; MCVNN        | 0.84 |       |      |       |      |      |      |     |    1.55    |    0.11   
+&gt; CVNN         | 0.82 |       |      |       |      |      |      |     |    1.62    |    0.13   
+&gt; S            | 0.79 |       |      |       |      |      |      |     |    1.25    |    0.30   
+&gt; RMSSD        | 0.71 |       |      |       |      |      |      |     |    1.70    |    0.33   
+&gt; pNN20        | 0.67 |       |      |       |      |      |      |     |    2.53    |    0.25   
+&gt; TINN         | 0.66 |       |      |       |      |      |      |     |    2.38    |    0.27   
+&gt; pNN50        | 0.62 |       |      |       |      |      |      |     |    1.77    |    0.48   
+&gt; CSI          |      | 0.89  |      |       |      |      |      |     |    1.20    |    0.14   
+&gt; SD1SD2       |      | -0.85 |      |       |      |      |      |     |    1.22    |    0.20   
+&gt; LFHF         |      | 0.66  |      |       |      |      |      |     |    2.11    |    0.32   
+&gt; HFn          |      | -0.66 |      |       |      |      |      |     |    2.04    |    0.34   
+&gt; CSI_Modified |      | 0.66  |      |       |      |      |      |     |    2.29    |    0.22   
+&gt; DFA          |      | 0.63  |      |       |      |      |      |     |    2.62    |    0.33   
+&gt; LFn          |      | 0.62  |      |       |      |      |      |     |    3.07    |    0.19   
+&gt; LnHF         |      |       | 0.77 |       |      |      |      |     |    1.94    |    0.13   
+&gt; HF           |      |       | 0.74 |       |      |      |      |     |    1.41    |    0.34   
+&gt; VHF          |      |       | 0.69 |       |      |      |      |     |    1.28    |    0.45   
+&gt; CorrDim      |      |       | 0.68 |       |      |      |      |     |    2.94    |    0.11   
+&gt; SampEn       |      |       | 0.60 |       |      |      |      |     |    3.53    |    0.13   
+&gt; LF           |      |       | 0.58 |       |      |      |      |     |    1.77    |    0.54   
+&gt; RCMSE        |      |       | 0.54 |       |      |      |      |     |    4.01    |    0.13   
+&gt; CMSE         |      |       | 0.46 |       |      |      |      |     |    5.48    |    0.23   
+&gt; GI           |      |       |      | 0.98  |      |      |      |     |    1.06    |  4.28e-03 
+&gt; SI           |      |       |      | 0.98  |      |      |      |     |    1.05    |    0.02   
+&gt; AI           |      |       |      | 0.95  |      |      |      |     |    1.14    |    0.03   
+&gt; Ca           |      |       |      | -0.49 |      |      |      |     |    1.40    |    0.72   
+&gt; PI           |      |       |      | -0.35 |      |      |      |     |    1.70    |    0.84   
+&gt; C1a          |      |       |      | -0.33 |      |      |      |     |    3.53    |    0.76   
+&gt; C2a          |      |       |      | -0.22 |      |      |      |     |    3.02    |    0.87   
+&gt; ApEn         |      |       |      |       | 0.92 |      |      |     |    1.30    |    0.03   
+&gt; HTI          |      |       |      |       | 0.84 |      |      |     |    1.39    |    0.15   
+&gt; MSE          |      |       |      |       | 0.59 |      |      |     |    3.46    |    0.23   
+&gt; MedianNN     |      |       |      |       |      | 0.96 |      |     |    1.14    |  9.37e-03 
+&gt; MeanNN       |      |       |      |       |      | 0.96 |      |     |    1.14    |    0.01   
+&gt; PIP          |      |       |      |       |      |      | 0.88 |     |    1.54    |    0.03   
+&gt; IALS         |      |       |      |       |      |      | 0.86 |     |    1.40    |    0.11   
+&gt; PSS          |      |       |      |       |      |      | 0.76 |     |    1.40    |    0.31   
+&gt; PAS          |      |       |      |       |      |      | 0.56 |     |    3.73    |    0.29   
+&gt; 
+&gt; The 8 latent factors (varimax rotation) accounted for 75.64% of the total variance of the original data (ML3 = 20.62%, ML6 = 12.44%, ML5 = 9.53%, ML1 = 8.68%, ML7 = 8.25%, ML2 = 7.08%, ML4 = 7.00%, ML8 = 2.05%).</code></pre>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(efa)</span></code></pre></div>
+<p><img src="figures/unnamed-chunk-17-1.png" width="9000" /></p>
 <!-- #### Confirmatory Factor Analysis (CFA) -->
 <!-- ```{r, message=FALSE, warning=FALSE, fig.width=15, fig.height=15} -->
 <!-- library(lavaan) -->
@@ -860,7 +820,7 @@ div.tocify {
 </div>
 </div>
 
-<div id="rmd-source-code">LS0tDQp0aXRsZTogJyoqQ29uY2VwdHVhbCB2cy4gT2JzZXJ2ZWQgU3RydWN0dXJlIG9mIEhlYXJ0IFJhdGUgVmFyaWFiaWxpdHkgKEhSVikgSW5kaWNlcyoqJw0Kc3VidGl0bGU6ICJEYXRhIEFuYWx5c2lzIg0Kb3V0cHV0Og0KICBodG1sX2RvY3VtZW50Og0KICAgIHNlbGZfY29udGFpbmVkOiBmYWxzZQ0KICAgIHRoZW1lOiBjZXJ1bGVhbg0KICAgIGhpZ2hsaWdodDogcHlnbWVudHMNCiAgICB0b2M6IHllcw0KICAgIHRvY19kZXB0aDogMw0KICAgIHRvY19mbG9hdDogeWVzDQogICAgbnVtYmVyX3NlY3Rpb25zOiBubw0KICAgIGRmX3ByaW50OiBrYWJsZQ0KICAgIGNvZGVfZm9sZGluZzogaGlkZQ0KICAgIGNvZGVfZG93bmxvYWQ6IHllcw0KICB3b3JkX2RvY3VtZW50Og0KICAgIHJlZmVyZW5jZV9kb2N4OiB1dGlscy9UZW1wbGF0ZV9Xb3JkLmRvY3gNCiAgICBoaWdobGlnaHQ6IHB5Z21lbnRzDQogICAgdG9jOiBubw0KICAgIHRvY19kZXB0aDogMw0KICAgIGRmX3ByaW50OiBrYWJsZQ0KICAgIG51bWJlcl9zZWN0aW9uczogeWVzDQogIHJtYXJrZG93bjo6aHRtbF92aWduZXR0ZToNCiAgICB0b2M6IHllcw0KICAgIHRvY19kZXB0aDogMw0KICBwZGZfZG9jdW1lbnQ6DQogICAgdG9jOiB5ZXMNCiAgICB0b2NfZGVwdGg6ICcyJw0KICAgIGxhdGV4X2VuZ2luZTogeGVsYXRleA0KZWRpdG9yX29wdGlvbnM6DQogIGNodW5rX291dHB1dF90eXBlOiBjb25zb2xlDQpiaWJsaW9ncmFwaHk6IHV0aWxzL2JpYmxpb2dyYXBoeS5iaWINCmNzbDogdXRpbHMvYXBhLmNzbA0KLS0tDQoNCg0KPCEtLSANCiEhISEgSU1QT1JUQU5UOiBydW4gYHNvdXJjZSgidXRpbHMvcmVuZGVyLlIiKWAgdG8gcHVibGlzaCBpbnN0ZWFkIG9mIGNsaWNraW5nIG9uICdLbml0Jw0KLS0+DQoNCmBgYHtyIHNldHVwLCB3YXJuaW5nPUZBTFNFLCBtZXNzYWdlPVRSVUUsIGluY2x1ZGU9RkFMU0V9DQojIFNldCB1cCB0aGUgZW52aXJvbm1lbnQgKG9yIHVzZSBsb2NhbCBhbHRlcm5hdGl2ZSBgc291cmNlKCJ1dGlscy9jb25maWcuUiIpYCkNCnNvdXJjZSgiaHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL1JlYWxpdHlCZW5kaW5nL1RlbXBsYXRlUmVzdWx0cy9tYWluL3V0aWxzL2NvbmZpZy5SIikgIA0KDQpmYXN0IDwtIEZBTFNFICAjIE1ha2UgdGhpcyBmYWxzZSB0byBza2lwIHRoZSBjaHVua3MNCg0KIyBTZXQgdGhlbWUNCmdncGxvdDI6OnRoZW1lX3NldChzZWU6OnRoZW1lX21vZGVybigpKQ0KDQpgYGANCg0KIyBJbnRyb2R1Y3Rpb24NCmBgYHtyIGJhZGdlcywgZWNobz1GQUxTRSwgbWVzc2FnZT1UUlVFLCB3YXJuaW5nPUZBTFNFLCByZXN1bHRzPSdhc2lzJ30NCiMgVGhpcyBjaHVuayBpcyBhIGJpdCBjb21wbGV4IHNvIGRvbid0IHdvcnJ5IGFib3V0IGl0OiBpdCdzIG1hZGUgdG8gYWRkIGJhZGdlcyB0byB0aGUgSFRNTCB2ZXJzaW9ucw0KIyBOT1RFOiBZb3UgaGF2ZSB0byByZXBsYWNlIHRoZSBsaW5rcyBhY2NvcmRpbmdseSB0byBoYXZlIHdvcmtpbmcgImJ1dHRvbnMiIG9uIHRoZSBIVE1MIHZlcnNpb25zDQppZiAoIWtuaXRyOjppc19sYXRleF9vdXRwdXQoKSAmJiBrbml0cjo6aXNfaHRtbF9vdXRwdXQoKSkgew0KICBjYXQoIiFbQnVpbGRdKGh0dHBzOi8vZ2l0aHViLmNvbS9UYW0tUGhhbS9IUlZTdHJ1Y3R1cmUvd29ya2Zsb3dzL0J1aWxkL2JhZGdlLnN2ZykNCiAgICAgIFshW1dlYnNpdGVdKGh0dHBzOi8vaW1nLnNoaWVsZHMuaW8vYmFkZ2UvcmVwby1SZWFkbWUtMjE5NkYzKV0oaHR0cHM6Ly9naXRodWIuY29tL1RhbS1QaGFtL0hSVlN0cnVjdHVyZSkNCiAgICAgIFshW1dlYnNpdGVdKGh0dHBzOi8vaW1nLnNoaWVsZHMuaW8vYmFkZ2UvdmlzaXQtd2Vic2l0ZS1FOTFFNjMpXShodHRwczovL3JlYWxpdHliZW5kaW5nLmdpdGh1Yi5pby9UZW1wbGF0ZVJlc3VsdHMvKQ0KICAgICAgWyFbV2Vic2l0ZV0oaHR0cHM6Ly9pbWcuc2hpZWxkcy5pby9iYWRnZS9kb3dubG9hZC0uZG9jeC1GRjU3MjIpXShodHRwczovL2dpdGh1Yi5jb20vUmVhbGl0eUJlbmRpbmcvVGVtcGxhdGVSZXN1bHRzL3Jhdy9tYWluL3dvcmRfYW5kX3BkZi9TdXBwbGVtZW50YXJ5TWF0ZXJpYWxzLmRvY3gpDQogICAgICBbIVtXZWJzaXRlXShodHRwczovL2ltZy5zaGllbGRzLmlvL2JhZGdlL3NlZS0ucGRmLUZGOTgwMCldKGh0dHBzOi8vZ2l0aHViLmNvbS9SZWFsaXR5QmVuZGluZy9UZW1wbGF0ZVJlc3VsdHMvYmxvYi9tYWluL3dvcmRfYW5kX3BkZi9TdXBwbGVtZW50YXJ5TWF0ZXJpYWxzLnBkZikiKQ0KfQ0KYGBgDQoNCg0KDQpUaGUgYWltIG9mIHRoaXMgc3R1ZHkgaXMgdG8gZXhwbG9yZSB0aGUgZmFjdG9yIHN0cnVjdHVyZSBvZiBIUlYgaW5kaWNlcy4NCg0KIyBNZXRob2RzDQoNCg0KIyMgRGF0YWJhc2VzDQoNCiMjIyBHbGFzZ293IFVuaXZlcnNpdHkgRGF0YWJhc2UNCg0KVGhlIEdVREIgRGF0YWJhc2UgW0Bob3dlbGwyMDE4aGlnaF0gY29udGFpbnMgRUNHcyBmcm9tIDI1IHN1YmplY3RzLiBFYWNoIHN1YmplY3Qgd2FzIHJlY29yZGVkIHBlcmZvcm1pbmcgNSBkaWZmZXJlbnQgdGFza3MgZm9yIHR3byBtaW51dGVzIChzaXR0aW5nLCBkb2luZyBhIG1hdGhzIHRlc3Qgb24gYSB0YWJsZXQsIHdhbGtpbmcgb24gYSB0cmVhZG1pbGwsIHJ1bm5pbmcgb24gYSB0cmVhZG1pbGwsIHVzaW5nIGEgaGFuZCBiaWtlKS4gVGhlIHNhbXBsaW5nIHJhdGUgaXMgMjUwSHogZm9yIGFsbCB0aGUgY29uZGl0aW9ucy4NCg0KVGhlIHNjcmlwdCB0byBkb3dubG9hZCBhbmQgZm9ybWF0IHRoZSBkYXRhYmFzZSB1c2luZyB0aGUgWyoqRUNHLUdVREIqKl0oaHR0cHM6Ly9naXRodWIuY29tL2Jlcm5kcG9yci9FQ0ctR1VEQikgUHl0aG9uIHBhY2thZ2UgYnkgQmVybmQgUG9yciBjYW4gYmUgZm91bmQgWyoqaGVyZSoqXShodHRwczovL2dpdGh1Yi5jb20vbmV1cm9wc3ljaG9sb2d5L05ldXJvS2l0L2Jsb2IvZGV2L2RhdGEvZ3VkYi9kb3dubG9hZF9ndWRiLnB5KS4NCg0KIyMjIE1JVC1CSUggQXJyaHl0aG1pYSBEYXRhYmFzZQ0KDQpUaGUgTUlULUJJSCBBcnJoeXRobWlhIERhdGFiYXNlIFtNSVQtQXJyaHl0aG1pYTsgQG1vb2R5MjAwMWltcGFjdF0gY29udGFpbnMgNDggZXhjZXJwdHMgb2YgMzAtbWluIG9mIHR3by1jaGFubmVsIGFtYnVsYXRvcnkgRUNHIHJlY29yZGluZ3Mgc2FtcGxlZCBhdCAzNjBIeiBhbmQgMjUgYWRkaXRpb25hbCByZWNvcmRpbmdzIGZyb20gdGhlIHNhbWUgcGFydGljaXBhbnRzIGluY2x1ZGluZyBjb21tb24gYnV0IGNsaW5pY2FsbHkgc2lnbmlmaWNhbnQgYXJyaHl0aG1pYXMgKGRlbm90ZWQgYXMgdGhlIGBNSVQtQXJyaHl0aG1pYS14YCBkYXRhYmFzZSkuDQoNClRoZSBzY3JpcHQgdG8gZG93bmxvYWQgYW5kIGZvcm1hdCB0aGUgZGF0YWJhc2UgdXNpbmcgdGhlIGNhbiBiZSBmb3VuZCBbKipoZXJlKipdKGh0dHBzOi8vZ2l0aHViLmNvbS9uZXVyb3BzeWNob2xvZ3kvTmV1cm9LaXQvYmxvYi9kZXYvZGF0YS9taXRfYXJyaHl0aG1pYS9kb3dubG9hZF9taXRfYXJyaHl0aG1pYS5weSkuDQoNCg0KIyMjIE1JVC1CSUggTm9ybWFsIFNpbnVzIFJoeXRobSBEYXRhYmFzZQ0KDQpUaGlzIGRhdGFiYXNlIGluY2x1ZGVzIDE4IGNsZWFuIGxvbmctdGVybSBFQ0cgcmVjb3JkaW5ncyBvZiBzdWJqZWN0cy4gRHVlIHRvIG1lbW9yeSBsaW1pdHMsIHdlIG9ubHkga2VwdCB0aGUgc2Vjb25kIGhvdXIgb2YgcmVjb3JkaW5nIG9mIGVhY2ggcGFydGljaXBhbnQuDQoNClRoZSBzY3JpcHQgdG8gZG93bmxvYWQgYW5kIGZvcm1hdCB0aGUgZGF0YWJhc2UgdXNpbmcgdGhlIGNhbiBiZSBmb3VuZCBbKipoZXJlKipdKGh0dHBzOi8vZ2l0aHViLmNvbS9uZXVyb3BzeWNob2xvZ3kvTmV1cm9LaXQvYmxvYi9kZXYvZGF0YS9taXRfbm9ybWFsL2Rvd25sb2FkX21pdF9ub3JtYWwucHkpLg0KDQoNCjwhLS0gIyMjIExvYmFjaGV2c2t5IFVuaXZlcnNpdHkgRWxlY3Ryb2NhcmRpb2dyYXBoeSBEYXRhYmFzZSAtLT4NCg0KPCEtLSBUaGUgTG9iYWNoZXZza3kgVW5pdmVyc2l0eSBFbGVjdHJvY2FyZGlvZ3JhcGh5IERhdGFiYXNlIFtMVURCOyBAa2FseWFrdWxpbmEyMDE4bHVdIGNvbnNpc3RzIG9mIDIwMCAxMC1zZWNvbmQgMTItbGVhZCBFQ0cgc2lnbmFsIHJlY29yZHMgcmVwcmVzZW50aW5nIGRpZmZlcmVudCBtb3JwaG9sb2dpZXMgb2YgdGhlIEVDRyBzaWduYWwuIFRoZSBFQ0dzIHdlcmUgY29sbGVjdGVkIGZyb20gaGVhbHRoeSB2b2x1bnRlZXJzIGFuZCBwYXRpZW50cywgd2hpY2ggaGFkIHZhcmlvdXMgY2FyZGlvdmFzY3VsYXIgZGlzZWFzZXMuIFRoZSBib3VuZGFyaWVzIG9mIFAsIFQgd2F2ZXMgYW5kIFFSUyBjb21wbGV4ZXMgd2VyZSBtYW51YWxseSBhbm5vdGF0ZWQgYnkgY2FyZGlvbG9naXN0cyBmb3IgYWxsIDIwMCByZWNvcmRzLiAtLT4NCg0KIyMjIEZhbnRhc2lhIERhdGFiYXNlDQoNClRoZSBGYW50YXNpYSBkYXRhYmFzZSBbQGl5ZW5nYXIxOTk2YWdlXSBjb25zaXN0cyBvZiB0d2VudHkgeW91bmcgYW5kIHR3ZW50eSBlbGRlcmx5IGhlYWx0aHkgc3ViamVjdHMuIEFsbCBzdWJqZWN0cyByZW1haW5lZCBpbiBhIHJlc3Rpbmcgc3RhdGUgaW4gc2ludXMgcmh5dGhtIHdoaWxlIHdhdGNoaW5nIHRoZSBtb3ZpZSBGYW50YXNpYSAoRGlzbmV5LCAxOTQwKSB0byBoZWxwIG1haW50YWluIHdha2VmdWxuZXNzLiBUaGUgY29udGludW91cyBFQ0cgc2lnbmFscyB3ZXJlIGRpZ2l0aXplZCBhdCAyNTAgSHouIEVhY2ggaGVhcnRiZWF0IHdhcyBhbm5vdGF0ZWQgdXNpbmcgYW4gYXV0b21hdGVkIGFycmh5dGhtaWEgZGV0ZWN0aW9uIGFsZ29yaXRobSwgYW5kIGVhY2ggYmVhdCBhbm5vdGF0aW9uIHdhcyB2ZXJpZmllZCBieSB2aXN1YWwgaW5zcGVjdGlvbi4NCg0KDQoNCg0KIyMgUHJvY2VkdXJlDQoNCmBgYHtweXRob24sIGV2YWw9RkFMU0UsIGVjaG89RkFMU0V9DQppbXBvcnQgcGFuZGFzIGFzIHBkDQppbXBvcnQgbnVtcHkgYXMgbnANCmltcG9ydCBuZXVyb2tpdDIgYXMgbmsNCg0KIyBMb2FkIFRydWUgUi1wZWFrcyBsb2NhdGlvbg0KZGF0YWZpbGVzID0gW3BkLnJlYWRfY3N2KCIuLi8uLi9kYXRhL2d1ZGIvUnBlYWtzLmNzdiIpLA0KICAgICAgICAgICAgIHBkLnJlYWRfY3N2KCIuLi8uLi9kYXRhL21pdF9hcnJoeXRobWlhL1JwZWFrcy5jc3YiKSwNCiAgICAgICAgICAgICBwZC5yZWFkX2NzdigiLi4vLi4vZGF0YS9taXRfbm9ybWFsL1JwZWFrcy5jc3YiKSwNCiAgICAgICAgICAgICBwZC5yZWFkX2NzdigiLi4vLi4vZGF0YS9mYW50YXNpYS9ScGVha3MuY3N2IildDQoNCiMgR2V0IHJlc3VsdHMNCmFsbF9yZXN1bHRzID0gcGQuRGF0YUZyYW1lKCkNCg0KZm9yIGZpbGUgaW4gZGF0YWZpbGVzOg0KICAgIGZvciBkYXRhYmFzZSBpbiBucC51bmlxdWUoZmlsZVsiRGF0YWJhc2UiXSk6DQogICAgICAgIGRhdGEgPSBmaWxlW2ZpbGVbIkRhdGFiYXNlIl0gPT0gZGF0YWJhc2VdDQogICAgICAgIGZvciBwYXJ0aWNpcGFudCBpbiBucC51bmlxdWUoZGF0YVsiUGFydGljaXBhbnQiXSk6DQogICAgICAgICAgICBkYXRhX3BhcnRpY2lwYW50ID0gZGF0YVtkYXRhWyJQYXJ0aWNpcGFudCJdID09IHBhcnRpY2lwYW50XQ0KICAgICAgICAgICAgc2FtcGxpbmdfcmF0ZSA9IG5wLnVuaXF1ZShkYXRhX3BhcnRpY2lwYW50WyJTYW1wbGluZ19SYXRlIl0pWzBdDQogICAgICAgICAgICBycGVha3MgPSBkYXRhX3BhcnRpY2lwYW50WyJScGVha3MiXS52YWx1ZXMNCg0KICAgICAgICAgICAgcmVzdWx0cyA9IG5rLmhydihycGVha3MsIHNhbXBsaW5nX3JhdGU9c2FtcGxpbmdfcmF0ZSkNCiAgICAgICAgICAgIHJlc3VsdHNbIlBhcnRpY2lwYW50Il0gPSBwYXJ0aWNpcGFudA0KICAgICAgICAgICAgcmVzdWx0c1siRGF0YWJhc2UiXSA9IGRhdGFiYXNlDQogICAgICAgICAgICByZXN1bHRzWyJSZWNvcmRpbmdfTGVuZ3RoIl0gPSBycGVha3NbLTFdIC8gc2FtcGxpbmdfcmF0ZSAvIDYwDQoNCiAgICAgICAgICAgIGFsbF9yZXN1bHRzID0gcGQuY29uY2F0KFthbGxfcmVzdWx0cywgcmVzdWx0c10sIGF4aXM9MCkNCg0KYWxsX3Jlc3VsdHMudG9fY3N2KCJkYXRhL2RhdGEuY3N2IiwgaW5kZXg9RmFsc2UpDQpgYGANCg0KIyBSZXN1bHRzDQoNCmBgYHtyLCBtZXNzYWdlPUZBTFNFLCB3YXJuaW5nPUZBTFNFLCByZXN1bHRzPSdoaWRlJ30NCmxpYnJhcnkodGlkeXZlcnNlKQ0KbGlicmFyeShlYXN5c3RhdHMpDQoNCmRhdGEgPC0gcmVhZC5jc3YoImRhdGEvZGF0YS5jc3YiLCBzdHJpbmdzQXNGYWN0b3JzID0gRkFMU0UpICU+JSANCiAgc2VsZWN0KC1IUlZfVUxGLCAtSFJWX1ZMRikgJT4lICAjIEVtcHR5DQogICMgZmlsdGVyKERhdGFiYXNlICE9ICJMVURCIikgJT4lICMgdG9vIHNob3J0IHJlY29yZGluZ3MsIG1hbnkgaW5kaWNlcyBkaWRuJ3QgY29udmVyZ2UNCiAgc2V0TmFtZXMoc3RyaW5ncjo6c3RyX3JlbW92ZShuYW1lcyguKSwgIkhSVl8iKSkgJT4lIA0KICBtdXRhdGVfYWxsKGZ1bmN0aW9uKHgpIHsNCiAgICB4W2lzLmluZmluaXRlKHgpXSA8LSBOQQ0KICAgIHJldHVybih4KSB9KQ0KYGBgDQoNCg0KYGBge3Igd2FybmluZz1GQUxTRSwgbWVzc2FnZT1UUlVFLCByZXN1bHRzPSdhc2lzJ30NCmNhdCgiVGhpcyBzdHVkeSBpbmNsdWRlcyIsIA0KICAgIG5yb3coZGF0YSksIA0KICAgICJwYXJ0aWNpcGFudHMgZnJvbSIsIA0KICAgIGxlbmd0aCh1bmlxdWUoZGF0YSREYXRhYmFzZSkpLCANCiAgICAiZGF0YWJhc2VzLiIpDQpgYGANCg0KDQpgYGB7ciBjb252ZW5pZW5jZV9jaHVua19mb3JfbG9jYWxfcnVubmluZywgaW5jbHVkZSA9IEZBTFNFLCBldmFsID0gRkFMU0V9DQpsaWJyYXJ5KGJybXMpDQpsaWJyYXJ5KHBhdGNod29yaykNCmxpYnJhcnkodGlkeXZlcnNlKQ0KbGlicmFyeShlYXN5c3RhdHMpDQoNCiMgIyBUbyBydW4gdGhpbmdzIGxvY2FsbHk6IENUUkwgKyBBTFQgKyBTSElGVCArIFAsIGFuZCB0aGVuIHRoZSBuZXh0IHR3byBsaW5lcw0Kc291cmNlX3JtZCgiMF9Db252ZW5pZW5jZUZ1bmN0aW9ucy5SbWQiKQ0Kc291cmNlX3JtZCgiMV9QcmVwcm9jZXNzaW5nLlJtZCIpDQojIHNvdXJjZV9ybWQoIjRfQ29udmVuaWVuY2VGdW5jdGlvbnMuUm1kIikNCiMgIyBzb3VyY2Vfcm1kKCI1X0JlaGF2aW91cmFsTW9kZWxzLlJtZCIpDQojIA0KIyBjaGFpbnMgPC0gNQ0KIyBpdGVyIDwtIDUwMDANCiMgDQojIGZpbmRfY2FjaGUgPC0gZnVuY3Rpb24ocGF0dGVybiA9ICIiKSB7DQojICAgZmlsZXMgPC0gcGFzdGUwKCJpbmRleF9jYWNoZS9odG1sLyIsIGxpc3QuZmlsZXMoImluZGV4X2NhY2hlL2h0bWwvIiwgcGF0dGVybiA9ICJcXC5yZHgkIikpDQojICAgZmlsZXMgPC0gZmlsZXNbc3RyaW5ncjo6c3RyX2RldGVjdChmaWxlcywgcGF0dGVybildDQojICAgc3RyaW5ncjo6c3RyX3JlbW92ZShmaWxlcywgIi5yZHgiKQ0KIyB9DQojIA0KIyBsYXBwbHkoZmluZF9jYWNoZSgpLCBsYXp5TG9hZCwgZW52aXJvbm1lbnQoKSkNCiMgDQojIGxhcHBseShmaW5kX2NhY2hlKCJpbmRleF9jYWNoZS9odG1sL21vZGVsX2Jhc2VsaW5lX1BTX1JUIiksIGxhenlMb2FkLCBlbnZpcm9ubWVudCgpKQ0KIyBsYXBwbHkoZmluZF9jYWNoZSgiaW5kZXhfY2FjaGUvaHRtbC9tb2RlbF9iYXNlbGluZV9SU19SVCIpLCBsYXp5TG9hZCwgZW52aXJvbm1lbnQoKSkNCiMgbGFwcGx5KGZpbmRfY2FjaGUoImluZGV4X2NhY2hlL2h0bWwvbW9kZWxfYmFzZWxpbmVfUklfUlQiKSwgbGF6eUxvYWQsIGVudmlyb25tZW50KCkpDQojIGxhcHBseShmaW5kX2NhY2hlKCJpbmRleF9jYWNoZS9odG1sL21vZGVsX2Jhc2VsaW5lX1JJX0VyciIpLCBsYXp5TG9hZCwgZW52aXJvbm1lbnQoKSkNCiMgbGFwcGx5KGZpbmRfY2FjaGUoImluZGV4X2NhY2hlL2h0bWwvbW9kZWxfYmFzZWxpbmVfQ1JfUlQiKSwgbGF6eUxvYWQsIGVudmlyb25tZW50KCkpDQojIGxhcHBseShmaW5kX2NhY2hlKCJpbmRleF9jYWNoZS9odG1sL21vZGVsX2Jhc2VsaW5lX0NSX0VyciIpLCBsYXp5TG9hZCwgZW52aXJvbm1lbnQoKSkNCmBgYA0KDQoNCg0KIyMgUHJlcHJvY2Vzc2luZw0KDQpgYGB7ciBjaGlsZD0nMF9Db252ZW5pZW5jZUZ1bmN0aW9ucy5SbWQnfQ0KYGBgDQoNCg0KYGBge3IgY2hpbGQ9JzFfUHJlcHJvY2Vzc2luZy5SbWQnfQ0KYGBgDQoNCiMjIEVmZmVjdCBvZiBSZWNvcmRpbmcgTGVuZ3RoDQoNCmBgYHtyIGNoaWxkPScyX1JlY29yZGluZ0xlbmd0aC5SbWQnfQ0KYGBgDQoNCg0KIyMgRGltZW5zaW9uYWwgU3RydWN0dXJlDQoNCmBgYHtyIGNoaWxkPSczX0RpbWVuc2lvbnMuUm1kJ30NCmBgYA0KDQo8IS0tICMjIyBHYXVzc2lhbiBHcmFwaGljYWwgTW9kZWwgLS0+DQoNCg0KPCEtLSBgYGB7ciwgbWVzc2FnZT1GQUxTRSwgd2FybmluZz1GQUxTRSwgZmlnLndpZHRoPTE3LCBmaWcuaGVpZ2h0PTE3fSAtLT4NCjwhLS0gbGlicmFyeShnZ3JhcGgpIC0tPg0KDQo8IS0tIGRhdGEgJT4lICAtLT4NCjwhLS0gICBjb3JyZWxhdGlvbjo6Y29ycmVsYXRpb24ocGFydGlhbD1GQUxTRSkgJT4lICAtLT4NCjwhLS0gICBjb3JyZWxhdGlvbjo6Y29yX3RvX3Bjb3IoKSAlPiUgIC0tPg0KPCEtLSAgIGZpbHRlcihhYnMocikgPiAwLjIpICU+JSAtLT4NCjwhLS0gICB0aWR5Z3JhcGg6OmFzX3RibF9ncmFwaChkaXJlY3RlZD1GQUxTRSkgJT4lICAtLT4NCjwhLS0gICBkcGx5cjo6bXV0YXRlKGNsb3NlbmVzcyA9IHRpZHlncmFwaDo6Y2VudHJhbGl0eV9jbG9zZW5lc3Mobm9ybWFsaXplZCA9IFRSVUUpLCAtLT4NCjwhLS0gICAgICAgICAgICAgICAgIGRlZ3JlZSA9IHRpZHlncmFwaDo6Y2VudHJhbGl0eV9kZWdyZWUobm9ybWFsaXplZCA9IFRSVUUpLCAtLT4NCjwhLS0gICAgICAgICAgICAgICAgIGJldHdlZW5lc3MgPSB0aWR5Z3JhcGg6OmNlbnRyYWxpdHlfYmV0d2Vlbm5lc3Mobm9ybWFsaXplZCA9IFRSVUUpKSAlPiUgLS0+DQo8IS0tICAgdGlkeWdyYXBoOjphY3RpdmF0ZShub2RlcykgJT4lIC0tPg0KPCEtLSAgIGRwbHlyOjptdXRhdGUoZ3JvdXAxID0gYXMuZmFjdG9yKHRpZHlncmFwaDo6Z3JvdXBfZWRnZV9iZXR3ZWVubmVzcygpKSwgLS0+DQo8IS0tICAgICAgICAgICAgICAgICAjIGdyb3VwMiA9IGFzLmZhY3Rvcih0aWR5Z3JhcGg6Omdyb3VwX29wdGltYWwoKSksIC0tPg0KPCEtLSAgICAgICAgICAgICAgICAgIyBncm91cDMgPSBhcy5mYWN0b3IodGlkeWdyYXBoOjpncm91cF93YWxrdHJhcCgpKSwgLS0+DQo8IS0tICAgICAgICAgICAgICAgICAjIGdyb3VwNCA9IGFzLmZhY3Rvcih0aWR5Z3JhcGg6Omdyb3VwX3NwaW5nbGFzcygpKSwgLS0+DQo8IS0tICAgICAgICAgICAgICAgICBncm91cDUgPSBhcy5mYWN0b3IodGlkeWdyYXBoOjpncm91cF9sb3V2YWluKCkpKSAlPiUgIC0tPg0KPCEtLSAgIGdncmFwaDo6Z2dyYXBoKGxheW91dCA9ICJmciIpICsgLS0+DQo8IS0tICAgICBnZ3JhcGg6Omdlb21fZWRnZV9hcmMoYWVzKGNvbG91ciA9IHIsIGVkZ2Vfd2lkdGggPSBhYnMocikpLCBzdHJlbmd0aCA9IDAuMSwgc2hvdy5sZWdlbmQgPSBGQUxTRSkgKyAtLT4NCjwhLS0gICAgIGdncmFwaDo6Z2VvbV9ub2RlX3BvaW50KGFlcyhzaXplID0gZGVncmVlLCBjb2xvciA9IGdyb3VwNSksIHNob3cubGVnZW5kID0gRkFMU0UpICsgLS0+DQo8IS0tICAgICBnZ3JhcGg6Omdlb21fbm9kZV90ZXh0KGFlcyhsYWJlbCA9IG5hbWUpLCBjb2xvdXIgPSAid2hpdGUiKSArIC0tPg0KPCEtLSAgICAgZ2dyYXBoOjpzY2FsZV9lZGdlX2NvbG9yX2dyYWRpZW50Mihsb3cgPSAiI2EyMDAyNSIsIGhpZ2ggPSAiIzAwOGEwMCIsIG5hbWUgPSAiciIpICsgLS0+DQo8IS0tICAgICBnZ3JhcGg6OnRoZW1lX2dyYXBoKCkgKyAtLT4NCjwhLS0gICAgIGd1aWRlcyhlZGdlX3dpZHRoID0gRkFMU0UpICsgLS0+DQo8IS0tICAgICBzY2FsZV94X2NvbnRpbnVvdXMoZXhwYW5kID0gZXhwYW5zaW9uKGMoLjEwLCAuMTApKSkgKyAtLT4NCjwhLS0gICAgIHNjYWxlX3lfY29udGludW91cyhleHBhbmQgPSBleHBhbnNpb24oYyguMTAsIC4xMCkpKSArIC0tPg0KPCEtLSAgICAgc2NhbGVfc2l6ZV9jb250aW51b3VzKHJhbmdlID0gYygyMCwgMzApKSArIC0tPg0KPCEtLSAgICAgc2NhbGVfZWRnZV93aWR0aF9jb250aW51b3VzKHJhbmdlID0gYygwLjUsIDIpKSArIC0tPg0KPCEtLSAgICAgc2VlOjpzY2FsZV9jb2xvcl9tYXRlcmlhbF9kKHBhbGV0dGU9InJhaW5ib3ciLCByZXZlcnNlPVRSVUUpIC0tPg0KPCEtLSBgYGAgLS0+DQoNCjwhLS0gR3JvdXBzIHdlcmUgaWRlbnRpZmllZCB1c2luZyB0aGUgW3RpZHlncmFwaDo6Z3JvdXBfb3B0aW1hbF0oaHR0cHM6Ly9yZHJyLmlvL2NyYW4vdGlkeWdyYXBoL21hbi9ncm91cF9ncmFwaC5odG1sKSBhbGdvcml0aG0uIC0tPg0KDQoNCg0KDQo8IS0tICMjIyBDbHVzdGVyIEFuYWx5c2lzIC0tPg0KDQo8IS0tICMjIyMgSG93IG1hbnkgY2x1c3RlcnMgLS0+DQoNCjwhLS0gYGBge3IsIG1lc3NhZ2U9RkFMU0UsIHdhcm5pbmc9RkFMU0V9IC0tPg0KPCEtLSBkYXQgPC0gZWZmZWN0c2l6ZTo6c3RhbmRhcmRpemUoZGF0YVtzYXBwbHkoZGF0YSwgaXMubnVtZXJpYyldKSAtLT4NCg0KPCEtLSBuIDwtIHBhcmFtZXRlcnM6Om5fY2x1c3RlcnModChkYXQpLCBwYWNrYWdlID0gYygibWNsdXN0IiwgImNsdXN0ZXIiKSkgLS0+DQoNCjwhLS0gbiAtLT4NCg0KPCEtLSBwbG90KG4pICsgLS0+DQo8IS0tICAgdGhlbWVfbW9kZXJuKCkgLS0+DQo8IS0tIGBgYCAtLT4NCg0KDQo8IS0tIGBgYHtyLCBtZXNzYWdlPUZBTFNFLCB3YXJuaW5nPUZBTFNFLCBmaWcud2lkdGg9NywgZmlnLmhlaWdodD0xMH0gLS0+DQo8IS0tIGxpYnJhcnkoZGVuZGV4dGVuZCkgLS0+DQoNCjwhLS0gZGF0IDwtIGVmZmVjdHNpemU6OnN0YW5kYXJkaXplKGRhdGFbc2FwcGx5KGRhdGEsIGlzLm51bWVyaWMpXSkgLS0+DQoNCjwhLS0gcmVzdWx0IDwtIHB2Y2x1c3Q6OnB2Y2x1c3QoZGF0LCBtZXRob2QuZGlzdD0iZXVjbGlkZWFuIiwgbWV0aG9kLmhjbHVzdD0id2FyZC5EMiIsIG5ib290PTEwLCBxdWlldD1UUlVFKSAtLT4NCg0KPCEtLSByZXN1bHQgJT4lICAtLT4NCjwhLS0gICBhcy5kZW5kcm9ncmFtKCkgJT4lICAtLT4NCjwhLS0gICBzb3J0KCkgJT4lICAtLT4NCjwhLS0gICBkZW5kZXh0ZW5kOjpwdmNsdXN0X3Nob3dfc2lnbmlmX2dyYWRpZW50KHJlc3VsdCwgc2lnbmlmX2NvbF9mdW4gPSBnckRldmljZXM6OmNvbG9yUmFtcFBhbGV0dGUoYygiYmxhY2siLCAicmVkIikpKSAlPiUgIC0tPg0KPCEtLSAgIGRlbmRleHRlbmQ6OnB2Y2x1c3Rfc2hvd19zaWduaWYocmVzdWx0LCBzaWduaWZfdmFsdWUgPSBjKDIsIDEpKSAlPiUgLS0+DQo8IS0tICAgZGVuZGV4dGVuZDo6YXMuZ2dkZW5kKCkgJT4lICAtLT4NCjwhLS0gICBnZ3Bsb3QyOjpnZ3Bsb3QoaG9yaXo9VFJVRSwgb2Zmc2V0X2xhYmVscyA9IC0xKSAtLT4NCjwhLS0gYGBgIC0tPg0KDQoNCg0KIyMgUmVmZXJlbmNlcw0K</div>
+<div id="rmd-source-code">LS0tDQp0aXRsZTogJyoqQ29uY2VwdHVhbCB2cy4gT2JzZXJ2ZWQgU3RydWN0dXJlIG9mIEhlYXJ0IFJhdGUgVmFyaWFiaWxpdHkgKEhSVikgSW5kaWNlcyoqJw0Kc3VidGl0bGU6ICJEYXRhIEFuYWx5c2lzIg0Kb3V0cHV0Og0KICBodG1sX2RvY3VtZW50Og0KICAgIHNlbGZfY29udGFpbmVkOiBmYWxzZQ0KICAgIHRoZW1lOiBjZXJ1bGVhbg0KICAgIGhpZ2hsaWdodDogcHlnbWVudHMNCiAgICB0b2M6IHllcw0KICAgIHRvY19kZXB0aDogMw0KICAgIHRvY19mbG9hdDogeWVzDQogICAgbnVtYmVyX3NlY3Rpb25zOiBubw0KICAgIGRmX3ByaW50OiBkZWZhdWx0DQogICAgY29kZV9mb2xkaW5nOiBoaWRlDQogICAgY29kZV9kb3dubG9hZDogeWVzDQogIHdvcmRfZG9jdW1lbnQ6DQogICAgcmVmZXJlbmNlX2RvY3g6IHV0aWxzL1RlbXBsYXRlX1dvcmQuZG9jeA0KICAgIGhpZ2hsaWdodDogcHlnbWVudHMNCiAgICB0b2M6IG5vDQogICAgdG9jX2RlcHRoOiAzDQogICAgZGZfcHJpbnQ6IGthYmxlDQogICAgbnVtYmVyX3NlY3Rpb25zOiB5ZXMNCiAgcm1hcmtkb3duOjpodG1sX3ZpZ25ldHRlOg0KICAgIHRvYzogeWVzDQogICAgdG9jX2RlcHRoOiAzDQogIHBkZl9kb2N1bWVudDoNCiAgICB0b2M6IHllcw0KICAgIHRvY19kZXB0aDogJzInDQogICAgbGF0ZXhfZW5naW5lOiB4ZWxhdGV4DQplZGl0b3Jfb3B0aW9uczoNCiAgY2h1bmtfb3V0cHV0X3R5cGU6IGNvbnNvbGUNCmJpYmxpb2dyYXBoeTogdXRpbHMvYmlibGlvZ3JhcGh5LmJpYg0KY3NsOiB1dGlscy9hcGEuY3NsDQotLS0NCg0KDQo8IS0tIA0KISEhISBJTVBPUlRBTlQ6IHJ1biBgc291cmNlKCJ1dGlscy9yZW5kZXIuUiIpYCB0byBwdWJsaXNoIGluc3RlYWQgb2YgY2xpY2tpbmcgb24gJ0tuaXQnDQotLT4NCg0KYGBge3Igc2V0dXAsIHdhcm5pbmc9RkFMU0UsIG1lc3NhZ2U9VFJVRSwgaW5jbHVkZT1GQUxTRX0NCiMgU2V0IHVwIHRoZSBlbnZpcm9ubWVudCAob3IgdXNlIGxvY2FsIGFsdGVybmF0aXZlIGBzb3VyY2UoInV0aWxzL2NvbmZpZy5SIilgKQ0Kc291cmNlKCJodHRwczovL3Jhdy5naXRodWJ1c2VyY29udGVudC5jb20vUmVhbGl0eUJlbmRpbmcvVGVtcGxhdGVSZXN1bHRzL21haW4vdXRpbHMvY29uZmlnLlIiKSAgDQoNCmZhc3QgPC0gRkFMU0UgICMgTWFrZSB0aGlzIGZhbHNlIHRvIHNraXAgdGhlIGNodW5rcw0KDQojIFNldCB0aGVtZQ0KZ2dwbG90Mjo6dGhlbWVfc2V0KHNlZTo6dGhlbWVfbW9kZXJuKCkpDQoNCnNvdXJjZV9ybWQgPC0gZnVuY3Rpb24oeCl7DQogIGZpbGUgPC0ga25pdHI6OnB1cmwoeCwgcXVpZXQ9VFJVRSkNCiAgc291cmNlKGZpbGUpDQogIGlmIChmaWxlLmV4aXN0cyhmaWxlKSkgZmlsZS5yZW1vdmUoZmlsZSkNCn0NCmBgYA0KDQojIEludHJvZHVjdGlvbg0KYGBge3IgYmFkZ2VzLCBlY2hvPUZBTFNFLCBtZXNzYWdlPVRSVUUsIHdhcm5pbmc9RkFMU0UsIHJlc3VsdHM9J2FzaXMnfQ0KIyBUaGlzIGNodW5rIGlzIGEgYml0IGNvbXBsZXggc28gZG9uJ3Qgd29ycnkgYWJvdXQgaXQ6IGl0J3MgbWFkZSB0byBhZGQgYmFkZ2VzIHRvIHRoZSBIVE1MIHZlcnNpb25zDQojIE5PVEU6IFlvdSBoYXZlIHRvIHJlcGxhY2UgdGhlIGxpbmtzIGFjY29yZGluZ2x5IHRvIGhhdmUgd29ya2luZyAiYnV0dG9ucyIgb24gdGhlIEhUTUwgdmVyc2lvbnMNCmlmICgha25pdHI6OmlzX2xhdGV4X291dHB1dCgpICYmIGtuaXRyOjppc19odG1sX291dHB1dCgpKSB7DQogIGNhdCgiIVtCdWlsZF0oaHR0cHM6Ly9naXRodWIuY29tL1RhbS1QaGFtL0hSVlN0cnVjdHVyZS93b3JrZmxvd3MvQnVpbGQvYmFkZ2Uuc3ZnKQ0KICAgICAgWyFbV2Vic2l0ZV0oaHR0cHM6Ly9pbWcuc2hpZWxkcy5pby9iYWRnZS9yZXBvLVJlYWRtZS0yMTk2RjMpXShodHRwczovL2dpdGh1Yi5jb20vVGFtLVBoYW0vSFJWU3RydWN0dXJlKQ0KICAgICAgWyFbV2Vic2l0ZV0oaHR0cHM6Ly9pbWcuc2hpZWxkcy5pby9iYWRnZS92aXNpdC13ZWJzaXRlLUU5MUU2MyldKGh0dHBzOi8vcmVhbGl0eWJlbmRpbmcuZ2l0aHViLmlvL1RlbXBsYXRlUmVzdWx0cy8pDQogICAgICBbIVtXZWJzaXRlXShodHRwczovL2ltZy5zaGllbGRzLmlvL2JhZGdlL2Rvd25sb2FkLS5kb2N4LUZGNTcyMildKGh0dHBzOi8vZ2l0aHViLmNvbS9SZWFsaXR5QmVuZGluZy9UZW1wbGF0ZVJlc3VsdHMvcmF3L21haW4vd29yZF9hbmRfcGRmL1N1cHBsZW1lbnRhcnlNYXRlcmlhbHMuZG9jeCkNCiAgICAgIFshW1dlYnNpdGVdKGh0dHBzOi8vaW1nLnNoaWVsZHMuaW8vYmFkZ2Uvc2VlLS5wZGYtRkY5ODAwKV0oaHR0cHM6Ly9naXRodWIuY29tL1JlYWxpdHlCZW5kaW5nL1RlbXBsYXRlUmVzdWx0cy9ibG9iL21haW4vd29yZF9hbmRfcGRmL1N1cHBsZW1lbnRhcnlNYXRlcmlhbHMucGRmKSIpDQp9DQpgYGANCg0KDQoNClRoZSBhaW0gb2YgdGhpcyBzdHVkeSBpcyB0byBleHBsb3JlIHRoZSBmYWN0b3Igc3RydWN0dXJlIG9mIEhSViBpbmRpY2VzLg0KDQojIE1ldGhvZHMNCg0KDQojIyBEYXRhYmFzZXMNCg0KIyMjIEdsYXNnb3cgVW5pdmVyc2l0eSBEYXRhYmFzZQ0KDQpUaGUgR1VEQiBEYXRhYmFzZSBbQGhvd2VsbDIwMThoaWdoXSBjb250YWlucyBFQ0dzIGZyb20gMjUgc3ViamVjdHMuIEVhY2ggc3ViamVjdCB3YXMgcmVjb3JkZWQgcGVyZm9ybWluZyA1IGRpZmZlcmVudCB0YXNrcyBmb3IgdHdvIG1pbnV0ZXMgKHNpdHRpbmcsIGRvaW5nIGEgbWF0aHMgdGVzdCBvbiBhIHRhYmxldCwgd2Fsa2luZyBvbiBhIHRyZWFkbWlsbCwgcnVubmluZyBvbiBhIHRyZWFkbWlsbCwgdXNpbmcgYSBoYW5kIGJpa2UpLiBUaGUgc2FtcGxpbmcgcmF0ZSBpcyAyNTBIeiBmb3IgYWxsIHRoZSBjb25kaXRpb25zLg0KDQpUaGUgc2NyaXB0IHRvIGRvd25sb2FkIGFuZCBmb3JtYXQgdGhlIGRhdGFiYXNlIHVzaW5nIHRoZSBbKipFQ0ctR1VEQioqXShodHRwczovL2dpdGh1Yi5jb20vYmVybmRwb3JyL0VDRy1HVURCKSBQeXRob24gcGFja2FnZSBieSBCZXJuZCBQb3JyIGNhbiBiZSBmb3VuZCBbKipoZXJlKipdKGh0dHBzOi8vZ2l0aHViLmNvbS9uZXVyb3BzeWNob2xvZ3kvTmV1cm9LaXQvYmxvYi9kZXYvZGF0YS9ndWRiL2Rvd25sb2FkX2d1ZGIucHkpLg0KDQojIyMgTUlULUJJSCBBcnJoeXRobWlhIERhdGFiYXNlDQoNClRoZSBNSVQtQklIIEFycmh5dGhtaWEgRGF0YWJhc2UgW01JVC1BcnJoeXRobWlhOyBAbW9vZHkyMDAxaW1wYWN0XSBjb250YWlucyA0OCBleGNlcnB0cyBvZiAzMC1taW4gb2YgdHdvLWNoYW5uZWwgYW1idWxhdG9yeSBFQ0cgcmVjb3JkaW5ncyBzYW1wbGVkIGF0IDM2MEh6IGFuZCAyNSBhZGRpdGlvbmFsIHJlY29yZGluZ3MgZnJvbSB0aGUgc2FtZSBwYXJ0aWNpcGFudHMgaW5jbHVkaW5nIGNvbW1vbiBidXQgY2xpbmljYWxseSBzaWduaWZpY2FudCBhcnJoeXRobWlhcyAoZGVub3RlZCBhcyB0aGUgYE1JVC1BcnJoeXRobWlhLXhgIGRhdGFiYXNlKS4NCg0KVGhlIHNjcmlwdCB0byBkb3dubG9hZCBhbmQgZm9ybWF0IHRoZSBkYXRhYmFzZSB1c2luZyB0aGUgY2FuIGJlIGZvdW5kIFsqKmhlcmUqKl0oaHR0cHM6Ly9naXRodWIuY29tL25ldXJvcHN5Y2hvbG9neS9OZXVyb0tpdC9ibG9iL2Rldi9kYXRhL21pdF9hcnJoeXRobWlhL2Rvd25sb2FkX21pdF9hcnJoeXRobWlhLnB5KS4NCg0KDQojIyMgTUlULUJJSCBOb3JtYWwgU2ludXMgUmh5dGhtIERhdGFiYXNlDQoNClRoaXMgZGF0YWJhc2UgaW5jbHVkZXMgMTggY2xlYW4gbG9uZy10ZXJtIEVDRyByZWNvcmRpbmdzIG9mIHN1YmplY3RzLiBEdWUgdG8gbWVtb3J5IGxpbWl0cywgd2Ugb25seSBrZXB0IHRoZSBzZWNvbmQgaG91ciBvZiByZWNvcmRpbmcgb2YgZWFjaCBwYXJ0aWNpcGFudC4NCg0KVGhlIHNjcmlwdCB0byBkb3dubG9hZCBhbmQgZm9ybWF0IHRoZSBkYXRhYmFzZSB1c2luZyB0aGUgY2FuIGJlIGZvdW5kIFsqKmhlcmUqKl0oaHR0cHM6Ly9naXRodWIuY29tL25ldXJvcHN5Y2hvbG9neS9OZXVyb0tpdC9ibG9iL2Rldi9kYXRhL21pdF9ub3JtYWwvZG93bmxvYWRfbWl0X25vcm1hbC5weSkuDQoNCg0KPCEtLSAjIyMgTG9iYWNoZXZza3kgVW5pdmVyc2l0eSBFbGVjdHJvY2FyZGlvZ3JhcGh5IERhdGFiYXNlIC0tPg0KDQo8IS0tIFRoZSBMb2JhY2hldnNreSBVbml2ZXJzaXR5IEVsZWN0cm9jYXJkaW9ncmFwaHkgRGF0YWJhc2UgW0xVREI7IEBrYWx5YWt1bGluYTIwMThsdV0gY29uc2lzdHMgb2YgMjAwIDEwLXNlY29uZCAxMi1sZWFkIEVDRyBzaWduYWwgcmVjb3JkcyByZXByZXNlbnRpbmcgZGlmZmVyZW50IG1vcnBob2xvZ2llcyBvZiB0aGUgRUNHIHNpZ25hbC4gVGhlIEVDR3Mgd2VyZSBjb2xsZWN0ZWQgZnJvbSBoZWFsdGh5IHZvbHVudGVlcnMgYW5kIHBhdGllbnRzLCB3aGljaCBoYWQgdmFyaW91cyBjYXJkaW92YXNjdWxhciBkaXNlYXNlcy4gVGhlIGJvdW5kYXJpZXMgb2YgUCwgVCB3YXZlcyBhbmQgUVJTIGNvbXBsZXhlcyB3ZXJlIG1hbnVhbGx5IGFubm90YXRlZCBieSBjYXJkaW9sb2dpc3RzIGZvciBhbGwgMjAwIHJlY29yZHMuIC0tPg0KDQojIyMgRmFudGFzaWEgRGF0YWJhc2UNCg0KVGhlIEZhbnRhc2lhIGRhdGFiYXNlIFtAaXllbmdhcjE5OTZhZ2VdIGNvbnNpc3RzIG9mIHR3ZW50eSB5b3VuZyBhbmQgdHdlbnR5IGVsZGVybHkgaGVhbHRoeSBzdWJqZWN0cy4gQWxsIHN1YmplY3RzIHJlbWFpbmVkIGluIGEgcmVzdGluZyBzdGF0ZSBpbiBzaW51cyByaHl0aG0gd2hpbGUgd2F0Y2hpbmcgdGhlIG1vdmllIEZhbnRhc2lhIChEaXNuZXksIDE5NDApIHRvIGhlbHAgbWFpbnRhaW4gd2FrZWZ1bG5lc3MuIFRoZSBjb250aW51b3VzIEVDRyBzaWduYWxzIHdlcmUgZGlnaXRpemVkIGF0IDI1MCBIei4gRWFjaCBoZWFydGJlYXQgd2FzIGFubm90YXRlZCB1c2luZyBhbiBhdXRvbWF0ZWQgYXJyaHl0aG1pYSBkZXRlY3Rpb24gYWxnb3JpdGhtLCBhbmQgZWFjaCBiZWF0IGFubm90YXRpb24gd2FzIHZlcmlmaWVkIGJ5IHZpc3VhbCBpbnNwZWN0aW9uLg0KDQoNCg0KDQojIyBQcm9jZWR1cmUNCg0KYGBge3B5dGhvbiwgZXZhbD1GQUxTRSwgZWNobz1GQUxTRX0NCmltcG9ydCBwYW5kYXMgYXMgcGQNCmltcG9ydCBudW1weSBhcyBucA0KaW1wb3J0IG5ldXJva2l0MiBhcyBuaw0KDQojIExvYWQgVHJ1ZSBSLXBlYWtzIGxvY2F0aW9uDQpkYXRhZmlsZXMgPSBbcGQucmVhZF9jc3YoIi4uLy4uL2RhdGEvZ3VkYi9ScGVha3MuY3N2IiksDQogICAgICAgICAgICAgcGQucmVhZF9jc3YoIi4uLy4uL2RhdGEvbWl0X2Fycmh5dGhtaWEvUnBlYWtzLmNzdiIpLA0KICAgICAgICAgICAgIHBkLnJlYWRfY3N2KCIuLi8uLi9kYXRhL21pdF9ub3JtYWwvUnBlYWtzLmNzdiIpLA0KICAgICAgICAgICAgIHBkLnJlYWRfY3N2KCIuLi8uLi9kYXRhL2ZhbnRhc2lhL1JwZWFrcy5jc3YiKV0NCg0KIyBHZXQgcmVzdWx0cw0KYWxsX3Jlc3VsdHMgPSBwZC5EYXRhRnJhbWUoKQ0KDQpmb3IgZmlsZSBpbiBkYXRhZmlsZXM6DQogICAgZm9yIGRhdGFiYXNlIGluIG5wLnVuaXF1ZShmaWxlWyJEYXRhYmFzZSJdKToNCiAgICAgICAgZGF0YSA9IGZpbGVbZmlsZVsiRGF0YWJhc2UiXSA9PSBkYXRhYmFzZV0NCiAgICAgICAgZm9yIHBhcnRpY2lwYW50IGluIG5wLnVuaXF1ZShkYXRhWyJQYXJ0aWNpcGFudCJdKToNCiAgICAgICAgICAgIGRhdGFfcGFydGljaXBhbnQgPSBkYXRhW2RhdGFbIlBhcnRpY2lwYW50Il0gPT0gcGFydGljaXBhbnRdDQogICAgICAgICAgICBzYW1wbGluZ19yYXRlID0gbnAudW5pcXVlKGRhdGFfcGFydGljaXBhbnRbIlNhbXBsaW5nX1JhdGUiXSlbMF0NCiAgICAgICAgICAgIHJwZWFrcyA9IGRhdGFfcGFydGljaXBhbnRbIlJwZWFrcyJdLnZhbHVlcw0KDQogICAgICAgICAgICByZXN1bHRzID0gbmsuaHJ2KHJwZWFrcywgc2FtcGxpbmdfcmF0ZT1zYW1wbGluZ19yYXRlKQ0KICAgICAgICAgICAgcmVzdWx0c1siUGFydGljaXBhbnQiXSA9IHBhcnRpY2lwYW50DQogICAgICAgICAgICByZXN1bHRzWyJEYXRhYmFzZSJdID0gZGF0YWJhc2UNCiAgICAgICAgICAgIHJlc3VsdHNbIlJlY29yZGluZ19MZW5ndGgiXSA9IHJwZWFrc1stMV0gLyBzYW1wbGluZ19yYXRlIC8gNjANCg0KICAgICAgICAgICAgYWxsX3Jlc3VsdHMgPSBwZC5jb25jYXQoW2FsbF9yZXN1bHRzLCByZXN1bHRzXSwgYXhpcz0wKQ0KDQphbGxfcmVzdWx0cy50b19jc3YoImRhdGEvZGF0YS5jc3YiLCBpbmRleD1GYWxzZSkNCmBgYA0KDQojIFJlc3VsdHMNCg0KYGBge3IsIG1lc3NhZ2U9RkFMU0UsIHdhcm5pbmc9RkFMU0UsIHJlc3VsdHM9J2hpZGUnfQ0KbGlicmFyeSh0aWR5dmVyc2UpDQpsaWJyYXJ5KGVhc3lzdGF0cykNCg0KZGF0YSA8LSByZWFkLmNzdigiZGF0YS9kYXRhLmNzdiIsIHN0cmluZ3NBc0ZhY3RvcnMgPSBGQUxTRSkgJT4lIA0KICBzZWxlY3QoLUhSVl9VTEYsIC1IUlZfVkxGKSAlPiUgICMgRW1wdHkNCiAgIyBmaWx0ZXIoRGF0YWJhc2UgIT0gIkxVREIiKSAlPiUgIyB0b28gc2hvcnQgcmVjb3JkaW5ncywgbWFueSBpbmRpY2VzIGRpZG4ndCBjb252ZXJnZQ0KICBzZXROYW1lcyhzdHJpbmdyOjpzdHJfcmVtb3ZlKG5hbWVzKC4pLCAiSFJWXyIpKSAlPiUgDQogIG11dGF0ZV9hbGwoZnVuY3Rpb24oeCkgew0KICAgIHhbaXMuaW5maW5pdGUoeCldIDwtIE5BDQogICAgcmV0dXJuKHgpIH0pDQpgYGANCg0KDQpgYGB7ciB3YXJuaW5nPUZBTFNFLCBtZXNzYWdlPVRSVUUsIHJlc3VsdHM9J2FzaXMnfQ0KY2F0KCJUaGlzIHN0dWR5IGluY2x1ZGVzIiwgDQogICAgbnJvdyhkYXRhKSwgDQogICAgInBhcnRpY2lwYW50cyBmcm9tIiwgDQogICAgbGVuZ3RoKHVuaXF1ZShkYXRhJERhdGFiYXNlKSksIA0KICAgICJkYXRhYmFzZXMuIikNCmBgYA0KDQoNCmBgYHtyIGNvbnZlbmllbmNlX2NodW5rX2Zvcl9sb2NhbF9ydW5uaW5nLCBpbmNsdWRlID0gRkFMU0UsIGV2YWwgPSBGQUxTRX0NCmxpYnJhcnkocGF0Y2h3b3JrKQ0KbGlicmFyeSh0aWR5dmVyc2UpDQpsaWJyYXJ5KGVhc3lzdGF0cykNCg0KIyAjIFRvIHJ1biB0aGluZ3MgbG9jYWxseTogQ1RSTCArIEFMVCArIFNISUZUICsgUCwgYW5kIHRoZW4gdGhlIG5leHQgdHdvIGxpbmVzDQpzb3VyY2Vfcm1kKCIwX0NvbnZlbmllbmNlRnVuY3Rpb25zLlJtZCIpDQpzb3VyY2Vfcm1kKCIxX1ByZXByb2Nlc3NpbmcuUm1kIikNCiMgc291cmNlX3JtZCgiNF9Db252ZW5pZW5jZUZ1bmN0aW9ucy5SbWQiKQ0KIyAjIHNvdXJjZV9ybWQoIjVfQmVoYXZpb3VyYWxNb2RlbHMuUm1kIikNCiMgDQojIGNoYWlucyA8LSA1DQojIGl0ZXIgPC0gNTAwMA0KIyANCiMgZmluZF9jYWNoZSA8LSBmdW5jdGlvbihwYXR0ZXJuID0gIiIpIHsNCiMgICBmaWxlcyA8LSBwYXN0ZTAoImluZGV4X2NhY2hlL2h0bWwvIiwgbGlzdC5maWxlcygiaW5kZXhfY2FjaGUvaHRtbC8iLCBwYXR0ZXJuID0gIlxcLnJkeCQiKSkNCiMgICBmaWxlcyA8LSBmaWxlc1tzdHJpbmdyOjpzdHJfZGV0ZWN0KGZpbGVzLCBwYXR0ZXJuKV0NCiMgICBzdHJpbmdyOjpzdHJfcmVtb3ZlKGZpbGVzLCAiLnJkeCIpDQojIH0NCiMgDQojIGxhcHBseShmaW5kX2NhY2hlKCksIGxhenlMb2FkLCBlbnZpcm9ubWVudCgpKQ0KIyANCiMgbGFwcGx5KGZpbmRfY2FjaGUoImluZGV4X2NhY2hlL2h0bWwvbW9kZWxfYmFzZWxpbmVfUFNfUlQiKSwgbGF6eUxvYWQsIGVudmlyb25tZW50KCkpDQojIGxhcHBseShmaW5kX2NhY2hlKCJpbmRleF9jYWNoZS9odG1sL21vZGVsX2Jhc2VsaW5lX1JTX1JUIiksIGxhenlMb2FkLCBlbnZpcm9ubWVudCgpKQ0KIyBsYXBwbHkoZmluZF9jYWNoZSgiaW5kZXhfY2FjaGUvaHRtbC9tb2RlbF9iYXNlbGluZV9SSV9SVCIpLCBsYXp5TG9hZCwgZW52aXJvbm1lbnQoKSkNCiMgbGFwcGx5KGZpbmRfY2FjaGUoImluZGV4X2NhY2hlL2h0bWwvbW9kZWxfYmFzZWxpbmVfUklfRXJyIiksIGxhenlMb2FkLCBlbnZpcm9ubWVudCgpKQ0KIyBsYXBwbHkoZmluZF9jYWNoZSgiaW5kZXhfY2FjaGUvaHRtbC9tb2RlbF9iYXNlbGluZV9DUl9SVCIpLCBsYXp5TG9hZCwgZW52aXJvbm1lbnQoKSkNCiMgbGFwcGx5KGZpbmRfY2FjaGUoImluZGV4X2NhY2hlL2h0bWwvbW9kZWxfYmFzZWxpbmVfQ1JfRXJyIiksIGxhenlMb2FkLCBlbnZpcm9ubWVudCgpKQ0KYGBgDQoNCg0KDQojIyBQcmVwcm9jZXNzaW5nDQoNCmBgYHtyIGNoaWxkPScwX0NvbnZlbmllbmNlRnVuY3Rpb25zLlJtZCd9DQpgYGANCg0KDQpgYGB7ciBjaGlsZD0nMV9QcmVwcm9jZXNzaW5nLlJtZCd9DQpgYGANCg0KIyMgRWZmZWN0IG9mIFJlY29yZGluZyBMZW5ndGgNCg0KYGBge3IgY2hpbGQ9JzJfUmVjb3JkaW5nTGVuZ3RoLlJtZCd9DQpgYGANCg0KDQojIyBEaW1lbnNpb25hbCBTdHJ1Y3R1cmUNCg0KYGBge3IgY2hpbGQ9JzNfRGltZW5zaW9ucy5SbWQnfQ0KYGBgDQoNCjwhLS0gIyMjIEdhdXNzaWFuIEdyYXBoaWNhbCBNb2RlbCAtLT4NCg0KDQo8IS0tIGBgYHtyLCBtZXNzYWdlPUZBTFNFLCB3YXJuaW5nPUZBTFNFLCBmaWcud2lkdGg9MTcsIGZpZy5oZWlnaHQ9MTd9IC0tPg0KPCEtLSBsaWJyYXJ5KGdncmFwaCkgLS0+DQoNCjwhLS0gZGF0YSAlPiUgIC0tPg0KPCEtLSAgIGNvcnJlbGF0aW9uOjpjb3JyZWxhdGlvbihwYXJ0aWFsPUZBTFNFKSAlPiUgIC0tPg0KPCEtLSAgIGNvcnJlbGF0aW9uOjpjb3JfdG9fcGNvcigpICU+JSAgLS0+DQo8IS0tICAgZmlsdGVyKGFicyhyKSA+IDAuMikgJT4lIC0tPg0KPCEtLSAgIHRpZHlncmFwaDo6YXNfdGJsX2dyYXBoKGRpcmVjdGVkPUZBTFNFKSAlPiUgIC0tPg0KPCEtLSAgIGRwbHlyOjptdXRhdGUoY2xvc2VuZXNzID0gdGlkeWdyYXBoOjpjZW50cmFsaXR5X2Nsb3NlbmVzcyhub3JtYWxpemVkID0gVFJVRSksIC0tPg0KPCEtLSAgICAgICAgICAgICAgICAgZGVncmVlID0gdGlkeWdyYXBoOjpjZW50cmFsaXR5X2RlZ3JlZShub3JtYWxpemVkID0gVFJVRSksIC0tPg0KPCEtLSAgICAgICAgICAgICAgICAgYmV0d2VlbmVzcyA9IHRpZHlncmFwaDo6Y2VudHJhbGl0eV9iZXR3ZWVubmVzcyhub3JtYWxpemVkID0gVFJVRSkpICU+JSAtLT4NCjwhLS0gICB0aWR5Z3JhcGg6OmFjdGl2YXRlKG5vZGVzKSAlPiUgLS0+DQo8IS0tICAgZHBseXI6Om11dGF0ZShncm91cDEgPSBhcy5mYWN0b3IodGlkeWdyYXBoOjpncm91cF9lZGdlX2JldHdlZW5uZXNzKCkpLCAtLT4NCjwhLS0gICAgICAgICAgICAgICAgICMgZ3JvdXAyID0gYXMuZmFjdG9yKHRpZHlncmFwaDo6Z3JvdXBfb3B0aW1hbCgpKSwgLS0+DQo8IS0tICAgICAgICAgICAgICAgICAjIGdyb3VwMyA9IGFzLmZhY3Rvcih0aWR5Z3JhcGg6Omdyb3VwX3dhbGt0cmFwKCkpLCAtLT4NCjwhLS0gICAgICAgICAgICAgICAgICMgZ3JvdXA0ID0gYXMuZmFjdG9yKHRpZHlncmFwaDo6Z3JvdXBfc3BpbmdsYXNzKCkpLCAtLT4NCjwhLS0gICAgICAgICAgICAgICAgIGdyb3VwNSA9IGFzLmZhY3Rvcih0aWR5Z3JhcGg6Omdyb3VwX2xvdXZhaW4oKSkpICU+JSAgLS0+DQo8IS0tICAgZ2dyYXBoOjpnZ3JhcGgobGF5b3V0ID0gImZyIikgKyAtLT4NCjwhLS0gICAgIGdncmFwaDo6Z2VvbV9lZGdlX2FyYyhhZXMoY29sb3VyID0gciwgZWRnZV93aWR0aCA9IGFicyhyKSksIHN0cmVuZ3RoID0gMC4xLCBzaG93LmxlZ2VuZCA9IEZBTFNFKSArIC0tPg0KPCEtLSAgICAgZ2dyYXBoOjpnZW9tX25vZGVfcG9pbnQoYWVzKHNpemUgPSBkZWdyZWUsIGNvbG9yID0gZ3JvdXA1KSwgc2hvdy5sZWdlbmQgPSBGQUxTRSkgKyAtLT4NCjwhLS0gICAgIGdncmFwaDo6Z2VvbV9ub2RlX3RleHQoYWVzKGxhYmVsID0gbmFtZSksIGNvbG91ciA9ICJ3aGl0ZSIpICsgLS0+DQo8IS0tICAgICBnZ3JhcGg6OnNjYWxlX2VkZ2VfY29sb3JfZ3JhZGllbnQyKGxvdyA9ICIjYTIwMDI1IiwgaGlnaCA9ICIjMDA4YTAwIiwgbmFtZSA9ICJyIikgKyAtLT4NCjwhLS0gICAgIGdncmFwaDo6dGhlbWVfZ3JhcGgoKSArIC0tPg0KPCEtLSAgICAgZ3VpZGVzKGVkZ2Vfd2lkdGggPSBGQUxTRSkgKyAtLT4NCjwhLS0gICAgIHNjYWxlX3hfY29udGludW91cyhleHBhbmQgPSBleHBhbnNpb24oYyguMTAsIC4xMCkpKSArIC0tPg0KPCEtLSAgICAgc2NhbGVfeV9jb250aW51b3VzKGV4cGFuZCA9IGV4cGFuc2lvbihjKC4xMCwgLjEwKSkpICsgLS0+DQo8IS0tICAgICBzY2FsZV9zaXplX2NvbnRpbnVvdXMocmFuZ2UgPSBjKDIwLCAzMCkpICsgLS0+DQo8IS0tICAgICBzY2FsZV9lZGdlX3dpZHRoX2NvbnRpbnVvdXMocmFuZ2UgPSBjKDAuNSwgMikpICsgLS0+DQo8IS0tICAgICBzZWU6OnNjYWxlX2NvbG9yX21hdGVyaWFsX2QocGFsZXR0ZT0icmFpbmJvdyIsIHJldmVyc2U9VFJVRSkgLS0+DQo8IS0tIGBgYCAtLT4NCg0KPCEtLSBHcm91cHMgd2VyZSBpZGVudGlmaWVkIHVzaW5nIHRoZSBbdGlkeWdyYXBoOjpncm91cF9vcHRpbWFsXShodHRwczovL3JkcnIuaW8vY3Jhbi90aWR5Z3JhcGgvbWFuL2dyb3VwX2dyYXBoLmh0bWwpIGFsZ29yaXRobS4gLS0+DQoNCg0KDQoNCjwhLS0gIyMjIENsdXN0ZXIgQW5hbHlzaXMgLS0+DQoNCjwhLS0gIyMjIyBIb3cgbWFueSBjbHVzdGVycyAtLT4NCg0KPCEtLSBgYGB7ciwgbWVzc2FnZT1GQUxTRSwgd2FybmluZz1GQUxTRX0gLS0+DQo8IS0tIGRhdCA8LSBlZmZlY3RzaXplOjpzdGFuZGFyZGl6ZShkYXRhW3NhcHBseShkYXRhLCBpcy5udW1lcmljKV0pIC0tPg0KDQo8IS0tIG4gPC0gcGFyYW1ldGVyczo6bl9jbHVzdGVycyh0KGRhdCksIHBhY2thZ2UgPSBjKCJtY2x1c3QiLCAiY2x1c3RlciIpKSAtLT4NCg0KPCEtLSBuIC0tPg0KDQo8IS0tIHBsb3QobikgKyAtLT4NCjwhLS0gICB0aGVtZV9tb2Rlcm4oKSAtLT4NCjwhLS0gYGBgIC0tPg0KDQoNCjwhLS0gYGBge3IsIG1lc3NhZ2U9RkFMU0UsIHdhcm5pbmc9RkFMU0UsIGZpZy53aWR0aD03LCBmaWcuaGVpZ2h0PTEwfSAtLT4NCjwhLS0gbGlicmFyeShkZW5kZXh0ZW5kKSAtLT4NCg0KPCEtLSBkYXQgPC0gZWZmZWN0c2l6ZTo6c3RhbmRhcmRpemUoZGF0YVtzYXBwbHkoZGF0YSwgaXMubnVtZXJpYyldKSAtLT4NCg0KPCEtLSByZXN1bHQgPC0gcHZjbHVzdDo6cHZjbHVzdChkYXQsIG1ldGhvZC5kaXN0PSJldWNsaWRlYW4iLCBtZXRob2QuaGNsdXN0PSJ3YXJkLkQyIiwgbmJvb3Q9MTAsIHF1aWV0PVRSVUUpIC0tPg0KDQo8IS0tIHJlc3VsdCAlPiUgIC0tPg0KPCEtLSAgIGFzLmRlbmRyb2dyYW0oKSAlPiUgIC0tPg0KPCEtLSAgIHNvcnQoKSAlPiUgIC0tPg0KPCEtLSAgIGRlbmRleHRlbmQ6OnB2Y2x1c3Rfc2hvd19zaWduaWZfZ3JhZGllbnQocmVzdWx0LCBzaWduaWZfY29sX2Z1biA9IGdyRGV2aWNlczo6Y29sb3JSYW1wUGFsZXR0ZShjKCJibGFjayIsICJyZWQiKSkpICU+JSAgLS0+DQo8IS0tICAgZGVuZGV4dGVuZDo6cHZjbHVzdF9zaG93X3NpZ25pZihyZXN1bHQsIHNpZ25pZl92YWx1ZSA9IGMoMiwgMSkpICU+JSAtLT4NCjwhLS0gICBkZW5kZXh0ZW5kOjphcy5nZ2RlbmQoKSAlPiUgIC0tPg0KPCEtLSAgIGdncGxvdDI6OmdncGxvdChob3Jpej1UUlVFLCBvZmZzZXRfbGFiZWxzID0gLTEpIC0tPg0KPCEtLSBgYGAgLS0+DQoNCg0KDQojIyBSZWZlcmVuY2VzDQo=</div>
 
 
 </div>

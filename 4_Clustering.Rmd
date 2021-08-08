@@ -1,0 +1,69 @@
+---
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+
+### Clustering
+
+
+#### How many clusters
+
+```{r, message=FALSE, warning=FALSE}
+x <- as.data.frame(t(standardize(data[hrv_cols])))
+# x <- x[ , colSums(is.na(x)) < 1]
+n <- parameters::n_clusters(x, standardize = FALSE, package= c("mclust", "M3C"), fast = FALSE)
+
+n
+
+plot(n) 
+```
+
+
+#### Clustering
+
+##### Herarchical Clustering
+
+
+<!-- ```{r, message=FALSE, warning=FALSE} -->
+<!-- library(factoextra) -->
+
+<!-- # Compute hierarchical clustering and cut into 4 clusters -->
+<!-- res <- factoextra::hcut(x, k = 5, stand = TRUE) -->
+
+<!-- # Cluster assignements of observations -->
+<!-- res$cluster -->
+
+<!-- # Visualize the dendrogram -->
+<!-- fviz_dend(res, rect = TRUE) -->
+<!-- ``` -->
+
+
+```{r, message=FALSE, warning=FALSE}
+library(ggraph)
+
+d <- dist(x, method = "euclidean")
+
+hc <- hclust(d, method = "complete" )
+
+clusters <- cutree(hc, h = 31)
+table_clusters$HClust <- as.factor(clusters[table_clusters$Index])
+
+
+# Plot
+tidygraph::as_tbl_graph(hc) %>% 
+  tidygraph::activate(nodes) %>% 
+  mutate(cluster = as.factor(clusters[label])) %>% 
+  ggraph(layout = 'dendrogram', height = height) + 
+  geom_hline(yintercept = 31, linetype = "dotted") +
+  geom_edge_elbow() +
+  geom_node_point(aes(color = cluster, filter=leaf)) +
+  geom_node_text(aes(label=label, color = cluster) , angle=90 , hjust=1, nudge_y = -0.5) +
+  ylim(-10, NA) +
+  theme_void() +
+  scale_colour_material_d(palette = "rainbow", guide = "none")
+```
+
+
+

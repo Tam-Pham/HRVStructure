@@ -11,10 +11,12 @@ editor_options:
 #### How many factors
 
 ```{r, message=FALSE, warning=FALSE}
-r <- correlation::correlation(data[hrv_cols]) %>%
-  as.matrix()
+r <- correlation::correlation(data[hrv_cols]) %>% 
+  as.matrix() %>% 
+  correlation::cor_smooth(verbose = FALSE)
 
-n <- parameters::n_factors(data, cor=r, type = "PCA")
+
+n <- parameters::n_factors(data, cor=r, type = "FA", package = "all")
 
 n
 
@@ -23,14 +25,19 @@ plot(n)
 
 #### Exploratory Factor Analysis (EFA)
 
-<!-- ```{r, message=FALSE, warning=FALSE, fig.width=15, fig.height=15} -->
-<!-- efa <- parameters::factor_analysis(data, cor=cor, n=7, rotation="varimax", fm="ml") -->
+```{r, message=FALSE, warning=FALSE, fig.width=15, fig.height=15}
+efa <- parameters::factor_analysis(data, cor=r, n=8, rotation="oblimin", fm="ml")
 
-<!-- print(efa, threshold="max", sort=TRUE) -->
+print(efa, threshold="max", sort=TRUE)
 
-<!-- plot(efa) + -->
-<!--   see::theme_modern() -->
-<!-- ``` -->
+plot(efa)
+
+table_clusters <- parameters::closest_component(efa) %>% 
+  data.frame(Index = names(.),
+             EFA = .) %>% 
+  mutate(EFA = as.factor(EFA)) %>% 
+  datawizard::data_rename_rows()
+```
 
 <!-- #### Confirmatory Factor Analysis (CFA) -->
 

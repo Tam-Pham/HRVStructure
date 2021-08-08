@@ -10,7 +10,7 @@ output:
     toc_depth: 3
     toc_float: yes
     number_sections: no
-    df_print: kable
+    df_print: default
     code_folding: hide
     code_download: yes
   word_document:
@@ -18,7 +18,7 @@ output:
     highlight: pygments
     toc: no
     toc_depth: 3
-    df_print: kable
+    df_print: default
     number_sections: yes
   rmarkdown::html_vignette:
     toc: yes
@@ -47,6 +47,11 @@ fast <- FALSE  # Make this false to skip the chunks
 # Set theme
 ggplot2::theme_set(see::theme_modern())
 
+source_rmd <- function(x){
+  file <- knitr::purl(x, quiet=TRUE)
+  source(file)
+  if (file.exists(file)) file.remove(file)
+}
 ```
 
 # Introduction
@@ -162,7 +167,6 @@ cat("This study includes",
 
 
 ```{r convenience_chunk_for_local_running, include = FALSE, eval = FALSE}
-library(brms)
 library(patchwork)
 library(tidyverse)
 library(easystats)
@@ -170,7 +174,7 @@ library(easystats)
 # # To run things locally: CTRL + ALT + SHIFT + P, and then the next two lines
 source_rmd("0_ConvenienceFunctions.Rmd")
 source_rmd("1_Preprocessing.Rmd")
-# source_rmd("4_ConvenienceFunctions.Rmd")
+source_rmd("3_Dimensions.Rmd")
 # # source_rmd("5_BehaviouralModels.Rmd")
 # 
 # chains <- 5

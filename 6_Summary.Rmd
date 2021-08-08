@@ -1,0 +1,37 @@
+---
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+
+### Comparison of Structures
+
+```{r, message=FALSE, warning=FALSE}
+library(fpc)
+
+fpc::cluster.stats(d, as.numeric(table_clusters$EFA), as.numeric(table_clusters$HClust))
+```
+
+
+```{r, message=FALSE, warning=FALSE}
+table_clusters
+
+# Initialize matrix
+m <- matrix(data=NA, nrow=nrow(table_clusters), ncol=nrow(table_clusters), dimnames = list(table_clusters$Index, table_clusters$Index))
+
+
+for(row in row.names(m)) {
+  for(col in colnames(m)) {
+    if(row == col) {
+      m[row, col] <- NA
+      next
+    } 
+    subset <- table_clusters[table_clusters$Index %in% c(row, col), ]
+    rez <- sapply(subset[2:ncol(subset)], function(x) ifelse(length(unique(x)) == 1, 1, 0))
+    m[row, col] <- sum(rez) / length(rez)
+  }
+}
+
+
+```
