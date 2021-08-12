@@ -8,9 +8,11 @@ editor_options:
 ### Comparison of Structures
 
 
-```{r, message=FALSE, warning=FALSE}
+```{r, message=FALSE, warning=FALSE, cache = TRUE}
+table <- table_clusters # [c("Index", "EGA", "EFA_3", "Mixture")]
+
 # Initialize matrix
-m <- matrix(data=NA, nrow=nrow(table_clusters), ncol=nrow(table_clusters), dimnames = list(table_clusters$Index, table_clusters$Index))
+m <- matrix(data=NA, nrow=nrow(table), ncol=nrow(table), dimnames = list(table$Index, table$Index))
 
 
 for(row in row.names(m)) {
@@ -19,15 +21,15 @@ for(row in row.names(m)) {
       m[row, col] <- 1
       next
     } 
-    subset <- table_clusters[table_clusters$Index %in% c(row, col), ]
+    subset <- table[table$Index %in% c(row, col), ]
     rez <- sapply(subset[2:ncol(subset)], function(x) {
       if(any(is.na(x))) {
-        0
+        NA
       } else {
         ifelse(length(unique(x[!is.na(x)])) == 1, 1, 0)
       }
       })
-    m[row, col] <- sum(rez) / length(rez)
+    m[row, col] <- sum(rez, na.rm = TRUE) / length(na.omit(rez))
   }
 }
 ```
@@ -47,13 +49,15 @@ m %>%
   theme_minimal() +
   theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
   labs(x = NULL, y = NULL) +
-  scale_fill_gradient2(low = "red", mid = "yellow", high = "green", midpoint = 0.5)
+  scale_fill_gradient2(low = "#80DEEA", mid = "#009688", high = "#43A047", midpoint = 0.5)
 ```
 
 ### Summary
 
 ```{r, message=FALSE, warning=FALSE}
-hclust(as.dist(m)) %>% 
-  plot_dendrogram(clusters = NULL, ylim = -0.3, nudge_y = -0.02, angle = 90, points = FALSE)
+model <- hclust(as.dist(m)) 
+clusters <- cutree(model, h = 0.6)
+
+plot_dendrogram(model, clusters = clusters, ylim = -0.3, nudge_y = -0.02, angle = 90, points = FALSE, h = 0.6)
 ```
 

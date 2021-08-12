@@ -177,6 +177,14 @@ source_rmd("0_ConvenienceFunctions.Rmd")
 source_rmd("1_Preprocessing.Rmd")
 source_rmd("3_Dimensions.Rmd")
 source_rmd("4_Clustering.Rmd")
+
+find_cache <- function(pattern = "") {
+  files <- paste0("index_cache/html/", list.files("index_cache/html/", pattern = "\\.rdx$"))
+  files <- files[stringr::str_detect(files, pattern)]
+  stringr::str_remove(files, ".rdx")
+}
+
+lapply(find_cache(), lazyLoad, environment())
 ```
 
 
@@ -206,82 +214,17 @@ source_rmd("4_Clustering.Rmd")
 ```{r child='4_Clustering.Rmd'}
 ```
 
+## Network Structure
+
+```{r child='5_Network.Rmd'}
+```
 
 ## Summary
 
 ```{r child='6_Summary.Rmd'}
 ```
 
-<!-- ### Gaussian Graphical Model -->
 
-
-<!-- ```{r, message=FALSE, warning=FALSE, fig.width=17, fig.height=17} -->
-<!-- library(ggraph) -->
-
-<!-- data %>%  -->
-<!--   correlation::correlation(partial=FALSE) %>%  -->
-<!--   correlation::cor_to_pcor() %>%  -->
-<!--   filter(abs(r) > 0.2) %>% -->
-<!--   tidygraph::as_tbl_graph(directed=FALSE) %>%  -->
-<!--   dplyr::mutate(closeness = tidygraph::centrality_closeness(normalized = TRUE), -->
-<!--                 degree = tidygraph::centrality_degree(normalized = TRUE), -->
-<!--                 betweeness = tidygraph::centrality_betweenness(normalized = TRUE)) %>% -->
-<!--   tidygraph::activate(nodes) %>% -->
-<!--   dplyr::mutate(group1 = as.factor(tidygraph::group_edge_betweenness()), -->
-<!--                 # group2 = as.factor(tidygraph::group_optimal()), -->
-<!--                 # group3 = as.factor(tidygraph::group_walktrap()), -->
-<!--                 # group4 = as.factor(tidygraph::group_spinglass()), -->
-<!--                 group5 = as.factor(tidygraph::group_louvain())) %>%  -->
-<!--   ggraph::ggraph(layout = "fr") + -->
-<!--     ggraph::geom_edge_arc(aes(colour = r, edge_width = abs(r)), strength = 0.1, show.legend = FALSE) + -->
-<!--     ggraph::geom_node_point(aes(size = degree, color = group5), show.legend = FALSE) + -->
-<!--     ggraph::geom_node_text(aes(label = name), colour = "white") + -->
-<!--     ggraph::scale_edge_color_gradient2(low = "#a20025", high = "#008a00", name = "r") + -->
-<!--     ggraph::theme_graph() + -->
-<!--     guides(edge_width = FALSE) + -->
-<!--     scale_x_continuous(expand = expansion(c(.10, .10))) + -->
-<!--     scale_y_continuous(expand = expansion(c(.10, .10))) + -->
-<!--     scale_size_continuous(range = c(20, 30)) + -->
-<!--     scale_edge_width_continuous(range = c(0.5, 2)) + -->
-<!--     see::scale_color_material_d(palette="rainbow", reverse=TRUE) -->
-<!-- ``` -->
-
-<!-- Groups were identified using the [tidygraph::group_optimal](https://rdrr.io/cran/tidygraph/man/group_graph.html) algorithm. -->
-
-
-
-
-<!-- ### Cluster Analysis -->
-
-<!-- #### How many clusters -->
-
-<!-- ```{r, message=FALSE, warning=FALSE} -->
-<!-- dat <- effectsize::standardize(data[sapply(data, is.numeric)]) -->
-
-<!-- n <- parameters::n_clusters(t(dat), package = c("mclust", "cluster")) -->
-
-<!-- n -->
-
-<!-- plot(n) + -->
-<!--   theme_modern() -->
-<!-- ``` -->
-
-
-<!-- ```{r, message=FALSE, warning=FALSE, fig.width=7, fig.height=10} -->
-<!-- library(dendextend) -->
-
-<!-- dat <- effectsize::standardize(data[sapply(data, is.numeric)]) -->
-
-<!-- result <- pvclust::pvclust(dat, method.dist="euclidean", method.hclust="ward.D2", nboot=10, quiet=TRUE) -->
-
-<!-- result %>%  -->
-<!--   as.dendrogram() %>%  -->
-<!--   sort() %>%  -->
-<!--   dendextend::pvclust_show_signif_gradient(result, signif_col_fun = grDevices::colorRampPalette(c("black", "red"))) %>%  -->
-<!--   dendextend::pvclust_show_signif(result, signif_value = c(2, 1)) %>% -->
-<!--   dendextend::as.ggdend() %>%  -->
-<!--   ggplot2::ggplot(horiz=TRUE, offset_labels = -1) -->
-<!-- ``` -->
 
 
 

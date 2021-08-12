@@ -1,0 +1,58 @@
+---
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+
+### Network
+
+#### EGA
+
+```{r, message=FALSE, warning=FALSE}
+suppressMessages(library(EGAnet))
+
+# Run EGA
+ega <- EGAnet::EGA(r, n = nrow(data), model = "glasso", algorithm = "louvain", plot.EGA = FALSE)
+```
+
+```{r eval=FALSE, message=FALSE, warning=FALSE, include=FALSE, results='asis'}
+# methods.section(ega, output = "markdown")  # Prints ugly
+```
+
+```{r, message=FALSE, warning=FALSE, cache = TRUE}
+table_clusters$EGA <- ega$dim.variables[table_clusters$Index, "dimension"]
+```
+
+
+#### Centrality
+
+```{r, message=FALSE, warning=FALSE, cache = TRUE}
+graph <- ega_to_tidygraph(ega)
+
+graph <- tidygraph::tbl_graph(nodes = graph$nodes, edges = graph$edges, directed = FALSE) %>% 
+  tidygraph::activate(nodes) %>%
+  mutate(centrality = tidygraph::centrality_authority()) 
+
+as.list(graph)$nodes %>% 
+  group_by(dimension) %>% 
+  arrange(desc(centrality)) %>% 
+  slice_head(n=1) %>% 
+  knitr::kable()
+```
+
+#### Network Graph
+
+```{r, message=FALSE, warning=FALSE, fig.width=figwidth, fig.height=figwidth}
+
+graph %>% 
+  ggraph::ggraph(layout = "fr") + 
+    geom_edge_arc(aes(colour = link, width = link), strength = 0.05) + 
+    geom_node_point(aes(colour = dimension, size = centrality)) + 
+    geom_node_text(aes(label = name), fontface = "bold", repel = FALSE) +
+    ggraph::theme_graph() +
+    scale_edge_width(range = c(0.2, 3), guide = "none") +
+    scale_color_material_d(palette = "rainbow", guide = "none") +
+    scale_edge_color_gradientn(limits = c(0, 1), colours=c("#607D8B", "#263238"), guide = "none") +
+    scale_size_continuous(range = c(4, 20), guide = "none")
+```

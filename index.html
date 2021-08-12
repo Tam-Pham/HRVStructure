@@ -451,40 +451,48 @@ div.tocify {
 </div>
 <div id="dendrogram" class="section level4">
 <h4>Dendrogram</h4>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>plot_dendrogram <span class="ot">&lt;-</span> <span class="cf">function</span>(model, <span class="at">clusters =</span> <span class="cn">NULL</span>, <span class="at">points =</span> <span class="cn">TRUE</span>, <span class="at">ylim =</span> <span class="sc">-</span><span class="fl">0.3</span>, <span class="at">nudge_y =</span> <span class="sc">-</span><span class="fl">0.02</span>, <span class="at">angle =</span> <span class="dv">90</span>) {</span>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>plot_dendrogram <span class="ot">&lt;-</span> <span class="cf">function</span>(model, <span class="at">clusters =</span> <span class="cn">NULL</span>, <span class="at">points =</span> <span class="cn">TRUE</span>, <span class="at">ylim =</span> <span class="sc">-</span><span class="fl">0.3</span>, <span class="at">nudge_y =</span> <span class="sc">-</span><span class="fl">0.02</span>, <span class="at">angle =</span> <span class="dv">90</span>, <span class="at">h =</span> <span class="cn">NULL</span>, <span class="at">edges =</span> <span class="st">&quot;elbow&quot;</span>) {</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(<span class="fu">is.null</span>(clusters)) {</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    data <span class="ot">&lt;-</span> tidygraph<span class="sc">::</span><span class="fu">as_tbl_graph</span>(model)</span>
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
 <span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    data <span class="ot">&lt;-</span> tidygraph<span class="sc">::</span><span class="fu">as_tbl_graph</span>(model) <span class="sc">%&gt;%</span> </span>
 <span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>      tidygraph<span class="sc">::</span><span class="fu">activate</span>(nodes) <span class="sc">%&gt;%</span> </span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>      <span class="fu">mutate</span>(<span class="at">cluster =</span> clusters[label])</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>      <span class="fu">mutate</span>(<span class="at">cluster =</span> <span class="fu">as.character</span>(clusters[label]))</span>
 <span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>  }</span>
 <span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>  </span>
 <span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Tree</span></span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>  p <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span> </span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggraph</span>(<span class="at">layout =</span> <span class="st">&#39;dendrogram&#39;</span>, <span class="at">height =</span> height) <span class="sc">+</span> </span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>    <span class="co"># geom_hline(yintercept = 31, linetype = &quot;dotted&quot;) +</span></span>
-<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_edge_elbow</span>()</span>
-<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Points</span></span>
-<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(points) {</span>
-<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span>(<span class="fu">is.null</span>(clusters)) {</span>
-<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>      p <span class="ot">&lt;-</span> p <span class="sc">+</span> <span class="fu">geom_node_point</span>(<span class="fu">aes</span>(<span class="at">filter=</span>leaf))</span>
-<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>    } <span class="cf">else</span> {</span>
-<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>      p <span class="ot">&lt;-</span> p <span class="sc">+</span> <span class="fu">geom_node_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> cluster, <span class="at">filter=</span>leaf))</span>
-<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(<span class="fu">is.null</span>(clusters)) {</span>
-<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a>    p <span class="ot">&lt;-</span> p <span class="sc">+</span> <span class="fu">geom_node_text</span>(<span class="fu">aes</span>(<span class="at">label=</span>label), <span class="at">angle =</span> angle, <span class="at">hjust=</span><span class="dv">1</span>, <span class="at">nudge_y =</span> nudge_y)</span>
-<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
-<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a>    p <span class="ot">&lt;-</span> p <span class="sc">+</span> <span class="fu">geom_node_text</span>(<span class="fu">aes</span>(<span class="at">label=</span>label, <span class="at">color =</span> cluster), <span class="at">angle =</span> angle, <span class="at">hjust=</span><span class="dv">1</span>, <span class="at">nudge_y =</span> nudge_y) <span class="sc">+</span></span>
-<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a>      <span class="fu">scale_colour_material_d</span>(<span class="at">palette =</span> <span class="st">&quot;rainbow&quot;</span>, <span class="at">guide =</span> <span class="st">&quot;none&quot;</span>, <span class="at">na.value =</span> <span class="st">&quot;grey&quot;</span>)</span>
-<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a> p <span class="sc">+</span> </span>
-<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a>   <span class="fu">ylim</span>(ylim, <span class="cn">NA</span>) <span class="sc">+</span></span>
-<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a>   <span class="fu">theme_void</span>()</span>
-<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>  p <span class="ot">&lt;-</span> <span class="fu">ggraph</span>(data, <span class="at">layout =</span> <span class="st">&#39;dendrogram&#39;</span>, <span class="at">height =</span> height)</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(edges <span class="sc">==</span> <span class="st">&quot;elbow&quot;</span>) {</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>    p <span class="ot">&lt;-</span> p <span class="sc">+</span> <span class="fu">geom_edge_elbow</span>()</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>    p <span class="ot">&lt;-</span> p <span class="sc">+</span> <span class="fu">geom_edge_diagonal</span>()</span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Hline</span></span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(<span class="sc">!</span><span class="fu">is.null</span>(h)) p <span class="ot">&lt;-</span> p <span class="sc">+</span> <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> h, <span class="at">linetype =</span> <span class="st">&quot;dotted&quot;</span>) <span class="sc">+</span></span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Points</span></span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(points) {</span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span>(<span class="fu">is.null</span>(clusters)) {</span>
+<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a>      p <span class="ot">&lt;-</span> p <span class="sc">+</span> <span class="fu">geom_node_point</span>(<span class="fu">aes</span>(<span class="at">filter=</span>leaf))</span>
+<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a>    } <span class="cf">else</span> {</span>
+<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a>      p <span class="ot">&lt;-</span> p <span class="sc">+</span> <span class="fu">geom_node_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> cluster, <span class="at">filter=</span>leaf))</span>
+<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(<span class="fu">is.null</span>(clusters)) {</span>
+<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a>    p <span class="ot">&lt;-</span> p <span class="sc">+</span> <span class="fu">geom_node_text</span>(<span class="fu">aes</span>(<span class="at">label=</span>label), <span class="at">angle =</span> angle, <span class="at">hjust=</span><span class="dv">1</span>, <span class="at">nudge_y =</span> nudge_y)</span>
+<span id="cb5-35"><a href="#cb5-35" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
+<span id="cb5-36"><a href="#cb5-36" aria-hidden="true" tabindex="-1"></a>    p <span class="ot">&lt;-</span> p <span class="sc">+</span> <span class="fu">geom_node_text</span>(<span class="fu">aes</span>(<span class="at">label=</span>label, <span class="at">color =</span> cluster), <span class="at">angle =</span> angle, <span class="at">hjust=</span><span class="dv">1</span>, <span class="at">nudge_y =</span> nudge_y) <span class="sc">+</span></span>
+<span id="cb5-37"><a href="#cb5-37" aria-hidden="true" tabindex="-1"></a>      <span class="fu">scale_colour_material_d</span>(<span class="at">palette =</span> <span class="st">&quot;rainbow&quot;</span>, <span class="at">guide =</span> <span class="st">&quot;none&quot;</span>, <span class="at">na.value =</span> <span class="st">&quot;grey&quot;</span>)</span>
+<span id="cb5-38"><a href="#cb5-38" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb5-39"><a href="#cb5-39" aria-hidden="true" tabindex="-1"></a> p <span class="sc">+</span> </span>
+<span id="cb5-40"><a href="#cb5-40" aria-hidden="true" tabindex="-1"></a>   <span class="fu">ylim</span>(ylim, <span class="cn">NA</span>) <span class="sc">+</span></span>
+<span id="cb5-41"><a href="#cb5-41" aria-hidden="true" tabindex="-1"></a>   <span class="fu">theme_void</span>()</span>
+<span id="cb5-42"><a href="#cb5-42" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 </div>
 <div id="correlations" class="section level4">
 <h4>Correlations</h4>
@@ -591,7 +599,7 @@ div.tocify {
 <span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.title.x =</span> <span class="fu">element_blank</span>(),</span>
 <span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.title.y =</span> <span class="fu">element_blank</span>(),</span>
 <span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.text.y =</span> <span class="fu">element_blank</span>())</span></code></pre></div>
-<p><img src="figures/unnamed-chunk-15-1.png" width="5824.92235949962" /></p>
+<p><img src="figures/unnamed-chunk-16-1.png" width="5824.92235949962" /></p>
 </div>
 <div id="after-removal" class="section level4">
 <h4>After Removal</h4>
@@ -658,7 +666,7 @@ div.tocify {
 <span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.title.x =</span> <span class="fu">element_blank</span>(),</span>
 <span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.title.y =</span> <span class="fu">element_blank</span>(),</span>
 <span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.text.y =</span> <span class="fu">element_blank</span>())</span></code></pre></div>
-<p><img src="figures/unnamed-chunk-17-1.png" width="5824.92235949962" /></p>
+<p><img src="figures/unnamed-chunk-18-1.png" width="5824.92235949962" /></p>
 </div>
 </div>
 </div>
@@ -672,7 +680,7 @@ div.tocify {
 <span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>() <span class="sc">+</span></span>
 <span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_viridis_d</span>(<span class="at">guide =</span> <span class="st">&quot;none&quot;</span>) <span class="sc">+</span></span>
 <span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Recording Length&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Number of Participants&quot;</span>)</span></code></pre></div>
-<p><img src="figures/unnamed-chunk-18-1.png" width="5824.92235949962" /></p>
+<p><img src="figures/unnamed-chunk-19-1.png" width="5824.92235949962" /></p>
 </div>
 <div id="investigate-effect" class="section level3">
 <h3>Investigate effect</h3>
@@ -727,7 +735,7 @@ div.tocify {
 &gt; 42 Recording_Length       SD1SD2 0.02 [-0.07, 0.11]   5.76 113524 &lt; .001***
 &gt; 43 Recording_Length          CSI 0.01 [-0.08, 0.10]   4.19 110213 &lt; .001***</code></pre>
 <div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_correlations</span>(data, r[<span class="dv">1</span><span class="sc">:</span><span class="dv">9</span>, ])</span></code></pre></div>
-<p><img src="figures/unnamed-chunk-19-1.png" width="5824.92235949962" /></p>
+<p><img src="figures/unnamed-chunk-20-1.png" width="5824.92235949962" /></p>
 <!-- ### Adjust the data for recording length -->
 <!-- ```{r, message=FALSE, warning=FALSE, results='hide'} -->
 <!-- data <- effectsize::adjust(data, effect="Recording_Length") %>%  -->
@@ -754,7 +762,7 @@ div.tocify {
 &gt; 
 &gt; The choice of 3 dimensions is supported by 3 (17.65%) methods out of 17 (CNG, t, p).</code></pre>
 <div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(n) </span></code></pre></div>
-<p><img src="figures/unnamed-chunk-20-1.png" width="5824.92235949962" /></p>
+<p><img src="figures/unnamed-chunk-21-1.png" width="5824.92235949962" /></p>
 </div>
 <div id="exploratory-factor-analysis-efa" class="section level4">
 <h4>Exploratory Factor Analysis (EFA)</h4>
@@ -1124,7 +1132,7 @@ div.tocify {
 </table>
 <p>The 3 latent factors (oblimin rotation) accounted for 49.34% of the total variance of the original data (ML1 = 22.14%, ML3 = 14.71%, ML2 = 12.50%).</p>
 <div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(efa)</span></code></pre></div>
-<p><img src="figures/unnamed-chunk-21-1.png" width="9000" /></p>
+<p><img src="figures/unnamed-chunk-22-1.png" width="9000" /></p>
 <div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>table_clusters <span class="ot">&lt;-</span> parameters<span class="sc">::</span><span class="fu">closest_component</span>(efa) <span class="sc">%&gt;%</span> </span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">data.frame</span>(<span class="at">Index =</span> <span class="fu">names</span>(.),</span>
 <span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>             <span class="at">EFA_3 =</span> .) <span class="sc">%&gt;%</span> </span>
@@ -1761,7 +1769,7 @@ div.tocify {
 </table>
 <p>The 9 latent factors (oblimin rotation) accounted for 79.68% of the total variance of the original data (ML6 = 11.18%, ML8 = 12.34%, ML5 = 9.00%, ML3 = 10.61%, ML7 = 8.08%, ML4 = 7.85%, ML2 = 7.53%, ML1 = 7.30%, ML9 = 5.78%).</p>
 <div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(efa)</span></code></pre></div>
-<p><img src="figures/unnamed-chunk-22-1.png" width="9000" /></p>
+<p><img src="figures/unnamed-chunk-23-1.png" width="9000" /></p>
 <div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>table_clusters<span class="sc">$</span>EFA_9 <span class="ot">&lt;-</span> <span class="fu">as.character</span>(parameters<span class="sc">::</span><span class="fu">closest_component</span>(efa))</span></code></pre></div>
 </div>
 </div>
@@ -1773,7 +1781,7 @@ div.tocify {
 <h3>Clustering</h3>
 <div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Preprocessing</span></span>
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>z <span class="ot">&lt;-</span> <span class="fu">standardize</span>(data[hrv_cols])</span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>z <span class="ot">&lt;-</span> z[ , <span class="fu">colSums</span>(<span class="fu">is.na</span>(z)) <span class="sc">&gt;</span> <span class="fl">0.05</span> <span class="sc">*</span> <span class="fu">nrow</span>(z)]</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>z <span class="ot">&lt;-</span> z[ , <span class="fu">colSums</span>(<span class="fu">is.na</span>(z)) <span class="sc">&lt;</span> <span class="fl">0.1</span> <span class="sc">*</span> <span class="fu">nrow</span>(z)]  <span class="co"># keep only cols with few nans</span></span>
 <span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>z[<span class="fu">is.na</span>(z)] <span class="ot">&lt;-</span> <span class="dv">0</span>  <span class="co"># mean imputation</span></span>
 <span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>z <span class="ot">&lt;-</span> datawizard<span class="sc">::</span><span class="fu">data_transpose</span>(z)</span></code></pre></div>
 <div id="k-means" class="section level4">
@@ -1785,134 +1793,267 @@ div.tocify {
 <span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> parameters<span class="sc">::</span><span class="fu">n_clusters</span>(z, </span>
 <span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>                            <span class="at">standardize =</span> <span class="cn">FALSE</span>, </span>
 <span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>                            <span class="at">package=</span> <span class="fu">c</span>(<span class="st">&quot;NbClust&quot;</span>, <span class="st">&quot;easystats&quot;</span>, <span class="st">&quot;mclust&quot;</span>), </span>
-<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>                            <span class="at">nbclust_method =</span> <span class="st">&quot;kmeans&quot;</span>,</span>
-<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>                            <span class="at">n_max =</span> <span class="dv">9</span>,</span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>                            <span class="at">nbclust_method =</span> <span class="st">&quot;average&quot;</span>,</span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>                            <span class="at">n_max =</span> <span class="dv">15</span>,</span>
 <span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>                            <span class="at">fast =</span> <span class="cn">FALSE</span>)</span>
 <span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a>n</span></code></pre></div>
 <pre><code>&gt; # Method Agreement Procedure:
 &gt; 
-&gt; The choice of 8 clusters is supported by 6 (24.00%) methods out of 25 (Silhouette, Gap_Maechler2012, Gap_Dudoit2002, kl, Ch, Dunn).</code></pre>
-<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(n) </span></code></pre></div>
-<p><img src="figures/unnamed-chunk-24-1.png" width="5824.92235949962" /></p>
+&gt; The choice of 6 clusters is supported by 6 (25.00%) methods out of 24 (Silhouette, kl, Hartigan, Duda, Pseudot2, Ratkowsky).</code></pre>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(n)</span></code></pre></div>
+<p><img src="figures/unnamed-chunk-25-1.png" width="5824.92235949962" /></p>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">n_clusters_gap</span>(z, <span class="at">standardize =</span> <span class="cn">FALSE</span>))</span></code></pre></div>
+<p><img src="figures/unnamed-chunk-25-2.png" width="5824.92235949962" /></p>
 </div>
 <div id="k-solution" class="section level5">
-<h5>8-K Solution</h5>
-<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>rez <span class="ot">&lt;-</span> parameters<span class="sc">::</span><span class="fu">cluster_analysis</span>(z, <span class="at">n =</span> <span class="dv">8</span>, <span class="at">method =</span> <span class="st">&quot;hkmeans&quot;</span>)</span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="fu">as.data.frame</span>(rez)[<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>]</span></code></pre></div>
+<h5>7-K Solution</h5>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>rez <span class="ot">&lt;-</span> parameters<span class="sc">::</span><span class="fu">cluster_analysis</span>(z, <span class="at">n =</span> <span class="dv">7</span>, <span class="at">method =</span> <span class="st">&quot;hkmeans&quot;</span>)</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a><span class="fu">as.data.frame</span>(rez)[<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>]</span></code></pre></div>
 <pre><code>&gt;   Cluster n_Obs Sum_Squares
-&gt; 1       1     6        1388
-&gt; 2       2     8        1775
-&gt; 3       3     3         365
-&gt; 4       4     4         656
-&gt; 5       5     2         285
-&gt; 6       6     1           0
-&gt; 7       7     3         732
-&gt; 8       8     1           0</code></pre>
-<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cluster_performance</span>(rez)</span></code></pre></div>
+&gt; 1       1     3         527
+&gt; 2       2    10        1876
+&gt; 3       3     2         168
+&gt; 4       4     3         776
+&gt; 5       5     3         373
+&gt; 6       6     2         246
+&gt; 7       7     1           0</code></pre>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cluster_performance</span>(rez)</span></code></pre></div>
 <pre><code>&gt; # Indices of model performance
 &gt; 
 &gt; Sum_Squares_Total | Sum_Squares_Between | Sum_Squares_Within |    R2
 &gt; --------------------------------------------------------------------
-&gt; 13392.000         |            8191.287 |           5200.713 | 0.612</code></pre>
-<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(rez)</span></code></pre></div>
-<p><img src="figures/unnamed-chunk-25-1.png" width="5824.92235949962" /></p>
-<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>table_clusters<span class="sc">$</span>Kmeans_8 <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
-<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>table_clusters<span class="sc">$</span>Kmeans_8[table_clusters<span class="sc">$</span>Index <span class="sc">%in%</span> <span class="fu">row.names</span>(z)] <span class="ot">&lt;-</span> <span class="fu">as.character</span>(<span class="fu">predict</span>(rez))</span></code></pre></div>
+&gt; 11408.000         |            7441.470 |           3966.530 | 0.652</code></pre>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(rez)</span></code></pre></div>
+<p><img src="figures/unnamed-chunk-26-1.png" width="5824.92235949962" /></p>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>table_clusters<span class="sc">$</span>Kmeans_8 <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>table_clusters<span class="sc">$</span>Kmeans_8[table_clusters<span class="sc">$</span>Index <span class="sc">%in%</span> <span class="fu">row.names</span>(z)] <span class="ot">&lt;-</span> <span class="fu">as.character</span>(<span class="fu">predict</span>(rez))</span></code></pre></div>
 </div>
 <div id="k-solution-1" class="section level5">
 <h5>5-K Solution</h5>
-<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>rez <span class="ot">&lt;-</span> parameters<span class="sc">::</span><span class="fu">cluster_analysis</span>(z, <span class="at">n =</span> <span class="dv">5</span>, <span class="at">method =</span> <span class="st">&quot;hkmeans&quot;</span>)</span>
-<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a><span class="fu">as.data.frame</span>(rez)[<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>rez <span class="ot">&lt;-</span> parameters<span class="sc">::</span><span class="fu">cluster_analysis</span>(z, <span class="at">n =</span> <span class="dv">5</span>, <span class="at">method =</span> <span class="st">&quot;hkmeans&quot;</span>)</span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a><span class="fu">as.data.frame</span>(rez)[<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>]</span></code></pre></div>
 <pre><code>&gt;   Cluster n_Obs Sum_Squares
-&gt; 1       1    10        3394
-&gt; 2       2    11        3071
-&gt; 3       3     3         905
-&gt; 4       4     3         732
-&gt; 5       5     1           0</code></pre>
-<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cluster_performance</span>(rez)</span></code></pre></div>
+&gt; 1       1     3         527
+&gt; 2       2    10        1876
+&gt; 3       3     6        2433
+&gt; 4       4     3         373
+&gt; 5       5     2         246</code></pre>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cluster_performance</span>(rez)</span></code></pre></div>
 <pre><code>&gt; # Indices of model performance
 &gt; 
 &gt; Sum_Squares_Total | Sum_Squares_Between | Sum_Squares_Within |    R2
 &gt; --------------------------------------------------------------------
-&gt; 13392.000         |            5290.307 |           8101.693 | 0.395</code></pre>
-<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(rez)</span></code></pre></div>
-<p><img src="figures/unnamed-chunk-26-1.png" width="5824.92235949962" /></p>
-<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>table_clusters<span class="sc">$</span>Kmeans_5 <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
-<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>table_clusters<span class="sc">$</span>Kmeans_5[table_clusters<span class="sc">$</span>Index <span class="sc">%in%</span> <span class="fu">row.names</span>(z)] <span class="ot">&lt;-</span> <span class="fu">as.character</span>(<span class="fu">predict</span>(rez))</span></code></pre></div>
+&gt; 11408.000         |            5952.697 |           5455.303 | 0.522</code></pre>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(rez)</span></code></pre></div>
+<p><img src="figures/unnamed-chunk-27-1.png" width="5824.92235949962" /></p>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>table_clusters<span class="sc">$</span>Kmeans_5 <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>table_clusters<span class="sc">$</span>Kmeans_5[table_clusters<span class="sc">$</span>Index <span class="sc">%in%</span> <span class="fu">row.names</span>(z)] <span class="ot">&lt;-</span> <span class="fu">as.character</span>(<span class="fu">predict</span>(rez))</span></code></pre></div>
 </div>
 </div>
 <div id="hierarchial-clustering" class="section level4">
 <h4>Hierarchial Clustering</h4>
 <div id="clustering-1" class="section level5">
 <h5>Clustering</h5>
-<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>rez <span class="ot">&lt;-</span> parameters<span class="sc">::</span><span class="fu">cluster_analysis</span>(z, <span class="at">n =</span> <span class="cn">NULL</span>, <span class="at">standardize =</span> <span class="cn">FALSE</span>, <span class="at">method =</span> <span class="st">&quot;hclust&quot;</span>, <span class="at">distance_method =</span> <span class="st">&quot;correlation&quot;</span>, <span class="at">hclust_method =</span> <span class="st">&quot;average&quot;</span>, <span class="at">ci =</span> <span class="fl">0.90</span>)</span>
-<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a><span class="fu">as.data.frame</span>(rez)[<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>rez <span class="ot">&lt;-</span> parameters<span class="sc">::</span><span class="fu">cluster_analysis</span>(z, <span class="at">n =</span> <span class="cn">NULL</span>, <span class="at">standardize =</span> <span class="cn">FALSE</span>, <span class="at">method =</span> <span class="st">&quot;hclust&quot;</span>, <span class="at">distance_method =</span> <span class="st">&quot;correlation&quot;</span>, <span class="at">hclust_method =</span> <span class="st">&quot;average&quot;</span>, <span class="at">ci =</span> <span class="fl">0.90</span>)</span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a><span class="fu">as.data.frame</span>(rez)[<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>]</span></code></pre></div>
 <pre><code>&gt;   Cluster n_Obs Sum_Squares
-&gt; 1       0    10        2709
-&gt; 2       1     2          34
-&gt; 3       2     3          99
-&gt; 4       3     2          79
-&gt; 5       4     2         191
-&gt; 6       5     3         418
-&gt; 7       6     6        1089</code></pre>
-<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cluster_performance</span>(rez)</span></code></pre></div>
+&gt; 1       0     2       551.3
+&gt; 2       1     2         5.3
+&gt; 3       2     3       289.7
+&gt; 4       3    17      5018.5</code></pre>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cluster_performance</span>(rez)</span></code></pre></div>
 <pre><code>&gt; # Indices of model performance
 &gt; 
 &gt; Sum_Squares_Total | Sum_Squares_Between | Sum_Squares_Within |    R2
 &gt; --------------------------------------------------------------------
-&gt; 9532.342          |            4913.468 |           1909.807 | 0.515</code></pre>
-<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(rez)</span></code></pre></div>
-<p><img src="figures/unnamed-chunk-27-1.png" width="5824.92235949962" /></p>
-<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>table_clusters<span class="sc">$</span>Hclust <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
-<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>table_clusters<span class="sc">$</span>Hclust[table_clusters<span class="sc">$</span>Index <span class="sc">%in%</span> <span class="fu">row.names</span>(z)] <span class="ot">&lt;-</span> <span class="fu">as.character</span>(<span class="fu">predict</span>(rez))</span>
-<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a>table_clusters<span class="sc">$</span>Hclust[table_clusters<span class="sc">$</span>Hclust <span class="sc">==</span> <span class="st">&quot;0&quot;</span>] <span class="ot">&lt;-</span> <span class="cn">NA</span></span></code></pre></div>
+&gt; 9254.811          |            3389.890 |           5313.602 | 0.366</code></pre>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(rez)</span></code></pre></div>
+<p><img src="figures/unnamed-chunk-28-1.png" width="5824.92235949962" /></p>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>table_clusters<span class="sc">$</span>Hclust <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>table_clusters<span class="sc">$</span>Hclust[table_clusters<span class="sc">$</span>Index <span class="sc">%in%</span> <span class="fu">row.names</span>(z)] <span class="ot">&lt;-</span> <span class="fu">as.character</span>(<span class="fu">predict</span>(rez))</span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a>table_clusters<span class="sc">$</span>Hclust[table_clusters<span class="sc">$</span>Hclust <span class="sc">==</span> <span class="st">&quot;0&quot;</span>] <span class="ot">&lt;-</span> <span class="cn">NA</span></span></code></pre></div>
 </div>
 <div id="dendrogram-1" class="section level5">
 <h5>Dendrogram</h5>
-<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>clusters <span class="ot">&lt;-</span> table_clusters<span class="sc">$</span>Hclust</span>
-<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(clusters) <span class="ot">&lt;-</span> table_clusters<span class="sc">$</span>Index</span>
-<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_dendrogram</span>(<span class="at">model =</span> <span class="fu">attributes</span>(rez)<span class="sc">$</span>model<span class="sc">$</span>hclust, <span class="at">clusters =</span> clusters)</span></code></pre></div>
-<p><img src="figures/unnamed-chunk-28-1.png" width="5824.92235949962" /></p>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>clusters <span class="ot">&lt;-</span> table_clusters<span class="sc">$</span>Hclust</span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(clusters) <span class="ot">&lt;-</span> table_clusters<span class="sc">$</span>Index</span>
+<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-4"><a href="#cb50-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_dendrogram</span>(<span class="at">model =</span> <span class="fu">attributes</span>(rez)<span class="sc">$</span>model<span class="sc">$</span>hclust, <span class="at">clusters =</span> clusters)</span></code></pre></div>
+<p><img src="figures/unnamed-chunk-29-1.png" width="5824.92235949962" /></p>
 </div>
 </div>
 <div id="dbscan" class="section level4">
 <h4>DBSCAN</h4>
 <div id="parameters-selection" class="section level5">
 <h5>Parameters Selection</h5>
-<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">n_clusters_dbscan</span>(z, <span class="at">standardize =</span> <span class="cn">FALSE</span>, <span class="at">eps_range =</span> <span class="fu">c</span>(<span class="fl">0.1</span>, <span class="dv">30</span>), <span class="at">min_size =</span> <span class="dv">2</span>, <span class="at">method =</span> <span class="st">&quot;kNN&quot;</span>)</span>
-<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(n)</span></code></pre></div>
-<p><img src="figures/unnamed-chunk-29-1.png" width="5824.92235949962" /></p>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">n_clusters_dbscan</span>(z, <span class="at">standardize =</span> <span class="cn">FALSE</span>, <span class="at">eps_range =</span> <span class="fu">c</span>(<span class="fl">0.1</span>, <span class="dv">30</span>), <span class="at">min_size =</span> <span class="dv">2</span>, <span class="at">method =</span> <span class="st">&quot;kNN&quot;</span>)</span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(n)</span></code></pre></div>
+<p><img src="figures/unnamed-chunk-30-1.png" width="5824.92235949962" /></p>
 </div>
-<div id="clustering-2" class="section level5">
-<h5>Clustering</h5>
-<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>rez <span class="ot">&lt;-</span> parameters<span class="sc">::</span><span class="fu">cluster_analysis</span>(z, <span class="at">n =</span> <span class="cn">NULL</span>, <span class="at">standardize =</span> <span class="cn">FALSE</span>, <span class="at">method =</span> <span class="st">&quot;dbscan&quot;</span>, <span class="at">dbscan_eps =</span> <span class="dv">16</span>, <span class="at">min_size =</span> <span class="dv">2</span>)</span>
-<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a><span class="fu">as.data.frame</span>(rez)[<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>]</span></code></pre></div>
+<div id="dbscan-1" class="section level5">
+<h5>DBSCAN</h5>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>rez <span class="ot">&lt;-</span> parameters<span class="sc">::</span><span class="fu">cluster_analysis</span>(z, <span class="at">n =</span> <span class="cn">NULL</span>, <span class="at">standardize =</span> <span class="cn">FALSE</span>, <span class="at">method =</span> <span class="st">&quot;dbscan&quot;</span>, <span class="at">dbscan_eps =</span> <span class="dv">16</span>, <span class="at">min_size =</span> <span class="dv">2</span>, <span class="at">borderPoints =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a><span class="fu">as.data.frame</span>(rez)[<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>]</span></code></pre></div>
 <pre><code>&gt;   Cluster n_Obs Sum_Squares
-&gt; 1       0    16        5638
-&gt; 2       1     2          89
-&gt; 3       2     3         233
-&gt; 4       3     2          79
-&gt; 5       4     3          99
-&gt; 6       5     2          34</code></pre>
-<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cluster_performance</span>(rez)</span></code></pre></div>
+&gt; 1       0    11      4458.8
+&gt; 2       1     2         5.3
+&gt; 3       2     7       797.7
+&gt; 4       3     2       106.4
+&gt; 5       4     2        96.9</code></pre>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cluster_performance</span>(rez)</span></code></pre></div>
 <pre><code>&gt; # Indices of model performance
 &gt; 
 &gt; Sum_Squares_Total | Sum_Squares_Between | Sum_Squares_Within |    R2
 &gt; --------------------------------------------------------------------
-&gt; 9532.342          |            3359.742 |            534.249 | 0.352</code></pre>
-<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(rez)</span></code></pre></div>
-<p><img src="figures/unnamed-chunk-30-1.png" width="5824.92235949962" /></p>
-<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a>table_clusters<span class="sc">$</span>DBSCAN <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
-<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a>table_clusters<span class="sc">$</span>DBSCAN[table_clusters<span class="sc">$</span>Index <span class="sc">%in%</span> <span class="fu">row.names</span>(z)] <span class="ot">&lt;-</span> <span class="fu">as.character</span>(<span class="fu">predict</span>(rez))</span>
-<span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a>table_clusters<span class="sc">$</span>DBSCAN[table_clusters<span class="sc">$</span>DBSCAN <span class="sc">==</span> <span class="st">&quot;0&quot;</span>] <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
-<span id="cb56-4"><a href="#cb56-4" aria-hidden="true" tabindex="-1"></a><span class="fu">row.names</span>(table_clusters) <span class="ot">&lt;-</span> table_clusters<span class="sc">$</span>Index</span></code></pre></div>
+&gt; 9254.811          |            3789.685 |           1006.302 | 0.409</code></pre>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(rez)</span></code></pre></div>
+<p><img src="figures/unnamed-chunk-31-1.png" width="5824.92235949962" /></p>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a>table_clusters<span class="sc">$</span>DBSCAN <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
+<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a>table_clusters<span class="sc">$</span>DBSCAN[table_clusters<span class="sc">$</span>Index <span class="sc">%in%</span> <span class="fu">row.names</span>(z)] <span class="ot">&lt;-</span> <span class="fu">as.character</span>(<span class="fu">predict</span>(rez))</span>
+<span id="cb57-3"><a href="#cb57-3" aria-hidden="true" tabindex="-1"></a>table_clusters<span class="sc">$</span>DBSCAN[table_clusters<span class="sc">$</span>DBSCAN <span class="sc">==</span> <span class="st">&quot;0&quot;</span>] <span class="ot">&lt;-</span> <span class="cn">NA</span></span></code></pre></div>
 </div>
+<div id="hdbscan" class="section level5">
+<h5>HDBSCAN</h5>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a>rez <span class="ot">&lt;-</span> parameters<span class="sc">::</span><span class="fu">cluster_analysis</span>(z, <span class="at">n =</span> <span class="cn">NULL</span>, <span class="at">standardize =</span> <span class="cn">FALSE</span>, <span class="at">method =</span> <span class="st">&quot;hdbscan&quot;</span>, <span class="at">min_size =</span> <span class="dv">2</span>)</span>
+<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-3"><a href="#cb58-3" aria-hidden="true" tabindex="-1"></a><span class="fu">as.data.frame</span>(rez)[<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>]</span></code></pre></div>
+<pre><code>&gt;   Cluster n_Obs Sum_Squares
+&gt; 1       0     7      2689.6
+&gt; 2       1     2       194.6
+&gt; 3       2     3       289.7
+&gt; 4       3     3       440.8
+&gt; 5       4     3       131.1
+&gt; 6       5     4       346.1
+&gt; 7       6     2         5.3</code></pre>
+<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cluster_performance</span>(rez)</span></code></pre></div>
+<pre><code>&gt; # Indices of model performance
+&gt; 
+&gt; Sum_Squares_Total | Sum_Squares_Between | Sum_Squares_Within |    R2
+&gt; --------------------------------------------------------------------
+&gt; 9254.811          |            5157.482 |           1407.756 | 0.557</code></pre>
+<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(rez)</span></code></pre></div>
+<p><img src="figures/unnamed-chunk-32-1.png" width="5824.92235949962" /></p>
+<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a>table_clusters<span class="sc">$</span>HDBSCAN <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
+<span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a>table_clusters<span class="sc">$</span>HDBSCAN[table_clusters<span class="sc">$</span>Index <span class="sc">%in%</span> <span class="fu">row.names</span>(z)] <span class="ot">&lt;-</span> <span class="fu">as.character</span>(<span class="fu">predict</span>(rez))</span>
+<span id="cb63-3"><a href="#cb63-3" aria-hidden="true" tabindex="-1"></a>table_clusters<span class="sc">$</span>HDBSCAN[table_clusters<span class="sc">$</span>HDBSCAN <span class="sc">==</span> <span class="st">&quot;0&quot;</span>] <span class="ot">&lt;-</span> <span class="cn">NA</span></span></code></pre></div>
+</div>
+</div>
+<div id="mixture-modelling" class="section level4">
+<h4>Mixture Modelling</h4>
+<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="fu">suppressMessages</span>(<span class="fu">library</span>(mclust))</span>
+<span id="cb64-2"><a href="#cb64-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-3"><a href="#cb64-3" aria-hidden="true" tabindex="-1"></a>rez <span class="ot">&lt;-</span> parameters<span class="sc">::</span><span class="fu">cluster_analysis</span>(z, <span class="at">method =</span> <span class="st">&quot;mixture&quot;</span>)</span>
+<span id="cb64-4"><a href="#cb64-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-5"><a href="#cb64-5" aria-hidden="true" tabindex="-1"></a><span class="fu">as.data.frame</span>(rez)[<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>]</span></code></pre></div>
+<pre><code>&gt;   Cluster n_Obs Sum_Squares
+&gt; 1       1     2         5.5
+&gt; 2       2     8      1083.5
+&gt; 3       3     3       770.2
+&gt; 4       4     2       167.7
+&gt; 5       5     2       224.3
+&gt; 6       6     3       373.0
+&gt; 7       7     2       245.9
+&gt; 8       8     1         0.0
+&gt; 9       9     1         0.0</code></pre>
+<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cluster_performance</span>(rez)</span></code></pre></div>
+<pre><code>&gt; # Indices of model performance
+&gt; 
+&gt; Sum_Squares_Total | Sum_Squares_Between | Sum_Squares_Within |    R2
+&gt; --------------------------------------------------------------------
+&gt; 11408.000         |            8538.023 |           2869.977 | 0.748</code></pre>
+<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(rez)</span></code></pre></div>
+<p><img src="figures/unnamed-chunk-33-1.png" width="5824.92235949962" /></p>
+<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a>table_clusters<span class="sc">$</span>Mixture <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
+<span id="cb69-2"><a href="#cb69-2" aria-hidden="true" tabindex="-1"></a>table_clusters<span class="sc">$</span>Mixture[table_clusters<span class="sc">$</span>Index <span class="sc">%in%</span> <span class="fu">row.names</span>(z)] <span class="ot">&lt;-</span> <span class="fu">as.character</span>(<span class="fu">predict</span>(rez))</span>
+<span id="cb69-3"><a href="#cb69-3" aria-hidden="true" tabindex="-1"></a>table_clusters<span class="sc">$</span>Mixture[table_clusters<span class="sc">$</span>Mixture <span class="sc">==</span> <span class="st">&quot;0&quot;</span>] <span class="ot">&lt;-</span> <span class="cn">NA</span></span></code></pre></div>
+</div>
+</div>
+</div>
+<div id="network-structure" class="section level2">
+<h2>Network Structure</h2>
+<div id="network" class="section level3">
+<h3>Network</h3>
+<div id="ega" class="section level4">
+<h4>EGA</h4>
+<div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a><span class="fu">suppressMessages</span>(<span class="fu">library</span>(EGAnet))</span>
+<span id="cb70-2"><a href="#cb70-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb70-3"><a href="#cb70-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Run EGA</span></span>
+<span id="cb70-4"><a href="#cb70-4" aria-hidden="true" tabindex="-1"></a>ega <span class="ot">&lt;-</span> EGAnet<span class="sc">::</span><span class="fu">EGA</span>(r, <span class="at">n =</span> <span class="fu">nrow</span>(data), <span class="at">model =</span> <span class="st">&quot;glasso&quot;</span>, <span class="at">algorithm =</span> <span class="st">&quot;louvain&quot;</span>, <span class="at">plot.EGA =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a>table_clusters<span class="sc">$</span>EGA <span class="ot">&lt;-</span> ega<span class="sc">$</span>dim.variables[table_clusters<span class="sc">$</span>Index, <span class="st">&quot;dimension&quot;</span>]</span></code></pre></div>
+</div>
+<div id="centrality" class="section level4">
+<h4>Centrality</h4>
+<div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a>graph <span class="ot">&lt;-</span> <span class="fu">ega_to_tidygraph</span>(ega)</span>
+<span id="cb72-2"><a href="#cb72-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb72-3"><a href="#cb72-3" aria-hidden="true" tabindex="-1"></a>graph <span class="ot">&lt;-</span> tidygraph<span class="sc">::</span><span class="fu">tbl_graph</span>(<span class="at">nodes =</span> graph<span class="sc">$</span>nodes, <span class="at">edges =</span> graph<span class="sc">$</span>edges, <span class="at">directed =</span> <span class="cn">FALSE</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb72-4"><a href="#cb72-4" aria-hidden="true" tabindex="-1"></a>  tidygraph<span class="sc">::</span><span class="fu">activate</span>(nodes) <span class="sc">%&gt;%</span></span>
+<span id="cb72-5"><a href="#cb72-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">centrality =</span> tidygraph<span class="sc">::</span><span class="fu">centrality_authority</span>()) </span>
+<span id="cb72-6"><a href="#cb72-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb72-7"><a href="#cb72-7" aria-hidden="true" tabindex="-1"></a><span class="fu">as.list</span>(graph)<span class="sc">$</span>nodes <span class="sc">%&gt;%</span> </span>
+<span id="cb72-8"><a href="#cb72-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(dimension) <span class="sc">%&gt;%</span> </span>
+<span id="cb72-9"><a href="#cb72-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(centrality)) <span class="sc">%&gt;%</span> </span>
+<span id="cb72-10"><a href="#cb72-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_head</span>(<span class="at">n=</span><span class="dv">1</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb72-11"><a href="#cb72-11" aria-hidden="true" tabindex="-1"></a>  knitr<span class="sc">::</span><span class="fu">kable</span>()</span></code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th align="left">name</th>
+<th align="left">dimension</th>
+<th align="right">centrality</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">MedianNN</td>
+<td align="left">1</td>
+<td align="right">0.36</td>
+</tr>
+<tr class="even">
+<td align="left">LnHF</td>
+<td align="left">2</td>
+<td align="right">0.84</td>
+</tr>
+<tr class="odd">
+<td align="left">S</td>
+<td align="left">3</td>
+<td align="right">0.84</td>
+</tr>
+<tr class="even">
+<td align="left">SI</td>
+<td align="left">4</td>
+<td align="right">0.18</td>
+</tr>
+<tr class="odd">
+<td align="left">CorrDim</td>
+<td align="left">5</td>
+<td align="right">1.00</td>
+</tr>
+<tr class="even">
+<td align="left">PIP</td>
+<td align="left">6</td>
+<td align="right">0.43</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="network-graph" class="section level4">
+<h4>Network Graph</h4>
+<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a>graph <span class="sc">%&gt;%</span> </span>
+<span id="cb73-2"><a href="#cb73-2" aria-hidden="true" tabindex="-1"></a>  ggraph<span class="sc">::</span><span class="fu">ggraph</span>(<span class="at">layout =</span> <span class="st">&quot;fr&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb73-3"><a href="#cb73-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_edge_arc</span>(<span class="fu">aes</span>(<span class="at">colour =</span> link, <span class="at">width =</span> link), <span class="at">strength =</span> <span class="fl">0.05</span>) <span class="sc">+</span> </span>
+<span id="cb73-4"><a href="#cb73-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_node_point</span>(<span class="fu">aes</span>(<span class="at">colour =</span> dimension, <span class="at">size =</span> centrality)) <span class="sc">+</span> </span>
+<span id="cb73-5"><a href="#cb73-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_node_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> name), <span class="at">fontface =</span> <span class="st">&quot;bold&quot;</span>, <span class="at">repel =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb73-6"><a href="#cb73-6" aria-hidden="true" tabindex="-1"></a>    ggraph<span class="sc">::</span><span class="fu">theme_graph</span>() <span class="sc">+</span></span>
+<span id="cb73-7"><a href="#cb73-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_edge_width</span>(<span class="at">range =</span> <span class="fu">c</span>(<span class="fl">0.2</span>, <span class="dv">3</span>), <span class="at">guide =</span> <span class="st">&quot;none&quot;</span>) <span class="sc">+</span></span>
+<span id="cb73-8"><a href="#cb73-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_color_material_d</span>(<span class="at">palette =</span> <span class="st">&quot;rainbow&quot;</span>, <span class="at">guide =</span> <span class="st">&quot;none&quot;</span>) <span class="sc">+</span></span>
+<span id="cb73-9"><a href="#cb73-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_edge_color_gradientn</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">colours=</span><span class="fu">c</span>(<span class="st">&quot;#607D8B&quot;</span>, <span class="st">&quot;#263238&quot;</span>), <span class="at">guide =</span> <span class="st">&quot;none&quot;</span>) <span class="sc">+</span></span>
+<span id="cb73-10"><a href="#cb73-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_size_continuous</span>(<span class="at">range =</span> <span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">20</span>), <span class="at">guide =</span> <span class="st">&quot;none&quot;</span>)</span></code></pre></div>
+<p><img src="figures/unnamed-chunk-38-1.png" width="5824.92235949962" /></p>
 </div>
 </div>
 </div>
@@ -1920,100 +2061,52 @@ div.tocify {
 <h2>Summary</h2>
 <div id="comparison-of-structures" class="section level3">
 <h3>Comparison of Structures</h3>
-<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Initialize matrix</span></span>
-<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="at">data=</span><span class="cn">NA</span>, <span class="at">nrow=</span><span class="fu">nrow</span>(table_clusters), <span class="at">ncol=</span><span class="fu">nrow</span>(table_clusters), <span class="at">dimnames =</span> <span class="fu">list</span>(table_clusters<span class="sc">$</span>Index, table_clusters<span class="sc">$</span>Index))</span>
-<span id="cb57-3"><a href="#cb57-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb57-4"><a href="#cb57-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb57-5"><a href="#cb57-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(row <span class="cf">in</span> <span class="fu">row.names</span>(m)) {</span>
-<span id="cb57-6"><a href="#cb57-6" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span>(col <span class="cf">in</span> <span class="fu">colnames</span>(m)) {</span>
-<span id="cb57-7"><a href="#cb57-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span>(row <span class="sc">==</span> col) {</span>
-<span id="cb57-8"><a href="#cb57-8" aria-hidden="true" tabindex="-1"></a>      m[row, col] <span class="ot">&lt;-</span> <span class="dv">1</span></span>
-<span id="cb57-9"><a href="#cb57-9" aria-hidden="true" tabindex="-1"></a>      <span class="cf">next</span></span>
-<span id="cb57-10"><a href="#cb57-10" aria-hidden="true" tabindex="-1"></a>    } </span>
-<span id="cb57-11"><a href="#cb57-11" aria-hidden="true" tabindex="-1"></a>    subset <span class="ot">&lt;-</span> table_clusters[table_clusters<span class="sc">$</span>Index <span class="sc">%in%</span> <span class="fu">c</span>(row, col), ]</span>
-<span id="cb57-12"><a href="#cb57-12" aria-hidden="true" tabindex="-1"></a>    rez <span class="ot">&lt;-</span> <span class="fu">sapply</span>(subset[<span class="dv">2</span><span class="sc">:</span><span class="fu">ncol</span>(subset)], <span class="cf">function</span>(x) {</span>
-<span id="cb57-13"><a href="#cb57-13" aria-hidden="true" tabindex="-1"></a>      <span class="cf">if</span>(<span class="fu">any</span>(<span class="fu">is.na</span>(x))) {</span>
-<span id="cb57-14"><a href="#cb57-14" aria-hidden="true" tabindex="-1"></a>        <span class="dv">0</span></span>
-<span id="cb57-15"><a href="#cb57-15" aria-hidden="true" tabindex="-1"></a>      } <span class="cf">else</span> {</span>
-<span id="cb57-16"><a href="#cb57-16" aria-hidden="true" tabindex="-1"></a>        <span class="fu">ifelse</span>(<span class="fu">length</span>(<span class="fu">unique</span>(x[<span class="sc">!</span><span class="fu">is.na</span>(x)])) <span class="sc">==</span> <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>)</span>
-<span id="cb57-17"><a href="#cb57-17" aria-hidden="true" tabindex="-1"></a>      }</span>
-<span id="cb57-18"><a href="#cb57-18" aria-hidden="true" tabindex="-1"></a>      })</span>
-<span id="cb57-19"><a href="#cb57-19" aria-hidden="true" tabindex="-1"></a>    m[row, col] <span class="ot">&lt;-</span> <span class="fu">sum</span>(rez) <span class="sc">/</span> <span class="fu">length</span>(rez)</span>
-<span id="cb57-20"><a href="#cb57-20" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb57-21"><a href="#cb57-21" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
-<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a>m <span class="ot">&lt;-</span> correlation<span class="sc">::</span><span class="fu">cor_sort</span>(m, <span class="at">distance =</span> <span class="st">&quot;raw&quot;</span>, <span class="at">hclust_method =</span> <span class="st">&quot;ward.D2&quot;</span>)</span>
-<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb58-3"><a href="#cb58-3" aria-hidden="true" tabindex="-1"></a>m <span class="sc">%&gt;%</span> </span>
-<span id="cb58-4"><a href="#cb58-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.data.frame</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb58-5"><a href="#cb58-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rownames_to_column</span>(<span class="st">&quot;Index1&quot;</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb58-6"><a href="#cb58-6" aria-hidden="true" tabindex="-1"></a>  datawizard<span class="sc">::</span><span class="fu">reshape_longer</span>(<span class="at">cols =</span> hrv_cols, <span class="at">colnames_to =</span> <span class="st">&quot;Index2&quot;</span>, <span class="at">values_to =</span> <span class="st">&quot;Probability&quot;</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb58-7"><a href="#cb58-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Index1 =</span> <span class="fu">factor</span>(Index1, <span class="at">levels =</span> <span class="fu">row.names</span>(m)),</span>
-<span id="cb58-8"><a href="#cb58-8" aria-hidden="true" tabindex="-1"></a>         <span class="at">Index2 =</span> <span class="fu">factor</span>(Index2, <span class="at">levels =</span> <span class="fu">rev</span>(<span class="fu">row.names</span>(m)))) <span class="sc">%&gt;%</span> </span>
-<span id="cb58-9"><a href="#cb58-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Index1, <span class="at">y =</span> Index2)) <span class="sc">+</span></span>
-<span id="cb58-10"><a href="#cb58-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_tile</span>(<span class="fu">aes</span>(<span class="at">fill =</span> Probability)) <span class="sc">+</span></span>
-<span id="cb58-11"><a href="#cb58-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
-<span id="cb58-12"><a href="#cb58-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">90</span>, <span class="at">hjust =</span> <span class="dv">1</span>)) <span class="sc">+</span></span>
-<span id="cb58-13"><a href="#cb58-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="cn">NULL</span>, <span class="at">y =</span> <span class="cn">NULL</span>) <span class="sc">+</span></span>
-<span id="cb58-14"><a href="#cb58-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_gradient2</span>(<span class="at">low =</span> <span class="st">&quot;red&quot;</span>, <span class="at">mid =</span> <span class="st">&quot;yellow&quot;</span>, <span class="at">high =</span> <span class="st">&quot;green&quot;</span>, <span class="at">midpoint =</span> <span class="fl">0.5</span>)</span></code></pre></div>
-<p><img src="figures/unnamed-chunk-32-1.png" width="5824.92235949962" /></p>
+<div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true" tabindex="-1"></a>table <span class="ot">&lt;-</span> table_clusters <span class="co"># [c(&quot;Index&quot;, &quot;EGA&quot;, &quot;EFA_3&quot;, &quot;Mixture&quot;)]</span></span>
+<span id="cb74-2"><a href="#cb74-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-3"><a href="#cb74-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Initialize matrix</span></span>
+<span id="cb74-4"><a href="#cb74-4" aria-hidden="true" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="at">data=</span><span class="cn">NA</span>, <span class="at">nrow=</span><span class="fu">nrow</span>(table), <span class="at">ncol=</span><span class="fu">nrow</span>(table), <span class="at">dimnames =</span> <span class="fu">list</span>(table<span class="sc">$</span>Index, table<span class="sc">$</span>Index))</span>
+<span id="cb74-5"><a href="#cb74-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-6"><a href="#cb74-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-7"><a href="#cb74-7" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(row <span class="cf">in</span> <span class="fu">row.names</span>(m)) {</span>
+<span id="cb74-8"><a href="#cb74-8" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span>(col <span class="cf">in</span> <span class="fu">colnames</span>(m)) {</span>
+<span id="cb74-9"><a href="#cb74-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span>(row <span class="sc">==</span> col) {</span>
+<span id="cb74-10"><a href="#cb74-10" aria-hidden="true" tabindex="-1"></a>      m[row, col] <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb74-11"><a href="#cb74-11" aria-hidden="true" tabindex="-1"></a>      <span class="cf">next</span></span>
+<span id="cb74-12"><a href="#cb74-12" aria-hidden="true" tabindex="-1"></a>    } </span>
+<span id="cb74-13"><a href="#cb74-13" aria-hidden="true" tabindex="-1"></a>    subset <span class="ot">&lt;-</span> table[table<span class="sc">$</span>Index <span class="sc">%in%</span> <span class="fu">c</span>(row, col), ]</span>
+<span id="cb74-14"><a href="#cb74-14" aria-hidden="true" tabindex="-1"></a>    rez <span class="ot">&lt;-</span> <span class="fu">sapply</span>(subset[<span class="dv">2</span><span class="sc">:</span><span class="fu">ncol</span>(subset)], <span class="cf">function</span>(x) {</span>
+<span id="cb74-15"><a href="#cb74-15" aria-hidden="true" tabindex="-1"></a>      <span class="cf">if</span>(<span class="fu">any</span>(<span class="fu">is.na</span>(x))) {</span>
+<span id="cb74-16"><a href="#cb74-16" aria-hidden="true" tabindex="-1"></a>        <span class="cn">NA</span></span>
+<span id="cb74-17"><a href="#cb74-17" aria-hidden="true" tabindex="-1"></a>      } <span class="cf">else</span> {</span>
+<span id="cb74-18"><a href="#cb74-18" aria-hidden="true" tabindex="-1"></a>        <span class="fu">ifelse</span>(<span class="fu">length</span>(<span class="fu">unique</span>(x[<span class="sc">!</span><span class="fu">is.na</span>(x)])) <span class="sc">==</span> <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>)</span>
+<span id="cb74-19"><a href="#cb74-19" aria-hidden="true" tabindex="-1"></a>      }</span>
+<span id="cb74-20"><a href="#cb74-20" aria-hidden="true" tabindex="-1"></a>      })</span>
+<span id="cb74-21"><a href="#cb74-21" aria-hidden="true" tabindex="-1"></a>    m[row, col] <span class="ot">&lt;-</span> <span class="fu">sum</span>(rez, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="sc">/</span> <span class="fu">length</span>(<span class="fu">na.omit</span>(rez))</span>
+<span id="cb74-22"><a href="#cb74-22" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb74-23"><a href="#cb74-23" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true" tabindex="-1"></a>m <span class="ot">&lt;-</span> correlation<span class="sc">::</span><span class="fu">cor_sort</span>(m, <span class="at">distance =</span> <span class="st">&quot;raw&quot;</span>, <span class="at">hclust_method =</span> <span class="st">&quot;ward.D2&quot;</span>)</span>
+<span id="cb75-2"><a href="#cb75-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb75-3"><a href="#cb75-3" aria-hidden="true" tabindex="-1"></a>m <span class="sc">%&gt;%</span> </span>
+<span id="cb75-4"><a href="#cb75-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.data.frame</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb75-5"><a href="#cb75-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rownames_to_column</span>(<span class="st">&quot;Index1&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb75-6"><a href="#cb75-6" aria-hidden="true" tabindex="-1"></a>  datawizard<span class="sc">::</span><span class="fu">reshape_longer</span>(<span class="at">cols =</span> hrv_cols, <span class="at">colnames_to =</span> <span class="st">&quot;Index2&quot;</span>, <span class="at">values_to =</span> <span class="st">&quot;Probability&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb75-7"><a href="#cb75-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Index1 =</span> <span class="fu">factor</span>(Index1, <span class="at">levels =</span> <span class="fu">row.names</span>(m)),</span>
+<span id="cb75-8"><a href="#cb75-8" aria-hidden="true" tabindex="-1"></a>         <span class="at">Index2 =</span> <span class="fu">factor</span>(Index2, <span class="at">levels =</span> <span class="fu">rev</span>(<span class="fu">row.names</span>(m)))) <span class="sc">%&gt;%</span> </span>
+<span id="cb75-9"><a href="#cb75-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Index1, <span class="at">y =</span> Index2)) <span class="sc">+</span></span>
+<span id="cb75-10"><a href="#cb75-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_tile</span>(<span class="fu">aes</span>(<span class="at">fill =</span> Probability)) <span class="sc">+</span></span>
+<span id="cb75-11"><a href="#cb75-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb75-12"><a href="#cb75-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">90</span>, <span class="at">hjust =</span> <span class="dv">1</span>)) <span class="sc">+</span></span>
+<span id="cb75-13"><a href="#cb75-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="cn">NULL</span>, <span class="at">y =</span> <span class="cn">NULL</span>) <span class="sc">+</span></span>
+<span id="cb75-14"><a href="#cb75-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_gradient2</span>(<span class="at">low =</span> <span class="st">&quot;#80DEEA&quot;</span>, <span class="at">mid =</span> <span class="st">&quot;#009688&quot;</span>, <span class="at">high =</span> <span class="st">&quot;#43A047&quot;</span>, <span class="at">midpoint =</span> <span class="fl">0.5</span>)</span></code></pre></div>
+<p><img src="figures/unnamed-chunk-40-1.png" width="5824.92235949962" /></p>
 </div>
 <div id="summary-1" class="section level3">
 <h3>Summary</h3>
-<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hclust</span>(<span class="fu">as.dist</span>(m)) <span class="sc">%&gt;%</span> </span>
-<span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot_dendrogram</span>(<span class="at">clusters =</span> <span class="cn">NULL</span>, <span class="at">ylim =</span> <span class="sc">-</span><span class="fl">0.3</span>, <span class="at">nudge_y =</span> <span class="sc">-</span><span class="fl">0.02</span>, <span class="at">angle =</span> <span class="dv">90</span>, <span class="at">points =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
-<p><img src="figures/unnamed-chunk-33-1.png" width="5824.92235949962" /></p>
-<!-- ### Gaussian Graphical Model -->
-<!-- ```{r, message=FALSE, warning=FALSE, fig.width=17, fig.height=17} -->
-<!-- library(ggraph) -->
-<!-- data %>%  -->
-<!--   correlation::correlation(partial=FALSE) %>%  -->
-<!--   correlation::cor_to_pcor() %>%  -->
-<!--   filter(abs(r) > 0.2) %>% -->
-<!--   tidygraph::as_tbl_graph(directed=FALSE) %>%  -->
-<!--   dplyr::mutate(closeness = tidygraph::centrality_closeness(normalized = TRUE), -->
-<!--                 degree = tidygraph::centrality_degree(normalized = TRUE), -->
-<!--                 betweeness = tidygraph::centrality_betweenness(normalized = TRUE)) %>% -->
-<!--   tidygraph::activate(nodes) %>% -->
-<!--   dplyr::mutate(group1 = as.factor(tidygraph::group_edge_betweenness()), -->
-<!--                 # group2 = as.factor(tidygraph::group_optimal()), -->
-<!--                 # group3 = as.factor(tidygraph::group_walktrap()), -->
-<!--                 # group4 = as.factor(tidygraph::group_spinglass()), -->
-<!--                 group5 = as.factor(tidygraph::group_louvain())) %>%  -->
-<!--   ggraph::ggraph(layout = "fr") + -->
-<!--     ggraph::geom_edge_arc(aes(colour = r, edge_width = abs(r)), strength = 0.1, show.legend = FALSE) + -->
-<!--     ggraph::geom_node_point(aes(size = degree, color = group5), show.legend = FALSE) + -->
-<!--     ggraph::geom_node_text(aes(label = name), colour = "white") + -->
-<!--     ggraph::scale_edge_color_gradient2(low = "#a20025", high = "#008a00", name = "r") + -->
-<!--     ggraph::theme_graph() + -->
-<!--     guides(edge_width = FALSE) + -->
-<!--     scale_x_continuous(expand = expansion(c(.10, .10))) + -->
-<!--     scale_y_continuous(expand = expansion(c(.10, .10))) + -->
-<!--     scale_size_continuous(range = c(20, 30)) + -->
-<!--     scale_edge_width_continuous(range = c(0.5, 2)) + -->
-<!--     see::scale_color_material_d(palette="rainbow", reverse=TRUE) -->
-<!-- ``` -->
-<!-- Groups were identified using the [tidygraph::group_optimal](https://rdrr.io/cran/tidygraph/man/group_graph.html) algorithm. -->
-<!-- ### Cluster Analysis -->
-<!-- #### How many clusters -->
-<!-- ```{r, message=FALSE, warning=FALSE} -->
-<!-- dat <- effectsize::standardize(data[sapply(data, is.numeric)]) -->
-<!-- n <- parameters::n_clusters(t(dat), package = c("mclust", "cluster")) -->
-<!-- n -->
-<!-- plot(n) + -->
-<!--   theme_modern() -->
-<!-- ``` -->
-<!-- ```{r, message=FALSE, warning=FALSE, fig.width=7, fig.height=10} -->
-<!-- library(dendextend) -->
-<!-- dat <- effectsize::standardize(data[sapply(data, is.numeric)]) -->
-<!-- result <- pvclust::pvclust(dat, method.dist="euclidean", method.hclust="ward.D2", nboot=10, quiet=TRUE) -->
-<!-- result %>%  -->
-<!--   as.dendrogram() %>%  -->
-<!--   sort() %>%  -->
-<!--   dendextend::pvclust_show_signif_gradient(result, signif_col_fun = grDevices::colorRampPalette(c("black", "red"))) %>%  -->
-<!--   dendextend::pvclust_show_signif(result, signif_value = c(2, 1)) %>% -->
-<!--   dendextend::as.ggdend() %>%  -->
-<!--   ggplot2::ggplot(horiz=TRUE, offset_labels = -1) -->
-<!-- ``` -->
+<div class="sourceCode" id="cb76"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb76-1"><a href="#cb76-1" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">hclust</span>(<span class="fu">as.dist</span>(m)) </span>
+<span id="cb76-2"><a href="#cb76-2" aria-hidden="true" tabindex="-1"></a>clusters <span class="ot">&lt;-</span> <span class="fu">cutree</span>(model, <span class="at">h =</span> <span class="fl">0.6</span>)</span>
+<span id="cb76-3"><a href="#cb76-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb76-4"><a href="#cb76-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_dendrogram</span>(model, <span class="at">clusters =</span> clusters, <span class="at">ylim =</span> <span class="sc">-</span><span class="fl">0.3</span>, <span class="at">nudge_y =</span> <span class="sc">-</span><span class="fl">0.02</span>, <span class="at">angle =</span> <span class="dv">90</span>, <span class="at">points =</span> <span class="cn">FALSE</span>, <span class="at">h =</span> <span class="fl">0.6</span>)</span></code></pre></div>
+<p><img src="figures/unnamed-chunk-41-1.png" width="5824.92235949962" /></p>
 </div>
 </div>
 <div id="references" class="section level2 unnumbered">
@@ -2032,7 +2125,7 @@ Moody, G. B., &amp; Mark, R. G. (2001). The impact of the MIT-BIH arrhythmia dat
 </div>
 </div>
 
-<div id="rmd-source-code">LS0tDQp0aXRsZTogJyoqQ29uY2VwdHVhbCB2cy4gT2JzZXJ2ZWQgU3RydWN0dXJlIG9mIEhlYXJ0IFJhdGUgVmFyaWFiaWxpdHkgKEhSVikgSW5kaWNlcyoqJw0Kc3VidGl0bGU6ICJEYXRhIEFuYWx5c2lzIg0Kb3V0cHV0Og0KICBodG1sX2RvY3VtZW50Og0KICAgIHNlbGZfY29udGFpbmVkOiBmYWxzZQ0KICAgIHRoZW1lOiBjZXJ1bGVhbg0KICAgIGhpZ2hsaWdodDogcHlnbWVudHMNCiAgICB0b2M6IHllcw0KICAgIHRvY19kZXB0aDogMw0KICAgIHRvY19mbG9hdDogeWVzDQogICAgbnVtYmVyX3NlY3Rpb25zOiBubw0KICAgIGRmX3ByaW50OiBkZWZhdWx0DQogICAgY29kZV9mb2xkaW5nOiBoaWRlDQogICAgY29kZV9kb3dubG9hZDogeWVzDQogIHdvcmRfZG9jdW1lbnQ6DQogICAgcmVmZXJlbmNlX2RvY3g6IHV0aWxzL1RlbXBsYXRlX1dvcmQuZG9jeA0KICAgIGhpZ2hsaWdodDogcHlnbWVudHMNCiAgICB0b2M6IG5vDQogICAgdG9jX2RlcHRoOiAzDQogICAgZGZfcHJpbnQ6IGRlZmF1bHQNCiAgICBudW1iZXJfc2VjdGlvbnM6IHllcw0KICBybWFya2Rvd246Omh0bWxfdmlnbmV0dGU6DQogICAgdG9jOiB5ZXMNCiAgICB0b2NfZGVwdGg6IDMNCiAgcGRmX2RvY3VtZW50Og0KICAgIHRvYzogeWVzDQogICAgdG9jX2RlcHRoOiAnMicNCiAgICBsYXRleF9lbmdpbmU6IHhlbGF0ZXgNCmVkaXRvcl9vcHRpb25zOg0KICBjaHVua19vdXRwdXRfdHlwZTogY29uc29sZQ0KYmlibGlvZ3JhcGh5OiB1dGlscy9yZWZlcmVuY2VzLmJpYg0KY3NsOiB1dGlscy9hcGEuY3NsDQotLS0NCg0KDQo8IS0tIA0KISEhISBJTVBPUlRBTlQ6IHJ1biBgc291cmNlKCJ1dGlscy9yZW5kZXIuUiIpYCB0byBwdWJsaXNoIGluc3RlYWQgb2YgY2xpY2tpbmcgb24gJ0tuaXQnDQotLT4NCg0KYGBge3Igc2V0dXAsIHdhcm5pbmc9RkFMU0UsIG1lc3NhZ2U9VFJVRSwgaW5jbHVkZT1GQUxTRX0NCiMgU2V0IHVwIHRoZSBlbnZpcm9ubWVudCAob3IgdXNlIGxvY2FsIGFsdGVybmF0aXZlIGBzb3VyY2UoInV0aWxzL2NvbmZpZy5SIilgKQ0Kc291cmNlKCJodHRwczovL3Jhdy5naXRodWJ1c2VyY29udGVudC5jb20vUmVhbGl0eUJlbmRpbmcvVGVtcGxhdGVSZXN1bHRzL21haW4vdXRpbHMvY29uZmlnLlIiKSAgDQoNCmZhc3QgPC0gRkFMU0UgICMgTWFrZSB0aGlzIGZhbHNlIHRvIHNraXAgdGhlIGNodW5rcw0KDQojIFNldCB0aGVtZQ0KZ2dwbG90Mjo6dGhlbWVfc2V0KHNlZTo6dGhlbWVfbW9kZXJuKCkpDQoNCnNvdXJjZV9ybWQgPC0gZnVuY3Rpb24oeCl7DQogIGZpbGUgPC0ga25pdHI6OnB1cmwoeCwgcXVpZXQ9VFJVRSkNCiAgc291cmNlKGZpbGUpDQogIGlmIChmaWxlLmV4aXN0cyhmaWxlKSkgZmlsZS5yZW1vdmUoZmlsZSkNCn0NCmBgYA0KDQojIEludHJvZHVjdGlvbg0KYGBge3IgYmFkZ2VzLCBlY2hvPUZBTFNFLCBtZXNzYWdlPVRSVUUsIHdhcm5pbmc9RkFMU0UsIHJlc3VsdHM9J2FzaXMnfQ0KIyBUaGlzIGNodW5rIGlzIGEgYml0IGNvbXBsZXggc28gZG9uJ3Qgd29ycnkgYWJvdXQgaXQ6IGl0J3MgbWFkZSB0byBhZGQgYmFkZ2VzIHRvIHRoZSBIVE1MIHZlcnNpb25zDQojIE5PVEU6IFlvdSBoYXZlIHRvIHJlcGxhY2UgdGhlIGxpbmtzIGFjY29yZGluZ2x5IHRvIGhhdmUgd29ya2luZyAiYnV0dG9ucyIgb24gdGhlIEhUTUwgdmVyc2lvbnMNCmlmICgha25pdHI6OmlzX2xhdGV4X291dHB1dCgpICYmIGtuaXRyOjppc19odG1sX291dHB1dCgpKSB7DQogIGNhdCgiIVtCdWlsZF0oaHR0cHM6Ly9naXRodWIuY29tL1RhbS1QaGFtL0hSVlN0cnVjdHVyZS93b3JrZmxvd3MvQnVpbGQvYmFkZ2Uuc3ZnKQ0KICAgICAgWyFbV2Vic2l0ZV0oaHR0cHM6Ly9pbWcuc2hpZWxkcy5pby9iYWRnZS9yZXBvLVJlYWRtZS0yMTk2RjMpXShodHRwczovL2dpdGh1Yi5jb20vVGFtLVBoYW0vSFJWU3RydWN0dXJlKQ0KICAgICAgWyFbV2Vic2l0ZV0oaHR0cHM6Ly9pbWcuc2hpZWxkcy5pby9iYWRnZS92aXNpdC13ZWJzaXRlLUU5MUU2MyldKGh0dHBzOi8vcmVhbGl0eWJlbmRpbmcuZ2l0aHViLmlvL1RlbXBsYXRlUmVzdWx0cy8pDQogICAgICBbIVtXZWJzaXRlXShodHRwczovL2ltZy5zaGllbGRzLmlvL2JhZGdlL2Rvd25sb2FkLS5kb2N4LUZGNTcyMildKGh0dHBzOi8vZ2l0aHViLmNvbS9SZWFsaXR5QmVuZGluZy9UZW1wbGF0ZVJlc3VsdHMvcmF3L21haW4vd29yZF9hbmRfcGRmL1N1cHBsZW1lbnRhcnlNYXRlcmlhbHMuZG9jeCkNCiAgICAgIFshW1dlYnNpdGVdKGh0dHBzOi8vaW1nLnNoaWVsZHMuaW8vYmFkZ2Uvc2VlLS5wZGYtRkY5ODAwKV0oaHR0cHM6Ly9naXRodWIuY29tL1JlYWxpdHlCZW5kaW5nL1RlbXBsYXRlUmVzdWx0cy9ibG9iL21haW4vd29yZF9hbmRfcGRmL1N1cHBsZW1lbnRhcnlNYXRlcmlhbHMucGRmKSIpDQp9DQpgYGANCg0KDQoNClRoZSBhaW0gb2YgdGhpcyBzdHVkeSBpcyB0byBleHBsb3JlIHRoZSBmYWN0b3Igc3RydWN0dXJlIG9mIEhSViBpbmRpY2VzLg0KDQojIE1ldGhvZHMNCg0KQ29uY2VwdCBvZiAqKiJNRVRBQ0xVU1RFUklORyIqKiwgaS5lLiwgYXNzZXNzaW5nIHRoZSBwcm94aW1pdHkgYmFzZWQgb24gbXVsdGlwbGUgY2x1c3RlcmluZyBzb2x1dGlvbnMuDQoNCiMjIERhdGFiYXNlcw0KDQojIyMgR2xhc2dvdyBVbml2ZXJzaXR5IERhdGFiYXNlDQoNClRoZSBHVURCIERhdGFiYXNlIFtAaG93ZWxsMjAxOGhpZ2hdIGNvbnRhaW5zIEVDR3MgZnJvbSAyNSBzdWJqZWN0cy4gRWFjaCBzdWJqZWN0IHdhcyByZWNvcmRlZCBwZXJmb3JtaW5nIDUgZGlmZmVyZW50IHRhc2tzIGZvciB0d28gbWludXRlcyAoc2l0dGluZywgZG9pbmcgYSBtYXRocyB0ZXN0IG9uIGEgdGFibGV0LCB3YWxraW5nIG9uIGEgdHJlYWRtaWxsLCBydW5uaW5nIG9uIGEgdHJlYWRtaWxsLCB1c2luZyBhIGhhbmQgYmlrZSkuIFRoZSBzYW1wbGluZyByYXRlIGlzIDI1MEh6IGZvciBhbGwgdGhlIGNvbmRpdGlvbnMuDQoNClRoZSBzY3JpcHQgdG8gZG93bmxvYWQgYW5kIGZvcm1hdCB0aGUgZGF0YWJhc2UgdXNpbmcgdGhlIFsqKkVDRy1HVURCKipdKGh0dHBzOi8vZ2l0aHViLmNvbS9iZXJuZHBvcnIvRUNHLUdVREIpIFB5dGhvbiBwYWNrYWdlIGJ5IEJlcm5kIFBvcnIgY2FuIGJlIGZvdW5kIFsqKmhlcmUqKl0oaHR0cHM6Ly9naXRodWIuY29tL25ldXJvcHN5Y2hvbG9neS9OZXVyb0tpdC9ibG9iL2Rldi9kYXRhL2d1ZGIvZG93bmxvYWRfZ3VkYi5weSkuDQoNCiMjIyBNSVQtQklIIEFycmh5dGhtaWEgRGF0YWJhc2UNCg0KVGhlIE1JVC1CSUggQXJyaHl0aG1pYSBEYXRhYmFzZSBbTUlULUFycmh5dGhtaWE7IEBtb29keTIwMDFpbXBhY3RdIGNvbnRhaW5zIDQ4IGV4Y2VycHRzIG9mIDMwLW1pbiBvZiB0d28tY2hhbm5lbCBhbWJ1bGF0b3J5IEVDRyByZWNvcmRpbmdzIHNhbXBsZWQgYXQgMzYwSHogYW5kIDI1IGFkZGl0aW9uYWwgcmVjb3JkaW5ncyBmcm9tIHRoZSBzYW1lIHBhcnRpY2lwYW50cyBpbmNsdWRpbmcgY29tbW9uIGJ1dCBjbGluaWNhbGx5IHNpZ25pZmljYW50IGFycmh5dGhtaWFzIChkZW5vdGVkIGFzIHRoZSBgTUlULUFycmh5dGhtaWEteGAgZGF0YWJhc2UpLg0KDQpUaGUgc2NyaXB0IHRvIGRvd25sb2FkIGFuZCBmb3JtYXQgdGhlIGRhdGFiYXNlIHVzaW5nIHRoZSBjYW4gYmUgZm91bmQgWyoqaGVyZSoqXShodHRwczovL2dpdGh1Yi5jb20vbmV1cm9wc3ljaG9sb2d5L05ldXJvS2l0L2Jsb2IvZGV2L2RhdGEvbWl0X2Fycmh5dGhtaWEvZG93bmxvYWRfbWl0X2Fycmh5dGhtaWEucHkpLg0KDQoNCiMjIyBNSVQtQklIIE5vcm1hbCBTaW51cyBSaHl0aG0gRGF0YWJhc2UNCg0KVGhpcyBkYXRhYmFzZSBpbmNsdWRlcyAxOCBjbGVhbiBsb25nLXRlcm0gRUNHIHJlY29yZGluZ3Mgb2Ygc3ViamVjdHMuIER1ZSB0byBtZW1vcnkgbGltaXRzLCB3ZSBvbmx5IGtlcHQgdGhlIHNlY29uZCBob3VyIG9mIHJlY29yZGluZyBvZiBlYWNoIHBhcnRpY2lwYW50Lg0KDQpUaGUgc2NyaXB0IHRvIGRvd25sb2FkIGFuZCBmb3JtYXQgdGhlIGRhdGFiYXNlIHVzaW5nIHRoZSBjYW4gYmUgZm91bmQgWyoqaGVyZSoqXShodHRwczovL2dpdGh1Yi5jb20vbmV1cm9wc3ljaG9sb2d5L05ldXJvS2l0L2Jsb2IvZGV2L2RhdGEvbWl0X25vcm1hbC9kb3dubG9hZF9taXRfbm9ybWFsLnB5KS4NCg0KDQo8IS0tICMjIyBMb2JhY2hldnNreSBVbml2ZXJzaXR5IEVsZWN0cm9jYXJkaW9ncmFwaHkgRGF0YWJhc2UgLS0+DQoNCjwhLS0gVGhlIExvYmFjaGV2c2t5IFVuaXZlcnNpdHkgRWxlY3Ryb2NhcmRpb2dyYXBoeSBEYXRhYmFzZSBbTFVEQjsgQGthbHlha3VsaW5hMjAxOGx1XSBjb25zaXN0cyBvZiAyMDAgMTAtc2Vjb25kIDEyLWxlYWQgRUNHIHNpZ25hbCByZWNvcmRzIHJlcHJlc2VudGluZyBkaWZmZXJlbnQgbW9ycGhvbG9naWVzIG9mIHRoZSBFQ0cgc2lnbmFsLiBUaGUgRUNHcyB3ZXJlIGNvbGxlY3RlZCBmcm9tIGhlYWx0aHkgdm9sdW50ZWVycyBhbmQgcGF0aWVudHMsIHdoaWNoIGhhZCB2YXJpb3VzIGNhcmRpb3Zhc2N1bGFyIGRpc2Vhc2VzLiBUaGUgYm91bmRhcmllcyBvZiBQLCBUIHdhdmVzIGFuZCBRUlMgY29tcGxleGVzIHdlcmUgbWFudWFsbHkgYW5ub3RhdGVkIGJ5IGNhcmRpb2xvZ2lzdHMgZm9yIGFsbCAyMDAgcmVjb3Jkcy4gLS0+DQoNCiMjIyBGYW50YXNpYSBEYXRhYmFzZQ0KDQpUaGUgRmFudGFzaWEgZGF0YWJhc2UgW0BpeWVuZ2FyMTk5NmFnZV0gY29uc2lzdHMgb2YgdHdlbnR5IHlvdW5nIGFuZCB0d2VudHkgZWxkZXJseSBoZWFsdGh5IHN1YmplY3RzLiBBbGwgc3ViamVjdHMgcmVtYWluZWQgaW4gYSByZXN0aW5nIHN0YXRlIGluIHNpbnVzIHJoeXRobSB3aGlsZSB3YXRjaGluZyB0aGUgbW92aWUgRmFudGFzaWEgKERpc25leSwgMTk0MCkgdG8gaGVscCBtYWludGFpbiB3YWtlZnVsbmVzcy4gVGhlIGNvbnRpbnVvdXMgRUNHIHNpZ25hbHMgd2VyZSBkaWdpdGl6ZWQgYXQgMjUwIEh6LiBFYWNoIGhlYXJ0YmVhdCB3YXMgYW5ub3RhdGVkIHVzaW5nIGFuIGF1dG9tYXRlZCBhcnJoeXRobWlhIGRldGVjdGlvbiBhbGdvcml0aG0sIGFuZCBlYWNoIGJlYXQgYW5ub3RhdGlvbiB3YXMgdmVyaWZpZWQgYnkgdmlzdWFsIGluc3BlY3Rpb24uDQoNCg0KDQoNCiMjIFByb2NlZHVyZQ0KDQpgYGB7cHl0aG9uLCBldmFsPUZBTFNFLCBlY2hvPUZBTFNFfQ0KaW1wb3J0IHBhbmRhcyBhcyBwZA0KaW1wb3J0IG51bXB5IGFzIG5wDQppbXBvcnQgbmV1cm9raXQyIGFzIG5rDQoNCiMgTG9hZCBUcnVlIFItcGVha3MgbG9jYXRpb24NCmRhdGFmaWxlcyA9IFtwZC5yZWFkX2NzdigiLi4vLi4vZGF0YS9ndWRiL1JwZWFrcy5jc3YiKSwNCiAgICAgICAgICAgICBwZC5yZWFkX2NzdigiLi4vLi4vZGF0YS9taXRfYXJyaHl0aG1pYS9ScGVha3MuY3N2IiksDQogICAgICAgICAgICAgcGQucmVhZF9jc3YoIi4uLy4uL2RhdGEvbWl0X25vcm1hbC9ScGVha3MuY3N2IiksDQogICAgICAgICAgICAgcGQucmVhZF9jc3YoIi4uLy4uL2RhdGEvZmFudGFzaWEvUnBlYWtzLmNzdiIpXQ0KDQojIEdldCByZXN1bHRzDQphbGxfcmVzdWx0cyA9IHBkLkRhdGFGcmFtZSgpDQoNCmZvciBmaWxlIGluIGRhdGFmaWxlczoNCiAgICBmb3IgZGF0YWJhc2UgaW4gbnAudW5pcXVlKGZpbGVbIkRhdGFiYXNlIl0pOg0KICAgICAgICBkYXRhID0gZmlsZVtmaWxlWyJEYXRhYmFzZSJdID09IGRhdGFiYXNlXQ0KICAgICAgICBmb3IgcGFydGljaXBhbnQgaW4gbnAudW5pcXVlKGRhdGFbIlBhcnRpY2lwYW50Il0pOg0KICAgICAgICAgICAgZGF0YV9wYXJ0aWNpcGFudCA9IGRhdGFbZGF0YVsiUGFydGljaXBhbnQiXSA9PSBwYXJ0aWNpcGFudF0NCiAgICAgICAgICAgIHNhbXBsaW5nX3JhdGUgPSBucC51bmlxdWUoZGF0YV9wYXJ0aWNpcGFudFsiU2FtcGxpbmdfUmF0ZSJdKVswXQ0KICAgICAgICAgICAgcnBlYWtzID0gZGF0YV9wYXJ0aWNpcGFudFsiUnBlYWtzIl0udmFsdWVzDQoNCiAgICAgICAgICAgIHJlc3VsdHMgPSBuay5ocnYocnBlYWtzLCBzYW1wbGluZ19yYXRlPXNhbXBsaW5nX3JhdGUpDQogICAgICAgICAgICByZXN1bHRzWyJQYXJ0aWNpcGFudCJdID0gcGFydGljaXBhbnQNCiAgICAgICAgICAgIHJlc3VsdHNbIkRhdGFiYXNlIl0gPSBkYXRhYmFzZQ0KICAgICAgICAgICAgcmVzdWx0c1siUmVjb3JkaW5nX0xlbmd0aCJdID0gcnBlYWtzWy0xXSAvIHNhbXBsaW5nX3JhdGUgLyA2MA0KDQogICAgICAgICAgICBhbGxfcmVzdWx0cyA9IHBkLmNvbmNhdChbYWxsX3Jlc3VsdHMsIHJlc3VsdHNdLCBheGlzPTApDQoNCmFsbF9yZXN1bHRzLnRvX2NzdigiZGF0YS9kYXRhLmNzdiIsIGluZGV4PUZhbHNlKQ0KYGBgDQoNCiMgUmVzdWx0cw0KDQpgYGB7ciwgbWVzc2FnZT1GQUxTRSwgd2FybmluZz1GQUxTRSwgcmVzdWx0cz0naGlkZSd9DQpsaWJyYXJ5KHRpZHl2ZXJzZSkNCmxpYnJhcnkoZWFzeXN0YXRzKQ0KDQpkYXRhIDwtIHJlYWQuY3N2KCJkYXRhL2RhdGFfY29tYmluZWQuY3N2Iiwgc3RyaW5nc0FzRmFjdG9ycyA9IEZBTFNFKSAlPiUgDQogIHNlbGVjdCgtSFJWX1VMRiwgLUhSVl9WTEYpICU+JSAgIyBFbXB0eQ0KICAjIGZpbHRlcihEYXRhYmFzZSAhPSAiTFVEQiIpICU+JSAjIHRvbyBzaG9ydCByZWNvcmRpbmdzLCBtYW55IGluZGljZXMgZGlkbid0IGNvbnZlcmdlDQogIHNldE5hbWVzKHN0cmluZ3I6OnN0cl9yZW1vdmUobmFtZXMoLiksICJIUlZfIikpICU+JSANCiAgbXV0YXRlX2FsbChmdW5jdGlvbih4KSB7DQogICAgeFtpcy5pbmZpbml0ZSh4KV0gPC0gTkENCiAgICByZXR1cm4oeCkgfSkNCmBgYA0KDQoNCmBgYHtyIHdhcm5pbmc9RkFMU0UsIG1lc3NhZ2U9VFJVRSwgcmVzdWx0cz0nYXNpcyd9DQpjYXQoIlRoaXMgc3R1ZHkgaW5jbHVkZXMiLCANCiAgICBucm93KGRhdGEpLCANCiAgICAicGFydGljaXBhbnRzIGZyb20iLCANCiAgICBsZW5ndGgodW5pcXVlKGRhdGEkRGF0YWJhc2UpKSwgDQogICAgImRhdGFiYXNlcy4iKQ0KYGBgDQoNCg0KYGBge3IgY29udmVuaWVuY2VfY2h1bmtfZm9yX2xvY2FsX3J1bm5pbmcsIGluY2x1ZGUgPSBGQUxTRSwgZXZhbCA9IEZBTFNFfQ0KbGlicmFyeShwYXRjaHdvcmspDQpsaWJyYXJ5KHRpZHl2ZXJzZSkNCmxpYnJhcnkoZWFzeXN0YXRzKQ0KDQojICMgVG8gcnVuIHRoaW5ncyBsb2NhbGx5OiBDVFJMICsgQUxUICsgU0hJRlQgKyBQLCBhbmQgdGhlbiB0aGUgbmV4dCB0d28gbGluZXMNCnNvdXJjZV9ybWQoIjBfQ29udmVuaWVuY2VGdW5jdGlvbnMuUm1kIikNCnNvdXJjZV9ybWQoIjFfUHJlcHJvY2Vzc2luZy5SbWQiKQ0Kc291cmNlX3JtZCgiM19EaW1lbnNpb25zLlJtZCIpDQpzb3VyY2Vfcm1kKCI0X0NsdXN0ZXJpbmcuUm1kIikNCmBgYA0KDQoNCg0KIyMgUHJlcHJvY2Vzc2luZw0KDQpgYGB7ciBjaGlsZD0nMF9Db252ZW5pZW5jZUZ1bmN0aW9ucy5SbWQnfQ0KYGBgDQoNCg0KYGBge3IgY2hpbGQ9JzFfUHJlcHJvY2Vzc2luZy5SbWQnfQ0KYGBgDQoNCiMjIEVmZmVjdCBvZiBSZWNvcmRpbmcgTGVuZ3RoDQoNCmBgYHtyIGNoaWxkPScyX1JlY29yZGluZ0xlbmd0aC5SbWQnfQ0KYGBgDQoNCg0KIyMgRGltZW5zaW9uYWwgU3RydWN0dXJlDQoNCmBgYHtyIGNoaWxkPSczX0RpbWVuc2lvbnMuUm1kJ30NCmBgYA0KDQojIyBDbHVzdGVyIFN0cnVjdHVyZQ0KDQpgYGB7ciBjaGlsZD0nNF9DbHVzdGVyaW5nLlJtZCd9DQpgYGANCg0KDQojIyBTdW1tYXJ5DQoNCmBgYHtyIGNoaWxkPSc2X1N1bW1hcnkuUm1kJ30NCmBgYA0KDQo8IS0tICMjIyBHYXVzc2lhbiBHcmFwaGljYWwgTW9kZWwgLS0+DQoNCg0KPCEtLSBgYGB7ciwgbWVzc2FnZT1GQUxTRSwgd2FybmluZz1GQUxTRSwgZmlnLndpZHRoPTE3LCBmaWcuaGVpZ2h0PTE3fSAtLT4NCjwhLS0gbGlicmFyeShnZ3JhcGgpIC0tPg0KDQo8IS0tIGRhdGEgJT4lICAtLT4NCjwhLS0gICBjb3JyZWxhdGlvbjo6Y29ycmVsYXRpb24ocGFydGlhbD1GQUxTRSkgJT4lICAtLT4NCjwhLS0gICBjb3JyZWxhdGlvbjo6Y29yX3RvX3Bjb3IoKSAlPiUgIC0tPg0KPCEtLSAgIGZpbHRlcihhYnMocikgPiAwLjIpICU+JSAtLT4NCjwhLS0gICB0aWR5Z3JhcGg6OmFzX3RibF9ncmFwaChkaXJlY3RlZD1GQUxTRSkgJT4lICAtLT4NCjwhLS0gICBkcGx5cjo6bXV0YXRlKGNsb3NlbmVzcyA9IHRpZHlncmFwaDo6Y2VudHJhbGl0eV9jbG9zZW5lc3Mobm9ybWFsaXplZCA9IFRSVUUpLCAtLT4NCjwhLS0gICAgICAgICAgICAgICAgIGRlZ3JlZSA9IHRpZHlncmFwaDo6Y2VudHJhbGl0eV9kZWdyZWUobm9ybWFsaXplZCA9IFRSVUUpLCAtLT4NCjwhLS0gICAgICAgICAgICAgICAgIGJldHdlZW5lc3MgPSB0aWR5Z3JhcGg6OmNlbnRyYWxpdHlfYmV0d2Vlbm5lc3Mobm9ybWFsaXplZCA9IFRSVUUpKSAlPiUgLS0+DQo8IS0tICAgdGlkeWdyYXBoOjphY3RpdmF0ZShub2RlcykgJT4lIC0tPg0KPCEtLSAgIGRwbHlyOjptdXRhdGUoZ3JvdXAxID0gYXMuZmFjdG9yKHRpZHlncmFwaDo6Z3JvdXBfZWRnZV9iZXR3ZWVubmVzcygpKSwgLS0+DQo8IS0tICAgICAgICAgICAgICAgICAjIGdyb3VwMiA9IGFzLmZhY3Rvcih0aWR5Z3JhcGg6Omdyb3VwX29wdGltYWwoKSksIC0tPg0KPCEtLSAgICAgICAgICAgICAgICAgIyBncm91cDMgPSBhcy5mYWN0b3IodGlkeWdyYXBoOjpncm91cF93YWxrdHJhcCgpKSwgLS0+DQo8IS0tICAgICAgICAgICAgICAgICAjIGdyb3VwNCA9IGFzLmZhY3Rvcih0aWR5Z3JhcGg6Omdyb3VwX3NwaW5nbGFzcygpKSwgLS0+DQo8IS0tICAgICAgICAgICAgICAgICBncm91cDUgPSBhcy5mYWN0b3IodGlkeWdyYXBoOjpncm91cF9sb3V2YWluKCkpKSAlPiUgIC0tPg0KPCEtLSAgIGdncmFwaDo6Z2dyYXBoKGxheW91dCA9ICJmciIpICsgLS0+DQo8IS0tICAgICBnZ3JhcGg6Omdlb21fZWRnZV9hcmMoYWVzKGNvbG91ciA9IHIsIGVkZ2Vfd2lkdGggPSBhYnMocikpLCBzdHJlbmd0aCA9IDAuMSwgc2hvdy5sZWdlbmQgPSBGQUxTRSkgKyAtLT4NCjwhLS0gICAgIGdncmFwaDo6Z2VvbV9ub2RlX3BvaW50KGFlcyhzaXplID0gZGVncmVlLCBjb2xvciA9IGdyb3VwNSksIHNob3cubGVnZW5kID0gRkFMU0UpICsgLS0+DQo8IS0tICAgICBnZ3JhcGg6Omdlb21fbm9kZV90ZXh0KGFlcyhsYWJlbCA9IG5hbWUpLCBjb2xvdXIgPSAid2hpdGUiKSArIC0tPg0KPCEtLSAgICAgZ2dyYXBoOjpzY2FsZV9lZGdlX2NvbG9yX2dyYWRpZW50Mihsb3cgPSAiI2EyMDAyNSIsIGhpZ2ggPSAiIzAwOGEwMCIsIG5hbWUgPSAiciIpICsgLS0+DQo8IS0tICAgICBnZ3JhcGg6OnRoZW1lX2dyYXBoKCkgKyAtLT4NCjwhLS0gICAgIGd1aWRlcyhlZGdlX3dpZHRoID0gRkFMU0UpICsgLS0+DQo8IS0tICAgICBzY2FsZV94X2NvbnRpbnVvdXMoZXhwYW5kID0gZXhwYW5zaW9uKGMoLjEwLCAuMTApKSkgKyAtLT4NCjwhLS0gICAgIHNjYWxlX3lfY29udGludW91cyhleHBhbmQgPSBleHBhbnNpb24oYyguMTAsIC4xMCkpKSArIC0tPg0KPCEtLSAgICAgc2NhbGVfc2l6ZV9jb250aW51b3VzKHJhbmdlID0gYygyMCwgMzApKSArIC0tPg0KPCEtLSAgICAgc2NhbGVfZWRnZV93aWR0aF9jb250aW51b3VzKHJhbmdlID0gYygwLjUsIDIpKSArIC0tPg0KPCEtLSAgICAgc2VlOjpzY2FsZV9jb2xvcl9tYXRlcmlhbF9kKHBhbGV0dGU9InJhaW5ib3ciLCByZXZlcnNlPVRSVUUpIC0tPg0KPCEtLSBgYGAgLS0+DQoNCjwhLS0gR3JvdXBzIHdlcmUgaWRlbnRpZmllZCB1c2luZyB0aGUgW3RpZHlncmFwaDo6Z3JvdXBfb3B0aW1hbF0oaHR0cHM6Ly9yZHJyLmlvL2NyYW4vdGlkeWdyYXBoL21hbi9ncm91cF9ncmFwaC5odG1sKSBhbGdvcml0aG0uIC0tPg0KDQoNCg0KDQo8IS0tICMjIyBDbHVzdGVyIEFuYWx5c2lzIC0tPg0KDQo8IS0tICMjIyMgSG93IG1hbnkgY2x1c3RlcnMgLS0+DQoNCjwhLS0gYGBge3IsIG1lc3NhZ2U9RkFMU0UsIHdhcm5pbmc9RkFMU0V9IC0tPg0KPCEtLSBkYXQgPC0gZWZmZWN0c2l6ZTo6c3RhbmRhcmRpemUoZGF0YVtzYXBwbHkoZGF0YSwgaXMubnVtZXJpYyldKSAtLT4NCg0KPCEtLSBuIDwtIHBhcmFtZXRlcnM6Om5fY2x1c3RlcnModChkYXQpLCBwYWNrYWdlID0gYygibWNsdXN0IiwgImNsdXN0ZXIiKSkgLS0+DQoNCjwhLS0gbiAtLT4NCg0KPCEtLSBwbG90KG4pICsgLS0+DQo8IS0tICAgdGhlbWVfbW9kZXJuKCkgLS0+DQo8IS0tIGBgYCAtLT4NCg0KDQo8IS0tIGBgYHtyLCBtZXNzYWdlPUZBTFNFLCB3YXJuaW5nPUZBTFNFLCBmaWcud2lkdGg9NywgZmlnLmhlaWdodD0xMH0gLS0+DQo8IS0tIGxpYnJhcnkoZGVuZGV4dGVuZCkgLS0+DQoNCjwhLS0gZGF0IDwtIGVmZmVjdHNpemU6OnN0YW5kYXJkaXplKGRhdGFbc2FwcGx5KGRhdGEsIGlzLm51bWVyaWMpXSkgLS0+DQoNCjwhLS0gcmVzdWx0IDwtIHB2Y2x1c3Q6OnB2Y2x1c3QoZGF0LCBtZXRob2QuZGlzdD0iZXVjbGlkZWFuIiwgbWV0aG9kLmhjbHVzdD0id2FyZC5EMiIsIG5ib290PTEwLCBxdWlldD1UUlVFKSAtLT4NCg0KPCEtLSByZXN1bHQgJT4lICAtLT4NCjwhLS0gICBhcy5kZW5kcm9ncmFtKCkgJT4lICAtLT4NCjwhLS0gICBzb3J0KCkgJT4lICAtLT4NCjwhLS0gICBkZW5kZXh0ZW5kOjpwdmNsdXN0X3Nob3dfc2lnbmlmX2dyYWRpZW50KHJlc3VsdCwgc2lnbmlmX2NvbF9mdW4gPSBnckRldmljZXM6OmNvbG9yUmFtcFBhbGV0dGUoYygiYmxhY2siLCAicmVkIikpKSAlPiUgIC0tPg0KPCEtLSAgIGRlbmRleHRlbmQ6OnB2Y2x1c3Rfc2hvd19zaWduaWYocmVzdWx0LCBzaWduaWZfdmFsdWUgPSBjKDIsIDEpKSAlPiUgLS0+DQo8IS0tICAgZGVuZGV4dGVuZDo6YXMuZ2dkZW5kKCkgJT4lICAtLT4NCjwhLS0gICBnZ3Bsb3QyOjpnZ3Bsb3QoaG9yaXo9VFJVRSwgb2Zmc2V0X2xhYmVscyA9IC0xKSAtLT4NCjwhLS0gYGBgIC0tPg0KDQoNCg0KIyMgUmVmZXJlbmNlcw0K</div>
+<div id="rmd-source-code">LS0tDQp0aXRsZTogJyoqQ29uY2VwdHVhbCB2cy4gT2JzZXJ2ZWQgU3RydWN0dXJlIG9mIEhlYXJ0IFJhdGUgVmFyaWFiaWxpdHkgKEhSVikgSW5kaWNlcyoqJw0Kc3VidGl0bGU6ICJEYXRhIEFuYWx5c2lzIg0Kb3V0cHV0Og0KICBodG1sX2RvY3VtZW50Og0KICAgIHNlbGZfY29udGFpbmVkOiBmYWxzZQ0KICAgIHRoZW1lOiBjZXJ1bGVhbg0KICAgIGhpZ2hsaWdodDogcHlnbWVudHMNCiAgICB0b2M6IHllcw0KICAgIHRvY19kZXB0aDogMw0KICAgIHRvY19mbG9hdDogeWVzDQogICAgbnVtYmVyX3NlY3Rpb25zOiBubw0KICAgIGRmX3ByaW50OiBkZWZhdWx0DQogICAgY29kZV9mb2xkaW5nOiBoaWRlDQogICAgY29kZV9kb3dubG9hZDogeWVzDQogIHdvcmRfZG9jdW1lbnQ6DQogICAgcmVmZXJlbmNlX2RvY3g6IHV0aWxzL1RlbXBsYXRlX1dvcmQuZG9jeA0KICAgIGhpZ2hsaWdodDogcHlnbWVudHMNCiAgICB0b2M6IG5vDQogICAgdG9jX2RlcHRoOiAzDQogICAgZGZfcHJpbnQ6IGRlZmF1bHQNCiAgICBudW1iZXJfc2VjdGlvbnM6IHllcw0KICBybWFya2Rvd246Omh0bWxfdmlnbmV0dGU6DQogICAgdG9jOiB5ZXMNCiAgICB0b2NfZGVwdGg6IDMNCiAgcGRmX2RvY3VtZW50Og0KICAgIHRvYzogeWVzDQogICAgdG9jX2RlcHRoOiAnMicNCiAgICBsYXRleF9lbmdpbmU6IHhlbGF0ZXgNCmVkaXRvcl9vcHRpb25zOg0KICBjaHVua19vdXRwdXRfdHlwZTogY29uc29sZQ0KYmlibGlvZ3JhcGh5OiB1dGlscy9yZWZlcmVuY2VzLmJpYg0KY3NsOiB1dGlscy9hcGEuY3NsDQotLS0NCg0KDQo8IS0tIA0KISEhISBJTVBPUlRBTlQ6IHJ1biBgc291cmNlKCJ1dGlscy9yZW5kZXIuUiIpYCB0byBwdWJsaXNoIGluc3RlYWQgb2YgY2xpY2tpbmcgb24gJ0tuaXQnDQotLT4NCg0KYGBge3Igc2V0dXAsIHdhcm5pbmc9RkFMU0UsIG1lc3NhZ2U9VFJVRSwgaW5jbHVkZT1GQUxTRX0NCiMgU2V0IHVwIHRoZSBlbnZpcm9ubWVudCAob3IgdXNlIGxvY2FsIGFsdGVybmF0aXZlIGBzb3VyY2UoInV0aWxzL2NvbmZpZy5SIilgKQ0Kc291cmNlKCJodHRwczovL3Jhdy5naXRodWJ1c2VyY29udGVudC5jb20vUmVhbGl0eUJlbmRpbmcvVGVtcGxhdGVSZXN1bHRzL21haW4vdXRpbHMvY29uZmlnLlIiKSAgDQoNCmZhc3QgPC0gRkFMU0UgICMgTWFrZSB0aGlzIGZhbHNlIHRvIHNraXAgdGhlIGNodW5rcw0KDQojIFNldCB0aGVtZQ0KZ2dwbG90Mjo6dGhlbWVfc2V0KHNlZTo6dGhlbWVfbW9kZXJuKCkpDQoNCnNvdXJjZV9ybWQgPC0gZnVuY3Rpb24oeCl7DQogIGZpbGUgPC0ga25pdHI6OnB1cmwoeCwgcXVpZXQ9VFJVRSkNCiAgc291cmNlKGZpbGUpDQogIGlmIChmaWxlLmV4aXN0cyhmaWxlKSkgZmlsZS5yZW1vdmUoZmlsZSkNCn0NCmBgYA0KDQojIEludHJvZHVjdGlvbg0KYGBge3IgYmFkZ2VzLCBlY2hvPUZBTFNFLCBtZXNzYWdlPVRSVUUsIHdhcm5pbmc9RkFMU0UsIHJlc3VsdHM9J2FzaXMnfQ0KIyBUaGlzIGNodW5rIGlzIGEgYml0IGNvbXBsZXggc28gZG9uJ3Qgd29ycnkgYWJvdXQgaXQ6IGl0J3MgbWFkZSB0byBhZGQgYmFkZ2VzIHRvIHRoZSBIVE1MIHZlcnNpb25zDQojIE5PVEU6IFlvdSBoYXZlIHRvIHJlcGxhY2UgdGhlIGxpbmtzIGFjY29yZGluZ2x5IHRvIGhhdmUgd29ya2luZyAiYnV0dG9ucyIgb24gdGhlIEhUTUwgdmVyc2lvbnMNCmlmICgha25pdHI6OmlzX2xhdGV4X291dHB1dCgpICYmIGtuaXRyOjppc19odG1sX291dHB1dCgpKSB7DQogIGNhdCgiIVtCdWlsZF0oaHR0cHM6Ly9naXRodWIuY29tL1RhbS1QaGFtL0hSVlN0cnVjdHVyZS93b3JrZmxvd3MvQnVpbGQvYmFkZ2Uuc3ZnKQ0KICAgICAgWyFbV2Vic2l0ZV0oaHR0cHM6Ly9pbWcuc2hpZWxkcy5pby9iYWRnZS9yZXBvLVJlYWRtZS0yMTk2RjMpXShodHRwczovL2dpdGh1Yi5jb20vVGFtLVBoYW0vSFJWU3RydWN0dXJlKQ0KICAgICAgWyFbV2Vic2l0ZV0oaHR0cHM6Ly9pbWcuc2hpZWxkcy5pby9iYWRnZS92aXNpdC13ZWJzaXRlLUU5MUU2MyldKGh0dHBzOi8vcmVhbGl0eWJlbmRpbmcuZ2l0aHViLmlvL1RlbXBsYXRlUmVzdWx0cy8pDQogICAgICBbIVtXZWJzaXRlXShodHRwczovL2ltZy5zaGllbGRzLmlvL2JhZGdlL2Rvd25sb2FkLS5kb2N4LUZGNTcyMildKGh0dHBzOi8vZ2l0aHViLmNvbS9SZWFsaXR5QmVuZGluZy9UZW1wbGF0ZVJlc3VsdHMvcmF3L21haW4vd29yZF9hbmRfcGRmL1N1cHBsZW1lbnRhcnlNYXRlcmlhbHMuZG9jeCkNCiAgICAgIFshW1dlYnNpdGVdKGh0dHBzOi8vaW1nLnNoaWVsZHMuaW8vYmFkZ2Uvc2VlLS5wZGYtRkY5ODAwKV0oaHR0cHM6Ly9naXRodWIuY29tL1JlYWxpdHlCZW5kaW5nL1RlbXBsYXRlUmVzdWx0cy9ibG9iL21haW4vd29yZF9hbmRfcGRmL1N1cHBsZW1lbnRhcnlNYXRlcmlhbHMucGRmKSIpDQp9DQpgYGANCg0KDQoNClRoZSBhaW0gb2YgdGhpcyBzdHVkeSBpcyB0byBleHBsb3JlIHRoZSBmYWN0b3Igc3RydWN0dXJlIG9mIEhSViBpbmRpY2VzLg0KDQojIE1ldGhvZHMNCg0KQ29uY2VwdCBvZiAqKiJNRVRBQ0xVU1RFUklORyIqKiwgaS5lLiwgYXNzZXNzaW5nIHRoZSBwcm94aW1pdHkgYmFzZWQgb24gbXVsdGlwbGUgY2x1c3RlcmluZyBzb2x1dGlvbnMuDQoNCiMjIERhdGFiYXNlcw0KDQojIyMgR2xhc2dvdyBVbml2ZXJzaXR5IERhdGFiYXNlDQoNClRoZSBHVURCIERhdGFiYXNlIFtAaG93ZWxsMjAxOGhpZ2hdIGNvbnRhaW5zIEVDR3MgZnJvbSAyNSBzdWJqZWN0cy4gRWFjaCBzdWJqZWN0IHdhcyByZWNvcmRlZCBwZXJmb3JtaW5nIDUgZGlmZmVyZW50IHRhc2tzIGZvciB0d28gbWludXRlcyAoc2l0dGluZywgZG9pbmcgYSBtYXRocyB0ZXN0IG9uIGEgdGFibGV0LCB3YWxraW5nIG9uIGEgdHJlYWRtaWxsLCBydW5uaW5nIG9uIGEgdHJlYWRtaWxsLCB1c2luZyBhIGhhbmQgYmlrZSkuIFRoZSBzYW1wbGluZyByYXRlIGlzIDI1MEh6IGZvciBhbGwgdGhlIGNvbmRpdGlvbnMuDQoNClRoZSBzY3JpcHQgdG8gZG93bmxvYWQgYW5kIGZvcm1hdCB0aGUgZGF0YWJhc2UgdXNpbmcgdGhlIFsqKkVDRy1HVURCKipdKGh0dHBzOi8vZ2l0aHViLmNvbS9iZXJuZHBvcnIvRUNHLUdVREIpIFB5dGhvbiBwYWNrYWdlIGJ5IEJlcm5kIFBvcnIgY2FuIGJlIGZvdW5kIFsqKmhlcmUqKl0oaHR0cHM6Ly9naXRodWIuY29tL25ldXJvcHN5Y2hvbG9neS9OZXVyb0tpdC9ibG9iL2Rldi9kYXRhL2d1ZGIvZG93bmxvYWRfZ3VkYi5weSkuDQoNCiMjIyBNSVQtQklIIEFycmh5dGhtaWEgRGF0YWJhc2UNCg0KVGhlIE1JVC1CSUggQXJyaHl0aG1pYSBEYXRhYmFzZSBbTUlULUFycmh5dGhtaWE7IEBtb29keTIwMDFpbXBhY3RdIGNvbnRhaW5zIDQ4IGV4Y2VycHRzIG9mIDMwLW1pbiBvZiB0d28tY2hhbm5lbCBhbWJ1bGF0b3J5IEVDRyByZWNvcmRpbmdzIHNhbXBsZWQgYXQgMzYwSHogYW5kIDI1IGFkZGl0aW9uYWwgcmVjb3JkaW5ncyBmcm9tIHRoZSBzYW1lIHBhcnRpY2lwYW50cyBpbmNsdWRpbmcgY29tbW9uIGJ1dCBjbGluaWNhbGx5IHNpZ25pZmljYW50IGFycmh5dGhtaWFzIChkZW5vdGVkIGFzIHRoZSBgTUlULUFycmh5dGhtaWEteGAgZGF0YWJhc2UpLg0KDQpUaGUgc2NyaXB0IHRvIGRvd25sb2FkIGFuZCBmb3JtYXQgdGhlIGRhdGFiYXNlIHVzaW5nIHRoZSBjYW4gYmUgZm91bmQgWyoqaGVyZSoqXShodHRwczovL2dpdGh1Yi5jb20vbmV1cm9wc3ljaG9sb2d5L05ldXJvS2l0L2Jsb2IvZGV2L2RhdGEvbWl0X2Fycmh5dGhtaWEvZG93bmxvYWRfbWl0X2Fycmh5dGhtaWEucHkpLg0KDQoNCiMjIyBNSVQtQklIIE5vcm1hbCBTaW51cyBSaHl0aG0gRGF0YWJhc2UNCg0KVGhpcyBkYXRhYmFzZSBpbmNsdWRlcyAxOCBjbGVhbiBsb25nLXRlcm0gRUNHIHJlY29yZGluZ3Mgb2Ygc3ViamVjdHMuIER1ZSB0byBtZW1vcnkgbGltaXRzLCB3ZSBvbmx5IGtlcHQgdGhlIHNlY29uZCBob3VyIG9mIHJlY29yZGluZyBvZiBlYWNoIHBhcnRpY2lwYW50Lg0KDQpUaGUgc2NyaXB0IHRvIGRvd25sb2FkIGFuZCBmb3JtYXQgdGhlIGRhdGFiYXNlIHVzaW5nIHRoZSBjYW4gYmUgZm91bmQgWyoqaGVyZSoqXShodHRwczovL2dpdGh1Yi5jb20vbmV1cm9wc3ljaG9sb2d5L05ldXJvS2l0L2Jsb2IvZGV2L2RhdGEvbWl0X25vcm1hbC9kb3dubG9hZF9taXRfbm9ybWFsLnB5KS4NCg0KDQo8IS0tICMjIyBMb2JhY2hldnNreSBVbml2ZXJzaXR5IEVsZWN0cm9jYXJkaW9ncmFwaHkgRGF0YWJhc2UgLS0+DQoNCjwhLS0gVGhlIExvYmFjaGV2c2t5IFVuaXZlcnNpdHkgRWxlY3Ryb2NhcmRpb2dyYXBoeSBEYXRhYmFzZSBbTFVEQjsgQGthbHlha3VsaW5hMjAxOGx1XSBjb25zaXN0cyBvZiAyMDAgMTAtc2Vjb25kIDEyLWxlYWQgRUNHIHNpZ25hbCByZWNvcmRzIHJlcHJlc2VudGluZyBkaWZmZXJlbnQgbW9ycGhvbG9naWVzIG9mIHRoZSBFQ0cgc2lnbmFsLiBUaGUgRUNHcyB3ZXJlIGNvbGxlY3RlZCBmcm9tIGhlYWx0aHkgdm9sdW50ZWVycyBhbmQgcGF0aWVudHMsIHdoaWNoIGhhZCB2YXJpb3VzIGNhcmRpb3Zhc2N1bGFyIGRpc2Vhc2VzLiBUaGUgYm91bmRhcmllcyBvZiBQLCBUIHdhdmVzIGFuZCBRUlMgY29tcGxleGVzIHdlcmUgbWFudWFsbHkgYW5ub3RhdGVkIGJ5IGNhcmRpb2xvZ2lzdHMgZm9yIGFsbCAyMDAgcmVjb3Jkcy4gLS0+DQoNCiMjIyBGYW50YXNpYSBEYXRhYmFzZQ0KDQpUaGUgRmFudGFzaWEgZGF0YWJhc2UgW0BpeWVuZ2FyMTk5NmFnZV0gY29uc2lzdHMgb2YgdHdlbnR5IHlvdW5nIGFuZCB0d2VudHkgZWxkZXJseSBoZWFsdGh5IHN1YmplY3RzLiBBbGwgc3ViamVjdHMgcmVtYWluZWQgaW4gYSByZXN0aW5nIHN0YXRlIGluIHNpbnVzIHJoeXRobSB3aGlsZSB3YXRjaGluZyB0aGUgbW92aWUgRmFudGFzaWEgKERpc25leSwgMTk0MCkgdG8gaGVscCBtYWludGFpbiB3YWtlZnVsbmVzcy4gVGhlIGNvbnRpbnVvdXMgRUNHIHNpZ25hbHMgd2VyZSBkaWdpdGl6ZWQgYXQgMjUwIEh6LiBFYWNoIGhlYXJ0YmVhdCB3YXMgYW5ub3RhdGVkIHVzaW5nIGFuIGF1dG9tYXRlZCBhcnJoeXRobWlhIGRldGVjdGlvbiBhbGdvcml0aG0sIGFuZCBlYWNoIGJlYXQgYW5ub3RhdGlvbiB3YXMgdmVyaWZpZWQgYnkgdmlzdWFsIGluc3BlY3Rpb24uDQoNCg0KDQoNCiMjIFByb2NlZHVyZQ0KDQpgYGB7cHl0aG9uLCBldmFsPUZBTFNFLCBlY2hvPUZBTFNFfQ0KaW1wb3J0IHBhbmRhcyBhcyBwZA0KaW1wb3J0IG51bXB5IGFzIG5wDQppbXBvcnQgbmV1cm9raXQyIGFzIG5rDQoNCiMgTG9hZCBUcnVlIFItcGVha3MgbG9jYXRpb24NCmRhdGFmaWxlcyA9IFtwZC5yZWFkX2NzdigiLi4vLi4vZGF0YS9ndWRiL1JwZWFrcy5jc3YiKSwNCiAgICAgICAgICAgICBwZC5yZWFkX2NzdigiLi4vLi4vZGF0YS9taXRfYXJyaHl0aG1pYS9ScGVha3MuY3N2IiksDQogICAgICAgICAgICAgcGQucmVhZF9jc3YoIi4uLy4uL2RhdGEvbWl0X25vcm1hbC9ScGVha3MuY3N2IiksDQogICAgICAgICAgICAgcGQucmVhZF9jc3YoIi4uLy4uL2RhdGEvZmFudGFzaWEvUnBlYWtzLmNzdiIpXQ0KDQojIEdldCByZXN1bHRzDQphbGxfcmVzdWx0cyA9IHBkLkRhdGFGcmFtZSgpDQoNCmZvciBmaWxlIGluIGRhdGFmaWxlczoNCiAgICBmb3IgZGF0YWJhc2UgaW4gbnAudW5pcXVlKGZpbGVbIkRhdGFiYXNlIl0pOg0KICAgICAgICBkYXRhID0gZmlsZVtmaWxlWyJEYXRhYmFzZSJdID09IGRhdGFiYXNlXQ0KICAgICAgICBmb3IgcGFydGljaXBhbnQgaW4gbnAudW5pcXVlKGRhdGFbIlBhcnRpY2lwYW50Il0pOg0KICAgICAgICAgICAgZGF0YV9wYXJ0aWNpcGFudCA9IGRhdGFbZGF0YVsiUGFydGljaXBhbnQiXSA9PSBwYXJ0aWNpcGFudF0NCiAgICAgICAgICAgIHNhbXBsaW5nX3JhdGUgPSBucC51bmlxdWUoZGF0YV9wYXJ0aWNpcGFudFsiU2FtcGxpbmdfUmF0ZSJdKVswXQ0KICAgICAgICAgICAgcnBlYWtzID0gZGF0YV9wYXJ0aWNpcGFudFsiUnBlYWtzIl0udmFsdWVzDQoNCiAgICAgICAgICAgIHJlc3VsdHMgPSBuay5ocnYocnBlYWtzLCBzYW1wbGluZ19yYXRlPXNhbXBsaW5nX3JhdGUpDQogICAgICAgICAgICByZXN1bHRzWyJQYXJ0aWNpcGFudCJdID0gcGFydGljaXBhbnQNCiAgICAgICAgICAgIHJlc3VsdHNbIkRhdGFiYXNlIl0gPSBkYXRhYmFzZQ0KICAgICAgICAgICAgcmVzdWx0c1siUmVjb3JkaW5nX0xlbmd0aCJdID0gcnBlYWtzWy0xXSAvIHNhbXBsaW5nX3JhdGUgLyA2MA0KDQogICAgICAgICAgICBhbGxfcmVzdWx0cyA9IHBkLmNvbmNhdChbYWxsX3Jlc3VsdHMsIHJlc3VsdHNdLCBheGlzPTApDQoNCmFsbF9yZXN1bHRzLnRvX2NzdigiZGF0YS9kYXRhLmNzdiIsIGluZGV4PUZhbHNlKQ0KYGBgDQoNCiMgUmVzdWx0cw0KDQpgYGB7ciwgbWVzc2FnZT1GQUxTRSwgd2FybmluZz1GQUxTRSwgcmVzdWx0cz0naGlkZSd9DQpsaWJyYXJ5KHRpZHl2ZXJzZSkNCmxpYnJhcnkoZWFzeXN0YXRzKQ0KDQpkYXRhIDwtIHJlYWQuY3N2KCJkYXRhL2RhdGFfY29tYmluZWQuY3N2Iiwgc3RyaW5nc0FzRmFjdG9ycyA9IEZBTFNFKSAlPiUgDQogIHNlbGVjdCgtSFJWX1VMRiwgLUhSVl9WTEYpICU+JSAgIyBFbXB0eQ0KICAjIGZpbHRlcihEYXRhYmFzZSAhPSAiTFVEQiIpICU+JSAjIHRvbyBzaG9ydCByZWNvcmRpbmdzLCBtYW55IGluZGljZXMgZGlkbid0IGNvbnZlcmdlDQogIHNldE5hbWVzKHN0cmluZ3I6OnN0cl9yZW1vdmUobmFtZXMoLiksICJIUlZfIikpICU+JSANCiAgbXV0YXRlX2FsbChmdW5jdGlvbih4KSB7DQogICAgeFtpcy5pbmZpbml0ZSh4KV0gPC0gTkENCiAgICByZXR1cm4oeCkgfSkNCmBgYA0KDQoNCmBgYHtyIHdhcm5pbmc9RkFMU0UsIG1lc3NhZ2U9VFJVRSwgcmVzdWx0cz0nYXNpcyd9DQpjYXQoIlRoaXMgc3R1ZHkgaW5jbHVkZXMiLCANCiAgICBucm93KGRhdGEpLCANCiAgICAicGFydGljaXBhbnRzIGZyb20iLCANCiAgICBsZW5ndGgodW5pcXVlKGRhdGEkRGF0YWJhc2UpKSwgDQogICAgImRhdGFiYXNlcy4iKQ0KYGBgDQoNCg0KYGBge3IgY29udmVuaWVuY2VfY2h1bmtfZm9yX2xvY2FsX3J1bm5pbmcsIGluY2x1ZGUgPSBGQUxTRSwgZXZhbCA9IEZBTFNFfQ0KbGlicmFyeShwYXRjaHdvcmspDQpsaWJyYXJ5KHRpZHl2ZXJzZSkNCmxpYnJhcnkoZWFzeXN0YXRzKQ0KDQojICMgVG8gcnVuIHRoaW5ncyBsb2NhbGx5OiBDVFJMICsgQUxUICsgU0hJRlQgKyBQLCBhbmQgdGhlbiB0aGUgbmV4dCB0d28gbGluZXMNCnNvdXJjZV9ybWQoIjBfQ29udmVuaWVuY2VGdW5jdGlvbnMuUm1kIikNCnNvdXJjZV9ybWQoIjFfUHJlcHJvY2Vzc2luZy5SbWQiKQ0Kc291cmNlX3JtZCgiM19EaW1lbnNpb25zLlJtZCIpDQpzb3VyY2Vfcm1kKCI0X0NsdXN0ZXJpbmcuUm1kIikNCg0KZmluZF9jYWNoZSA8LSBmdW5jdGlvbihwYXR0ZXJuID0gIiIpIHsNCiAgZmlsZXMgPC0gcGFzdGUwKCJpbmRleF9jYWNoZS9odG1sLyIsIGxpc3QuZmlsZXMoImluZGV4X2NhY2hlL2h0bWwvIiwgcGF0dGVybiA9ICJcXC5yZHgkIikpDQogIGZpbGVzIDwtIGZpbGVzW3N0cmluZ3I6OnN0cl9kZXRlY3QoZmlsZXMsIHBhdHRlcm4pXQ0KICBzdHJpbmdyOjpzdHJfcmVtb3ZlKGZpbGVzLCAiLnJkeCIpDQp9DQoNCmxhcHBseShmaW5kX2NhY2hlKCksIGxhenlMb2FkLCBlbnZpcm9ubWVudCgpKQ0KYGBgDQoNCg0KDQojIyBQcmVwcm9jZXNzaW5nDQoNCmBgYHtyIGNoaWxkPScwX0NvbnZlbmllbmNlRnVuY3Rpb25zLlJtZCd9DQpgYGANCg0KDQpgYGB7ciBjaGlsZD0nMV9QcmVwcm9jZXNzaW5nLlJtZCd9DQpgYGANCg0KIyMgRWZmZWN0IG9mIFJlY29yZGluZyBMZW5ndGgNCg0KYGBge3IgY2hpbGQ9JzJfUmVjb3JkaW5nTGVuZ3RoLlJtZCd9DQpgYGANCg0KDQojIyBEaW1lbnNpb25hbCBTdHJ1Y3R1cmUNCg0KYGBge3IgY2hpbGQ9JzNfRGltZW5zaW9ucy5SbWQnfQ0KYGBgDQoNCiMjIENsdXN0ZXIgU3RydWN0dXJlDQoNCmBgYHtyIGNoaWxkPSc0X0NsdXN0ZXJpbmcuUm1kJ30NCmBgYA0KDQojIyBOZXR3b3JrIFN0cnVjdHVyZQ0KDQpgYGB7ciBjaGlsZD0nNV9OZXR3b3JrLlJtZCd9DQpgYGANCg0KIyMgU3VtbWFyeQ0KDQpgYGB7ciBjaGlsZD0nNl9TdW1tYXJ5LlJtZCd9DQpgYGANCg0KDQoNCg0KDQojIyBSZWZlcmVuY2VzDQo=</div>
 
 
 </div>

@@ -26,21 +26,29 @@ clean_names <- function(n) {
 #### Dendrogram
 
 ```{r eval=TRUE}
-plot_dendrogram <- function(model, clusters = NULL, points = TRUE, ylim = -0.3, nudge_y = -0.02, angle = 90) {
+plot_dendrogram <- function(model, clusters = NULL, points = TRUE, ylim = -0.3, nudge_y = -0.02, angle = 90, h = NULL, edges = "elbow") {
   if(is.null(clusters)) {
     data <- tidygraph::as_tbl_graph(model)
   } else {
     data <- tidygraph::as_tbl_graph(model) %>% 
       tidygraph::activate(nodes) %>% 
-      mutate(cluster = clusters[label])
+      mutate(cluster = as.character(clusters[label]))
   }
   
   # Tree
-  p <- data %>% 
-    ggraph(layout = 'dendrogram', height = height) + 
-    # geom_hline(yintercept = 31, linetype = "dotted") +
-    geom_edge_elbow()
+  p <- ggraph(data, layout = 'dendrogram', height = height)
+    
+  if(edges == "elbow") {
+    p <- p + geom_edge_elbow()
+  } else {
+    p <- p + geom_edge_diagonal()
+  }
+    
+    
+  # Hline
+  if(!is.null(h)) p <- p + geom_hline(yintercept = h, linetype = "dotted") +
   
+
   # Points
   if(points) {
     if(is.null(clusters)) {
@@ -60,7 +68,6 @@ plot_dendrogram <- function(model, clusters = NULL, points = TRUE, ylim = -0.3, 
    ylim(ylim, NA) +
    theme_void()
 }
-
 ```
 
 
