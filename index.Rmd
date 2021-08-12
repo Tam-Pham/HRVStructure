@@ -148,7 +148,7 @@ all_results.to_csv("data/data.csv", index=False)
 library(tidyverse)
 library(easystats)
 
-data <- read.csv("data/data.csv", stringsAsFactors = FALSE) %>% 
+data <- read.csv("data/data_combined.csv", stringsAsFactors = FALSE) %>% 
   select(-HRV_ULF, -HRV_VLF) %>%  # Empty
   # filter(Database != "LUDB") %>% # too short recordings, many indices didn't converge
   setNames(stringr::str_remove(names(.), "HRV_")) %>% 
