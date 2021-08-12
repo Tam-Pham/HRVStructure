@@ -8,12 +8,26 @@ editor_options:
 ### Clustering
 
 
-#### How many clusters
+```{r, message=FALSE, warning=FALSE}
+# Preprocessing
+z <- standardize(data[hrv_cols])
+z <- z[ , colSums(is.na(z)) > 0.05 * nrow(z)]
+z[is.na(z)] <- 0  # mean imputation
+z <- datawizard::data_transpose(z)
+```
+
+
+#### K-Means
+
+##### How Many Clusters
 
 ```{r, message=FALSE, warning=FALSE}
-x <- as.data.frame(t(standardize(data[hrv_cols])))
-# x <- x[ , colSums(is.na(x)) < 1]
-n <- parameters::n_clusters(x, standardize = FALSE, package= c("mclust", "M3C"), fast = FALSE)
+n <- parameters::n_clusters(z, 
+                            standardize = FALSE, 
+                            package= c("NbClust", "easystats", "mclust"), 
+                            nbclust_method = "ward.D2",
+                            n_max = 10,
+                            fast = FALSE)
 
 n
 
@@ -21,49 +35,76 @@ plot(n)
 ```
 
 
-#### Clustering
-
-##### Herarchical Clustering
-
-
-<!-- ```{r, message=FALSE, warning=FALSE} -->
-<!-- library(factoextra) -->
-
-<!-- # Compute hierarchical clustering and cut into 4 clusters -->
-<!-- res <- factoextra::hcut(x, k = 5, stand = TRUE) -->
-
-<!-- # Cluster assignements of observations -->
-<!-- res$cluster -->
-
-<!-- # Visualize the dendrogram -->
-<!-- fviz_dend(res, rect = TRUE) -->
-<!-- ``` -->
-
+##### Clustering
 
 ```{r, message=FALSE, warning=FALSE}
-library(ggraph)
+rez <- parameters::cluster_analysis(z, n = 2, method = "hkmeans")
 
-d <- dist(x, method = "euclidean")
+as.data.frame(rez)[1:3]
 
-hc <- hclust(d, method = "complete" )
+cluster_performance(rez)
 
-clusters <- cutree(hc, h = 31)
-table_clusters$HClust <- as.factor(clusters[table_clusters$Index])
+plot(rez)
 
 
-# Plot
-tidygraph::as_tbl_graph(hc) %>% 
-  tidygraph::activate(nodes) %>% 
-  mutate(cluster = as.factor(clusters[label])) %>% 
-  ggraph(layout = 'dendrogram', height = height) + 
-  geom_hline(yintercept = 31, linetype = "dotted") +
-  geom_edge_elbow() +
-  geom_node_point(aes(color = cluster, filter=leaf)) +
-  geom_node_text(aes(label=label, color = cluster) , angle=90 , hjust=1, nudge_y = -0.5) +
-  ylim(-10, NA) +
-  theme_void() +
-  scale_colour_material_d(palette = "rainbow", guide = "none")
+table_clusters$Kmeans <- NA
+table_clusters$Kmeans[table_clusters$Index %in% row.names(z)] <- as.character(predict(rez))
 ```
 
 
 
+#### Hierarchial Clustering
+
+##### Clustering
+
+```{r, message=FALSE, warning=FALSE}
+rez <- parameters::cluster_analysis(z, n = NULL, standardize = FALSE, method = "hclust", distance_method = "correlation", hclust_method = "average", ci = 0.90)
+
+as.data.frame(rez)[1:3]
+
+cluster_performance(rez)
+
+plot(rez)
+
+
+table_clusters$Hclust <- NA
+table_clusters$Hclust[table_clusters$Index %in% row.names(z)] <- as.character(predict(rez))
+table_clusters$Hclust[table_clusters$Hclust == "0"] <- NA
+```
+
+
+##### Dendrogram
+
+```{r, message=FALSE, warning=FALSE}
+clusters <- table_clusters$Hclust
+names(clusters) <- table_clusters$Index
+
+plot_dendrogram(model = attributes(rez)$model$hclust, clusters = clusters)
+```
+
+#### DBSCAN
+
+##### Parameters Selection
+
+```{r, message=FALSE, warning=FALSE}
+n <- n_clusters_dbscan(z, standardize = FALSE, eps_range = c(0.1, 30), min_size = 2, method = "kNN")
+plot(n)
+```
+
+##### Clustering
+
+```{r, message=FALSE, warning=FALSE}
+rez <- parameters::cluster_analysis(z, n = NULL, standardize = FALSE, method = "dbscan", dbscan_eps = 16, min_size = 2)
+
+as.data.frame(rez)[1:3]
+
+cluster_performance(rez)
+
+plot(rez)
+
+
+table_clusters$DBSCAN <- NA
+table_clusters$DBSCAN[table_clusters$Index %in% row.names(z)] <- as.character(predict(rez))
+table_clusters$DBSCAN[table_clusters$DBSCAN == "0"] <- NA
+row.names(table_clusters) <- table_clusters$Index
+```

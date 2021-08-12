@@ -73,6 +73,7 @@ The aim of this study is to explore the factor structure of HRV indices.
 
 # Methods
 
+Concept of **"METACLUSTERING"**, i.e., assessing the proximity based on multiple clustering solutions.
 
 ## Databases
 
@@ -175,6 +176,7 @@ library(easystats)
 source_rmd("0_ConvenienceFunctions.Rmd")
 source_rmd("1_Preprocessing.Rmd")
 source_rmd("3_Dimensions.Rmd")
+source_rmd("4_Clustering.Rmd")
 # # source_rmd("5_BehaviouralModels.Rmd")
 # 
 # chains <- 5
@@ -216,6 +218,17 @@ source_rmd("3_Dimensions.Rmd")
 ## Dimensional Structure
 
 ```{r child='3_Dimensions.Rmd'}
+```
+
+## Cluster Structure
+
+```{r child='4_Clustering.Rmd'}
+```
+
+
+## Summary
+
+```{r child='6_Summary.Rmd'}
 ```
 
 <!-- ### Gaussian Graphical Model -->

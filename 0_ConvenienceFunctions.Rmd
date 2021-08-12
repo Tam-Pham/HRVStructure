@@ -8,6 +8,11 @@ editor_options:
 
 ### Convenience Functions
 
+```{r eval=TRUE}
+library(ggraph)
+```
+
+
 #### Cleaning
 
 ```{r eval=TRUE}
@@ -17,6 +22,47 @@ clean_names <- function(n) {
   n
 }
 ```
+
+#### Dendrogram
+
+```{r eval=TRUE}
+plot_dendrogram <- function(model, clusters = NULL, points = TRUE, ylim = -0.3, nudge_y = -0.02, angle = 90) {
+  if(is.null(clusters)) {
+    data <- tidygraph::as_tbl_graph(model)
+  } else {
+    data <- tidygraph::as_tbl_graph(model) %>% 
+      tidygraph::activate(nodes) %>% 
+      mutate(cluster = clusters[label])
+  }
+  
+  # Tree
+  p <- data %>% 
+    ggraph(layout = 'dendrogram', height = height) + 
+    # geom_hline(yintercept = 31, linetype = "dotted") +
+    geom_edge_elbow()
+  
+  # Points
+  if(points) {
+    if(is.null(clusters)) {
+      p <- p + geom_node_point(aes(filter=leaf))
+    } else {
+      p <- p + geom_node_point(aes(color = cluster, filter=leaf))
+    }
+  }
+  
+  if(is.null(clusters)) {
+    p <- p + geom_node_text(aes(label=label), angle = angle, hjust=1, nudge_y = nudge_y)
+  } else {
+    p <- p + geom_node_text(aes(label=label, color = cluster), angle = angle, hjust=1, nudge_y = nudge_y) +
+      scale_colour_material_d(palette = "rainbow", guide = "none", na.value = "grey")
+  }
+ p + 
+   ylim(ylim, NA) +
+   theme_void()
+}
+
+```
+
 
 
 #### Correlations

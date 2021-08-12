@@ -35,7 +35,7 @@ plot(efa)
 table_clusters <- parameters::closest_component(efa) %>% 
   data.frame(Index = names(.),
              EFA = .) %>% 
-  mutate(EFA = as.factor(EFA)) %>% 
+  mutate(EFA = as.character(EFA)) %>% 
   datawizard::data_rename_rows()
 ```
 
