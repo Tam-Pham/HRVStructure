@@ -177,25 +177,6 @@ source_rmd("0_ConvenienceFunctions.Rmd")
 source_rmd("1_Preprocessing.Rmd")
 source_rmd("3_Dimensions.Rmd")
 source_rmd("4_Clustering.Rmd")
-# # source_rmd("5_BehaviouralModels.Rmd")
-# 
-# chains <- 5
-# iter <- 5000
-# 
-# find_cache <- function(pattern = "") {
-#   files <- paste0("index_cache/html/", list.files("index_cache/html/", pattern = "\\.rdx$"))
-#   files <- files[stringr::str_detect(files, pattern)]
-#   stringr::str_remove(files, ".rdx")
-# }
-# 
-# lapply(find_cache(), lazyLoad, environment())
-# 
-# lapply(find_cache("index_cache/html/model_baseline_PS_RT"), lazyLoad, environment())
-# lapply(find_cache("index_cache/html/model_baseline_RS_RT"), lazyLoad, environment())
-# lapply(find_cache("index_cache/html/model_baseline_RI_RT"), lazyLoad, environment())
-# lapply(find_cache("index_cache/html/model_baseline_RI_Err"), lazyLoad, environment())
-# lapply(find_cache("index_cache/html/model_baseline_CR_RT"), lazyLoad, environment())
-# lapply(find_cache("index_cache/html/model_baseline_CR_Err"), lazyLoad, environment())
 ```
 
 

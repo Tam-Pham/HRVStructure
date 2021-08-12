@@ -22,11 +22,13 @@ z <- datawizard::data_transpose(z)
 ##### How Many Clusters
 
 ```{r, message=FALSE, warning=FALSE}
+set.seed(3)
+
 n <- parameters::n_clusters(z, 
                             standardize = FALSE, 
                             package= c("NbClust", "easystats", "mclust"), 
-                            nbclust_method = "ward.D2",
-                            n_max = 10,
+                            nbclust_method = "kmeans",
+                            n_max = 9,
                             fast = FALSE)
 
 n
@@ -35,10 +37,10 @@ plot(n)
 ```
 
 
-##### Clustering
+##### 8-K Solution
 
 ```{r, message=FALSE, warning=FALSE}
-rez <- parameters::cluster_analysis(z, n = 2, method = "hkmeans")
+rez <- parameters::cluster_analysis(z, n = 8, method = "hkmeans")
 
 as.data.frame(rez)[1:3]
 
@@ -47,11 +49,25 @@ cluster_performance(rez)
 plot(rez)
 
 
-table_clusters$Kmeans <- NA
-table_clusters$Kmeans[table_clusters$Index %in% row.names(z)] <- as.character(predict(rez))
+table_clusters$Kmeans_8 <- NA
+table_clusters$Kmeans_8[table_clusters$Index %in% row.names(z)] <- as.character(predict(rez))
 ```
 
+##### 5-K Solution
 
+```{r, message=FALSE, warning=FALSE}
+rez <- parameters::cluster_analysis(z, n = 5, method = "hkmeans")
+
+as.data.frame(rez)[1:3]
+
+cluster_performance(rez)
+
+plot(rez)
+
+
+table_clusters$Kmeans_5 <- NA
+table_clusters$Kmeans_5[table_clusters$Index %in% row.names(z)] <- as.character(predict(rez))
+```
 
 #### Hierarchial Clustering
 

@@ -20,7 +20,13 @@ for(row in row.names(m)) {
       next
     } 
     subset <- table_clusters[table_clusters$Index %in% c(row, col), ]
-    rez <- sapply(subset[2:ncol(subset)], function(x) ifelse(length(unique(x[!is.na(x)])) == 1, 1, 0))
+    rez <- sapply(subset[2:ncol(subset)], function(x) {
+      if(any(is.na(x))) {
+        0
+      } else {
+        ifelse(length(unique(x[!is.na(x)])) == 1, 1, 0)
+      }
+      })
     m[row, col] <- sum(rez) / length(rez)
   }
 }
@@ -37,7 +43,11 @@ m %>%
   mutate(Index1 = factor(Index1, levels = row.names(m)),
          Index2 = factor(Index2, levels = rev(row.names(m)))) %>% 
   ggplot(aes(x = Index1, y = Index2)) +
-  geom_tile(aes(fill = Probability))
+  geom_tile(aes(fill = Probability)) +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
+  labs(x = NULL, y = NULL) +
+  scale_fill_gradient2(low = "red", mid = "yellow", high = "green", midpoint = 0.5)
 ```
 
 ### Summary

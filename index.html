@@ -389,6 +389,7 @@ div.tocify {
 </div>
 <div id="methods" class="section level1">
 <h1>Methods</h1>
+<p>Concept of <strong>“METACLUSTERING”</strong>, i.e., assessing the proximity based on multiple clustering solutions.</p>
 <div id="databases" class="section level2">
 <h2>Databases</h2>
 <div id="glasgow-university-database" class="section level3">
@@ -422,7 +423,7 @@ div.tocify {
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(easystats)</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;data/data.csv&quot;</span>, <span class="at">stringsAsFactors =</span> <span class="cn">FALSE</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;data/data_combined.csv&quot;</span>, <span class="at">stringsAsFactors =</span> <span class="cn">FALSE</span>) <span class="sc">%&gt;%</span> </span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>HRV_ULF, <span class="sc">-</span>HRV_VLF) <span class="sc">%&gt;%</span>  <span class="co"># Empty</span></span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># filter(Database != &quot;LUDB&quot;) %&gt;% # too short recordings, many indices didn&#39;t converge</span></span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">setNames</span>(stringr<span class="sc">::</span><span class="fu">str_remove</span>(<span class="fu">names</span>(.), <span class="st">&quot;HRV_&quot;</span>)) <span class="sc">%&gt;%</span> </span>
@@ -434,7 +435,7 @@ div.tocify {
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;participants from&quot;</span>, </span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">length</span>(<span class="fu">unique</span>(data<span class="sc">$</span>Database)), </span>
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;databases.&quot;</span>)</span></code></pre></div>
-<p>This study includes 452 participants from 10 databases.</p>
+<p>This study includes 496 participants from 11 databases.</p>
 <div id="preprocessing" class="section level2">
 <h2>Preprocessing</h2>
 <div id="convenience-functions" class="section level3">
@@ -545,15 +546,14 @@ div.tocify {
 <span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">abs</span>(r) <span class="sc">&gt;</span> <span class="fl">0.999</span>) <span class="sc">%&gt;%</span> </span>
 <span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(Parameter1, <span class="fu">desc</span>(<span class="fu">abs</span>(r))) <span class="sc">%&gt;%</span> </span>
 <span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">format</span>()</span></code></pre></div>
-<pre><code>&gt;   Parameter1 Parameter2     r         95% CI t(450)         p
+<pre><code>&gt;   Parameter1 Parameter2     r         95% CI t(494)         p
 &gt; 1        C1d        C1a -1.00 [-1.00, -1.00]   -Inf &lt; .001***
 &gt; 2        C2d        C2a -1.00 [-1.00, -1.00]   -Inf &lt; .001***
 &gt; 3         Cd         Ca -1.00 [-1.00, -1.00]   -Inf &lt; .001***
-&gt; 4         GI         SI  1.00 [ 1.00,  1.00] 491.57 &lt; .001***
-&gt; 5         GI         AI  1.00 [ 1.00,  1.00] 483.37 &lt; .001***
-&gt; 6      RMSSD       SDSD  1.00 [ 1.00,  1.00] 593.29 &lt; .001***
-&gt; 7      RMSSD        SD1  1.00 [ 1.00,  1.00] 593.29 &lt; .001***
-&gt; 8       SDSD        SD1  1.00 [ 1.00,  1.00]    Inf &lt; .001***</code></pre>
+&gt; 4         GI         SI  1.00 [ 1.00,  1.00] 513.16 &lt; .001***
+&gt; 5      RMSSD       SDSD  1.00 [ 1.00,  1.00] 624.38 &lt; .001***
+&gt; 6      RMSSD        SD1  1.00 [ 1.00,  1.00] 624.38 &lt; .001***
+&gt; 7       SDSD        SD1  1.00 [ 1.00,  1.00]    Inf &lt; .001***</code></pre>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span> </span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>SDSD, <span class="sc">-</span>SD1, <span class="sc">-</span>SD1d, <span class="sc">-</span>SD1a, <span class="sc">-</span>CVSD) <span class="sc">%&gt;%</span>  <span class="co"># Same as RMSSD </span></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>SDNNd, <span class="sc">-</span>SDNNa) <span class="sc">%&gt;%</span>  <span class="co"># Same as SDNN</span></span>
@@ -606,48 +606,48 @@ div.tocify {
 <span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>             <span class="st">&quot;) detected and removed.&quot;</span>))</span>
 <span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 <pre><code>&gt; 
-&gt; -RMSSD: 61 outliers (13.50%) detected and removed.
+&gt; -RMSSD: 62 outliers (12.50%) detected and removed.
 &gt; -MeanNN: 0 outliers (0.00%) detected and removed.
-&gt; -SDNN: 29 outliers (6.42%) detected and removed.
-&gt; -CVNN: 21 outliers (4.65%) detected and removed.
+&gt; -SDNN: 33 outliers (6.65%) detected and removed.
+&gt; -CVNN: 26 outliers (5.24%) detected and removed.
 &gt; -MedianNN: 0 outliers (0.00%) detected and removed.
-&gt; -MadNN: 19 outliers (4.20%) detected and removed.
-&gt; -MCVNN: 18 outliers (3.98%) detected and removed.
-&gt; -IQRNN: 24 outliers (5.31%) detected and removed.
-&gt; -pNN50: 50 outliers (11.06%) detected and removed.
+&gt; -MadNN: 19 outliers (3.83%) detected and removed.
+&gt; -MCVNN: 18 outliers (3.63%) detected and removed.
+&gt; -IQRNN: 24 outliers (4.84%) detected and removed.
+&gt; -pNN50: 43 outliers (8.67%) detected and removed.
 &gt; -pNN20: 0 outliers (0.00%) detected and removed.
-&gt; -TINN: 48 outliers (10.62%) detected and removed.
-&gt; -HTI: 29 outliers (6.42%) detected and removed.
-&gt; -LF: 39 outliers (8.63%) detected and removed.
-&gt; -HF: 21 outliers (4.65%) detected and removed.
-&gt; -VHF: 44 outliers (9.73%) detected and removed.
-&gt; -LFHF: 17 outliers (3.76%) detected and removed.
+&gt; -TINN: 49 outliers (9.88%) detected and removed.
+&gt; -HTI: 3 outliers (0.60%) detected and removed.
+&gt; -LF: 22 outliers (4.44%) detected and removed.
+&gt; -HF: 25 outliers (5.04%) detected and removed.
+&gt; -VHF: 45 outliers (9.07%) detected and removed.
+&gt; -LFHF: 20 outliers (4.03%) detected and removed.
 &gt; -LFn: 0 outliers (0.00%) detected and removed.
 &gt; -HFn: 0 outliers (0.00%) detected and removed.
-&gt; -LnHF: 1 outliers (0.22%) detected and removed.
-&gt; -SD2: 13 outliers (2.88%) detected and removed.
-&gt; -SD1SD2: 12 outliers (2.65%) detected and removed.
-&gt; -S: 86 outliers (19.03%) detected and removed.
-&gt; -CSI: 27 outliers (5.97%) detected and removed.
-&gt; -CVI: 2 outliers (0.44%) detected and removed.
-&gt; -CSI_Modified: 29 outliers (6.42%) detected and removed.
+&gt; -LnHF: 1 outliers (0.20%) detected and removed.
+&gt; -SD2: 15 outliers (3.02%) detected and removed.
+&gt; -SD1SD2: 18 outliers (3.63%) detected and removed.
+&gt; -S: 85 outliers (17.14%) detected and removed.
+&gt; -CSI: 25 outliers (5.04%) detected and removed.
+&gt; -CVI: 2 outliers (0.40%) detected and removed.
+&gt; -CSI_Modified: 26 outliers (5.24%) detected and removed.
 &gt; -PIP: 0 outliers (0.00%) detected and removed.
 &gt; -IALS: 0 outliers (0.00%) detected and removed.
-&gt; -PSS: 5 outliers (1.11%) detected and removed.
-&gt; -PAS: 29 outliers (6.42%) detected and removed.
-&gt; -GI: 101 outliers (22.35%) detected and removed.
-&gt; -SI: 98 outliers (21.68%) detected and removed.
-&gt; -AI: 102 outliers (22.57%) detected and removed.
-&gt; -PI: 32 outliers (7.08%) detected and removed.
-&gt; -C1a: 22 outliers (4.87%) detected and removed.
-&gt; -C2a: 37 outliers (8.19%) detected and removed.
-&gt; -Ca: 51 outliers (11.28%) detected and removed.
+&gt; -PSS: 5 outliers (1.01%) detected and removed.
+&gt; -PAS: 59 outliers (11.90%) detected and removed.
+&gt; -GI: 135 outliers (27.22%) detected and removed.
+&gt; -SI: 122 outliers (24.60%) detected and removed.
+&gt; -AI: 132 outliers (26.61%) detected and removed.
+&gt; -PI: 36 outliers (7.26%) detected and removed.
+&gt; -C1a: 30 outliers (6.05%) detected and removed.
+&gt; -C2a: 45 outliers (9.07%) detected and removed.
+&gt; -Ca: 55 outliers (11.09%) detected and removed.
 &gt; -ApEn: 0 outliers (0.00%) detected and removed.
 &gt; -SampEn: 0 outliers (0.00%) detected and removed.
 &gt; -MSE: 0 outliers (0.00%) detected and removed.
 &gt; -CMSE: 0 outliers (0.00%) detected and removed.
 &gt; -RCMSE: 0 outliers (0.00%) detected and removed.
-&gt; -DFA: 0 outliers (0.00%) detected and removed.
+&gt; -DFA: 1 outliers (0.20%) detected and removed.
 &gt; -CorrDim: 0 outliers (0.00%) detected and removed.</code></pre>
 <div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>data[hrv_cols] <span class="sc">%&gt;%</span> </span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">normalize</span>() <span class="sc">%&gt;%</span> </span>
@@ -683,49 +683,49 @@ div.tocify {
 <span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="fu">format</span>(r)</span></code></pre></div>
 <pre><code>&gt;          Parameter1   Parameter2    r        95% CI      t     df         p
-&gt; 1  Recording_Length          HTI 0.74 [ 0.69, 0.78] 327.50  88829 &lt; .001***
-&gt; 2  Recording_Length          MSE 0.52 [ 0.42, 0.60] 107.31  31373 &lt; .001***
-&gt; 3  Recording_Length         TINN 0.42 [ 0.34, 0.50] 132.35  81001 &lt; .001***
-&gt; 4  Recording_Length         ApEn 0.38 [ 0.30, 0.45] 129.69 101473 &lt; .001***
-&gt; 5  Recording_Length          LFn 0.35 [ 0.24, 0.46]  66.96  31373 &lt; .001***
-&gt; 6  Recording_Length          SD2 0.19 [ 0.10, 0.28]  59.23  95701 &lt; .001***
-&gt; 7  Recording_Length          VHF 0.18 [ 0.05, 0.31]  27.24  21319 &lt; .001***
-&gt; 8  Recording_Length          CVI 0.18 [ 0.09, 0.27]  57.61 100574 &lt; .001***
-&gt; 9  Recording_Length         SDNN 0.16 [ 0.07, 0.26]  49.65  88829 &lt; .001***
-&gt; 10 Recording_Length            S 0.16 [ 0.06, 0.26]  40.96  66428 &lt; .001***
-&gt; 11 Recording_Length          DFA 0.15 [ 0.03, 0.27]  26.84  31373 &lt; .001***
-&gt; 12 Recording_Length        RMSSD 0.15 [ 0.05, 0.25]  41.70  75853 &lt; .001***
-&gt; 13 Recording_Length           GI 0.15 [ 0.04, 0.25]  37.09  61073 &lt; .001***
-&gt; 14 Recording_Length        IQRNN 0.15 [ 0.05, 0.24]  44.93  90949 &lt; .001***
-&gt; 15 Recording_Length        MadNN 0.15 [ 0.05, 0.24]  45.39  93094 &lt; .001***
-&gt; 16 Recording_Length           SI 0.14 [ 0.04, 0.24]  35.81  62126 &lt; .001***
-&gt; 17 Recording_Length           AI 0.14 [ 0.03, 0.24]  33.68  60724 &lt; .001***
-&gt; 18 Recording_Length        RCMSE 0.13 [ 0.01, 0.25]  23.36  31373 &lt; .001***
-&gt; 19 Recording_Length           LF 0.13 [ 0.00, 0.26]  19.57  22364 &lt; .001***
-&gt; 20 Recording_Length         LnHF 0.13 [ 0.01, 0.25]  23.07  31123 &lt; .001***
-&gt; 21 Recording_Length          PAS 0.12 [ 0.02, 0.21]  34.67  87151 &lt; .001***
-&gt; 22 Recording_Length CSI_Modified 0.11 [ 0.02, 0.21]  34.27  88829 &lt; .001***
-&gt; 23 Recording_Length           HF 0.11 [-0.02, 0.24]  18.03  26333 &lt; .001***
-&gt; 24 Recording_Length          PIP 0.10 [ 0.01, 0.20]  33.59 101473 &lt; .001***
-&gt; 25 Recording_Length         LFHF 0.10 [-0.03, 0.22]  16.30  27259 &lt; .001***
-&gt; 26 Recording_Length        MCVNN 0.09 [ 0.00, 0.19]  28.78  93526 &lt; .001***
-&gt; 27 Recording_Length         CVNN 0.09 [ 0.00, 0.19]  28.50  92233 &lt; .001***
-&gt; 28 Recording_Length           Ca 0.07 [-0.02, 0.17]  21.00  79798 &lt; .001***
-&gt; 29 Recording_Length          C2a 0.06 [-0.04, 0.16]  17.54  85489 &lt; .001***
-&gt; 30 Recording_Length           PI 0.06 [-0.04, 0.15]  17.09  87569 &lt; .001***
-&gt; 31 Recording_Length          C1a 0.06 [-0.04, 0.15]  17.20  91804 &lt; .001***
-&gt; 32 Recording_Length       MeanNN 0.06 [-0.04, 0.15]  17.91 101473 &lt; .001***
-&gt; 33 Recording_Length     MedianNN 0.06 [-0.04, 0.15]  17.60 101473 &lt; .001***
-&gt; 34 Recording_Length          HFn 0.04 [-0.08, 0.16]   7.21  31373 &lt; .001***
-&gt; 35 Recording_Length          PSS 0.04 [-0.05, 0.13]  12.67  99233 &lt; .001***
-&gt; 36 Recording_Length        pNN20 0.04 [-0.05, 0.13]  12.72 101473 &lt; .001***
-&gt; 37 Recording_Length      CorrDim 0.04 [-0.05, 0.13]  12.17 101473 &lt; .001***
-&gt; 38 Recording_Length         CMSE 0.03 [-0.09, 0.16]   5.98  31373 &lt; .001***
-&gt; 39 Recording_Length        pNN50 0.03 [-0.07, 0.13]   8.98  80198 &lt; .001***
-&gt; 40 Recording_Length         IALS 0.03 [-0.07, 0.12]   8.67 101473 &lt; .001***
-&gt; 41 Recording_Length       SD1SD2 0.02 [-0.07, 0.11]   6.11  96139 &lt; .001***
-&gt; 42 Recording_Length       SampEn 0.01 [-0.11, 0.13]   2.72  36313 0.003**  
-&gt; 43 Recording_Length          CSI 0.01 [-0.08, 0.11]   4.18  89674 &lt; .001***</code></pre>
+&gt; 1  Recording_Length          HTI 0.74 [ 0.70, 0.78] 380.75 120784 &lt; .001***
+&gt; 2  Recording_Length         TINN 0.41 [ 0.33, 0.48] 141.44  99233 &lt; .001***
+&gt; 3  Recording_Length         ApEn 0.32 [ 0.23, 0.39] 116.56 122263 &lt; .001***
+&gt; 4  Recording_Length          LFn 0.29 [ 0.18, 0.39]  63.60  43363 &lt; .001***
+&gt; 5  Recording_Length          MSE 0.29 [ 0.18, 0.39]  63.38  43363 &lt; .001***
+&gt; 6  Recording_Length          PAS 0.17 [ 0.08, 0.26]  53.79  93094 &lt; .001***
+&gt; 7  Recording_Length          VHF 0.17 [ 0.05, 0.29]  30.83  31123 &lt; .001***
+&gt; 8  Recording_Length          SD2 0.17 [ 0.08, 0.26]  59.14 114958 &lt; .001***
+&gt; 9  Recording_Length          CVI 0.17 [ 0.08, 0.25]  58.74 121276 &lt; .001***
+&gt; 10 Recording_Length         LnHF 0.16 [ 0.04, 0.27]  33.16  43069 &lt; .001***
+&gt; 11 Recording_Length           LF 0.16 [ 0.04, 0.27]  30.78  37126 &lt; .001***
+&gt; 12 Recording_Length         SDNN 0.16 [ 0.07, 0.24]  51.51 106489 &lt; .001***
+&gt; 13 Recording_Length           GI 0.15 [ 0.05, 0.25]  38.63  64618 &lt; .001***
+&gt; 14 Recording_Length        RCMSE 0.15 [ 0.03, 0.25]  30.56  43363 &lt; .001***
+&gt; 15 Recording_Length        RMSSD 0.13 [ 0.04, 0.22]  41.19  93526 &lt; .001***
+&gt; 16 Recording_Length           SI 0.13 [ 0.03, 0.23]  35.20  69376 &lt; .001***
+&gt; 17 Recording_Length           HF 0.13 [ 0.01, 0.25]  25.30  36313 &lt; .001***
+&gt; 18 Recording_Length           AI 0.13 [ 0.03, 0.23]  33.60  65701 &lt; .001***
+&gt; 19 Recording_Length        MadNN 0.13 [ 0.04, 0.22]  43.29 113048 &lt; .001***
+&gt; 20 Recording_Length        IQRNN 0.13 [ 0.04, 0.22]  42.75 110683 &lt; .001***
+&gt; 21 Recording_Length            S 0.13 [ 0.03, 0.22]  37.02  83843 &lt; .001***
+&gt; 22 Recording_Length          DFA 0.12 [ 0.00, 0.23]  24.82  43069 &lt; .001***
+&gt; 23 Recording_Length CSI_Modified 0.10 [ 0.01, 0.19]  34.78 109744 &lt; .001***
+&gt; 24 Recording_Length          PIP 0.10 [ 0.01, 0.19]  35.01 122263 &lt; .001***
+&gt; 25 Recording_Length         CVNN 0.09 [ 0.00, 0.18]  31.43 109744 &lt; .001***
+&gt; 26 Recording_Length        MCVNN 0.08 [-0.01, 0.17]  28.48 113524 &lt; .001***
+&gt; 27 Recording_Length         LFHF 0.07 [-0.05, 0.19]  13.71  37673 &lt; .001***
+&gt; 28 Recording_Length           Ca 0.07 [-0.03, 0.16]  20.41  96578 &lt; .001***
+&gt; 29 Recording_Length          HFn 0.06 [-0.06, 0.17]  11.80  43363 &lt; .001***
+&gt; 30 Recording_Length         CMSE 0.06 [-0.06, 0.17]  11.63  43363 &lt; .001***
+&gt; 31 Recording_Length      CorrDim 0.05 [-0.03, 0.14]  18.87 122263 &lt; .001***
+&gt; 32 Recording_Length          C2a 0.05 [-0.04, 0.14]  16.94 101023 &lt; .001***
+&gt; 33 Recording_Length       MeanNN 0.05 [-0.04, 0.14]  18.09 122263 &lt; .001***
+&gt; 34 Recording_Length     MedianNN 0.05 [-0.04, 0.14]  17.68 122263 &lt; .001***
+&gt; 35 Recording_Length           PI 0.05 [-0.04, 0.14]  16.17 105109 &lt; .001***
+&gt; 36 Recording_Length          C1a 0.05 [-0.04, 0.14]  15.96 107878 &lt; .001***
+&gt; 37 Recording_Length          PSS 0.04 [-0.05, 0.13]  13.16 119803 &lt; .001***
+&gt; 38 Recording_Length        pNN20 0.04 [-0.05, 0.12]  12.50 122263 &lt; .001***
+&gt; 39 Recording_Length         IALS 0.02 [-0.06, 0.11]   8.65 122263 &lt; .001***
+&gt; 40 Recording_Length        pNN50 0.02 [-0.07, 0.11]   7.24 101924 &lt; .001***
+&gt; 41 Recording_Length       SampEn 0.02 [-0.09, 0.13]   4.19  49139 &lt; .001***
+&gt; 42 Recording_Length       SD1SD2 0.02 [-0.07, 0.11]   5.76 113524 &lt; .001***
+&gt; 43 Recording_Length          CSI 0.01 [-0.08, 0.10]   4.19 110213 &lt; .001***</code></pre>
 <div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_correlations</span>(data, r[<span class="dv">1</span><span class="sc">:</span><span class="dv">9</span>, ])</span></code></pre></div>
 <p><img src="figures/unnamed-chunk-19-1.png" width="5824.92235949962" /></p>
 <!-- ### Adjust the data for recording length -->
@@ -741,90 +741,1029 @@ div.tocify {
 <h3>Factor Analysis</h3>
 <div id="how-many-factors" class="section level4">
 <h4>How many factors</h4>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>r <span class="ot">&lt;-</span> correlation<span class="sc">::</span><span class="fu">correlation</span>(data[hrv_cols]) <span class="sc">%&gt;%</span> </span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.matrix</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  correlation<span class="sc">::</span><span class="fu">cor_smooth</span>(<span class="at">verbose =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> parameters<span class="sc">::</span><span class="fu">n_factors</span>(data, <span class="at">cor=</span>r, <span class="at">type =</span> <span class="st">&quot;FA&quot;</span>, <span class="at">package =</span> <span class="st">&quot;all&quot;</span>)</span>
-<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>n</span></code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">3</span>)</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>r <span class="ot">&lt;-</span> correlation<span class="sc">::</span><span class="fu">correlation</span>(data[hrv_cols]) <span class="sc">%&gt;%</span> </span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.matrix</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>  correlation<span class="sc">::</span><span class="fu">cor_smooth</span>(<span class="at">verbose =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> parameters<span class="sc">::</span><span class="fu">n_factors</span>(data, <span class="at">cor=</span>r, <span class="at">type =</span> <span class="st">&quot;FA&quot;</span>, <span class="at">package =</span> <span class="st">&quot;all&quot;</span>)</span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>n</span></code></pre></div>
 <pre><code>&gt; # Method Agreement Procedure:
 &gt; 
-&gt; The choice of 8 dimensions is supported by 4 (23.53%) methods out of 17 (Optimal coordinates, Parallel analysis, Kaiser criterion, EGA (glasso)).</code></pre>
+&gt; The choice of 3 dimensions is supported by 3 (17.65%) methods out of 17 (CNG, t, p).</code></pre>
 <div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(n) </span></code></pre></div>
 <p><img src="figures/unnamed-chunk-20-1.png" width="5824.92235949962" /></p>
 </div>
 <div id="exploratory-factor-analysis-efa" class="section level4">
 <h4>Exploratory Factor Analysis (EFA)</h4>
-<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>efa <span class="ot">&lt;-</span> parameters<span class="sc">::</span><span class="fu">factor_analysis</span>(data, <span class="at">cor=</span>r, <span class="at">n=</span><span class="dv">8</span>, <span class="at">rotation=</span><span class="st">&quot;oblimin&quot;</span>, <span class="at">fm=</span><span class="st">&quot;ml&quot;</span>)</span>
+<div id="factors" class="section level5">
+<h5>3-factors</h5>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>efa <span class="ot">&lt;-</span> parameters<span class="sc">::</span><span class="fu">factor_analysis</span>(data, <span class="at">cor=</span>r, <span class="at">n=</span><span class="dv">3</span>, <span class="at">rotation=</span><span class="st">&quot;oblimin&quot;</span>, <span class="at">fm=</span><span class="st">&quot;ml&quot;</span>)</span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(efa, <span class="at">threshold=</span><span class="st">&quot;max&quot;</span>, <span class="at">sort=</span><span class="cn">TRUE</span>)</span></code></pre></div>
-<pre><code>&gt; # Rotated loadings from Factor Analysis (oblimin-rotation)
-&gt; 
-&gt; Variable     |  ML5  |  ML1  | ML2  | ML8  | ML6  |  ML7  | ML3  | ML4  | Complexity | Uniqueness
-&gt; -------------------------------------------------------------------------------------------------
-&gt; CSI          | 0.80  |       |      |      |      |       |      |      |    1.43    |    0.15   
-&gt; HFn          | -0.75 |       |      |      |      |       |      |      |    1.42    |    0.32   
-&gt; SD1SD2       | -0.74 |       |      |      |      |       |      |      |    1.50    |    0.22   
-&gt; CSI_Modified | 0.70  |       |      |      |      |       |      |      |    1.81    |    0.21   
-&gt; LnHF         | -0.64 |       |      |      |      |       |      |      |    2.79    |    0.09   
-&gt; HF           | -0.63 |       |      |      |      |       |      |      |    2.28    |    0.32   
-&gt; LFHF         | 0.61  |       |      |      |      |       |      |      |    2.05    |    0.28   
-&gt; DFA          | 0.48  |       |      |      |      |       |      |      |    3.77    |    0.30   
-&gt; GI           |       | 1.02  |      |      |      |       |      |      |    1.01    |  4.74e-03 
-&gt; AI           |       | 1.00  |      |      |      |       |      |      |    1.03    |    0.03   
-&gt; SI           |       | 0.99  |      |      |      |       |      |      |    1.02    |    0.03   
-&gt; Ca           |       | -0.53 |      |      |      |       |      |      |    1.37    |    0.71   
-&gt; C1a          |       | -0.39 |      |      |      |       |      |      |    2.59    |    0.73   
-&gt; PI           |       | -0.31 |      |      |      |       |      |      |    2.85    |    0.85   
-&gt; C2a          |       | -0.22 |      |      |      |       |      |      |    4.27    |    0.87   
-&gt; MadNN        |       |       | 0.99 |      |      |       |      |      |    1.01    |  9.85e-03 
-&gt; IQRNN        |       |       | 0.91 |      |      |       |      |      |    1.04    |    0.04   
-&gt; MCVNN        |       |       | 0.90 |      |      |       |      |      |    1.12    |    0.08   
-&gt; pNN20        |       |       | 0.52 |      |      |       |      |      |    3.28    |    0.28   
-&gt; CVI          |       |       |      | 0.74 |      |       |      |      |    1.30    |    0.10   
-&gt; SDNN         |       |       |      | 0.65 |      |       |      |      |    1.70    |    0.08   
-&gt; SD2          |       |       |      | 0.64 |      |       |      |      |    1.89    |    0.09   
-&gt; CVNN         |       |       |      | 0.62 |      |       |      |      |    2.16    |    0.12   
-&gt; S            |       |       |      | 0.59 |      |       |      |      |    1.75    |    0.28   
-&gt; RMSSD        |       |       |      | 0.57 |      |       |      |      |    2.08    |    0.30   
-&gt; pNN50        |       |       |      | 0.43 |      |       |      |      |    3.61    |    0.47   
-&gt; CorrDim      |       |       |      |      | 0.86 |       |      |      |    1.38    |    0.11   
-&gt; RCMSE        |       |       |      |      | 0.65 |       |      |      |    2.51    |    0.12   
-&gt; SampEn       |       |       |      |      | 0.64 |       |      |      |    2.81    |    0.20   
-&gt; CMSE         |       |       |      |      | 0.61 |       |      |      |    2.77    |    0.21   
-&gt; VHF          |       |       |      |      | 0.53 |       |      |      |    2.37    |    0.44   
-&gt; LF           |       |       |      |      | 0.51 |       |      |      |    3.42    |    0.40   
-&gt; HTI          |       |       |      |      |      | 0.87  |      |      |    1.08    |    0.17   
-&gt; ApEn         |       |       |      |      |      | 0.81  |      |      |    1.52    |    0.12   
-&gt; MSE          |       |       |      |      |      | 0.61  |      |      |    2.42    |    0.27   
-&gt; LFn          |       |       |      |      |      | -0.61 |      |      |    2.67    |    0.15   
-&gt; TINN         |       |       |      |      |      | 0.54  |      |      |    2.13    |    0.22   
-&gt; MedianNN     |       |       |      |      |      |       | 1.01 |      |    1.01    |  9.39e-03 
-&gt; MeanNN       |       |       |      |      |      |       | 1.00 |      |    1.01    |    0.02   
-&gt; IALS         |       |       |      |      |      |       |      | 0.96 |    1.14    |    0.07   
-&gt; PIP          |       |       |      |      |      |       |      | 0.87 |    1.42    |    0.06   
-&gt; PSS          |       |       |      |      |      |       |      | 0.83 |    1.17    |    0.31   
-&gt; PAS          |       |       |      |      |      |       |      | 0.55 |    2.59    |    0.36   
-&gt; 
-&gt; The 8 latent factors (oblimin rotation) accounted for 76.33% of the total variance of the original data (ML5 = 11.43%, ML1 = 9.24%, ML2 = 11.19%, ML8 = 11.27%, ML6 = 8.72%, ML7 = 8.86%, ML3 = 7.78%, ML4 = 7.83%).</code></pre>
-<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(efa)</span></code></pre></div>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>insight<span class="sc">::</span><span class="fu">display</span>(efa, <span class="at">threshold=</span><span class="st">&quot;max&quot;</span>, <span class="at">sort=</span><span class="cn">TRUE</span>)</span></code></pre></div>
+<table>
+<caption>Rotated loadings from Factor Analysis (oblimin-rotation)</caption>
+<thead>
+<tr class="header">
+<th align="left">Variable</th>
+<th align="center">ML1</th>
+<th align="center">ML3</th>
+<th align="center">ML2</th>
+<th align="center">Complexity</th>
+<th align="center">Uniqueness</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">SD2</td>
+<td align="center">0.93</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">1.08</td>
+<td align="center">0.09</td>
+</tr>
+<tr class="even">
+<td align="left">IQRNN</td>
+<td align="center">0.93</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">1.05</td>
+<td align="center">0.14</td>
+</tr>
+<tr class="odd">
+<td align="left">SDNN</td>
+<td align="center">0.92</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">1.08</td>
+<td align="center">0.10</td>
+</tr>
+<tr class="even">
+<td align="left">MadNN</td>
+<td align="center">0.91</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">1.06</td>
+<td align="center">0.17</td>
+</tr>
+<tr class="odd">
+<td align="left">CVI</td>
+<td align="center">0.87</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">1.17</td>
+<td align="center">0.14</td>
+</tr>
+<tr class="even">
+<td align="left">MCVNN</td>
+<td align="center">0.87</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">1.19</td>
+<td align="center">0.21</td>
+</tr>
+<tr class="odd">
+<td align="left">S</td>
+<td align="center">0.84</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">1.13</td>
+<td align="center">0.24</td>
+</tr>
+<tr class="even">
+<td align="left">CVNN</td>
+<td align="center">0.80</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">1.54</td>
+<td align="center">0.17</td>
+</tr>
+<tr class="odd">
+<td align="left">RMSSD</td>
+<td align="center">0.71</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">1.60</td>
+<td align="center">0.29</td>
+</tr>
+<tr class="even">
+<td align="left">TINN</td>
+<td align="center">0.71</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">1.21</td>
+<td align="center">0.43</td>
+</tr>
+<tr class="odd">
+<td align="left">pNN20</td>
+<td align="center">0.64</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">2.19</td>
+<td align="center">0.27</td>
+</tr>
+<tr class="even">
+<td align="left">pNN50</td>
+<td align="center">0.60</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">1.96</td>
+<td align="center">0.42</td>
+</tr>
+<tr class="odd">
+<td align="left">HTI</td>
+<td align="center">0.50</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">1.01</td>
+<td align="center">0.75</td>
+</tr>
+<tr class="even">
+<td align="left">ApEn</td>
+<td align="center">0.43</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">1.98</td>
+<td align="center">0.70</td>
+</tr>
+<tr class="odd">
+<td align="left">CSI</td>
+<td align="center"></td>
+<td align="center">-0.83</td>
+<td align="center"></td>
+<td align="center">1.45</td>
+<td align="center">0.16</td>
+</tr>
+<tr class="even">
+<td align="left">SD1SD2</td>
+<td align="center"></td>
+<td align="center">0.80</td>
+<td align="center"></td>
+<td align="center">1.31</td>
+<td align="center">0.26</td>
+</tr>
+<tr class="odd">
+<td align="left">LFHF</td>
+<td align="center"></td>
+<td align="center">-0.72</td>
+<td align="center"></td>
+<td align="center">1.12</td>
+<td align="center">0.44</td>
+</tr>
+<tr class="even">
+<td align="left">HFn</td>
+<td align="center"></td>
+<td align="center">0.68</td>
+<td align="center"></td>
+<td align="center">1.14</td>
+<td align="center">0.50</td>
+</tr>
+<tr class="odd">
+<td align="left">DFA</td>
+<td align="center"></td>
+<td align="center">-0.68</td>
+<td align="center"></td>
+<td align="center">1.35</td>
+<td align="center">0.43</td>
+</tr>
+<tr class="even">
+<td align="left">CSI_Modified</td>
+<td align="center"></td>
+<td align="center">-0.68</td>
+<td align="center"></td>
+<td align="center">2.03</td>
+<td align="center">0.22</td>
+</tr>
+<tr class="odd">
+<td align="left">LFn</td>
+<td align="center"></td>
+<td align="center">-0.64</td>
+<td align="center"></td>
+<td align="center">1.40</td>
+<td align="center">0.48</td>
+</tr>
+<tr class="even">
+<td align="left">LnHF</td>
+<td align="center"></td>
+<td align="center">0.63</td>
+<td align="center"></td>
+<td align="center">1.85</td>
+<td align="center">0.38</td>
+</tr>
+<tr class="odd">
+<td align="left">MedianNN</td>
+<td align="center"></td>
+<td align="center">0.49</td>
+<td align="center"></td>
+<td align="center">1.47</td>
+<td align="center">0.70</td>
+</tr>
+<tr class="even">
+<td align="left">MeanNN</td>
+<td align="center"></td>
+<td align="center">0.49</td>
+<td align="center"></td>
+<td align="center">1.37</td>
+<td align="center">0.71</td>
+</tr>
+<tr class="odd">
+<td align="left">HF</td>
+<td align="center"></td>
+<td align="center">0.47</td>
+<td align="center"></td>
+<td align="center">1.90</td>
+<td align="center">0.64</td>
+</tr>
+<tr class="even">
+<td align="left">VHF</td>
+<td align="center"></td>
+<td align="center">0.37</td>
+<td align="center"></td>
+<td align="center">2.22</td>
+<td align="center">0.76</td>
+</tr>
+<tr class="odd">
+<td align="left">MSE</td>
+<td align="center"></td>
+<td align="center">0.27</td>
+<td align="center"></td>
+<td align="center">2.94</td>
+<td align="center">0.81</td>
+</tr>
+<tr class="even">
+<td align="left">C1a</td>
+<td align="center"></td>
+<td align="center">-0.24</td>
+<td align="center"></td>
+<td align="center">1.41</td>
+<td align="center">0.93</td>
+</tr>
+<tr class="odd">
+<td align="left">AI</td>
+<td align="center"></td>
+<td align="center">0.23</td>
+<td align="center"></td>
+<td align="center">1.92</td>
+<td align="center">0.91</td>
+</tr>
+<tr class="even">
+<td align="left">GI</td>
+<td align="center"></td>
+<td align="center">0.20</td>
+<td align="center"></td>
+<td align="center">2.75</td>
+<td align="center">0.92</td>
+</tr>
+<tr class="odd">
+<td align="left">Ca</td>
+<td align="center"></td>
+<td align="center">-0.18</td>
+<td align="center"></td>
+<td align="center">1.83</td>
+<td align="center">0.95</td>
+</tr>
+<tr class="even">
+<td align="left">CMSE</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">0.92</td>
+<td align="center">1.05</td>
+<td align="center">0.13</td>
+</tr>
+<tr class="odd">
+<td align="left">RCMSE</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">0.90</td>
+<td align="center">1.17</td>
+<td align="center">0.11</td>
+</tr>
+<tr class="even">
+<td align="left">SampEn</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">0.72</td>
+<td align="center">1.41</td>
+<td align="center">0.37</td>
+</tr>
+<tr class="odd">
+<td align="left">IALS</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">-0.59</td>
+<td align="center">1.42</td>
+<td align="center">0.59</td>
+</tr>
+<tr class="even">
+<td align="left">CorrDim</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">0.59</td>
+<td align="center">1.68</td>
+<td align="center">0.56</td>
+</tr>
+<tr class="odd">
+<td align="left">PIP</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">-0.49</td>
+<td align="center">1.27</td>
+<td align="center">0.73</td>
+</tr>
+<tr class="even">
+<td align="left">PSS</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">-0.45</td>
+<td align="center">1.67</td>
+<td align="center">0.74</td>
+</tr>
+<tr class="odd">
+<td align="left">LF</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">0.43</td>
+<td align="center">1.08</td>
+<td align="center">0.81</td>
+</tr>
+<tr class="even">
+<td align="left">PAS</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">-0.36</td>
+<td align="center">2.69</td>
+<td align="center">0.74</td>
+</tr>
+<tr class="odd">
+<td align="left">PI</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">-0.31</td>
+<td align="center">1.18</td>
+<td align="center">0.90</td>
+</tr>
+<tr class="even">
+<td align="left">C2a</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">-0.30</td>
+<td align="center">1.02</td>
+<td align="center">0.91</td>
+</tr>
+<tr class="odd">
+<td align="left">SI</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">0.27</td>
+<td align="center">2.15</td>
+<td align="center">0.88</td>
+</tr>
+</tbody>
+</table>
+<p>The 3 latent factors (oblimin rotation) accounted for 49.34% of the total variance of the original data (ML1 = 22.14%, ML3 = 14.71%, ML2 = 12.50%).</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(efa)</span></code></pre></div>
 <p><img src="figures/unnamed-chunk-21-1.png" width="9000" /></p>
-<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>table_clusters <span class="ot">&lt;-</span> parameters<span class="sc">::</span><span class="fu">closest_component</span>(efa) <span class="sc">%&gt;%</span> </span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">data.frame</span>(<span class="at">Index =</span> <span class="fu">names</span>(.),</span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>             <span class="at">EFA =</span> .) <span class="sc">%&gt;%</span> </span>
-<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">EFA =</span> <span class="fu">as.character</span>(EFA)) <span class="sc">%&gt;%</span> </span>
-<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>  datawizard<span class="sc">::</span><span class="fu">data_rename_rows</span>()</span></code></pre></div>
-<!-- #### Confirmatory Factor Analysis (CFA) -->
-<!-- ```{r, message=FALSE, warning=FALSE, fig.width=15, fig.height=15} -->
-<!-- library(lavaan) -->
-<!-- model <- parameters::efa_to_cfa(efa, threshold = "max") -->
-<!-- cfa <- lavaan::cfa(model, data=data) %>% -->
-<!--   parameters::parameters(standardize=TRUE) -->
-<!-- cfa -->
-<!-- plot(cfa) -->
-<!-- ``` -->
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>table_clusters <span class="ot">&lt;-</span> parameters<span class="sc">::</span><span class="fu">closest_component</span>(efa) <span class="sc">%&gt;%</span> </span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">data.frame</span>(<span class="at">Index =</span> <span class="fu">names</span>(.),</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>             <span class="at">EFA_3 =</span> .) <span class="sc">%&gt;%</span> </span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">EFA_3 =</span> <span class="fu">as.character</span>(EFA_3)) <span class="sc">%&gt;%</span> </span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>  datawizard<span class="sc">::</span><span class="fu">data_rename_rows</span>()</span></code></pre></div>
+</div>
+<div id="factors-1" class="section level5">
+<h5>9-factors</h5>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>efa <span class="ot">&lt;-</span> parameters<span class="sc">::</span><span class="fu">factor_analysis</span>(data, <span class="at">cor=</span>r, <span class="at">n=</span><span class="dv">9</span>, <span class="at">rotation=</span><span class="st">&quot;oblimin&quot;</span>, <span class="at">fm=</span><span class="st">&quot;ml&quot;</span>)</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>insight<span class="sc">::</span><span class="fu">display</span>(efa, <span class="at">threshold=</span><span class="st">&quot;max&quot;</span>, <span class="at">sort=</span><span class="cn">TRUE</span>)</span></code></pre></div>
+<table>
+<caption>Rotated loadings from Factor Analysis (oblimin-rotation)</caption>
+<thead>
+<tr class="header">
+<th align="left">Variable</th>
+<th align="center">ML6</th>
+<th align="center">ML8</th>
+<th align="center">ML5</th>
+<th align="center">ML3</th>
+<th align="center">ML7</th>
+<th align="center">ML4</th>
+<th align="center">ML2</th>
+<th align="center">ML1</th>
+<th align="center">ML9</th>
+<th align="center">Complexity</th>
+<th align="center">Uniqueness</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">CSI</td>
+<td align="center">0.82</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">1.29</td>
+<td align="center">0.14</td>
+</tr>
+<tr class="even">
+<td align="left">SD1SD2</td>
+<td align="center">-0.75</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">1.31</td>
+<td align="center">0.25</td>
+</tr>
+<tr class="odd">
+<td align="left">HFn</td>
+<td align="center">-0.73</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">1.58</td>
+<td align="center">0.33</td>
+</tr>
+<tr class="even">
+<td align="left">CSI_Modified</td>
+<td align="center">0.70</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">1.80</td>
+<td align="center">0.19</td>
+</tr>
+<tr class="odd">
+<td align="left">LFHF</td>
+<td align="center">0.66</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">1.79</td>
+<td align="center">0.29</td>
+</tr>
+<tr class="even">
+<td align="left">LFn</td>
+<td align="center">0.56</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">2.64</td>
+<td align="center">0.19</td>
+</tr>
+<tr class="odd">
+<td align="left">DFA</td>
+<td align="center">0.48</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">3.36</td>
+<td align="center">0.36</td>
+</tr>
+<tr class="even">
+<td align="left">CVI</td>
+<td align="center"></td>
+<td align="center">0.85</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">1.07</td>
+<td align="center">0.06</td>
+</tr>
+<tr class="odd">
+<td align="left">SDNN</td>
+<td align="center"></td>
+<td align="center">0.72</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">1.40</td>
+<td align="center">0.09</td>
+</tr>
+<tr class="even">
+<td align="left">RMSSD</td>
+<td align="center"></td>
+<td align="center">0.68</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">1.51</td>
+<td align="center">0.25</td>
+</tr>
+<tr class="odd">
+<td align="left">S</td>
+<td align="center"></td>
+<td align="center">0.64</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">1.59</td>
+<td align="center">0.23</td>
+</tr>
+<tr class="even">
+<td align="left">CVNN</td>
+<td align="center"></td>
+<td align="center">0.63</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">2.04</td>
+<td align="center">0.14</td>
+</tr>
+<tr class="odd">
+<td align="left">SD2</td>
+<td align="center"></td>
+<td align="center">0.63</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">1.87</td>
+<td align="center">0.10</td>
+</tr>
+<tr class="even">
+<td align="left">TINN</td>
+<td align="center"></td>
+<td align="center">0.54</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">2.25</td>
+<td align="center">0.25</td>
+</tr>
+<tr class="odd">
+<td align="left">pNN50</td>
+<td align="center"></td>
+<td align="center">0.44</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">3.89</td>
+<td align="center">0.39</td>
+</tr>
+<tr class="even">
+<td align="left">CorrDim</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">0.85</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">1.53</td>
+<td align="center">0.08</td>
+</tr>
+<tr class="odd">
+<td align="left">LnHF</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">0.63</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">2.65</td>
+<td align="center">0.09</td>
+</tr>
+<tr class="even">
+<td align="left">VHF</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">0.63</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">1.79</td>
+<td align="center">0.47</td>
+</tr>
+<tr class="odd">
+<td align="left">SampEn</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">0.60</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">3.23</td>
+<td align="center">0.19</td>
+</tr>
+<tr class="even">
+<td align="left">HF</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">0.59</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">2.37</td>
+<td align="center">0.33</td>
+</tr>
+<tr class="odd">
+<td align="left">LF</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">0.58</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">2.76</td>
+<td align="center">0.42</td>
+</tr>
+<tr class="even">
+<td align="left">RCMSE</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">0.54</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">3.82</td>
+<td align="center">0.09</td>
+</tr>
+<tr class="odd">
+<td align="left">CMSE</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">0.47</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">4.63</td>
+<td align="center">0.12</td>
+</tr>
+<tr class="even">
+<td align="left">MadNN</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">0.97</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">1.02</td>
+<td align="center">0.01</td>
+</tr>
+<tr class="odd">
+<td align="left">MCVNN</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">0.92</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">1.10</td>
+<td align="center">0.06</td>
+</tr>
+<tr class="even">
+<td align="left">IQRNN</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">0.89</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">1.05</td>
+<td align="center">0.03</td>
+</tr>
+<tr class="odd">
+<td align="left">pNN20</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">0.45</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">4.14</td>
+<td align="center">0.26</td>
+</tr>
+<tr class="even">
+<td align="left">ApEn</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">0.84</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">1.38</td>
+<td align="center">0.07</td>
+</tr>
+<tr class="odd">
+<td align="left">HTI</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">0.83</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">1.19</td>
+<td align="center">0.16</td>
+</tr>
+<tr class="even">
+<td align="left">MSE</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">0.60</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">2.55</td>
+<td align="center">0.29</td>
+</tr>
+<tr class="odd">
+<td align="left">PIP</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">0.93</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">1.28</td>
+<td align="center">0.02</td>
+</tr>
+<tr class="even">
+<td align="left">IALS</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">0.91</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">1.20</td>
+<td align="center">0.10</td>
+</tr>
+<tr class="odd">
+<td align="left">PSS</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">0.81</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">1.26</td>
+<td align="center">0.29</td>
+</tr>
+<tr class="even">
+<td align="left">PAS</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">0.51</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">3.72</td>
+<td align="center">0.35</td>
+</tr>
+<tr class="odd">
+<td align="left">GI</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">1.01</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">1.01</td>
+<td align="center">4.76e-03</td>
+</tr>
+<tr class="even">
+<td align="left">AI</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">0.99</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">1.03</td>
+<td align="center">0.04</td>
+</tr>
+<tr class="odd">
+<td align="left">SI</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">0.95</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">1.09</td>
+<td align="center">0.02</td>
+</tr>
+<tr class="even">
+<td align="left">C1a</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">-0.26</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">4.52</td>
+<td align="center">0.81</td>
+</tr>
+<tr class="odd">
+<td align="left">MedianNN</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">1.02</td>
+<td align="center"></td>
+<td align="center">1.01</td>
+<td align="center">5.32e-03</td>
+</tr>
+<tr class="even">
+<td align="left">MeanNN</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">1.02</td>
+<td align="center"></td>
+<td align="center">1.02</td>
+<td align="center">0.02</td>
+</tr>
+<tr class="odd">
+<td align="left">C2a</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">0.86</td>
+<td align="center">1.07</td>
+<td align="center">0.34</td>
+</tr>
+<tr class="even">
+<td align="left">PI</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">0.80</td>
+<td align="center">1.08</td>
+<td align="center">0.38</td>
+</tr>
+<tr class="odd">
+<td align="left">Ca</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">0.71</td>
+<td align="center">1.43</td>
+<td align="center">0.43</td>
+</tr>
+</tbody>
+</table>
+<p>The 9 latent factors (oblimin rotation) accounted for 79.68% of the total variance of the original data (ML6 = 11.18%, ML8 = 12.34%, ML5 = 9.00%, ML3 = 10.61%, ML7 = 8.08%, ML4 = 7.85%, ML2 = 7.53%, ML1 = 7.30%, ML9 = 5.78%).</p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(efa)</span></code></pre></div>
+<p><img src="figures/unnamed-chunk-22-1.png" width="9000" /></p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>table_clusters<span class="sc">$</span>EFA_9 <span class="ot">&lt;-</span> <span class="fu">as.character</span>(parameters<span class="sc">::</span><span class="fu">closest_component</span>(efa))</span></code></pre></div>
+</div>
 </div>
 </div>
 </div>
@@ -832,116 +1771,147 @@ div.tocify {
 <h2>Cluster Structure</h2>
 <div id="clustering" class="section level3">
 <h3>Clustering</h3>
-<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Preprocessing</span></span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>z <span class="ot">&lt;-</span> <span class="fu">standardize</span>(data[hrv_cols])</span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>z <span class="ot">&lt;-</span> z[ , <span class="fu">colSums</span>(<span class="fu">is.na</span>(z)) <span class="sc">&gt;</span> <span class="fl">0.05</span> <span class="sc">*</span> <span class="fu">nrow</span>(z)]</span>
-<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>z[<span class="fu">is.na</span>(z)] <span class="ot">&lt;-</span> <span class="dv">0</span>  <span class="co"># mean imputation</span></span>
-<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>z <span class="ot">&lt;-</span> datawizard<span class="sc">::</span><span class="fu">data_transpose</span>(z)</span></code></pre></div>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Preprocessing</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>z <span class="ot">&lt;-</span> <span class="fu">standardize</span>(data[hrv_cols])</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>z <span class="ot">&lt;-</span> z[ , <span class="fu">colSums</span>(<span class="fu">is.na</span>(z)) <span class="sc">&gt;</span> <span class="fl">0.05</span> <span class="sc">*</span> <span class="fu">nrow</span>(z)]</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>z[<span class="fu">is.na</span>(z)] <span class="ot">&lt;-</span> <span class="dv">0</span>  <span class="co"># mean imputation</span></span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>z <span class="ot">&lt;-</span> datawizard<span class="sc">::</span><span class="fu">data_transpose</span>(z)</span></code></pre></div>
 <div id="k-means" class="section level4">
 <h4>K-Means</h4>
 <div id="how-many-clusters" class="section level5">
 <h5>How Many Clusters</h5>
-<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> parameters<span class="sc">::</span><span class="fu">n_clusters</span>(z, </span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>                            <span class="at">standardize =</span> <span class="cn">FALSE</span>, </span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>                            <span class="at">package=</span> <span class="fu">c</span>(<span class="st">&quot;NbClust&quot;</span>, <span class="st">&quot;easystats&quot;</span>, <span class="st">&quot;mclust&quot;</span>), </span>
-<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>                            <span class="at">nbclust_method =</span> <span class="st">&quot;ward.D2&quot;</span>,</span>
-<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>                            <span class="at">n_max =</span> <span class="dv">10</span>,</span>
-<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>                            <span class="at">fast =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>n</span></code></pre></div>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">3</span>)</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> parameters<span class="sc">::</span><span class="fu">n_clusters</span>(z, </span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>                            <span class="at">standardize =</span> <span class="cn">FALSE</span>, </span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>                            <span class="at">package=</span> <span class="fu">c</span>(<span class="st">&quot;NbClust&quot;</span>, <span class="st">&quot;easystats&quot;</span>, <span class="st">&quot;mclust&quot;</span>), </span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>                            <span class="at">nbclust_method =</span> <span class="st">&quot;kmeans&quot;</span>,</span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>                            <span class="at">n_max =</span> <span class="dv">9</span>,</span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>                            <span class="at">fast =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a>n</span></code></pre></div>
 <pre><code>&gt; # Method Agreement Procedure:
 &gt; 
-&gt; The choice of 5 clusters is supported by 6 (24.00%) methods out of 25 (Silhouette, kl, Ch, Hartigan, Cindex, Ratkowsky).</code></pre>
-<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(n) </span></code></pre></div>
-<p><img src="figures/unnamed-chunk-23-1.png" width="5824.92235949962" /></p>
+&gt; The choice of 8 clusters is supported by 6 (24.00%) methods out of 25 (Silhouette, Gap_Maechler2012, Gap_Dudoit2002, kl, Ch, Dunn).</code></pre>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(n) </span></code></pre></div>
+<p><img src="figures/unnamed-chunk-24-1.png" width="5824.92235949962" /></p>
 </div>
-<div id="clustering-1" class="section level5">
-<h5>Clustering</h5>
-<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>rez <span class="ot">&lt;-</span> parameters<span class="sc">::</span><span class="fu">cluster_analysis</span>(z, <span class="at">n =</span> <span class="dv">2</span>, <span class="at">method =</span> <span class="st">&quot;hkmeans&quot;</span>)</span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="fu">as.data.frame</span>(rez)[<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>]</span></code></pre></div>
+<div id="k-solution" class="section level5">
+<h5>8-K Solution</h5>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>rez <span class="ot">&lt;-</span> parameters<span class="sc">::</span><span class="fu">cluster_analysis</span>(z, <span class="at">n =</span> <span class="dv">8</span>, <span class="at">method =</span> <span class="st">&quot;hkmeans&quot;</span>)</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="fu">as.data.frame</span>(rez)[<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>]</span></code></pre></div>
 <pre><code>&gt;   Cluster n_Obs Sum_Squares
-&gt; 1       1    13        4816
-&gt; 2       2    15        5274</code></pre>
-<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cluster_performance</span>(rez)</span></code></pre></div>
+&gt; 1       1     6        1388
+&gt; 2       2     8        1775
+&gt; 3       3     3         365
+&gt; 4       4     4         656
+&gt; 5       5     2         285
+&gt; 6       6     1           0
+&gt; 7       7     3         732
+&gt; 8       8     1           0</code></pre>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cluster_performance</span>(rez)</span></code></pre></div>
 <pre><code>&gt; # Indices of model performance
 &gt; 
 &gt; Sum_Squares_Total | Sum_Squares_Between | Sum_Squares_Within |    R2
 &gt; --------------------------------------------------------------------
-&gt; 12204.000         |            2114.394 |          10089.606 | 0.173</code></pre>
-<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(rez)</span></code></pre></div>
-<p><img src="figures/unnamed-chunk-24-1.png" width="5824.92235949962" /></p>
-<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>table_clusters<span class="sc">$</span>Kmeans <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
-<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>table_clusters<span class="sc">$</span>Kmeans[table_clusters<span class="sc">$</span>Index <span class="sc">%in%</span> <span class="fu">row.names</span>(z)] <span class="ot">&lt;-</span> <span class="fu">as.character</span>(<span class="fu">predict</span>(rez))</span></code></pre></div>
+&gt; 13392.000         |            8191.287 |           5200.713 | 0.612</code></pre>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(rez)</span></code></pre></div>
+<p><img src="figures/unnamed-chunk-25-1.png" width="5824.92235949962" /></p>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>table_clusters<span class="sc">$</span>Kmeans_8 <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>table_clusters<span class="sc">$</span>Kmeans_8[table_clusters<span class="sc">$</span>Index <span class="sc">%in%</span> <span class="fu">row.names</span>(z)] <span class="ot">&lt;-</span> <span class="fu">as.character</span>(<span class="fu">predict</span>(rez))</span></code></pre></div>
+</div>
+<div id="k-solution-1" class="section level5">
+<h5>5-K Solution</h5>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>rez <span class="ot">&lt;-</span> parameters<span class="sc">::</span><span class="fu">cluster_analysis</span>(z, <span class="at">n =</span> <span class="dv">5</span>, <span class="at">method =</span> <span class="st">&quot;hkmeans&quot;</span>)</span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a><span class="fu">as.data.frame</span>(rez)[<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>]</span></code></pre></div>
+<pre><code>&gt;   Cluster n_Obs Sum_Squares
+&gt; 1       1    10        3394
+&gt; 2       2    11        3071
+&gt; 3       3     3         905
+&gt; 4       4     3         732
+&gt; 5       5     1           0</code></pre>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cluster_performance</span>(rez)</span></code></pre></div>
+<pre><code>&gt; # Indices of model performance
+&gt; 
+&gt; Sum_Squares_Total | Sum_Squares_Between | Sum_Squares_Within |    R2
+&gt; --------------------------------------------------------------------
+&gt; 13392.000         |            5290.307 |           8101.693 | 0.395</code></pre>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(rez)</span></code></pre></div>
+<p><img src="figures/unnamed-chunk-26-1.png" width="5824.92235949962" /></p>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>table_clusters<span class="sc">$</span>Kmeans_5 <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>table_clusters<span class="sc">$</span>Kmeans_5[table_clusters<span class="sc">$</span>Index <span class="sc">%in%</span> <span class="fu">row.names</span>(z)] <span class="ot">&lt;-</span> <span class="fu">as.character</span>(<span class="fu">predict</span>(rez))</span></code></pre></div>
 </div>
 </div>
 <div id="hierarchial-clustering" class="section level4">
 <h4>Hierarchial Clustering</h4>
-<div id="clustering-2" class="section level5">
+<div id="clustering-1" class="section level5">
 <h5>Clustering</h5>
-<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>rez <span class="ot">&lt;-</span> parameters<span class="sc">::</span><span class="fu">cluster_analysis</span>(z, <span class="at">n =</span> <span class="cn">NULL</span>, <span class="at">standardize =</span> <span class="cn">FALSE</span>, <span class="at">method =</span> <span class="st">&quot;hclust&quot;</span>, <span class="at">distance_method =</span> <span class="st">&quot;correlation&quot;</span>, <span class="at">hclust_method =</span> <span class="st">&quot;average&quot;</span>, <span class="at">ci =</span> <span class="fl">0.90</span>)</span>
-<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a><span class="fu">as.data.frame</span>(rez)[<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>rez <span class="ot">&lt;-</span> parameters<span class="sc">::</span><span class="fu">cluster_analysis</span>(z, <span class="at">n =</span> <span class="cn">NULL</span>, <span class="at">standardize =</span> <span class="cn">FALSE</span>, <span class="at">method =</span> <span class="st">&quot;hclust&quot;</span>, <span class="at">distance_method =</span> <span class="st">&quot;correlation&quot;</span>, <span class="at">hclust_method =</span> <span class="st">&quot;average&quot;</span>, <span class="at">ci =</span> <span class="fl">0.90</span>)</span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a><span class="fu">as.data.frame</span>(rez)[<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>]</span></code></pre></div>
 <pre><code>&gt;   Cluster n_Obs Sum_Squares
-&gt; 1       0    13        3200
-&gt; 2       1     3          44
-&gt; 3       2     2          29
-&gt; 4       3     2         122
-&gt; 5       4     3         370
-&gt; 6       5     5         794</code></pre>
-<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cluster_performance</span>(rez)</span></code></pre></div>
+&gt; 1       0    10        2709
+&gt; 2       1     2          34
+&gt; 3       2     3          99
+&gt; 4       3     2          79
+&gt; 5       4     2         191
+&gt; 6       5     3         418
+&gt; 7       6     6        1089</code></pre>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cluster_performance</span>(rez)</span></code></pre></div>
 <pre><code>&gt; # Indices of model performance
 &gt; 
 &gt; Sum_Squares_Total | Sum_Squares_Between | Sum_Squares_Within |    R2
 &gt; --------------------------------------------------------------------
-&gt; 8437.555          |            3879.162 |           1358.245 | 0.460</code></pre>
-<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(rez)</span></code></pre></div>
-<p><img src="figures/unnamed-chunk-25-1.png" width="5824.92235949962" /></p>
-<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>table_clusters<span class="sc">$</span>Hclust <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
-<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>table_clusters<span class="sc">$</span>Hclust[table_clusters<span class="sc">$</span>Index <span class="sc">%in%</span> <span class="fu">row.names</span>(z)] <span class="ot">&lt;-</span> <span class="fu">as.character</span>(<span class="fu">predict</span>(rez))</span>
-<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>table_clusters<span class="sc">$</span>Hclust[table_clusters<span class="sc">$</span>Hclust <span class="sc">==</span> <span class="st">&quot;0&quot;</span>] <span class="ot">&lt;-</span> <span class="cn">NA</span></span></code></pre></div>
+&gt; 9532.342          |            4913.468 |           1909.807 | 0.515</code></pre>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(rez)</span></code></pre></div>
+<p><img src="figures/unnamed-chunk-27-1.png" width="5824.92235949962" /></p>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>table_clusters<span class="sc">$</span>Hclust <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>table_clusters<span class="sc">$</span>Hclust[table_clusters<span class="sc">$</span>Index <span class="sc">%in%</span> <span class="fu">row.names</span>(z)] <span class="ot">&lt;-</span> <span class="fu">as.character</span>(<span class="fu">predict</span>(rez))</span>
+<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a>table_clusters<span class="sc">$</span>Hclust[table_clusters<span class="sc">$</span>Hclust <span class="sc">==</span> <span class="st">&quot;0&quot;</span>] <span class="ot">&lt;-</span> <span class="cn">NA</span></span></code></pre></div>
 </div>
 <div id="dendrogram-1" class="section level5">
 <h5>Dendrogram</h5>
-<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>clusters <span class="ot">&lt;-</span> table_clusters<span class="sc">$</span>Hclust</span>
-<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(clusters) <span class="ot">&lt;-</span> table_clusters<span class="sc">$</span>Index</span>
-<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_dendrogram</span>(<span class="at">model =</span> <span class="fu">attributes</span>(rez)<span class="sc">$</span>model<span class="sc">$</span>hclust, <span class="at">clusters =</span> clusters)</span></code></pre></div>
-<p><img src="figures/unnamed-chunk-26-1.png" width="5824.92235949962" /></p>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>clusters <span class="ot">&lt;-</span> table_clusters<span class="sc">$</span>Hclust</span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(clusters) <span class="ot">&lt;-</span> table_clusters<span class="sc">$</span>Index</span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_dendrogram</span>(<span class="at">model =</span> <span class="fu">attributes</span>(rez)<span class="sc">$</span>model<span class="sc">$</span>hclust, <span class="at">clusters =</span> clusters)</span></code></pre></div>
+<p><img src="figures/unnamed-chunk-28-1.png" width="5824.92235949962" /></p>
 </div>
 </div>
 <div id="dbscan" class="section level4">
 <h4>DBSCAN</h4>
 <div id="parameters-selection" class="section level5">
 <h5>Parameters Selection</h5>
-<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">n_clusters_dbscan</span>(z, <span class="at">standardize =</span> <span class="cn">FALSE</span>, <span class="at">eps_range =</span> <span class="fu">c</span>(<span class="fl">0.1</span>, <span class="dv">30</span>), <span class="at">min_size =</span> <span class="dv">2</span>, <span class="at">method =</span> <span class="st">&quot;kNN&quot;</span>)</span>
-<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(n)</span></code></pre></div>
-<p><img src="figures/unnamed-chunk-27-1.png" width="5824.92235949962" /></p>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">n_clusters_dbscan</span>(z, <span class="at">standardize =</span> <span class="cn">FALSE</span>, <span class="at">eps_range =</span> <span class="fu">c</span>(<span class="fl">0.1</span>, <span class="dv">30</span>), <span class="at">min_size =</span> <span class="dv">2</span>, <span class="at">method =</span> <span class="st">&quot;kNN&quot;</span>)</span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(n)</span></code></pre></div>
+<p><img src="figures/unnamed-chunk-29-1.png" width="5824.92235949962" /></p>
 </div>
-<div id="clustering-3" class="section level5">
+<div id="clustering-2" class="section level5">
 <h5>Clustering</h5>
-<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>rez <span class="ot">&lt;-</span> parameters<span class="sc">::</span><span class="fu">cluster_analysis</span>(z, <span class="at">n =</span> <span class="cn">NULL</span>, <span class="at">standardize =</span> <span class="cn">FALSE</span>, <span class="at">method =</span> <span class="st">&quot;dbscan&quot;</span>, <span class="at">dbscan_eps =</span> <span class="dv">16</span>, <span class="at">min_size =</span> <span class="dv">2</span>)</span>
-<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a><span class="fu">as.data.frame</span>(rez)[<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>rez <span class="ot">&lt;-</span> parameters<span class="sc">::</span><span class="fu">cluster_analysis</span>(z, <span class="at">n =</span> <span class="cn">NULL</span>, <span class="at">standardize =</span> <span class="cn">FALSE</span>, <span class="at">method =</span> <span class="st">&quot;dbscan&quot;</span>, <span class="at">dbscan_eps =</span> <span class="dv">16</span>, <span class="at">min_size =</span> <span class="dv">2</span>)</span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a><span class="fu">as.data.frame</span>(rez)[<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>]</span></code></pre></div>
 <pre><code>&gt;   Cluster n_Obs Sum_Squares
-&gt; 1       0    12        3712
-&gt; 2       1     2         122
-&gt; 3       2     5         555
-&gt; 4       3     3         207
-&gt; 5       4     3          44
-&gt; 6       5     3         191</code></pre>
-<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cluster_performance</span>(rez)</span></code></pre></div>
+&gt; 1       0    16        5638
+&gt; 2       1     2          89
+&gt; 3       2     3         233
+&gt; 4       3     2          79
+&gt; 5       4     3          99
+&gt; 6       5     2          34</code></pre>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cluster_performance</span>(rez)</span></code></pre></div>
 <pre><code>&gt; # Indices of model performance
 &gt; 
 &gt; Sum_Squares_Total | Sum_Squares_Between | Sum_Squares_Within |    R2
 &gt; --------------------------------------------------------------------
-&gt; 8437.555          |            3606.469 |           1119.148 | 0.427</code></pre>
-<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(rez)</span></code></pre></div>
-<p><img src="figures/unnamed-chunk-28-1.png" width="5824.92235949962" /></p>
-<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>table_clusters<span class="sc">$</span>DBSCAN <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
-<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>table_clusters<span class="sc">$</span>DBSCAN[table_clusters<span class="sc">$</span>Index <span class="sc">%in%</span> <span class="fu">row.names</span>(z)] <span class="ot">&lt;-</span> <span class="fu">as.character</span>(<span class="fu">predict</span>(rez))</span>
-<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a>table_clusters<span class="sc">$</span>DBSCAN[table_clusters<span class="sc">$</span>DBSCAN <span class="sc">==</span> <span class="st">&quot;0&quot;</span>] <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
-<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a><span class="fu">row.names</span>(table_clusters) <span class="ot">&lt;-</span> table_clusters<span class="sc">$</span>Index</span></code></pre></div>
+&gt; 9532.342          |            3359.742 |            534.249 | 0.352</code></pre>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(rez)</span></code></pre></div>
+<p><img src="figures/unnamed-chunk-30-1.png" width="5824.92235949962" /></p>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a>table_clusters<span class="sc">$</span>DBSCAN <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
+<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a>table_clusters<span class="sc">$</span>DBSCAN[table_clusters<span class="sc">$</span>Index <span class="sc">%in%</span> <span class="fu">row.names</span>(z)] <span class="ot">&lt;-</span> <span class="fu">as.character</span>(<span class="fu">predict</span>(rez))</span>
+<span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a>table_clusters<span class="sc">$</span>DBSCAN[table_clusters<span class="sc">$</span>DBSCAN <span class="sc">==</span> <span class="st">&quot;0&quot;</span>] <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
+<span id="cb56-4"><a href="#cb56-4" aria-hidden="true" tabindex="-1"></a><span class="fu">row.names</span>(table_clusters) <span class="ot">&lt;-</span> table_clusters<span class="sc">$</span>Index</span></code></pre></div>
 </div>
 </div>
 </div>
@@ -950,38 +1920,48 @@ div.tocify {
 <h2>Summary</h2>
 <div id="comparison-of-structures" class="section level3">
 <h3>Comparison of Structures</h3>
-<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Initialize matrix</span></span>
-<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="at">data=</span><span class="cn">NA</span>, <span class="at">nrow=</span><span class="fu">nrow</span>(table_clusters), <span class="at">ncol=</span><span class="fu">nrow</span>(table_clusters), <span class="at">dimnames =</span> <span class="fu">list</span>(table_clusters<span class="sc">$</span>Index, table_clusters<span class="sc">$</span>Index))</span>
-<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb49-5"><a href="#cb49-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(row <span class="cf">in</span> <span class="fu">row.names</span>(m)) {</span>
-<span id="cb49-6"><a href="#cb49-6" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span>(col <span class="cf">in</span> <span class="fu">colnames</span>(m)) {</span>
-<span id="cb49-7"><a href="#cb49-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span>(row <span class="sc">==</span> col) {</span>
-<span id="cb49-8"><a href="#cb49-8" aria-hidden="true" tabindex="-1"></a>      m[row, col] <span class="ot">&lt;-</span> <span class="dv">1</span></span>
-<span id="cb49-9"><a href="#cb49-9" aria-hidden="true" tabindex="-1"></a>      <span class="cf">next</span></span>
-<span id="cb49-10"><a href="#cb49-10" aria-hidden="true" tabindex="-1"></a>    } </span>
-<span id="cb49-11"><a href="#cb49-11" aria-hidden="true" tabindex="-1"></a>    subset <span class="ot">&lt;-</span> table_clusters[table_clusters<span class="sc">$</span>Index <span class="sc">%in%</span> <span class="fu">c</span>(row, col), ]</span>
-<span id="cb49-12"><a href="#cb49-12" aria-hidden="true" tabindex="-1"></a>    rez <span class="ot">&lt;-</span> <span class="fu">sapply</span>(subset[<span class="dv">2</span><span class="sc">:</span><span class="fu">ncol</span>(subset)], <span class="cf">function</span>(x) <span class="fu">ifelse</span>(<span class="fu">length</span>(<span class="fu">unique</span>(x[<span class="sc">!</span><span class="fu">is.na</span>(x)])) <span class="sc">==</span> <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>))</span>
-<span id="cb49-13"><a href="#cb49-13" aria-hidden="true" tabindex="-1"></a>    m[row, col] <span class="ot">&lt;-</span> <span class="fu">sum</span>(rez) <span class="sc">/</span> <span class="fu">length</span>(rez)</span>
-<span id="cb49-14"><a href="#cb49-14" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb49-15"><a href="#cb49-15" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
-<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>m <span class="ot">&lt;-</span> correlation<span class="sc">::</span><span class="fu">cor_sort</span>(m, <span class="at">distance =</span> <span class="st">&quot;raw&quot;</span>, <span class="at">hclust_method =</span> <span class="st">&quot;ward.D2&quot;</span>)</span>
-<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a>m <span class="sc">%&gt;%</span> </span>
-<span id="cb50-4"><a href="#cb50-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.data.frame</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb50-5"><a href="#cb50-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rownames_to_column</span>(<span class="st">&quot;Index1&quot;</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb50-6"><a href="#cb50-6" aria-hidden="true" tabindex="-1"></a>  datawizard<span class="sc">::</span><span class="fu">reshape_longer</span>(<span class="at">cols =</span> hrv_cols, <span class="at">colnames_to =</span> <span class="st">&quot;Index2&quot;</span>, <span class="at">values_to =</span> <span class="st">&quot;Probability&quot;</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb50-7"><a href="#cb50-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Index1 =</span> <span class="fu">factor</span>(Index1, <span class="at">levels =</span> <span class="fu">row.names</span>(m)),</span>
-<span id="cb50-8"><a href="#cb50-8" aria-hidden="true" tabindex="-1"></a>         <span class="at">Index2 =</span> <span class="fu">factor</span>(Index2, <span class="at">levels =</span> <span class="fu">rev</span>(<span class="fu">row.names</span>(m)))) <span class="sc">%&gt;%</span> </span>
-<span id="cb50-9"><a href="#cb50-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Index1, <span class="at">y =</span> Index2)) <span class="sc">+</span></span>
-<span id="cb50-10"><a href="#cb50-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_tile</span>(<span class="fu">aes</span>(<span class="at">fill =</span> Probability))</span></code></pre></div>
-<p><img src="figures/unnamed-chunk-30-1.png" width="5824.92235949962" /></p>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Initialize matrix</span></span>
+<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="at">data=</span><span class="cn">NA</span>, <span class="at">nrow=</span><span class="fu">nrow</span>(table_clusters), <span class="at">ncol=</span><span class="fu">nrow</span>(table_clusters), <span class="at">dimnames =</span> <span class="fu">list</span>(table_clusters<span class="sc">$</span>Index, table_clusters<span class="sc">$</span>Index))</span>
+<span id="cb57-3"><a href="#cb57-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-4"><a href="#cb57-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-5"><a href="#cb57-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(row <span class="cf">in</span> <span class="fu">row.names</span>(m)) {</span>
+<span id="cb57-6"><a href="#cb57-6" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span>(col <span class="cf">in</span> <span class="fu">colnames</span>(m)) {</span>
+<span id="cb57-7"><a href="#cb57-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span>(row <span class="sc">==</span> col) {</span>
+<span id="cb57-8"><a href="#cb57-8" aria-hidden="true" tabindex="-1"></a>      m[row, col] <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb57-9"><a href="#cb57-9" aria-hidden="true" tabindex="-1"></a>      <span class="cf">next</span></span>
+<span id="cb57-10"><a href="#cb57-10" aria-hidden="true" tabindex="-1"></a>    } </span>
+<span id="cb57-11"><a href="#cb57-11" aria-hidden="true" tabindex="-1"></a>    subset <span class="ot">&lt;-</span> table_clusters[table_clusters<span class="sc">$</span>Index <span class="sc">%in%</span> <span class="fu">c</span>(row, col), ]</span>
+<span id="cb57-12"><a href="#cb57-12" aria-hidden="true" tabindex="-1"></a>    rez <span class="ot">&lt;-</span> <span class="fu">sapply</span>(subset[<span class="dv">2</span><span class="sc">:</span><span class="fu">ncol</span>(subset)], <span class="cf">function</span>(x) {</span>
+<span id="cb57-13"><a href="#cb57-13" aria-hidden="true" tabindex="-1"></a>      <span class="cf">if</span>(<span class="fu">any</span>(<span class="fu">is.na</span>(x))) {</span>
+<span id="cb57-14"><a href="#cb57-14" aria-hidden="true" tabindex="-1"></a>        <span class="dv">0</span></span>
+<span id="cb57-15"><a href="#cb57-15" aria-hidden="true" tabindex="-1"></a>      } <span class="cf">else</span> {</span>
+<span id="cb57-16"><a href="#cb57-16" aria-hidden="true" tabindex="-1"></a>        <span class="fu">ifelse</span>(<span class="fu">length</span>(<span class="fu">unique</span>(x[<span class="sc">!</span><span class="fu">is.na</span>(x)])) <span class="sc">==</span> <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>)</span>
+<span id="cb57-17"><a href="#cb57-17" aria-hidden="true" tabindex="-1"></a>      }</span>
+<span id="cb57-18"><a href="#cb57-18" aria-hidden="true" tabindex="-1"></a>      })</span>
+<span id="cb57-19"><a href="#cb57-19" aria-hidden="true" tabindex="-1"></a>    m[row, col] <span class="ot">&lt;-</span> <span class="fu">sum</span>(rez) <span class="sc">/</span> <span class="fu">length</span>(rez)</span>
+<span id="cb57-20"><a href="#cb57-20" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb57-21"><a href="#cb57-21" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a>m <span class="ot">&lt;-</span> correlation<span class="sc">::</span><span class="fu">cor_sort</span>(m, <span class="at">distance =</span> <span class="st">&quot;raw&quot;</span>, <span class="at">hclust_method =</span> <span class="st">&quot;ward.D2&quot;</span>)</span>
+<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-3"><a href="#cb58-3" aria-hidden="true" tabindex="-1"></a>m <span class="sc">%&gt;%</span> </span>
+<span id="cb58-4"><a href="#cb58-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.data.frame</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb58-5"><a href="#cb58-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rownames_to_column</span>(<span class="st">&quot;Index1&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb58-6"><a href="#cb58-6" aria-hidden="true" tabindex="-1"></a>  datawizard<span class="sc">::</span><span class="fu">reshape_longer</span>(<span class="at">cols =</span> hrv_cols, <span class="at">colnames_to =</span> <span class="st">&quot;Index2&quot;</span>, <span class="at">values_to =</span> <span class="st">&quot;Probability&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb58-7"><a href="#cb58-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Index1 =</span> <span class="fu">factor</span>(Index1, <span class="at">levels =</span> <span class="fu">row.names</span>(m)),</span>
+<span id="cb58-8"><a href="#cb58-8" aria-hidden="true" tabindex="-1"></a>         <span class="at">Index2 =</span> <span class="fu">factor</span>(Index2, <span class="at">levels =</span> <span class="fu">rev</span>(<span class="fu">row.names</span>(m)))) <span class="sc">%&gt;%</span> </span>
+<span id="cb58-9"><a href="#cb58-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Index1, <span class="at">y =</span> Index2)) <span class="sc">+</span></span>
+<span id="cb58-10"><a href="#cb58-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_tile</span>(<span class="fu">aes</span>(<span class="at">fill =</span> Probability)) <span class="sc">+</span></span>
+<span id="cb58-11"><a href="#cb58-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb58-12"><a href="#cb58-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">90</span>, <span class="at">hjust =</span> <span class="dv">1</span>)) <span class="sc">+</span></span>
+<span id="cb58-13"><a href="#cb58-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="cn">NULL</span>, <span class="at">y =</span> <span class="cn">NULL</span>) <span class="sc">+</span></span>
+<span id="cb58-14"><a href="#cb58-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_gradient2</span>(<span class="at">low =</span> <span class="st">&quot;red&quot;</span>, <span class="at">mid =</span> <span class="st">&quot;yellow&quot;</span>, <span class="at">high =</span> <span class="st">&quot;green&quot;</span>, <span class="at">midpoint =</span> <span class="fl">0.5</span>)</span></code></pre></div>
+<p><img src="figures/unnamed-chunk-32-1.png" width="5824.92235949962" /></p>
 </div>
 <div id="summary-1" class="section level3">
 <h3>Summary</h3>
-<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hclust</span>(<span class="fu">as.dist</span>(m)) <span class="sc">%&gt;%</span> </span>
-<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot_dendrogram</span>(<span class="at">clusters =</span> <span class="cn">NULL</span>, <span class="at">ylim =</span> <span class="sc">-</span><span class="fl">0.3</span>, <span class="at">nudge_y =</span> <span class="sc">-</span><span class="fl">0.02</span>, <span class="at">angle =</span> <span class="dv">90</span>, <span class="at">points =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
-<p><img src="figures/unnamed-chunk-31-1.png" width="5824.92235949962" /></p>
+<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hclust</span>(<span class="fu">as.dist</span>(m)) <span class="sc">%&gt;%</span> </span>
+<span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot_dendrogram</span>(<span class="at">clusters =</span> <span class="cn">NULL</span>, <span class="at">ylim =</span> <span class="sc">-</span><span class="fl">0.3</span>, <span class="at">nudge_y =</span> <span class="sc">-</span><span class="fl">0.02</span>, <span class="at">angle =</span> <span class="dv">90</span>, <span class="at">points =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<p><img src="figures/unnamed-chunk-33-1.png" width="5824.92235949962" /></p>
 <!-- ### Gaussian Graphical Model -->
 <!-- ```{r, message=FALSE, warning=FALSE, fig.width=17, fig.height=17} -->
 <!-- library(ggraph) -->
@@ -1052,7 +2032,7 @@ Moody, G. B., &amp; Mark, R. G. (2001). The impact of the MIT-BIH arrhythmia dat
 </div>
 </div>
 
-<div id="rmd-source-code">LS0tDQp0aXRsZTogJyoqQ29uY2VwdHVhbCB2cy4gT2JzZXJ2ZWQgU3RydWN0dXJlIG9mIEhlYXJ0IFJhdGUgVmFyaWFiaWxpdHkgKEhSVikgSW5kaWNlcyoqJw0Kc3VidGl0bGU6ICJEYXRhIEFuYWx5c2lzIg0Kb3V0cHV0Og0KICBodG1sX2RvY3VtZW50Og0KICAgIHNlbGZfY29udGFpbmVkOiBmYWxzZQ0KICAgIHRoZW1lOiBjZXJ1bGVhbg0KICAgIGhpZ2hsaWdodDogcHlnbWVudHMNCiAgICB0b2M6IHllcw0KICAgIHRvY19kZXB0aDogMw0KICAgIHRvY19mbG9hdDogeWVzDQogICAgbnVtYmVyX3NlY3Rpb25zOiBubw0KICAgIGRmX3ByaW50OiBkZWZhdWx0DQogICAgY29kZV9mb2xkaW5nOiBoaWRlDQogICAgY29kZV9kb3dubG9hZDogeWVzDQogIHdvcmRfZG9jdW1lbnQ6DQogICAgcmVmZXJlbmNlX2RvY3g6IHV0aWxzL1RlbXBsYXRlX1dvcmQuZG9jeA0KICAgIGhpZ2hsaWdodDogcHlnbWVudHMNCiAgICB0b2M6IG5vDQogICAgdG9jX2RlcHRoOiAzDQogICAgZGZfcHJpbnQ6IGRlZmF1bHQNCiAgICBudW1iZXJfc2VjdGlvbnM6IHllcw0KICBybWFya2Rvd246Omh0bWxfdmlnbmV0dGU6DQogICAgdG9jOiB5ZXMNCiAgICB0b2NfZGVwdGg6IDMNCiAgcGRmX2RvY3VtZW50Og0KICAgIHRvYzogeWVzDQogICAgdG9jX2RlcHRoOiAnMicNCiAgICBsYXRleF9lbmdpbmU6IHhlbGF0ZXgNCmVkaXRvcl9vcHRpb25zOg0KICBjaHVua19vdXRwdXRfdHlwZTogY29uc29sZQ0KYmlibGlvZ3JhcGh5OiB1dGlscy9yZWZlcmVuY2VzLmJpYg0KY3NsOiB1dGlscy9hcGEuY3NsDQotLS0NCg0KDQo8IS0tIA0KISEhISBJTVBPUlRBTlQ6IHJ1biBgc291cmNlKCJ1dGlscy9yZW5kZXIuUiIpYCB0byBwdWJsaXNoIGluc3RlYWQgb2YgY2xpY2tpbmcgb24gJ0tuaXQnDQotLT4NCg0KYGBge3Igc2V0dXAsIHdhcm5pbmc9RkFMU0UsIG1lc3NhZ2U9VFJVRSwgaW5jbHVkZT1GQUxTRX0NCiMgU2V0IHVwIHRoZSBlbnZpcm9ubWVudCAob3IgdXNlIGxvY2FsIGFsdGVybmF0aXZlIGBzb3VyY2UoInV0aWxzL2NvbmZpZy5SIilgKQ0Kc291cmNlKCJodHRwczovL3Jhdy5naXRodWJ1c2VyY29udGVudC5jb20vUmVhbGl0eUJlbmRpbmcvVGVtcGxhdGVSZXN1bHRzL21haW4vdXRpbHMvY29uZmlnLlIiKSAgDQoNCmZhc3QgPC0gRkFMU0UgICMgTWFrZSB0aGlzIGZhbHNlIHRvIHNraXAgdGhlIGNodW5rcw0KDQojIFNldCB0aGVtZQ0KZ2dwbG90Mjo6dGhlbWVfc2V0KHNlZTo6dGhlbWVfbW9kZXJuKCkpDQoNCnNvdXJjZV9ybWQgPC0gZnVuY3Rpb24oeCl7DQogIGZpbGUgPC0ga25pdHI6OnB1cmwoeCwgcXVpZXQ9VFJVRSkNCiAgc291cmNlKGZpbGUpDQogIGlmIChmaWxlLmV4aXN0cyhmaWxlKSkgZmlsZS5yZW1vdmUoZmlsZSkNCn0NCmBgYA0KDQojIEludHJvZHVjdGlvbg0KYGBge3IgYmFkZ2VzLCBlY2hvPUZBTFNFLCBtZXNzYWdlPVRSVUUsIHdhcm5pbmc9RkFMU0UsIHJlc3VsdHM9J2FzaXMnfQ0KIyBUaGlzIGNodW5rIGlzIGEgYml0IGNvbXBsZXggc28gZG9uJ3Qgd29ycnkgYWJvdXQgaXQ6IGl0J3MgbWFkZSB0byBhZGQgYmFkZ2VzIHRvIHRoZSBIVE1MIHZlcnNpb25zDQojIE5PVEU6IFlvdSBoYXZlIHRvIHJlcGxhY2UgdGhlIGxpbmtzIGFjY29yZGluZ2x5IHRvIGhhdmUgd29ya2luZyAiYnV0dG9ucyIgb24gdGhlIEhUTUwgdmVyc2lvbnMNCmlmICgha25pdHI6OmlzX2xhdGV4X291dHB1dCgpICYmIGtuaXRyOjppc19odG1sX291dHB1dCgpKSB7DQogIGNhdCgiIVtCdWlsZF0oaHR0cHM6Ly9naXRodWIuY29tL1RhbS1QaGFtL0hSVlN0cnVjdHVyZS93b3JrZmxvd3MvQnVpbGQvYmFkZ2Uuc3ZnKQ0KICAgICAgWyFbV2Vic2l0ZV0oaHR0cHM6Ly9pbWcuc2hpZWxkcy5pby9iYWRnZS9yZXBvLVJlYWRtZS0yMTk2RjMpXShodHRwczovL2dpdGh1Yi5jb20vVGFtLVBoYW0vSFJWU3RydWN0dXJlKQ0KICAgICAgWyFbV2Vic2l0ZV0oaHR0cHM6Ly9pbWcuc2hpZWxkcy5pby9iYWRnZS92aXNpdC13ZWJzaXRlLUU5MUU2MyldKGh0dHBzOi8vcmVhbGl0eWJlbmRpbmcuZ2l0aHViLmlvL1RlbXBsYXRlUmVzdWx0cy8pDQogICAgICBbIVtXZWJzaXRlXShodHRwczovL2ltZy5zaGllbGRzLmlvL2JhZGdlL2Rvd25sb2FkLS5kb2N4LUZGNTcyMildKGh0dHBzOi8vZ2l0aHViLmNvbS9SZWFsaXR5QmVuZGluZy9UZW1wbGF0ZVJlc3VsdHMvcmF3L21haW4vd29yZF9hbmRfcGRmL1N1cHBsZW1lbnRhcnlNYXRlcmlhbHMuZG9jeCkNCiAgICAgIFshW1dlYnNpdGVdKGh0dHBzOi8vaW1nLnNoaWVsZHMuaW8vYmFkZ2Uvc2VlLS5wZGYtRkY5ODAwKV0oaHR0cHM6Ly9naXRodWIuY29tL1JlYWxpdHlCZW5kaW5nL1RlbXBsYXRlUmVzdWx0cy9ibG9iL21haW4vd29yZF9hbmRfcGRmL1N1cHBsZW1lbnRhcnlNYXRlcmlhbHMucGRmKSIpDQp9DQpgYGANCg0KDQoNClRoZSBhaW0gb2YgdGhpcyBzdHVkeSBpcyB0byBleHBsb3JlIHRoZSBmYWN0b3Igc3RydWN0dXJlIG9mIEhSViBpbmRpY2VzLg0KDQojIE1ldGhvZHMNCg0KDQojIyBEYXRhYmFzZXMNCg0KIyMjIEdsYXNnb3cgVW5pdmVyc2l0eSBEYXRhYmFzZQ0KDQpUaGUgR1VEQiBEYXRhYmFzZSBbQGhvd2VsbDIwMThoaWdoXSBjb250YWlucyBFQ0dzIGZyb20gMjUgc3ViamVjdHMuIEVhY2ggc3ViamVjdCB3YXMgcmVjb3JkZWQgcGVyZm9ybWluZyA1IGRpZmZlcmVudCB0YXNrcyBmb3IgdHdvIG1pbnV0ZXMgKHNpdHRpbmcsIGRvaW5nIGEgbWF0aHMgdGVzdCBvbiBhIHRhYmxldCwgd2Fsa2luZyBvbiBhIHRyZWFkbWlsbCwgcnVubmluZyBvbiBhIHRyZWFkbWlsbCwgdXNpbmcgYSBoYW5kIGJpa2UpLiBUaGUgc2FtcGxpbmcgcmF0ZSBpcyAyNTBIeiBmb3IgYWxsIHRoZSBjb25kaXRpb25zLg0KDQpUaGUgc2NyaXB0IHRvIGRvd25sb2FkIGFuZCBmb3JtYXQgdGhlIGRhdGFiYXNlIHVzaW5nIHRoZSBbKipFQ0ctR1VEQioqXShodHRwczovL2dpdGh1Yi5jb20vYmVybmRwb3JyL0VDRy1HVURCKSBQeXRob24gcGFja2FnZSBieSBCZXJuZCBQb3JyIGNhbiBiZSBmb3VuZCBbKipoZXJlKipdKGh0dHBzOi8vZ2l0aHViLmNvbS9uZXVyb3BzeWNob2xvZ3kvTmV1cm9LaXQvYmxvYi9kZXYvZGF0YS9ndWRiL2Rvd25sb2FkX2d1ZGIucHkpLg0KDQojIyMgTUlULUJJSCBBcnJoeXRobWlhIERhdGFiYXNlDQoNClRoZSBNSVQtQklIIEFycmh5dGhtaWEgRGF0YWJhc2UgW01JVC1BcnJoeXRobWlhOyBAbW9vZHkyMDAxaW1wYWN0XSBjb250YWlucyA0OCBleGNlcnB0cyBvZiAzMC1taW4gb2YgdHdvLWNoYW5uZWwgYW1idWxhdG9yeSBFQ0cgcmVjb3JkaW5ncyBzYW1wbGVkIGF0IDM2MEh6IGFuZCAyNSBhZGRpdGlvbmFsIHJlY29yZGluZ3MgZnJvbSB0aGUgc2FtZSBwYXJ0aWNpcGFudHMgaW5jbHVkaW5nIGNvbW1vbiBidXQgY2xpbmljYWxseSBzaWduaWZpY2FudCBhcnJoeXRobWlhcyAoZGVub3RlZCBhcyB0aGUgYE1JVC1BcnJoeXRobWlhLXhgIGRhdGFiYXNlKS4NCg0KVGhlIHNjcmlwdCB0byBkb3dubG9hZCBhbmQgZm9ybWF0IHRoZSBkYXRhYmFzZSB1c2luZyB0aGUgY2FuIGJlIGZvdW5kIFsqKmhlcmUqKl0oaHR0cHM6Ly9naXRodWIuY29tL25ldXJvcHN5Y2hvbG9neS9OZXVyb0tpdC9ibG9iL2Rldi9kYXRhL21pdF9hcnJoeXRobWlhL2Rvd25sb2FkX21pdF9hcnJoeXRobWlhLnB5KS4NCg0KDQojIyMgTUlULUJJSCBOb3JtYWwgU2ludXMgUmh5dGhtIERhdGFiYXNlDQoNClRoaXMgZGF0YWJhc2UgaW5jbHVkZXMgMTggY2xlYW4gbG9uZy10ZXJtIEVDRyByZWNvcmRpbmdzIG9mIHN1YmplY3RzLiBEdWUgdG8gbWVtb3J5IGxpbWl0cywgd2Ugb25seSBrZXB0IHRoZSBzZWNvbmQgaG91ciBvZiByZWNvcmRpbmcgb2YgZWFjaCBwYXJ0aWNpcGFudC4NCg0KVGhlIHNjcmlwdCB0byBkb3dubG9hZCBhbmQgZm9ybWF0IHRoZSBkYXRhYmFzZSB1c2luZyB0aGUgY2FuIGJlIGZvdW5kIFsqKmhlcmUqKl0oaHR0cHM6Ly9naXRodWIuY29tL25ldXJvcHN5Y2hvbG9neS9OZXVyb0tpdC9ibG9iL2Rldi9kYXRhL21pdF9ub3JtYWwvZG93bmxvYWRfbWl0X25vcm1hbC5weSkuDQoNCg0KPCEtLSAjIyMgTG9iYWNoZXZza3kgVW5pdmVyc2l0eSBFbGVjdHJvY2FyZGlvZ3JhcGh5IERhdGFiYXNlIC0tPg0KDQo8IS0tIFRoZSBMb2JhY2hldnNreSBVbml2ZXJzaXR5IEVsZWN0cm9jYXJkaW9ncmFwaHkgRGF0YWJhc2UgW0xVREI7IEBrYWx5YWt1bGluYTIwMThsdV0gY29uc2lzdHMgb2YgMjAwIDEwLXNlY29uZCAxMi1sZWFkIEVDRyBzaWduYWwgcmVjb3JkcyByZXByZXNlbnRpbmcgZGlmZmVyZW50IG1vcnBob2xvZ2llcyBvZiB0aGUgRUNHIHNpZ25hbC4gVGhlIEVDR3Mgd2VyZSBjb2xsZWN0ZWQgZnJvbSBoZWFsdGh5IHZvbHVudGVlcnMgYW5kIHBhdGllbnRzLCB3aGljaCBoYWQgdmFyaW91cyBjYXJkaW92YXNjdWxhciBkaXNlYXNlcy4gVGhlIGJvdW5kYXJpZXMgb2YgUCwgVCB3YXZlcyBhbmQgUVJTIGNvbXBsZXhlcyB3ZXJlIG1hbnVhbGx5IGFubm90YXRlZCBieSBjYXJkaW9sb2dpc3RzIGZvciBhbGwgMjAwIHJlY29yZHMuIC0tPg0KDQojIyMgRmFudGFzaWEgRGF0YWJhc2UNCg0KVGhlIEZhbnRhc2lhIGRhdGFiYXNlIFtAaXllbmdhcjE5OTZhZ2VdIGNvbnNpc3RzIG9mIHR3ZW50eSB5b3VuZyBhbmQgdHdlbnR5IGVsZGVybHkgaGVhbHRoeSBzdWJqZWN0cy4gQWxsIHN1YmplY3RzIHJlbWFpbmVkIGluIGEgcmVzdGluZyBzdGF0ZSBpbiBzaW51cyByaHl0aG0gd2hpbGUgd2F0Y2hpbmcgdGhlIG1vdmllIEZhbnRhc2lhIChEaXNuZXksIDE5NDApIHRvIGhlbHAgbWFpbnRhaW4gd2FrZWZ1bG5lc3MuIFRoZSBjb250aW51b3VzIEVDRyBzaWduYWxzIHdlcmUgZGlnaXRpemVkIGF0IDI1MCBIei4gRWFjaCBoZWFydGJlYXQgd2FzIGFubm90YXRlZCB1c2luZyBhbiBhdXRvbWF0ZWQgYXJyaHl0aG1pYSBkZXRlY3Rpb24gYWxnb3JpdGhtLCBhbmQgZWFjaCBiZWF0IGFubm90YXRpb24gd2FzIHZlcmlmaWVkIGJ5IHZpc3VhbCBpbnNwZWN0aW9uLg0KDQoNCg0KDQojIyBQcm9jZWR1cmUNCg0KYGBge3B5dGhvbiwgZXZhbD1GQUxTRSwgZWNobz1GQUxTRX0NCmltcG9ydCBwYW5kYXMgYXMgcGQNCmltcG9ydCBudW1weSBhcyBucA0KaW1wb3J0IG5ldXJva2l0MiBhcyBuaw0KDQojIExvYWQgVHJ1ZSBSLXBlYWtzIGxvY2F0aW9uDQpkYXRhZmlsZXMgPSBbcGQucmVhZF9jc3YoIi4uLy4uL2RhdGEvZ3VkYi9ScGVha3MuY3N2IiksDQogICAgICAgICAgICAgcGQucmVhZF9jc3YoIi4uLy4uL2RhdGEvbWl0X2Fycmh5dGhtaWEvUnBlYWtzLmNzdiIpLA0KICAgICAgICAgICAgIHBkLnJlYWRfY3N2KCIuLi8uLi9kYXRhL21pdF9ub3JtYWwvUnBlYWtzLmNzdiIpLA0KICAgICAgICAgICAgIHBkLnJlYWRfY3N2KCIuLi8uLi9kYXRhL2ZhbnRhc2lhL1JwZWFrcy5jc3YiKV0NCg0KIyBHZXQgcmVzdWx0cw0KYWxsX3Jlc3VsdHMgPSBwZC5EYXRhRnJhbWUoKQ0KDQpmb3IgZmlsZSBpbiBkYXRhZmlsZXM6DQogICAgZm9yIGRhdGFiYXNlIGluIG5wLnVuaXF1ZShmaWxlWyJEYXRhYmFzZSJdKToNCiAgICAgICAgZGF0YSA9IGZpbGVbZmlsZVsiRGF0YWJhc2UiXSA9PSBkYXRhYmFzZV0NCiAgICAgICAgZm9yIHBhcnRpY2lwYW50IGluIG5wLnVuaXF1ZShkYXRhWyJQYXJ0aWNpcGFudCJdKToNCiAgICAgICAgICAgIGRhdGFfcGFydGljaXBhbnQgPSBkYXRhW2RhdGFbIlBhcnRpY2lwYW50Il0gPT0gcGFydGljaXBhbnRdDQogICAgICAgICAgICBzYW1wbGluZ19yYXRlID0gbnAudW5pcXVlKGRhdGFfcGFydGljaXBhbnRbIlNhbXBsaW5nX1JhdGUiXSlbMF0NCiAgICAgICAgICAgIHJwZWFrcyA9IGRhdGFfcGFydGljaXBhbnRbIlJwZWFrcyJdLnZhbHVlcw0KDQogICAgICAgICAgICByZXN1bHRzID0gbmsuaHJ2KHJwZWFrcywgc2FtcGxpbmdfcmF0ZT1zYW1wbGluZ19yYXRlKQ0KICAgICAgICAgICAgcmVzdWx0c1siUGFydGljaXBhbnQiXSA9IHBhcnRpY2lwYW50DQogICAgICAgICAgICByZXN1bHRzWyJEYXRhYmFzZSJdID0gZGF0YWJhc2UNCiAgICAgICAgICAgIHJlc3VsdHNbIlJlY29yZGluZ19MZW5ndGgiXSA9IHJwZWFrc1stMV0gLyBzYW1wbGluZ19yYXRlIC8gNjANCg0KICAgICAgICAgICAgYWxsX3Jlc3VsdHMgPSBwZC5jb25jYXQoW2FsbF9yZXN1bHRzLCByZXN1bHRzXSwgYXhpcz0wKQ0KDQphbGxfcmVzdWx0cy50b19jc3YoImRhdGEvZGF0YS5jc3YiLCBpbmRleD1GYWxzZSkNCmBgYA0KDQojIFJlc3VsdHMNCg0KYGBge3IsIG1lc3NhZ2U9RkFMU0UsIHdhcm5pbmc9RkFMU0UsIHJlc3VsdHM9J2hpZGUnfQ0KbGlicmFyeSh0aWR5dmVyc2UpDQpsaWJyYXJ5KGVhc3lzdGF0cykNCg0KZGF0YSA8LSByZWFkLmNzdigiZGF0YS9kYXRhLmNzdiIsIHN0cmluZ3NBc0ZhY3RvcnMgPSBGQUxTRSkgJT4lIA0KICBzZWxlY3QoLUhSVl9VTEYsIC1IUlZfVkxGKSAlPiUgICMgRW1wdHkNCiAgIyBmaWx0ZXIoRGF0YWJhc2UgIT0gIkxVREIiKSAlPiUgIyB0b28gc2hvcnQgcmVjb3JkaW5ncywgbWFueSBpbmRpY2VzIGRpZG4ndCBjb252ZXJnZQ0KICBzZXROYW1lcyhzdHJpbmdyOjpzdHJfcmVtb3ZlKG5hbWVzKC4pLCAiSFJWXyIpKSAlPiUgDQogIG11dGF0ZV9hbGwoZnVuY3Rpb24oeCkgew0KICAgIHhbaXMuaW5maW5pdGUoeCldIDwtIE5BDQogICAgcmV0dXJuKHgpIH0pDQpgYGANCg0KDQpgYGB7ciB3YXJuaW5nPUZBTFNFLCBtZXNzYWdlPVRSVUUsIHJlc3VsdHM9J2FzaXMnfQ0KY2F0KCJUaGlzIHN0dWR5IGluY2x1ZGVzIiwgDQogICAgbnJvdyhkYXRhKSwgDQogICAgInBhcnRpY2lwYW50cyBmcm9tIiwgDQogICAgbGVuZ3RoKHVuaXF1ZShkYXRhJERhdGFiYXNlKSksIA0KICAgICJkYXRhYmFzZXMuIikNCmBgYA0KDQoNCmBgYHtyIGNvbnZlbmllbmNlX2NodW5rX2Zvcl9sb2NhbF9ydW5uaW5nLCBpbmNsdWRlID0gRkFMU0UsIGV2YWwgPSBGQUxTRX0NCmxpYnJhcnkocGF0Y2h3b3JrKQ0KbGlicmFyeSh0aWR5dmVyc2UpDQpsaWJyYXJ5KGVhc3lzdGF0cykNCg0KIyAjIFRvIHJ1biB0aGluZ3MgbG9jYWxseTogQ1RSTCArIEFMVCArIFNISUZUICsgUCwgYW5kIHRoZW4gdGhlIG5leHQgdHdvIGxpbmVzDQpzb3VyY2Vfcm1kKCIwX0NvbnZlbmllbmNlRnVuY3Rpb25zLlJtZCIpDQpzb3VyY2Vfcm1kKCIxX1ByZXByb2Nlc3NpbmcuUm1kIikNCnNvdXJjZV9ybWQoIjNfRGltZW5zaW9ucy5SbWQiKQ0Kc291cmNlX3JtZCgiNF9DbHVzdGVyaW5nLlJtZCIpDQojICMgc291cmNlX3JtZCgiNV9CZWhhdmlvdXJhbE1vZGVscy5SbWQiKQ0KIyANCiMgY2hhaW5zIDwtIDUNCiMgaXRlciA8LSA1MDAwDQojIA0KIyBmaW5kX2NhY2hlIDwtIGZ1bmN0aW9uKHBhdHRlcm4gPSAiIikgew0KIyAgIGZpbGVzIDwtIHBhc3RlMCgiaW5kZXhfY2FjaGUvaHRtbC8iLCBsaXN0LmZpbGVzKCJpbmRleF9jYWNoZS9odG1sLyIsIHBhdHRlcm4gPSAiXFwucmR4JCIpKQ0KIyAgIGZpbGVzIDwtIGZpbGVzW3N0cmluZ3I6OnN0cl9kZXRlY3QoZmlsZXMsIHBhdHRlcm4pXQ0KIyAgIHN0cmluZ3I6OnN0cl9yZW1vdmUoZmlsZXMsICIucmR4IikNCiMgfQ0KIyANCiMgbGFwcGx5KGZpbmRfY2FjaGUoKSwgbGF6eUxvYWQsIGVudmlyb25tZW50KCkpDQojIA0KIyBsYXBwbHkoZmluZF9jYWNoZSgiaW5kZXhfY2FjaGUvaHRtbC9tb2RlbF9iYXNlbGluZV9QU19SVCIpLCBsYXp5TG9hZCwgZW52aXJvbm1lbnQoKSkNCiMgbGFwcGx5KGZpbmRfY2FjaGUoImluZGV4X2NhY2hlL2h0bWwvbW9kZWxfYmFzZWxpbmVfUlNfUlQiKSwgbGF6eUxvYWQsIGVudmlyb25tZW50KCkpDQojIGxhcHBseShmaW5kX2NhY2hlKCJpbmRleF9jYWNoZS9odG1sL21vZGVsX2Jhc2VsaW5lX1JJX1JUIiksIGxhenlMb2FkLCBlbnZpcm9ubWVudCgpKQ0KIyBsYXBwbHkoZmluZF9jYWNoZSgiaW5kZXhfY2FjaGUvaHRtbC9tb2RlbF9iYXNlbGluZV9SSV9FcnIiKSwgbGF6eUxvYWQsIGVudmlyb25tZW50KCkpDQojIGxhcHBseShmaW5kX2NhY2hlKCJpbmRleF9jYWNoZS9odG1sL21vZGVsX2Jhc2VsaW5lX0NSX1JUIiksIGxhenlMb2FkLCBlbnZpcm9ubWVudCgpKQ0KIyBsYXBwbHkoZmluZF9jYWNoZSgiaW5kZXhfY2FjaGUvaHRtbC9tb2RlbF9iYXNlbGluZV9DUl9FcnIiKSwgbGF6eUxvYWQsIGVudmlyb25tZW50KCkpDQpgYGANCg0KDQoNCiMjIFByZXByb2Nlc3NpbmcNCg0KYGBge3IgY2hpbGQ9JzBfQ29udmVuaWVuY2VGdW5jdGlvbnMuUm1kJ30NCmBgYA0KDQoNCmBgYHtyIGNoaWxkPScxX1ByZXByb2Nlc3NpbmcuUm1kJ30NCmBgYA0KDQojIyBFZmZlY3Qgb2YgUmVjb3JkaW5nIExlbmd0aA0KDQpgYGB7ciBjaGlsZD0nMl9SZWNvcmRpbmdMZW5ndGguUm1kJ30NCmBgYA0KDQoNCiMjIERpbWVuc2lvbmFsIFN0cnVjdHVyZQ0KDQpgYGB7ciBjaGlsZD0nM19EaW1lbnNpb25zLlJtZCd9DQpgYGANCg0KIyMgQ2x1c3RlciBTdHJ1Y3R1cmUNCg0KYGBge3IgY2hpbGQ9JzRfQ2x1c3RlcmluZy5SbWQnfQ0KYGBgDQoNCg0KIyMgU3VtbWFyeQ0KDQpgYGB7ciBjaGlsZD0nNl9TdW1tYXJ5LlJtZCd9DQpgYGANCg0KPCEtLSAjIyMgR2F1c3NpYW4gR3JhcGhpY2FsIE1vZGVsIC0tPg0KDQoNCjwhLS0gYGBge3IsIG1lc3NhZ2U9RkFMU0UsIHdhcm5pbmc9RkFMU0UsIGZpZy53aWR0aD0xNywgZmlnLmhlaWdodD0xN30gLS0+DQo8IS0tIGxpYnJhcnkoZ2dyYXBoKSAtLT4NCg0KPCEtLSBkYXRhICU+JSAgLS0+DQo8IS0tICAgY29ycmVsYXRpb246OmNvcnJlbGF0aW9uKHBhcnRpYWw9RkFMU0UpICU+JSAgLS0+DQo8IS0tICAgY29ycmVsYXRpb246OmNvcl90b19wY29yKCkgJT4lICAtLT4NCjwhLS0gICBmaWx0ZXIoYWJzKHIpID4gMC4yKSAlPiUgLS0+DQo8IS0tICAgdGlkeWdyYXBoOjphc190YmxfZ3JhcGgoZGlyZWN0ZWQ9RkFMU0UpICU+JSAgLS0+DQo8IS0tICAgZHBseXI6Om11dGF0ZShjbG9zZW5lc3MgPSB0aWR5Z3JhcGg6OmNlbnRyYWxpdHlfY2xvc2VuZXNzKG5vcm1hbGl6ZWQgPSBUUlVFKSwgLS0+DQo8IS0tICAgICAgICAgICAgICAgICBkZWdyZWUgPSB0aWR5Z3JhcGg6OmNlbnRyYWxpdHlfZGVncmVlKG5vcm1hbGl6ZWQgPSBUUlVFKSwgLS0+DQo8IS0tICAgICAgICAgICAgICAgICBiZXR3ZWVuZXNzID0gdGlkeWdyYXBoOjpjZW50cmFsaXR5X2JldHdlZW5uZXNzKG5vcm1hbGl6ZWQgPSBUUlVFKSkgJT4lIC0tPg0KPCEtLSAgIHRpZHlncmFwaDo6YWN0aXZhdGUobm9kZXMpICU+JSAtLT4NCjwhLS0gICBkcGx5cjo6bXV0YXRlKGdyb3VwMSA9IGFzLmZhY3Rvcih0aWR5Z3JhcGg6Omdyb3VwX2VkZ2VfYmV0d2Vlbm5lc3MoKSksIC0tPg0KPCEtLSAgICAgICAgICAgICAgICAgIyBncm91cDIgPSBhcy5mYWN0b3IodGlkeWdyYXBoOjpncm91cF9vcHRpbWFsKCkpLCAtLT4NCjwhLS0gICAgICAgICAgICAgICAgICMgZ3JvdXAzID0gYXMuZmFjdG9yKHRpZHlncmFwaDo6Z3JvdXBfd2Fsa3RyYXAoKSksIC0tPg0KPCEtLSAgICAgICAgICAgICAgICAgIyBncm91cDQgPSBhcy5mYWN0b3IodGlkeWdyYXBoOjpncm91cF9zcGluZ2xhc3MoKSksIC0tPg0KPCEtLSAgICAgICAgICAgICAgICAgZ3JvdXA1ID0gYXMuZmFjdG9yKHRpZHlncmFwaDo6Z3JvdXBfbG91dmFpbigpKSkgJT4lICAtLT4NCjwhLS0gICBnZ3JhcGg6OmdncmFwaChsYXlvdXQgPSAiZnIiKSArIC0tPg0KPCEtLSAgICAgZ2dyYXBoOjpnZW9tX2VkZ2VfYXJjKGFlcyhjb2xvdXIgPSByLCBlZGdlX3dpZHRoID0gYWJzKHIpKSwgc3RyZW5ndGggPSAwLjEsIHNob3cubGVnZW5kID0gRkFMU0UpICsgLS0+DQo8IS0tICAgICBnZ3JhcGg6Omdlb21fbm9kZV9wb2ludChhZXMoc2l6ZSA9IGRlZ3JlZSwgY29sb3IgPSBncm91cDUpLCBzaG93LmxlZ2VuZCA9IEZBTFNFKSArIC0tPg0KPCEtLSAgICAgZ2dyYXBoOjpnZW9tX25vZGVfdGV4dChhZXMobGFiZWwgPSBuYW1lKSwgY29sb3VyID0gIndoaXRlIikgKyAtLT4NCjwhLS0gICAgIGdncmFwaDo6c2NhbGVfZWRnZV9jb2xvcl9ncmFkaWVudDIobG93ID0gIiNhMjAwMjUiLCBoaWdoID0gIiMwMDhhMDAiLCBuYW1lID0gInIiKSArIC0tPg0KPCEtLSAgICAgZ2dyYXBoOjp0aGVtZV9ncmFwaCgpICsgLS0+DQo8IS0tICAgICBndWlkZXMoZWRnZV93aWR0aCA9IEZBTFNFKSArIC0tPg0KPCEtLSAgICAgc2NhbGVfeF9jb250aW51b3VzKGV4cGFuZCA9IGV4cGFuc2lvbihjKC4xMCwgLjEwKSkpICsgLS0+DQo8IS0tICAgICBzY2FsZV95X2NvbnRpbnVvdXMoZXhwYW5kID0gZXhwYW5zaW9uKGMoLjEwLCAuMTApKSkgKyAtLT4NCjwhLS0gICAgIHNjYWxlX3NpemVfY29udGludW91cyhyYW5nZSA9IGMoMjAsIDMwKSkgKyAtLT4NCjwhLS0gICAgIHNjYWxlX2VkZ2Vfd2lkdGhfY29udGludW91cyhyYW5nZSA9IGMoMC41LCAyKSkgKyAtLT4NCjwhLS0gICAgIHNlZTo6c2NhbGVfY29sb3JfbWF0ZXJpYWxfZChwYWxldHRlPSJyYWluYm93IiwgcmV2ZXJzZT1UUlVFKSAtLT4NCjwhLS0gYGBgIC0tPg0KDQo8IS0tIEdyb3VwcyB3ZXJlIGlkZW50aWZpZWQgdXNpbmcgdGhlIFt0aWR5Z3JhcGg6Omdyb3VwX29wdGltYWxdKGh0dHBzOi8vcmRyci5pby9jcmFuL3RpZHlncmFwaC9tYW4vZ3JvdXBfZ3JhcGguaHRtbCkgYWxnb3JpdGhtLiAtLT4NCg0KDQoNCg0KPCEtLSAjIyMgQ2x1c3RlciBBbmFseXNpcyAtLT4NCg0KPCEtLSAjIyMjIEhvdyBtYW55IGNsdXN0ZXJzIC0tPg0KDQo8IS0tIGBgYHtyLCBtZXNzYWdlPUZBTFNFLCB3YXJuaW5nPUZBTFNFfSAtLT4NCjwhLS0gZGF0IDwtIGVmZmVjdHNpemU6OnN0YW5kYXJkaXplKGRhdGFbc2FwcGx5KGRhdGEsIGlzLm51bWVyaWMpXSkgLS0+DQoNCjwhLS0gbiA8LSBwYXJhbWV0ZXJzOjpuX2NsdXN0ZXJzKHQoZGF0KSwgcGFja2FnZSA9IGMoIm1jbHVzdCIsICJjbHVzdGVyIikpIC0tPg0KDQo8IS0tIG4gLS0+DQoNCjwhLS0gcGxvdChuKSArIC0tPg0KPCEtLSAgIHRoZW1lX21vZGVybigpIC0tPg0KPCEtLSBgYGAgLS0+DQoNCg0KPCEtLSBgYGB7ciwgbWVzc2FnZT1GQUxTRSwgd2FybmluZz1GQUxTRSwgZmlnLndpZHRoPTcsIGZpZy5oZWlnaHQ9MTB9IC0tPg0KPCEtLSBsaWJyYXJ5KGRlbmRleHRlbmQpIC0tPg0KDQo8IS0tIGRhdCA8LSBlZmZlY3RzaXplOjpzdGFuZGFyZGl6ZShkYXRhW3NhcHBseShkYXRhLCBpcy5udW1lcmljKV0pIC0tPg0KDQo8IS0tIHJlc3VsdCA8LSBwdmNsdXN0OjpwdmNsdXN0KGRhdCwgbWV0aG9kLmRpc3Q9ImV1Y2xpZGVhbiIsIG1ldGhvZC5oY2x1c3Q9IndhcmQuRDIiLCBuYm9vdD0xMCwgcXVpZXQ9VFJVRSkgLS0+DQoNCjwhLS0gcmVzdWx0ICU+JSAgLS0+DQo8IS0tICAgYXMuZGVuZHJvZ3JhbSgpICU+JSAgLS0+DQo8IS0tICAgc29ydCgpICU+JSAgLS0+DQo8IS0tICAgZGVuZGV4dGVuZDo6cHZjbHVzdF9zaG93X3NpZ25pZl9ncmFkaWVudChyZXN1bHQsIHNpZ25pZl9jb2xfZnVuID0gZ3JEZXZpY2VzOjpjb2xvclJhbXBQYWxldHRlKGMoImJsYWNrIiwgInJlZCIpKSkgJT4lICAtLT4NCjwhLS0gICBkZW5kZXh0ZW5kOjpwdmNsdXN0X3Nob3dfc2lnbmlmKHJlc3VsdCwgc2lnbmlmX3ZhbHVlID0gYygyLCAxKSkgJT4lIC0tPg0KPCEtLSAgIGRlbmRleHRlbmQ6OmFzLmdnZGVuZCgpICU+JSAgLS0+DQo8IS0tICAgZ2dwbG90Mjo6Z2dwbG90KGhvcml6PVRSVUUsIG9mZnNldF9sYWJlbHMgPSAtMSkgLS0+DQo8IS0tIGBgYCAtLT4NCg0KDQoNCiMjIFJlZmVyZW5jZXMNCg==</div>
+<div id="rmd-source-code">LS0tDQp0aXRsZTogJyoqQ29uY2VwdHVhbCB2cy4gT2JzZXJ2ZWQgU3RydWN0dXJlIG9mIEhlYXJ0IFJhdGUgVmFyaWFiaWxpdHkgKEhSVikgSW5kaWNlcyoqJw0Kc3VidGl0bGU6ICJEYXRhIEFuYWx5c2lzIg0Kb3V0cHV0Og0KICBodG1sX2RvY3VtZW50Og0KICAgIHNlbGZfY29udGFpbmVkOiBmYWxzZQ0KICAgIHRoZW1lOiBjZXJ1bGVhbg0KICAgIGhpZ2hsaWdodDogcHlnbWVudHMNCiAgICB0b2M6IHllcw0KICAgIHRvY19kZXB0aDogMw0KICAgIHRvY19mbG9hdDogeWVzDQogICAgbnVtYmVyX3NlY3Rpb25zOiBubw0KICAgIGRmX3ByaW50OiBkZWZhdWx0DQogICAgY29kZV9mb2xkaW5nOiBoaWRlDQogICAgY29kZV9kb3dubG9hZDogeWVzDQogIHdvcmRfZG9jdW1lbnQ6DQogICAgcmVmZXJlbmNlX2RvY3g6IHV0aWxzL1RlbXBsYXRlX1dvcmQuZG9jeA0KICAgIGhpZ2hsaWdodDogcHlnbWVudHMNCiAgICB0b2M6IG5vDQogICAgdG9jX2RlcHRoOiAzDQogICAgZGZfcHJpbnQ6IGRlZmF1bHQNCiAgICBudW1iZXJfc2VjdGlvbnM6IHllcw0KICBybWFya2Rvd246Omh0bWxfdmlnbmV0dGU6DQogICAgdG9jOiB5ZXMNCiAgICB0b2NfZGVwdGg6IDMNCiAgcGRmX2RvY3VtZW50Og0KICAgIHRvYzogeWVzDQogICAgdG9jX2RlcHRoOiAnMicNCiAgICBsYXRleF9lbmdpbmU6IHhlbGF0ZXgNCmVkaXRvcl9vcHRpb25zOg0KICBjaHVua19vdXRwdXRfdHlwZTogY29uc29sZQ0KYmlibGlvZ3JhcGh5OiB1dGlscy9yZWZlcmVuY2VzLmJpYg0KY3NsOiB1dGlscy9hcGEuY3NsDQotLS0NCg0KDQo8IS0tIA0KISEhISBJTVBPUlRBTlQ6IHJ1biBgc291cmNlKCJ1dGlscy9yZW5kZXIuUiIpYCB0byBwdWJsaXNoIGluc3RlYWQgb2YgY2xpY2tpbmcgb24gJ0tuaXQnDQotLT4NCg0KYGBge3Igc2V0dXAsIHdhcm5pbmc9RkFMU0UsIG1lc3NhZ2U9VFJVRSwgaW5jbHVkZT1GQUxTRX0NCiMgU2V0IHVwIHRoZSBlbnZpcm9ubWVudCAob3IgdXNlIGxvY2FsIGFsdGVybmF0aXZlIGBzb3VyY2UoInV0aWxzL2NvbmZpZy5SIilgKQ0Kc291cmNlKCJodHRwczovL3Jhdy5naXRodWJ1c2VyY29udGVudC5jb20vUmVhbGl0eUJlbmRpbmcvVGVtcGxhdGVSZXN1bHRzL21haW4vdXRpbHMvY29uZmlnLlIiKSAgDQoNCmZhc3QgPC0gRkFMU0UgICMgTWFrZSB0aGlzIGZhbHNlIHRvIHNraXAgdGhlIGNodW5rcw0KDQojIFNldCB0aGVtZQ0KZ2dwbG90Mjo6dGhlbWVfc2V0KHNlZTo6dGhlbWVfbW9kZXJuKCkpDQoNCnNvdXJjZV9ybWQgPC0gZnVuY3Rpb24oeCl7DQogIGZpbGUgPC0ga25pdHI6OnB1cmwoeCwgcXVpZXQ9VFJVRSkNCiAgc291cmNlKGZpbGUpDQogIGlmIChmaWxlLmV4aXN0cyhmaWxlKSkgZmlsZS5yZW1vdmUoZmlsZSkNCn0NCmBgYA0KDQojIEludHJvZHVjdGlvbg0KYGBge3IgYmFkZ2VzLCBlY2hvPUZBTFNFLCBtZXNzYWdlPVRSVUUsIHdhcm5pbmc9RkFMU0UsIHJlc3VsdHM9J2FzaXMnfQ0KIyBUaGlzIGNodW5rIGlzIGEgYml0IGNvbXBsZXggc28gZG9uJ3Qgd29ycnkgYWJvdXQgaXQ6IGl0J3MgbWFkZSB0byBhZGQgYmFkZ2VzIHRvIHRoZSBIVE1MIHZlcnNpb25zDQojIE5PVEU6IFlvdSBoYXZlIHRvIHJlcGxhY2UgdGhlIGxpbmtzIGFjY29yZGluZ2x5IHRvIGhhdmUgd29ya2luZyAiYnV0dG9ucyIgb24gdGhlIEhUTUwgdmVyc2lvbnMNCmlmICgha25pdHI6OmlzX2xhdGV4X291dHB1dCgpICYmIGtuaXRyOjppc19odG1sX291dHB1dCgpKSB7DQogIGNhdCgiIVtCdWlsZF0oaHR0cHM6Ly9naXRodWIuY29tL1RhbS1QaGFtL0hSVlN0cnVjdHVyZS93b3JrZmxvd3MvQnVpbGQvYmFkZ2Uuc3ZnKQ0KICAgICAgWyFbV2Vic2l0ZV0oaHR0cHM6Ly9pbWcuc2hpZWxkcy5pby9iYWRnZS9yZXBvLVJlYWRtZS0yMTk2RjMpXShodHRwczovL2dpdGh1Yi5jb20vVGFtLVBoYW0vSFJWU3RydWN0dXJlKQ0KICAgICAgWyFbV2Vic2l0ZV0oaHR0cHM6Ly9pbWcuc2hpZWxkcy5pby9iYWRnZS92aXNpdC13ZWJzaXRlLUU5MUU2MyldKGh0dHBzOi8vcmVhbGl0eWJlbmRpbmcuZ2l0aHViLmlvL1RlbXBsYXRlUmVzdWx0cy8pDQogICAgICBbIVtXZWJzaXRlXShodHRwczovL2ltZy5zaGllbGRzLmlvL2JhZGdlL2Rvd25sb2FkLS5kb2N4LUZGNTcyMildKGh0dHBzOi8vZ2l0aHViLmNvbS9SZWFsaXR5QmVuZGluZy9UZW1wbGF0ZVJlc3VsdHMvcmF3L21haW4vd29yZF9hbmRfcGRmL1N1cHBsZW1lbnRhcnlNYXRlcmlhbHMuZG9jeCkNCiAgICAgIFshW1dlYnNpdGVdKGh0dHBzOi8vaW1nLnNoaWVsZHMuaW8vYmFkZ2Uvc2VlLS5wZGYtRkY5ODAwKV0oaHR0cHM6Ly9naXRodWIuY29tL1JlYWxpdHlCZW5kaW5nL1RlbXBsYXRlUmVzdWx0cy9ibG9iL21haW4vd29yZF9hbmRfcGRmL1N1cHBsZW1lbnRhcnlNYXRlcmlhbHMucGRmKSIpDQp9DQpgYGANCg0KDQoNClRoZSBhaW0gb2YgdGhpcyBzdHVkeSBpcyB0byBleHBsb3JlIHRoZSBmYWN0b3Igc3RydWN0dXJlIG9mIEhSViBpbmRpY2VzLg0KDQojIE1ldGhvZHMNCg0KQ29uY2VwdCBvZiAqKiJNRVRBQ0xVU1RFUklORyIqKiwgaS5lLiwgYXNzZXNzaW5nIHRoZSBwcm94aW1pdHkgYmFzZWQgb24gbXVsdGlwbGUgY2x1c3RlcmluZyBzb2x1dGlvbnMuDQoNCiMjIERhdGFiYXNlcw0KDQojIyMgR2xhc2dvdyBVbml2ZXJzaXR5IERhdGFiYXNlDQoNClRoZSBHVURCIERhdGFiYXNlIFtAaG93ZWxsMjAxOGhpZ2hdIGNvbnRhaW5zIEVDR3MgZnJvbSAyNSBzdWJqZWN0cy4gRWFjaCBzdWJqZWN0IHdhcyByZWNvcmRlZCBwZXJmb3JtaW5nIDUgZGlmZmVyZW50IHRhc2tzIGZvciB0d28gbWludXRlcyAoc2l0dGluZywgZG9pbmcgYSBtYXRocyB0ZXN0IG9uIGEgdGFibGV0LCB3YWxraW5nIG9uIGEgdHJlYWRtaWxsLCBydW5uaW5nIG9uIGEgdHJlYWRtaWxsLCB1c2luZyBhIGhhbmQgYmlrZSkuIFRoZSBzYW1wbGluZyByYXRlIGlzIDI1MEh6IGZvciBhbGwgdGhlIGNvbmRpdGlvbnMuDQoNClRoZSBzY3JpcHQgdG8gZG93bmxvYWQgYW5kIGZvcm1hdCB0aGUgZGF0YWJhc2UgdXNpbmcgdGhlIFsqKkVDRy1HVURCKipdKGh0dHBzOi8vZ2l0aHViLmNvbS9iZXJuZHBvcnIvRUNHLUdVREIpIFB5dGhvbiBwYWNrYWdlIGJ5IEJlcm5kIFBvcnIgY2FuIGJlIGZvdW5kIFsqKmhlcmUqKl0oaHR0cHM6Ly9naXRodWIuY29tL25ldXJvcHN5Y2hvbG9neS9OZXVyb0tpdC9ibG9iL2Rldi9kYXRhL2d1ZGIvZG93bmxvYWRfZ3VkYi5weSkuDQoNCiMjIyBNSVQtQklIIEFycmh5dGhtaWEgRGF0YWJhc2UNCg0KVGhlIE1JVC1CSUggQXJyaHl0aG1pYSBEYXRhYmFzZSBbTUlULUFycmh5dGhtaWE7IEBtb29keTIwMDFpbXBhY3RdIGNvbnRhaW5zIDQ4IGV4Y2VycHRzIG9mIDMwLW1pbiBvZiB0d28tY2hhbm5lbCBhbWJ1bGF0b3J5IEVDRyByZWNvcmRpbmdzIHNhbXBsZWQgYXQgMzYwSHogYW5kIDI1IGFkZGl0aW9uYWwgcmVjb3JkaW5ncyBmcm9tIHRoZSBzYW1lIHBhcnRpY2lwYW50cyBpbmNsdWRpbmcgY29tbW9uIGJ1dCBjbGluaWNhbGx5IHNpZ25pZmljYW50IGFycmh5dGhtaWFzIChkZW5vdGVkIGFzIHRoZSBgTUlULUFycmh5dGhtaWEteGAgZGF0YWJhc2UpLg0KDQpUaGUgc2NyaXB0IHRvIGRvd25sb2FkIGFuZCBmb3JtYXQgdGhlIGRhdGFiYXNlIHVzaW5nIHRoZSBjYW4gYmUgZm91bmQgWyoqaGVyZSoqXShodHRwczovL2dpdGh1Yi5jb20vbmV1cm9wc3ljaG9sb2d5L05ldXJvS2l0L2Jsb2IvZGV2L2RhdGEvbWl0X2Fycmh5dGhtaWEvZG93bmxvYWRfbWl0X2Fycmh5dGhtaWEucHkpLg0KDQoNCiMjIyBNSVQtQklIIE5vcm1hbCBTaW51cyBSaHl0aG0gRGF0YWJhc2UNCg0KVGhpcyBkYXRhYmFzZSBpbmNsdWRlcyAxOCBjbGVhbiBsb25nLXRlcm0gRUNHIHJlY29yZGluZ3Mgb2Ygc3ViamVjdHMuIER1ZSB0byBtZW1vcnkgbGltaXRzLCB3ZSBvbmx5IGtlcHQgdGhlIHNlY29uZCBob3VyIG9mIHJlY29yZGluZyBvZiBlYWNoIHBhcnRpY2lwYW50Lg0KDQpUaGUgc2NyaXB0IHRvIGRvd25sb2FkIGFuZCBmb3JtYXQgdGhlIGRhdGFiYXNlIHVzaW5nIHRoZSBjYW4gYmUgZm91bmQgWyoqaGVyZSoqXShodHRwczovL2dpdGh1Yi5jb20vbmV1cm9wc3ljaG9sb2d5L05ldXJvS2l0L2Jsb2IvZGV2L2RhdGEvbWl0X25vcm1hbC9kb3dubG9hZF9taXRfbm9ybWFsLnB5KS4NCg0KDQo8IS0tICMjIyBMb2JhY2hldnNreSBVbml2ZXJzaXR5IEVsZWN0cm9jYXJkaW9ncmFwaHkgRGF0YWJhc2UgLS0+DQoNCjwhLS0gVGhlIExvYmFjaGV2c2t5IFVuaXZlcnNpdHkgRWxlY3Ryb2NhcmRpb2dyYXBoeSBEYXRhYmFzZSBbTFVEQjsgQGthbHlha3VsaW5hMjAxOGx1XSBjb25zaXN0cyBvZiAyMDAgMTAtc2Vjb25kIDEyLWxlYWQgRUNHIHNpZ25hbCByZWNvcmRzIHJlcHJlc2VudGluZyBkaWZmZXJlbnQgbW9ycGhvbG9naWVzIG9mIHRoZSBFQ0cgc2lnbmFsLiBUaGUgRUNHcyB3ZXJlIGNvbGxlY3RlZCBmcm9tIGhlYWx0aHkgdm9sdW50ZWVycyBhbmQgcGF0aWVudHMsIHdoaWNoIGhhZCB2YXJpb3VzIGNhcmRpb3Zhc2N1bGFyIGRpc2Vhc2VzLiBUaGUgYm91bmRhcmllcyBvZiBQLCBUIHdhdmVzIGFuZCBRUlMgY29tcGxleGVzIHdlcmUgbWFudWFsbHkgYW5ub3RhdGVkIGJ5IGNhcmRpb2xvZ2lzdHMgZm9yIGFsbCAyMDAgcmVjb3Jkcy4gLS0+DQoNCiMjIyBGYW50YXNpYSBEYXRhYmFzZQ0KDQpUaGUgRmFudGFzaWEgZGF0YWJhc2UgW0BpeWVuZ2FyMTk5NmFnZV0gY29uc2lzdHMgb2YgdHdlbnR5IHlvdW5nIGFuZCB0d2VudHkgZWxkZXJseSBoZWFsdGh5IHN1YmplY3RzLiBBbGwgc3ViamVjdHMgcmVtYWluZWQgaW4gYSByZXN0aW5nIHN0YXRlIGluIHNpbnVzIHJoeXRobSB3aGlsZSB3YXRjaGluZyB0aGUgbW92aWUgRmFudGFzaWEgKERpc25leSwgMTk0MCkgdG8gaGVscCBtYWludGFpbiB3YWtlZnVsbmVzcy4gVGhlIGNvbnRpbnVvdXMgRUNHIHNpZ25hbHMgd2VyZSBkaWdpdGl6ZWQgYXQgMjUwIEh6LiBFYWNoIGhlYXJ0YmVhdCB3YXMgYW5ub3RhdGVkIHVzaW5nIGFuIGF1dG9tYXRlZCBhcnJoeXRobWlhIGRldGVjdGlvbiBhbGdvcml0aG0sIGFuZCBlYWNoIGJlYXQgYW5ub3RhdGlvbiB3YXMgdmVyaWZpZWQgYnkgdmlzdWFsIGluc3BlY3Rpb24uDQoNCg0KDQoNCiMjIFByb2NlZHVyZQ0KDQpgYGB7cHl0aG9uLCBldmFsPUZBTFNFLCBlY2hvPUZBTFNFfQ0KaW1wb3J0IHBhbmRhcyBhcyBwZA0KaW1wb3J0IG51bXB5IGFzIG5wDQppbXBvcnQgbmV1cm9raXQyIGFzIG5rDQoNCiMgTG9hZCBUcnVlIFItcGVha3MgbG9jYXRpb24NCmRhdGFmaWxlcyA9IFtwZC5yZWFkX2NzdigiLi4vLi4vZGF0YS9ndWRiL1JwZWFrcy5jc3YiKSwNCiAgICAgICAgICAgICBwZC5yZWFkX2NzdigiLi4vLi4vZGF0YS9taXRfYXJyaHl0aG1pYS9ScGVha3MuY3N2IiksDQogICAgICAgICAgICAgcGQucmVhZF9jc3YoIi4uLy4uL2RhdGEvbWl0X25vcm1hbC9ScGVha3MuY3N2IiksDQogICAgICAgICAgICAgcGQucmVhZF9jc3YoIi4uLy4uL2RhdGEvZmFudGFzaWEvUnBlYWtzLmNzdiIpXQ0KDQojIEdldCByZXN1bHRzDQphbGxfcmVzdWx0cyA9IHBkLkRhdGFGcmFtZSgpDQoNCmZvciBmaWxlIGluIGRhdGFmaWxlczoNCiAgICBmb3IgZGF0YWJhc2UgaW4gbnAudW5pcXVlKGZpbGVbIkRhdGFiYXNlIl0pOg0KICAgICAgICBkYXRhID0gZmlsZVtmaWxlWyJEYXRhYmFzZSJdID09IGRhdGFiYXNlXQ0KICAgICAgICBmb3IgcGFydGljaXBhbnQgaW4gbnAudW5pcXVlKGRhdGFbIlBhcnRpY2lwYW50Il0pOg0KICAgICAgICAgICAgZGF0YV9wYXJ0aWNpcGFudCA9IGRhdGFbZGF0YVsiUGFydGljaXBhbnQiXSA9PSBwYXJ0aWNpcGFudF0NCiAgICAgICAgICAgIHNhbXBsaW5nX3JhdGUgPSBucC51bmlxdWUoZGF0YV9wYXJ0aWNpcGFudFsiU2FtcGxpbmdfUmF0ZSJdKVswXQ0KICAgICAgICAgICAgcnBlYWtzID0gZGF0YV9wYXJ0aWNpcGFudFsiUnBlYWtzIl0udmFsdWVzDQoNCiAgICAgICAgICAgIHJlc3VsdHMgPSBuay5ocnYocnBlYWtzLCBzYW1wbGluZ19yYXRlPXNhbXBsaW5nX3JhdGUpDQogICAgICAgICAgICByZXN1bHRzWyJQYXJ0aWNpcGFudCJdID0gcGFydGljaXBhbnQNCiAgICAgICAgICAgIHJlc3VsdHNbIkRhdGFiYXNlIl0gPSBkYXRhYmFzZQ0KICAgICAgICAgICAgcmVzdWx0c1siUmVjb3JkaW5nX0xlbmd0aCJdID0gcnBlYWtzWy0xXSAvIHNhbXBsaW5nX3JhdGUgLyA2MA0KDQogICAgICAgICAgICBhbGxfcmVzdWx0cyA9IHBkLmNvbmNhdChbYWxsX3Jlc3VsdHMsIHJlc3VsdHNdLCBheGlzPTApDQoNCmFsbF9yZXN1bHRzLnRvX2NzdigiZGF0YS9kYXRhLmNzdiIsIGluZGV4PUZhbHNlKQ0KYGBgDQoNCiMgUmVzdWx0cw0KDQpgYGB7ciwgbWVzc2FnZT1GQUxTRSwgd2FybmluZz1GQUxTRSwgcmVzdWx0cz0naGlkZSd9DQpsaWJyYXJ5KHRpZHl2ZXJzZSkNCmxpYnJhcnkoZWFzeXN0YXRzKQ0KDQpkYXRhIDwtIHJlYWQuY3N2KCJkYXRhL2RhdGFfY29tYmluZWQuY3N2Iiwgc3RyaW5nc0FzRmFjdG9ycyA9IEZBTFNFKSAlPiUgDQogIHNlbGVjdCgtSFJWX1VMRiwgLUhSVl9WTEYpICU+JSAgIyBFbXB0eQ0KICAjIGZpbHRlcihEYXRhYmFzZSAhPSAiTFVEQiIpICU+JSAjIHRvbyBzaG9ydCByZWNvcmRpbmdzLCBtYW55IGluZGljZXMgZGlkbid0IGNvbnZlcmdlDQogIHNldE5hbWVzKHN0cmluZ3I6OnN0cl9yZW1vdmUobmFtZXMoLiksICJIUlZfIikpICU+JSANCiAgbXV0YXRlX2FsbChmdW5jdGlvbih4KSB7DQogICAgeFtpcy5pbmZpbml0ZSh4KV0gPC0gTkENCiAgICByZXR1cm4oeCkgfSkNCmBgYA0KDQoNCmBgYHtyIHdhcm5pbmc9RkFMU0UsIG1lc3NhZ2U9VFJVRSwgcmVzdWx0cz0nYXNpcyd9DQpjYXQoIlRoaXMgc3R1ZHkgaW5jbHVkZXMiLCANCiAgICBucm93KGRhdGEpLCANCiAgICAicGFydGljaXBhbnRzIGZyb20iLCANCiAgICBsZW5ndGgodW5pcXVlKGRhdGEkRGF0YWJhc2UpKSwgDQogICAgImRhdGFiYXNlcy4iKQ0KYGBgDQoNCg0KYGBge3IgY29udmVuaWVuY2VfY2h1bmtfZm9yX2xvY2FsX3J1bm5pbmcsIGluY2x1ZGUgPSBGQUxTRSwgZXZhbCA9IEZBTFNFfQ0KbGlicmFyeShwYXRjaHdvcmspDQpsaWJyYXJ5KHRpZHl2ZXJzZSkNCmxpYnJhcnkoZWFzeXN0YXRzKQ0KDQojICMgVG8gcnVuIHRoaW5ncyBsb2NhbGx5OiBDVFJMICsgQUxUICsgU0hJRlQgKyBQLCBhbmQgdGhlbiB0aGUgbmV4dCB0d28gbGluZXMNCnNvdXJjZV9ybWQoIjBfQ29udmVuaWVuY2VGdW5jdGlvbnMuUm1kIikNCnNvdXJjZV9ybWQoIjFfUHJlcHJvY2Vzc2luZy5SbWQiKQ0Kc291cmNlX3JtZCgiM19EaW1lbnNpb25zLlJtZCIpDQpzb3VyY2Vfcm1kKCI0X0NsdXN0ZXJpbmcuUm1kIikNCmBgYA0KDQoNCg0KIyMgUHJlcHJvY2Vzc2luZw0KDQpgYGB7ciBjaGlsZD0nMF9Db252ZW5pZW5jZUZ1bmN0aW9ucy5SbWQnfQ0KYGBgDQoNCg0KYGBge3IgY2hpbGQ9JzFfUHJlcHJvY2Vzc2luZy5SbWQnfQ0KYGBgDQoNCiMjIEVmZmVjdCBvZiBSZWNvcmRpbmcgTGVuZ3RoDQoNCmBgYHtyIGNoaWxkPScyX1JlY29yZGluZ0xlbmd0aC5SbWQnfQ0KYGBgDQoNCg0KIyMgRGltZW5zaW9uYWwgU3RydWN0dXJlDQoNCmBgYHtyIGNoaWxkPSczX0RpbWVuc2lvbnMuUm1kJ30NCmBgYA0KDQojIyBDbHVzdGVyIFN0cnVjdHVyZQ0KDQpgYGB7ciBjaGlsZD0nNF9DbHVzdGVyaW5nLlJtZCd9DQpgYGANCg0KDQojIyBTdW1tYXJ5DQoNCmBgYHtyIGNoaWxkPSc2X1N1bW1hcnkuUm1kJ30NCmBgYA0KDQo8IS0tICMjIyBHYXVzc2lhbiBHcmFwaGljYWwgTW9kZWwgLS0+DQoNCg0KPCEtLSBgYGB7ciwgbWVzc2FnZT1GQUxTRSwgd2FybmluZz1GQUxTRSwgZmlnLndpZHRoPTE3LCBmaWcuaGVpZ2h0PTE3fSAtLT4NCjwhLS0gbGlicmFyeShnZ3JhcGgpIC0tPg0KDQo8IS0tIGRhdGEgJT4lICAtLT4NCjwhLS0gICBjb3JyZWxhdGlvbjo6Y29ycmVsYXRpb24ocGFydGlhbD1GQUxTRSkgJT4lICAtLT4NCjwhLS0gICBjb3JyZWxhdGlvbjo6Y29yX3RvX3Bjb3IoKSAlPiUgIC0tPg0KPCEtLSAgIGZpbHRlcihhYnMocikgPiAwLjIpICU+JSAtLT4NCjwhLS0gICB0aWR5Z3JhcGg6OmFzX3RibF9ncmFwaChkaXJlY3RlZD1GQUxTRSkgJT4lICAtLT4NCjwhLS0gICBkcGx5cjo6bXV0YXRlKGNsb3NlbmVzcyA9IHRpZHlncmFwaDo6Y2VudHJhbGl0eV9jbG9zZW5lc3Mobm9ybWFsaXplZCA9IFRSVUUpLCAtLT4NCjwhLS0gICAgICAgICAgICAgICAgIGRlZ3JlZSA9IHRpZHlncmFwaDo6Y2VudHJhbGl0eV9kZWdyZWUobm9ybWFsaXplZCA9IFRSVUUpLCAtLT4NCjwhLS0gICAgICAgICAgICAgICAgIGJldHdlZW5lc3MgPSB0aWR5Z3JhcGg6OmNlbnRyYWxpdHlfYmV0d2Vlbm5lc3Mobm9ybWFsaXplZCA9IFRSVUUpKSAlPiUgLS0+DQo8IS0tICAgdGlkeWdyYXBoOjphY3RpdmF0ZShub2RlcykgJT4lIC0tPg0KPCEtLSAgIGRwbHlyOjptdXRhdGUoZ3JvdXAxID0gYXMuZmFjdG9yKHRpZHlncmFwaDo6Z3JvdXBfZWRnZV9iZXR3ZWVubmVzcygpKSwgLS0+DQo8IS0tICAgICAgICAgICAgICAgICAjIGdyb3VwMiA9IGFzLmZhY3Rvcih0aWR5Z3JhcGg6Omdyb3VwX29wdGltYWwoKSksIC0tPg0KPCEtLSAgICAgICAgICAgICAgICAgIyBncm91cDMgPSBhcy5mYWN0b3IodGlkeWdyYXBoOjpncm91cF93YWxrdHJhcCgpKSwgLS0+DQo8IS0tICAgICAgICAgICAgICAgICAjIGdyb3VwNCA9IGFzLmZhY3Rvcih0aWR5Z3JhcGg6Omdyb3VwX3NwaW5nbGFzcygpKSwgLS0+DQo8IS0tICAgICAgICAgICAgICAgICBncm91cDUgPSBhcy5mYWN0b3IodGlkeWdyYXBoOjpncm91cF9sb3V2YWluKCkpKSAlPiUgIC0tPg0KPCEtLSAgIGdncmFwaDo6Z2dyYXBoKGxheW91dCA9ICJmciIpICsgLS0+DQo8IS0tICAgICBnZ3JhcGg6Omdlb21fZWRnZV9hcmMoYWVzKGNvbG91ciA9IHIsIGVkZ2Vfd2lkdGggPSBhYnMocikpLCBzdHJlbmd0aCA9IDAuMSwgc2hvdy5sZWdlbmQgPSBGQUxTRSkgKyAtLT4NCjwhLS0gICAgIGdncmFwaDo6Z2VvbV9ub2RlX3BvaW50KGFlcyhzaXplID0gZGVncmVlLCBjb2xvciA9IGdyb3VwNSksIHNob3cubGVnZW5kID0gRkFMU0UpICsgLS0+DQo8IS0tICAgICBnZ3JhcGg6Omdlb21fbm9kZV90ZXh0KGFlcyhsYWJlbCA9IG5hbWUpLCBjb2xvdXIgPSAid2hpdGUiKSArIC0tPg0KPCEtLSAgICAgZ2dyYXBoOjpzY2FsZV9lZGdlX2NvbG9yX2dyYWRpZW50Mihsb3cgPSAiI2EyMDAyNSIsIGhpZ2ggPSAiIzAwOGEwMCIsIG5hbWUgPSAiciIpICsgLS0+DQo8IS0tICAgICBnZ3JhcGg6OnRoZW1lX2dyYXBoKCkgKyAtLT4NCjwhLS0gICAgIGd1aWRlcyhlZGdlX3dpZHRoID0gRkFMU0UpICsgLS0+DQo8IS0tICAgICBzY2FsZV94X2NvbnRpbnVvdXMoZXhwYW5kID0gZXhwYW5zaW9uKGMoLjEwLCAuMTApKSkgKyAtLT4NCjwhLS0gICAgIHNjYWxlX3lfY29udGludW91cyhleHBhbmQgPSBleHBhbnNpb24oYyguMTAsIC4xMCkpKSArIC0tPg0KPCEtLSAgICAgc2NhbGVfc2l6ZV9jb250aW51b3VzKHJhbmdlID0gYygyMCwgMzApKSArIC0tPg0KPCEtLSAgICAgc2NhbGVfZWRnZV93aWR0aF9jb250aW51b3VzKHJhbmdlID0gYygwLjUsIDIpKSArIC0tPg0KPCEtLSAgICAgc2VlOjpzY2FsZV9jb2xvcl9tYXRlcmlhbF9kKHBhbGV0dGU9InJhaW5ib3ciLCByZXZlcnNlPVRSVUUpIC0tPg0KPCEtLSBgYGAgLS0+DQoNCjwhLS0gR3JvdXBzIHdlcmUgaWRlbnRpZmllZCB1c2luZyB0aGUgW3RpZHlncmFwaDo6Z3JvdXBfb3B0aW1hbF0oaHR0cHM6Ly9yZHJyLmlvL2NyYW4vdGlkeWdyYXBoL21hbi9ncm91cF9ncmFwaC5odG1sKSBhbGdvcml0aG0uIC0tPg0KDQoNCg0KDQo8IS0tICMjIyBDbHVzdGVyIEFuYWx5c2lzIC0tPg0KDQo8IS0tICMjIyMgSG93IG1hbnkgY2x1c3RlcnMgLS0+DQoNCjwhLS0gYGBge3IsIG1lc3NhZ2U9RkFMU0UsIHdhcm5pbmc9RkFMU0V9IC0tPg0KPCEtLSBkYXQgPC0gZWZmZWN0c2l6ZTo6c3RhbmRhcmRpemUoZGF0YVtzYXBwbHkoZGF0YSwgaXMubnVtZXJpYyldKSAtLT4NCg0KPCEtLSBuIDwtIHBhcmFtZXRlcnM6Om5fY2x1c3RlcnModChkYXQpLCBwYWNrYWdlID0gYygibWNsdXN0IiwgImNsdXN0ZXIiKSkgLS0+DQoNCjwhLS0gbiAtLT4NCg0KPCEtLSBwbG90KG4pICsgLS0+DQo8IS0tICAgdGhlbWVfbW9kZXJuKCkgLS0+DQo8IS0tIGBgYCAtLT4NCg0KDQo8IS0tIGBgYHtyLCBtZXNzYWdlPUZBTFNFLCB3YXJuaW5nPUZBTFNFLCBmaWcud2lkdGg9NywgZmlnLmhlaWdodD0xMH0gLS0+DQo8IS0tIGxpYnJhcnkoZGVuZGV4dGVuZCkgLS0+DQoNCjwhLS0gZGF0IDwtIGVmZmVjdHNpemU6OnN0YW5kYXJkaXplKGRhdGFbc2FwcGx5KGRhdGEsIGlzLm51bWVyaWMpXSkgLS0+DQoNCjwhLS0gcmVzdWx0IDwtIHB2Y2x1c3Q6OnB2Y2x1c3QoZGF0LCBtZXRob2QuZGlzdD0iZXVjbGlkZWFuIiwgbWV0aG9kLmhjbHVzdD0id2FyZC5EMiIsIG5ib290PTEwLCBxdWlldD1UUlVFKSAtLT4NCg0KPCEtLSByZXN1bHQgJT4lICAtLT4NCjwhLS0gICBhcy5kZW5kcm9ncmFtKCkgJT4lICAtLT4NCjwhLS0gICBzb3J0KCkgJT4lICAtLT4NCjwhLS0gICBkZW5kZXh0ZW5kOjpwdmNsdXN0X3Nob3dfc2lnbmlmX2dyYWRpZW50KHJlc3VsdCwgc2lnbmlmX2NvbF9mdW4gPSBnckRldmljZXM6OmNvbG9yUmFtcFBhbGV0dGUoYygiYmxhY2siLCAicmVkIikpKSAlPiUgIC0tPg0KPCEtLSAgIGRlbmRleHRlbmQ6OnB2Y2x1c3Rfc2hvd19zaWduaWYocmVzdWx0LCBzaWduaWZfdmFsdWUgPSBjKDIsIDEpKSAlPiUgLS0+DQo8IS0tICAgZGVuZGV4dGVuZDo6YXMuZ2dkZW5kKCkgJT4lICAtLT4NCjwhLS0gICBnZ3Bsb3QyOjpnZ3Bsb3QoaG9yaXo9VFJVRSwgb2Zmc2V0X2xhYmVscyA9IC0xKSAtLT4NCjwhLS0gYGBgIC0tPg0KDQoNCg0KIyMgUmVmZXJlbmNlcw0K</div>
 
 
 </div>
