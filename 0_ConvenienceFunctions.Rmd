@@ -15,7 +15,7 @@ library(ggraph)
 
 #### Cleaning
 
-```{r eval=TRUE}
+```{r eval=TRUE, class.source = "fold-hide"}
 clean_names <- function(n) {
   n[n == "Recording_Length"] <- "Recording Length"
   n[n == "CSI_Modified"] <- "CSI (modified)"
@@ -32,7 +32,7 @@ assign_clusters <- function(table_clusters, data, clusters, col = "Hclust") {
 
 #### Dendrogram
 
-```{r eval=TRUE}
+```{r eval=TRUE, class.source = "fold-hide"}
 plot_dendrogram <- function(model, clusters = NULL, points = TRUE, ylim = -0.3, nudge_y = -0.02, angle = 90, h = NULL, edges = "elbow") {
   if(is.null(clusters)) {
     data <- tidygraph::as_tbl_graph(model)
@@ -81,7 +81,7 @@ plot_dendrogram <- function(model, clusters = NULL, points = TRUE, ylim = -0.3, 
 
 #### Correlations
 
-```{r eval=TRUE}
+```{r eval=TRUE, class.source = "fold-hide"}
 plot_correlation <- function(data, x = "Recording_Length", y = "RMSSD", xlab = x, ylab = y, color = "red", label = NULL) {
   data %>%
     ggplot(aes_string(x = x, y = y)) +

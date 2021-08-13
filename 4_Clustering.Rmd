@@ -34,8 +34,6 @@ n <- parameters::n_clusters(z,
 n
 
 plot(n)
-
-plot(n_clusters_gap(z, standardize = FALSE))
 ```
 
 

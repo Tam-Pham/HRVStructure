@@ -5,10 +5,11 @@ editor_options:
 ---
 
 
-### Factor Analysis
+### Dimension Reduction
 
+#### Factor Analysis 
 
-#### How many factors
+##### How many factors
 
 ```{r, message=FALSE, warning=FALSE}
 set.seed(3)
@@ -23,8 +24,6 @@ n
 
 plot(n) 
 ```
-
-#### Exploratory Factor Analysis (EFA)
 
 ##### 3-factors
 

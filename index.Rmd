@@ -11,7 +11,7 @@ output:
     toc_float: yes
     number_sections: no
     df_print: default
-    code_folding: hide
+    code_folding: show
     code_download: yes
   word_document:
     reference_docx: utils/Template_Word.docx
