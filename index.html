@@ -447,7 +447,14 @@ div.tocify {
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  n[n <span class="sc">==</span> <span class="st">&quot;Recording_Length&quot;</span>] <span class="ot">&lt;-</span> <span class="st">&quot;Recording Length&quot;</span></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  n[n <span class="sc">==</span> <span class="st">&quot;CSI_Modified&quot;</span>] <span class="ot">&lt;-</span> <span class="st">&quot;CSI (modified)&quot;</span></span>
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  n</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>assign_clusters <span class="ot">&lt;-</span> <span class="cf">function</span>(table_clusters, data, clusters, <span class="at">col =</span> <span class="st">&quot;Hclust&quot;</span>) {</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>  table_clusters[[col]] <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>  table_clusters[[col]][table_clusters<span class="sc">$</span>Index <span class="sc">%in%</span> <span class="fu">row.names</span>(data)] <span class="ot">&lt;-</span> clusters</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>  table_clusters[[col]][table_clusters[[col]] <span class="sc">==</span> <span class="st">&quot;0&quot;</span>] <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="fu">length</span>(<span class="fu">unique</span>(clusters)),<span class="fu">sum</span>(clusters <span class="sc">==</span> <span class="st">&quot;0&quot;</span>) <span class="sc">+</span> <span class="fu">length</span>(<span class="fu">unique</span>(clusters)) <span class="sc">-</span> <span class="dv">1</span>)</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>  table_clusters</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 </div>
 <div id="dendrogram" class="section level4">
 <h4>Dendrogram</h4>
@@ -1781,9 +1788,9 @@ div.tocify {
 <h3>Clustering</h3>
 <div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Preprocessing</span></span>
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>z <span class="ot">&lt;-</span> <span class="fu">standardize</span>(data[hrv_cols])</span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>z <span class="ot">&lt;-</span> z[ , <span class="fu">colSums</span>(<span class="fu">is.na</span>(z)) <span class="sc">&lt;</span> <span class="fl">0.1</span> <span class="sc">*</span> <span class="fu">nrow</span>(z)]  <span class="co"># keep only cols with few nans</span></span>
-<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>z[<span class="fu">is.na</span>(z)] <span class="ot">&lt;-</span> <span class="dv">0</span>  <span class="co"># mean imputation</span></span>
-<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>z <span class="ot">&lt;-</span> datawizard<span class="sc">::</span><span class="fu">data_transpose</span>(z)</span></code></pre></div>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>z <span class="ot">&lt;-</span> datawizard<span class="sc">::</span><span class="fu">data_transpose</span>(z)</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>z <span class="ot">&lt;-</span> z[ , <span class="fu">colSums</span>(<span class="fu">is.na</span>(z)) <span class="sc">&lt;</span> <span class="fl">0.2</span> <span class="sc">*</span> <span class="fu">nrow</span>(z)]  <span class="co"># keep only cols with few nans</span></span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>z[<span class="fu">is.na</span>(z)] <span class="ot">&lt;-</span> <span class="dv">0</span>  <span class="co"># mean imputation</span></span></code></pre></div>
 <div id="k-means" class="section level4">
 <h4>K-Means</h4>
 <div id="how-many-clusters" class="section level5">
@@ -1794,183 +1801,316 @@ div.tocify {
 <span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>                            <span class="at">standardize =</span> <span class="cn">FALSE</span>, </span>
 <span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>                            <span class="at">package=</span> <span class="fu">c</span>(<span class="st">&quot;NbClust&quot;</span>, <span class="st">&quot;easystats&quot;</span>, <span class="st">&quot;mclust&quot;</span>), </span>
 <span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>                            <span class="at">nbclust_method =</span> <span class="st">&quot;average&quot;</span>,</span>
-<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>                            <span class="at">n_max =</span> <span class="dv">15</span>,</span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>                            <span class="at">n_max =</span> <span class="dv">10</span>,</span>
 <span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>                            <span class="at">fast =</span> <span class="cn">FALSE</span>)</span>
 <span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a>n</span></code></pre></div>
 <pre><code>&gt; # Method Agreement Procedure:
 &gt; 
-&gt; The choice of 6 clusters is supported by 6 (25.00%) methods out of 24 (Silhouette, kl, Hartigan, Duda, Pseudot2, Ratkowsky).</code></pre>
+&gt; The choice of 4 clusters is supported by 5 (20.00%) methods out of 25 (kl, Hartigan, Cindex, Ratkowsky, tau).</code></pre>
 <div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(n)</span></code></pre></div>
 <p><img src="figures/unnamed-chunk-25-1.png" width="5824.92235949962" /></p>
 <div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">n_clusters_gap</span>(z, <span class="at">standardize =</span> <span class="cn">FALSE</span>))</span></code></pre></div>
 <p><img src="figures/unnamed-chunk-25-2.png" width="5824.92235949962" /></p>
 </div>
 <div id="k-solution" class="section level5">
-<h5>7-K Solution</h5>
-<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>rez <span class="ot">&lt;-</span> parameters<span class="sc">::</span><span class="fu">cluster_analysis</span>(z, <span class="at">n =</span> <span class="dv">7</span>, <span class="at">method =</span> <span class="st">&quot;hkmeans&quot;</span>)</span>
+<h5>4-K Solution</h5>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">3</span>)</span>
 <span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a><span class="fu">as.data.frame</span>(rez)[<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>]</span></code></pre></div>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>rez <span class="ot">&lt;-</span> parameters<span class="sc">::</span><span class="fu">cluster_analysis</span>(z, <span class="at">standardize =</span> <span class="cn">FALSE</span>, <span class="at">n =</span> <span class="dv">4</span>, <span class="at">method =</span> <span class="st">&quot;hkmeans&quot;</span>)</span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a><span class="fu">as.data.frame</span>(rez)[<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>]</span></code></pre></div>
 <pre><code>&gt;   Cluster n_Obs Sum_Squares
-&gt; 1       1     3         527
-&gt; 2       2    10        1876
-&gt; 3       3     2         168
-&gt; 4       4     3         776
-&gt; 5       5     3         373
-&gt; 6       6     2         246
-&gt; 7       7     1           0</code></pre>
-<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cluster_performance</span>(rez)</span></code></pre></div>
-<pre><code>&gt; # Indices of model performance
-&gt; 
-&gt; Sum_Squares_Total | Sum_Squares_Between | Sum_Squares_Within |    R2
-&gt; --------------------------------------------------------------------
-&gt; 11408.000         |            7441.470 |           3966.530 | 0.652</code></pre>
-<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(rez)</span></code></pre></div>
+&gt; 1       1    11        1274
+&gt; 2       2    12        1685
+&gt; 3       3     8        1091
+&gt; 4       4    12        1957</code></pre>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>insight<span class="sc">::</span><span class="fu">display</span>(<span class="fu">cluster_performance</span>(rez))</span></code></pre></div>
+<table>
+<caption>Indices of model performance</caption>
+<thead>
+<tr class="header">
+<th align="left">Sum_Squares_Total</th>
+<th align="center">Sum_Squares_Between</th>
+<th align="center">Sum_Squares_Within</th>
+<th align="center">R2</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">9391.30</td>
+<td align="center">3383.83</td>
+<td align="center">6007.47</td>
+<td align="center">0.36</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(rez)</span></code></pre></div>
 <p><img src="figures/unnamed-chunk-26-1.png" width="5824.92235949962" /></p>
-<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>table_clusters<span class="sc">$</span>Kmeans_8 <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
-<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>table_clusters<span class="sc">$</span>Kmeans_8[table_clusters<span class="sc">$</span>Index <span class="sc">%in%</span> <span class="fu">row.names</span>(z)] <span class="ot">&lt;-</span> <span class="fu">as.character</span>(<span class="fu">predict</span>(rez))</span></code></pre></div>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>table_clusters<span class="sc">$</span>Kmeans_4 <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>table_clusters<span class="sc">$</span>Kmeans_4[table_clusters<span class="sc">$</span>Index <span class="sc">%in%</span> <span class="fu">row.names</span>(z)] <span class="ot">&lt;-</span> <span class="fu">as.character</span>(<span class="fu">predict</span>(rez))</span></code></pre></div>
 </div>
 <div id="k-solution-1" class="section level5">
-<h5>5-K Solution</h5>
-<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>rez <span class="ot">&lt;-</span> parameters<span class="sc">::</span><span class="fu">cluster_analysis</span>(z, <span class="at">n =</span> <span class="dv">5</span>, <span class="at">method =</span> <span class="st">&quot;hkmeans&quot;</span>)</span>
-<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a><span class="fu">as.data.frame</span>(rez)[<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>]</span></code></pre></div>
+<h5>8-K Solution</h5>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">3</span>)</span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>rez <span class="ot">&lt;-</span> parameters<span class="sc">::</span><span class="fu">cluster_analysis</span>(z, <span class="at">n =</span> <span class="dv">8</span>, <span class="at">method =</span> <span class="st">&quot;hkmeans&quot;</span>)</span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a><span class="fu">as.data.frame</span>(rez)[<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>]</span></code></pre></div>
 <pre><code>&gt;   Cluster n_Obs Sum_Squares
-&gt; 1       1     3         527
-&gt; 2       2    10        1876
-&gt; 3       3     6        2433
-&gt; 4       4     3         373
-&gt; 5       5     2         246</code></pre>
-<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cluster_performance</span>(rez)</span></code></pre></div>
-<pre><code>&gt; # Indices of model performance
-&gt; 
-&gt; Sum_Squares_Total | Sum_Squares_Between | Sum_Squares_Within |    R2
-&gt; --------------------------------------------------------------------
-&gt; 11408.000         |            5952.697 |           5455.303 | 0.522</code></pre>
-<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(rez)</span></code></pre></div>
+&gt; 1       1    15      2095.9
+&gt; 2       2     2         2.6
+&gt; 3       3     3       375.9
+&gt; 4       4     4       571.9
+&gt; 5       5     5       836.4
+&gt; 6       6     2       221.0
+&gt; 7       7     8      1178.4
+&gt; 8       8     4       434.9</code></pre>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>insight<span class="sc">::</span><span class="fu">display</span>(<span class="fu">cluster_performance</span>(rez))</span></code></pre></div>
+<table>
+<caption>Indices of model performance</caption>
+<thead>
+<tr class="header">
+<th align="left">Sum_Squares_Total</th>
+<th align="center">Sum_Squares_Between</th>
+<th align="center">Sum_Squares_Within</th>
+<th align="center">R2</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">12054.00</td>
+<td align="center">6336.89</td>
+<td align="center">5717.11</td>
+<td align="center">0.53</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(rez)</span></code></pre></div>
 <p><img src="figures/unnamed-chunk-27-1.png" width="5824.92235949962" /></p>
-<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>table_clusters<span class="sc">$</span>Kmeans_5 <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
-<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>table_clusters<span class="sc">$</span>Kmeans_5[table_clusters<span class="sc">$</span>Index <span class="sc">%in%</span> <span class="fu">row.names</span>(z)] <span class="ot">&lt;-</span> <span class="fu">as.character</span>(<span class="fu">predict</span>(rez))</span></code></pre></div>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>table_clusters<span class="sc">$</span>Kmeans_8 <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>table_clusters<span class="sc">$</span>Kmeans_8[table_clusters<span class="sc">$</span>Index <span class="sc">%in%</span> <span class="fu">row.names</span>(z)] <span class="ot">&lt;-</span> <span class="fu">as.character</span>(<span class="fu">predict</span>(rez))</span></code></pre></div>
 </div>
 </div>
 <div id="hierarchial-clustering" class="section level4">
 <h4>Hierarchial Clustering</h4>
-<div id="clustering-1" class="section level5">
-<h5>Clustering</h5>
-<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>rez <span class="ot">&lt;-</span> parameters<span class="sc">::</span><span class="fu">cluster_analysis</span>(z, <span class="at">n =</span> <span class="cn">NULL</span>, <span class="at">standardize =</span> <span class="cn">FALSE</span>, <span class="at">method =</span> <span class="st">&quot;hclust&quot;</span>, <span class="at">distance_method =</span> <span class="st">&quot;correlation&quot;</span>, <span class="at">hclust_method =</span> <span class="st">&quot;average&quot;</span>, <span class="at">ci =</span> <span class="fl">0.90</span>)</span>
-<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a><span class="fu">as.data.frame</span>(rez)[<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>]</span></code></pre></div>
-<pre><code>&gt;   Cluster n_Obs Sum_Squares
-&gt; 1       0     2       551.3
-&gt; 2       1     2         5.3
-&gt; 3       2     3       289.7
-&gt; 4       3    17      5018.5</code></pre>
-<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cluster_performance</span>(rez)</span></code></pre></div>
-<pre><code>&gt; # Indices of model performance
-&gt; 
-&gt; Sum_Squares_Total | Sum_Squares_Between | Sum_Squares_Within |    R2
-&gt; --------------------------------------------------------------------
-&gt; 9254.811          |            3389.890 |           5313.602 | 0.366</code></pre>
-<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(rez)</span></code></pre></div>
+<div id="clustering-95" class="section level5">
+<h5>Clustering (95%)</h5>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">3</span>)</span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>rez <span class="ot">&lt;-</span> parameters<span class="sc">::</span><span class="fu">cluster_analysis</span>(z, <span class="at">n =</span> <span class="cn">NULL</span>, <span class="at">standardize =</span> <span class="cn">FALSE</span>, <span class="at">method =</span> <span class="st">&quot;hclust&quot;</span>, <span class="at">distance_method =</span> <span class="st">&quot;correlation&quot;</span>, <span class="at">hclust_method =</span> <span class="st">&quot;average&quot;</span>, <span class="at">ci =</span> <span class="fl">0.95</span>, <span class="at">iterations =</span> <span class="dv">2000</span>)</span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a><span class="fu">as.data.frame</span>(rez)[<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>]</span></code></pre></div>
+<pre><code>&gt;    Cluster n_Obs Sum_Squares
+&gt; 1        0    20      4513.2
+&gt; 2        1     2         2.6
+&gt; 3        2     2        33.8
+&gt; 4        3     3        25.6
+&gt; 5        4     2        52.6
+&gt; 6        5     3        70.8
+&gt; 7        6     2        78.7
+&gt; 8        7     2        77.9
+&gt; 9        8     3        67.2
+&gt; 10       9     4       290.0</code></pre>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>insight<span class="sc">::</span><span class="fu">display</span>(<span class="fu">cluster_performance</span>(rez))</span></code></pre></div>
+<table>
+<caption>Indices of model performance</caption>
+<thead>
+<tr class="header">
+<th align="left">Sum_Squares_Total</th>
+<th align="center">Sum_Squares_Between</th>
+<th align="center">Sum_Squares_Within</th>
+<th align="center">R2</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">9391.30</td>
+<td align="center">4179.00</td>
+<td align="center">699.11</td>
+<td align="center">0.44</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(rez)</span></code></pre></div>
 <p><img src="figures/unnamed-chunk-28-1.png" width="5824.92235949962" /></p>
-<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>table_clusters<span class="sc">$</span>Hclust <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
-<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>table_clusters<span class="sc">$</span>Hclust[table_clusters<span class="sc">$</span>Index <span class="sc">%in%</span> <span class="fu">row.names</span>(z)] <span class="ot">&lt;-</span> <span class="fu">as.character</span>(<span class="fu">predict</span>(rez))</span>
-<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a>table_clusters<span class="sc">$</span>Hclust[table_clusters<span class="sc">$</span>Hclust <span class="sc">==</span> <span class="st">&quot;0&quot;</span>] <span class="ot">&lt;-</span> <span class="cn">NA</span></span></code></pre></div>
-</div>
-<div id="dendrogram-1" class="section level5">
-<h5>Dendrogram</h5>
-<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>clusters <span class="ot">&lt;-</span> table_clusters<span class="sc">$</span>Hclust</span>
-<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(clusters) <span class="ot">&lt;-</span> table_clusters<span class="sc">$</span>Index</span>
-<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb50-4"><a href="#cb50-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_dendrogram</span>(<span class="at">model =</span> <span class="fu">attributes</span>(rez)<span class="sc">$</span>model<span class="sc">$</span>hclust, <span class="at">clusters =</span> clusters)</span></code></pre></div>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>table_clusters <span class="ot">&lt;-</span> <span class="fu">assign_clusters</span>(table_clusters, z, <span class="at">clusters =</span> <span class="fu">as.character</span>(<span class="fu">predict</span>(rez)), <span class="at">col =</span> <span class="st">&quot;Hclust_95&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>clusters <span class="ot">&lt;-</span> table_clusters<span class="sc">$</span>Hclust_95</span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(clusters) <span class="ot">&lt;-</span> table_clusters<span class="sc">$</span>Index</span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_dendrogram</span>(<span class="at">model =</span> <span class="fu">attributes</span>(rez)<span class="sc">$</span>model<span class="sc">$</span>hclust, <span class="at">clusters =</span> clusters)</span></code></pre></div>
 <p><img src="figures/unnamed-chunk-29-1.png" width="5824.92235949962" /></p>
+</div>
+<div id="clustering-90" class="section level5">
+<h5>Clustering (90%)</h5>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">3</span>)</span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a>rez <span class="ot">&lt;-</span> parameters<span class="sc">::</span><span class="fu">cluster_analysis</span>(z, <span class="at">n =</span> <span class="cn">NULL</span>, <span class="at">standardize =</span> <span class="cn">FALSE</span>, <span class="at">method =</span> <span class="st">&quot;hclust&quot;</span>, <span class="at">distance_method =</span> <span class="st">&quot;correlation&quot;</span>, <span class="at">hclust_method =</span> <span class="st">&quot;average&quot;</span>, <span class="at">ci =</span> <span class="fl">0.90</span>, <span class="at">iterations =</span> <span class="dv">2000</span>)</span>
+<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-5"><a href="#cb48-5" aria-hidden="true" tabindex="-1"></a><span class="fu">as.data.frame</span>(rez)[<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>]</span></code></pre></div>
+<pre><code>&gt;   Cluster n_Obs Sum_Squares
+&gt; 1       0     4         519
+&gt; 2       1     2          79
+&gt; 3       2     3          67
+&gt; 4       3     4         290
+&gt; 5       4    30        5755</code></pre>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>insight<span class="sc">::</span><span class="fu">display</span>(<span class="fu">cluster_performance</span>(rez))</span></code></pre></div>
+<table>
+<caption>Indices of model performance</caption>
+<thead>
+<tr class="header">
+<th align="left">Sum_Squares_Total</th>
+<th align="center">Sum_Squares_Between</th>
+<th align="center">Sum_Squares_Within</th>
+<th align="center">R2</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">9391.30</td>
+<td align="center">2681.66</td>
+<td align="center">6190.66</td>
+<td align="center">0.29</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(rez)</span></code></pre></div>
+<p><img src="figures/unnamed-chunk-30-1.png" width="5824.92235949962" /></p>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>table_clusters <span class="ot">&lt;-</span> <span class="fu">assign_clusters</span>(table_clusters, z, <span class="at">clusters =</span> <span class="fu">as.character</span>(<span class="fu">predict</span>(rez)), <span class="at">col =</span> <span class="st">&quot;Hclust_90&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>clusters <span class="ot">&lt;-</span> table_clusters<span class="sc">$</span>Hclust_90</span>
+<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(clusters) <span class="ot">&lt;-</span> table_clusters<span class="sc">$</span>Index</span>
+<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-4"><a href="#cb53-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_dendrogram</span>(<span class="at">model =</span> <span class="fu">attributes</span>(rez)<span class="sc">$</span>model<span class="sc">$</span>hclust, <span class="at">clusters =</span> clusters)</span></code></pre></div>
+<p><img src="figures/unnamed-chunk-31-1.png" width="5824.92235949962" /></p>
 </div>
 </div>
 <div id="dbscan" class="section level4">
 <h4>DBSCAN</h4>
 <div id="parameters-selection" class="section level5">
 <h5>Parameters Selection</h5>
-<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">n_clusters_dbscan</span>(z, <span class="at">standardize =</span> <span class="cn">FALSE</span>, <span class="at">eps_range =</span> <span class="fu">c</span>(<span class="fl">0.1</span>, <span class="dv">30</span>), <span class="at">min_size =</span> <span class="dv">2</span>, <span class="at">method =</span> <span class="st">&quot;kNN&quot;</span>)</span>
-<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(n)</span></code></pre></div>
-<p><img src="figures/unnamed-chunk-30-1.png" width="5824.92235949962" /></p>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">n_clusters_dbscan</span>(z, <span class="at">standardize =</span> <span class="cn">FALSE</span>, <span class="at">eps_range =</span> <span class="fu">c</span>(<span class="fl">0.1</span>, <span class="dv">30</span>), <span class="at">min_size =</span> <span class="dv">2</span>, <span class="at">method =</span> <span class="st">&quot;kNN&quot;</span>)</span>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(n)</span></code></pre></div>
+<p><img src="figures/unnamed-chunk-32-1.png" width="5824.92235949962" /></p>
 </div>
 <div id="dbscan-1" class="section level5">
 <h5>DBSCAN</h5>
-<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>rez <span class="ot">&lt;-</span> parameters<span class="sc">::</span><span class="fu">cluster_analysis</span>(z, <span class="at">n =</span> <span class="cn">NULL</span>, <span class="at">standardize =</span> <span class="cn">FALSE</span>, <span class="at">method =</span> <span class="st">&quot;dbscan&quot;</span>, <span class="at">dbscan_eps =</span> <span class="dv">16</span>, <span class="at">min_size =</span> <span class="dv">2</span>, <span class="at">borderPoints =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a><span class="fu">as.data.frame</span>(rez)[<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>rez <span class="ot">&lt;-</span> parameters<span class="sc">::</span><span class="fu">cluster_analysis</span>(z, <span class="at">n =</span> <span class="cn">NULL</span>, <span class="at">standardize =</span> <span class="cn">FALSE</span>, <span class="at">method =</span> <span class="st">&quot;dbscan&quot;</span>, <span class="at">dbscan_eps =</span> <span class="dv">10</span>, <span class="at">min_size =</span> <span class="dv">2</span>, <span class="at">borderPoints =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-3"><a href="#cb55-3" aria-hidden="true" tabindex="-1"></a><span class="fu">as.data.frame</span>(rez)[<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>]</span></code></pre></div>
 <pre><code>&gt;   Cluster n_Obs Sum_Squares
-&gt; 1       0    11      4458.8
-&gt; 2       1     2         5.3
-&gt; 3       2     7       797.7
-&gt; 4       3     2       106.4
-&gt; 5       4     2        96.9</code></pre>
-<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cluster_performance</span>(rez)</span></code></pre></div>
-<pre><code>&gt; # Indices of model performance
-&gt; 
-&gt; Sum_Squares_Total | Sum_Squares_Between | Sum_Squares_Within |    R2
-&gt; --------------------------------------------------------------------
-&gt; 9254.811          |            3789.685 |           1006.302 | 0.409</code></pre>
-<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(rez)</span></code></pre></div>
-<p><img src="figures/unnamed-chunk-31-1.png" width="5824.92235949962" /></p>
-<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a>table_clusters<span class="sc">$</span>DBSCAN <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
-<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a>table_clusters<span class="sc">$</span>DBSCAN[table_clusters<span class="sc">$</span>Index <span class="sc">%in%</span> <span class="fu">row.names</span>(z)] <span class="ot">&lt;-</span> <span class="fu">as.character</span>(<span class="fu">predict</span>(rez))</span>
-<span id="cb57-3"><a href="#cb57-3" aria-hidden="true" tabindex="-1"></a>table_clusters<span class="sc">$</span>DBSCAN[table_clusters<span class="sc">$</span>DBSCAN <span class="sc">==</span> <span class="st">&quot;0&quot;</span>] <span class="ot">&lt;-</span> <span class="cn">NA</span></span></code></pre></div>
+&gt; 1       0    25      6025.9
+&gt; 2       1     2         2.6
+&gt; 3       2     2        42.3
+&gt; 4       3     3        70.8
+&gt; 5       4     3        85.0
+&gt; 6       5     3        25.6
+&gt; 7       6     3        67.2
+&gt; 8       7     2        33.8</code></pre>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a>insight<span class="sc">::</span><span class="fu">display</span>(<span class="fu">cluster_performance</span>(rez))</span></code></pre></div>
+<table>
+<caption>Indices of model performance</caption>
+<thead>
+<tr class="header">
+<th align="left">Sum_Squares_Total</th>
+<th align="center">Sum_Squares_Between</th>
+<th align="center">Sum_Squares_Within</th>
+<th align="center">R2</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">9391.30</td>
+<td align="center">3038.05</td>
+<td align="center">327.32</td>
+<td align="center">0.32</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(rez)</span></code></pre></div>
+<p><img src="figures/unnamed-chunk-33-1.png" width="5824.92235949962" /></p>
+<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a>table_clusters <span class="ot">&lt;-</span> <span class="fu">assign_clusters</span>(table_clusters, z, <span class="at">clusters =</span> <span class="fu">as.character</span>(<span class="fu">predict</span>(rez)), <span class="at">col =</span> <span class="st">&quot;DBSCAN&quot;</span>)</span></code></pre></div>
 </div>
 <div id="hdbscan" class="section level5">
 <h5>HDBSCAN</h5>
-<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a>rez <span class="ot">&lt;-</span> parameters<span class="sc">::</span><span class="fu">cluster_analysis</span>(z, <span class="at">n =</span> <span class="cn">NULL</span>, <span class="at">standardize =</span> <span class="cn">FALSE</span>, <span class="at">method =</span> <span class="st">&quot;hdbscan&quot;</span>, <span class="at">min_size =</span> <span class="dv">2</span>)</span>
-<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb58-3"><a href="#cb58-3" aria-hidden="true" tabindex="-1"></a><span class="fu">as.data.frame</span>(rez)[<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>]</span></code></pre></div>
-<pre><code>&gt;   Cluster n_Obs Sum_Squares
-&gt; 1       0     7      2689.6
-&gt; 2       1     2       194.6
-&gt; 3       2     3       289.7
-&gt; 4       3     3       440.8
-&gt; 5       4     3       131.1
-&gt; 6       5     4       346.1
-&gt; 7       6     2         5.3</code></pre>
-<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cluster_performance</span>(rez)</span></code></pre></div>
-<pre><code>&gt; # Indices of model performance
-&gt; 
-&gt; Sum_Squares_Total | Sum_Squares_Between | Sum_Squares_Within |    R2
-&gt; --------------------------------------------------------------------
-&gt; 9254.811          |            5157.482 |           1407.756 | 0.557</code></pre>
-<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(rez)</span></code></pre></div>
-<p><img src="figures/unnamed-chunk-32-1.png" width="5824.92235949962" /></p>
-<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a>table_clusters<span class="sc">$</span>HDBSCAN <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
-<span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a>table_clusters<span class="sc">$</span>HDBSCAN[table_clusters<span class="sc">$</span>Index <span class="sc">%in%</span> <span class="fu">row.names</span>(z)] <span class="ot">&lt;-</span> <span class="fu">as.character</span>(<span class="fu">predict</span>(rez))</span>
-<span id="cb63-3"><a href="#cb63-3" aria-hidden="true" tabindex="-1"></a>table_clusters<span class="sc">$</span>HDBSCAN[table_clusters<span class="sc">$</span>HDBSCAN <span class="sc">==</span> <span class="st">&quot;0&quot;</span>] <span class="ot">&lt;-</span> <span class="cn">NA</span></span></code></pre></div>
+<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a>rez <span class="ot">&lt;-</span> parameters<span class="sc">::</span><span class="fu">cluster_analysis</span>(z, <span class="at">n =</span> <span class="cn">NULL</span>, <span class="at">standardize =</span> <span class="cn">FALSE</span>, <span class="at">method =</span> <span class="st">&quot;hdbscan&quot;</span>, <span class="at">min_size =</span> <span class="dv">2</span>)</span>
+<span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb60-3"><a href="#cb60-3" aria-hidden="true" tabindex="-1"></a><span class="fu">as.data.frame</span>(rez)[<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>]</span></code></pre></div>
+<pre><code>&gt;    Cluster n_Obs Sum_Squares
+&gt; 1        0    13      3140.9
+&gt; 2        1     2        78.7
+&gt; 3       10     3        70.8
+&gt; 4       11     3       101.9
+&gt; 5        2     4       290.0
+&gt; 6        3     2        91.2
+&gt; 7        4     3       223.3
+&gt; 8        5     3       172.1
+&gt; 9        6     2         2.6
+&gt; 10       7     3        67.2
+&gt; 11       8     3        25.6
+&gt; 12       9     2        52.6</code></pre>
+<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a>insight<span class="sc">::</span><span class="fu">display</span>(<span class="fu">cluster_performance</span>(rez))</span></code></pre></div>
+<table>
+<caption>Indices of model performance</caption>
+<thead>
+<tr class="header">
+<th align="left">Sum_Squares_Total</th>
+<th align="center">Sum_Squares_Between</th>
+<th align="center">Sum_Squares_Within</th>
+<th align="center">R2</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">9391.30</td>
+<td align="center">5074.59</td>
+<td align="center">1175.77</td>
+<td align="center">0.54</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(rez)</span></code></pre></div>
+<p><img src="figures/unnamed-chunk-34-1.png" width="5824.92235949962" /></p>
+<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a>table_clusters <span class="ot">&lt;-</span> <span class="fu">assign_clusters</span>(table_clusters, z, <span class="at">clusters =</span> <span class="fu">as.character</span>(<span class="fu">predict</span>(rez)), <span class="at">col =</span> <span class="st">&quot;HDBSCAN&quot;</span>)</span></code></pre></div>
 </div>
 </div>
 <div id="mixture-modelling" class="section level4">
 <h4>Mixture Modelling</h4>
-<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="fu">suppressMessages</span>(<span class="fu">library</span>(mclust))</span>
-<span id="cb64-2"><a href="#cb64-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb64-3"><a href="#cb64-3" aria-hidden="true" tabindex="-1"></a>rez <span class="ot">&lt;-</span> parameters<span class="sc">::</span><span class="fu">cluster_analysis</span>(z, <span class="at">method =</span> <span class="st">&quot;mixture&quot;</span>)</span>
-<span id="cb64-4"><a href="#cb64-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb64-5"><a href="#cb64-5" aria-hidden="true" tabindex="-1"></a><span class="fu">as.data.frame</span>(rez)[<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a><span class="fu">suppressMessages</span>(<span class="fu">library</span>(mclust))</span>
+<span id="cb65-2"><a href="#cb65-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb65-3"><a href="#cb65-3" aria-hidden="true" tabindex="-1"></a>rez <span class="ot">&lt;-</span> parameters<span class="sc">::</span><span class="fu">cluster_analysis</span>(z, <span class="at">method =</span> <span class="st">&quot;mixture&quot;</span>)</span>
+<span id="cb65-4"><a href="#cb65-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb65-5"><a href="#cb65-5" aria-hidden="true" tabindex="-1"></a><span class="fu">as.data.frame</span>(rez)[<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>]</span></code></pre></div>
 <pre><code>&gt;   Cluster n_Obs Sum_Squares
-&gt; 1       1     2         5.5
-&gt; 2       2     8      1083.5
-&gt; 3       3     3       770.2
-&gt; 4       4     2       167.7
-&gt; 5       5     2       224.3
-&gt; 6       6     3       373.0
-&gt; 7       7     2       245.9
-&gt; 8       8     1         0.0
-&gt; 9       9     1         0.0</code></pre>
-<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cluster_performance</span>(rez)</span></code></pre></div>
-<pre><code>&gt; # Indices of model performance
-&gt; 
-&gt; Sum_Squares_Total | Sum_Squares_Between | Sum_Squares_Within |    R2
-&gt; --------------------------------------------------------------------
-&gt; 11408.000         |            8538.023 |           2869.977 | 0.748</code></pre>
+&gt; 1       1    11      1202.0
+&gt; 2       2     2         2.6
+&gt; 3       3    10      1730.8
+&gt; 4       4     3       375.9
+&gt; 5       5     8      1516.3
+&gt; 6       6     6      1068.8
+&gt; 7       7     3       121.7</code></pre>
+<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a>insight<span class="sc">::</span><span class="fu">display</span>(<span class="fu">cluster_performance</span>(rez))</span></code></pre></div>
+<table>
+<caption>Indices of model performance</caption>
+<thead>
+<tr class="header">
+<th align="left">Sum_Squares_Total</th>
+<th align="center">Sum_Squares_Between</th>
+<th align="center">Sum_Squares_Within</th>
+<th align="center">R2</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">12054.00</td>
+<td align="center">6035.85</td>
+<td align="center">6018.15</td>
+<td align="center">0.50</td>
+</tr>
+</tbody>
+</table>
 <div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(rez)</span></code></pre></div>
-<p><img src="figures/unnamed-chunk-33-1.png" width="5824.92235949962" /></p>
-<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a>table_clusters<span class="sc">$</span>Mixture <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
-<span id="cb69-2"><a href="#cb69-2" aria-hidden="true" tabindex="-1"></a>table_clusters<span class="sc">$</span>Mixture[table_clusters<span class="sc">$</span>Index <span class="sc">%in%</span> <span class="fu">row.names</span>(z)] <span class="ot">&lt;-</span> <span class="fu">as.character</span>(<span class="fu">predict</span>(rez))</span>
-<span id="cb69-3"><a href="#cb69-3" aria-hidden="true" tabindex="-1"></a>table_clusters<span class="sc">$</span>Mixture[table_clusters<span class="sc">$</span>Mixture <span class="sc">==</span> <span class="st">&quot;0&quot;</span>] <span class="ot">&lt;-</span> <span class="cn">NA</span></span></code></pre></div>
+<p><img src="figures/unnamed-chunk-35-1.png" width="5824.92235949962" /></p>
+<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a>table_clusters <span class="ot">&lt;-</span> <span class="fu">assign_clusters</span>(table_clusters, z, <span class="at">clusters =</span> <span class="fu">as.character</span>(<span class="fu">predict</span>(rez)), <span class="at">col =</span> <span class="st">&quot;Mixture&quot;</span>)</span></code></pre></div>
 </div>
 </div>
 </div>
@@ -2044,7 +2184,7 @@ div.tocify {
 <div id="network-graph" class="section level4">
 <h4>Network Graph</h4>
 <div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a>graph <span class="sc">%&gt;%</span> </span>
-<span id="cb73-2"><a href="#cb73-2" aria-hidden="true" tabindex="-1"></a>  ggraph<span class="sc">::</span><span class="fu">ggraph</span>(<span class="at">layout =</span> <span class="st">&quot;fr&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb73-2"><a href="#cb73-2" aria-hidden="true" tabindex="-1"></a>  ggraph<span class="sc">::</span><span class="fu">ggraph</span>(<span class="at">layout =</span> <span class="st">&quot;graphopt&quot;</span>) <span class="sc">+</span> </span>
 <span id="cb73-3"><a href="#cb73-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_edge_arc</span>(<span class="fu">aes</span>(<span class="at">colour =</span> link, <span class="at">width =</span> link), <span class="at">strength =</span> <span class="fl">0.05</span>) <span class="sc">+</span> </span>
 <span id="cb73-4"><a href="#cb73-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_node_point</span>(<span class="fu">aes</span>(<span class="at">colour =</span> dimension, <span class="at">size =</span> centrality)) <span class="sc">+</span> </span>
 <span id="cb73-5"><a href="#cb73-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_node_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> name), <span class="at">fontface =</span> <span class="st">&quot;bold&quot;</span>, <span class="at">repel =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
@@ -2053,7 +2193,7 @@ div.tocify {
 <span id="cb73-8"><a href="#cb73-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_color_material_d</span>(<span class="at">palette =</span> <span class="st">&quot;rainbow&quot;</span>, <span class="at">guide =</span> <span class="st">&quot;none&quot;</span>) <span class="sc">+</span></span>
 <span id="cb73-9"><a href="#cb73-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_edge_color_gradientn</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">colours=</span><span class="fu">c</span>(<span class="st">&quot;#607D8B&quot;</span>, <span class="st">&quot;#263238&quot;</span>), <span class="at">guide =</span> <span class="st">&quot;none&quot;</span>) <span class="sc">+</span></span>
 <span id="cb73-10"><a href="#cb73-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_size_continuous</span>(<span class="at">range =</span> <span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">20</span>), <span class="at">guide =</span> <span class="st">&quot;none&quot;</span>)</span></code></pre></div>
-<p><img src="figures/unnamed-chunk-38-1.png" width="5824.92235949962" /></p>
+<p><img src="figures/unnamed-chunk-40-1.png" width="5824.92235949962" /></p>
 </div>
 </div>
 </div>
@@ -2070,7 +2210,7 @@ div.tocify {
 <span id="cb74-7"><a href="#cb74-7" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(row <span class="cf">in</span> <span class="fu">row.names</span>(m)) {</span>
 <span id="cb74-8"><a href="#cb74-8" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span>(col <span class="cf">in</span> <span class="fu">colnames</span>(m)) {</span>
 <span id="cb74-9"><a href="#cb74-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span>(row <span class="sc">==</span> col) {</span>
-<span id="cb74-10"><a href="#cb74-10" aria-hidden="true" tabindex="-1"></a>      m[row, col] <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb74-10"><a href="#cb74-10" aria-hidden="true" tabindex="-1"></a>      m[row, col] <span class="ot">&lt;-</span> <span class="dv">0</span></span>
 <span id="cb74-11"><a href="#cb74-11" aria-hidden="true" tabindex="-1"></a>      <span class="cf">next</span></span>
 <span id="cb74-12"><a href="#cb74-12" aria-hidden="true" tabindex="-1"></a>    } </span>
 <span id="cb74-13"><a href="#cb74-13" aria-hidden="true" tabindex="-1"></a>    subset <span class="ot">&lt;-</span> table[table<span class="sc">$</span>Index <span class="sc">%in%</span> <span class="fu">c</span>(row, col), ]</span>
@@ -2078,7 +2218,7 @@ div.tocify {
 <span id="cb74-15"><a href="#cb74-15" aria-hidden="true" tabindex="-1"></a>      <span class="cf">if</span>(<span class="fu">any</span>(<span class="fu">is.na</span>(x))) {</span>
 <span id="cb74-16"><a href="#cb74-16" aria-hidden="true" tabindex="-1"></a>        <span class="cn">NA</span></span>
 <span id="cb74-17"><a href="#cb74-17" aria-hidden="true" tabindex="-1"></a>      } <span class="cf">else</span> {</span>
-<span id="cb74-18"><a href="#cb74-18" aria-hidden="true" tabindex="-1"></a>        <span class="fu">ifelse</span>(<span class="fu">length</span>(<span class="fu">unique</span>(x[<span class="sc">!</span><span class="fu">is.na</span>(x)])) <span class="sc">==</span> <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>)</span>
+<span id="cb74-18"><a href="#cb74-18" aria-hidden="true" tabindex="-1"></a>        <span class="fu">ifelse</span>(<span class="fu">length</span>(<span class="fu">unique</span>(x[<span class="sc">!</span><span class="fu">is.na</span>(x)])) <span class="sc">==</span> <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>)</span>
 <span id="cb74-19"><a href="#cb74-19" aria-hidden="true" tabindex="-1"></a>      }</span>
 <span id="cb74-20"><a href="#cb74-20" aria-hidden="true" tabindex="-1"></a>      })</span>
 <span id="cb74-21"><a href="#cb74-21" aria-hidden="true" tabindex="-1"></a>    m[row, col] <span class="ot">&lt;-</span> <span class="fu">sum</span>(rez, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="sc">/</span> <span class="fu">length</span>(<span class="fu">na.omit</span>(rez))</span>
@@ -2086,7 +2226,7 @@ div.tocify {
 <span id="cb74-23"><a href="#cb74-23" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 <div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true" tabindex="-1"></a>m <span class="ot">&lt;-</span> correlation<span class="sc">::</span><span class="fu">cor_sort</span>(m, <span class="at">distance =</span> <span class="st">&quot;raw&quot;</span>, <span class="at">hclust_method =</span> <span class="st">&quot;ward.D2&quot;</span>)</span>
 <span id="cb75-2"><a href="#cb75-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb75-3"><a href="#cb75-3" aria-hidden="true" tabindex="-1"></a>m <span class="sc">%&gt;%</span> </span>
+<span id="cb75-3"><a href="#cb75-3" aria-hidden="true" tabindex="-1"></a><span class="fu">abs</span>(m <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span> </span>
 <span id="cb75-4"><a href="#cb75-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.data.frame</span>() <span class="sc">%&gt;%</span> </span>
 <span id="cb75-5"><a href="#cb75-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rownames_to_column</span>(<span class="st">&quot;Index1&quot;</span>) <span class="sc">%&gt;%</span> </span>
 <span id="cb75-6"><a href="#cb75-6" aria-hidden="true" tabindex="-1"></a>  datawizard<span class="sc">::</span><span class="fu">reshape_longer</span>(<span class="at">cols =</span> hrv_cols, <span class="at">colnames_to =</span> <span class="st">&quot;Index2&quot;</span>, <span class="at">values_to =</span> <span class="st">&quot;Probability&quot;</span>) <span class="sc">%&gt;%</span> </span>
@@ -2097,16 +2237,21 @@ div.tocify {
 <span id="cb75-11"><a href="#cb75-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
 <span id="cb75-12"><a href="#cb75-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">90</span>, <span class="at">hjust =</span> <span class="dv">1</span>)) <span class="sc">+</span></span>
 <span id="cb75-13"><a href="#cb75-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="cn">NULL</span>, <span class="at">y =</span> <span class="cn">NULL</span>) <span class="sc">+</span></span>
-<span id="cb75-14"><a href="#cb75-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_gradient2</span>(<span class="at">low =</span> <span class="st">&quot;#80DEEA&quot;</span>, <span class="at">mid =</span> <span class="st">&quot;#009688&quot;</span>, <span class="at">high =</span> <span class="st">&quot;#43A047&quot;</span>, <span class="at">midpoint =</span> <span class="fl">0.5</span>)</span></code></pre></div>
-<p><img src="figures/unnamed-chunk-40-1.png" width="5824.92235949962" /></p>
+<span id="cb75-14"><a href="#cb75-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_gradient2</span>(<span class="at">low =</span> <span class="st">&quot;#2196F3&quot;</span>, <span class="at">mid =</span> <span class="st">&quot;#9C27B0&quot;</span>, <span class="at">high =</span> <span class="st">&quot;#FF5722&quot;</span>, <span class="at">midpoint =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb75-15"><a href="#cb75-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Metaclustering Heatmap&quot;</span>, <span class="at">subtitle =</span> <span class="st">&quot;Probability of being grouped together accross multiple methods.&quot;</span>)</span></code></pre></div>
+<p><img src="figures/unnamed-chunk-42-1.png" width="5824.92235949962" /></p>
 </div>
 <div id="summary-1" class="section level3">
 <h3>Summary</h3>
 <div class="sourceCode" id="cb76"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb76-1"><a href="#cb76-1" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">hclust</span>(<span class="fu">as.dist</span>(m)) </span>
-<span id="cb76-2"><a href="#cb76-2" aria-hidden="true" tabindex="-1"></a>clusters <span class="ot">&lt;-</span> <span class="fu">cutree</span>(model, <span class="at">h =</span> <span class="fl">0.6</span>)</span>
+<span id="cb76-2"><a href="#cb76-2" aria-hidden="true" tabindex="-1"></a>clusters <span class="ot">&lt;-</span> <span class="fu">cutree</span>(model, <span class="at">h =</span> <span class="fl">0.65</span>)</span>
 <span id="cb76-3"><a href="#cb76-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb76-4"><a href="#cb76-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_dendrogram</span>(model, <span class="at">clusters =</span> clusters, <span class="at">ylim =</span> <span class="sc">-</span><span class="fl">0.3</span>, <span class="at">nudge_y =</span> <span class="sc">-</span><span class="fl">0.02</span>, <span class="at">angle =</span> <span class="dv">90</span>, <span class="at">points =</span> <span class="cn">FALSE</span>, <span class="at">h =</span> <span class="fl">0.6</span>)</span></code></pre></div>
-<p><img src="figures/unnamed-chunk-41-1.png" width="5824.92235949962" /></p>
+<span id="cb76-4"><a href="#cb76-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_dendrogram</span>(model, <span class="at">clusters =</span> clusters, <span class="at">ylim =</span> <span class="sc">-</span><span class="fl">0.3</span>, <span class="at">nudge_y =</span> <span class="sc">-</span><span class="fl">0.04</span>, <span class="at">angle =</span> <span class="dv">90</span>, <span class="at">points =</span> <span class="cn">FALSE</span>, <span class="at">h =</span> <span class="fl">0.65</span>) <span class="sc">+</span></span>
+<span id="cb76-5"><a href="#cb76-5" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Lines to show &quot;larger&quot; clusters</span></span>
+<span id="cb76-6"><a href="#cb76-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>(<span class="at">data =</span> <span class="fu">data.frame</span>(<span class="at">y =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">0.02</span>, <span class="sc">-</span><span class="fl">0.02</span>), <span class="at">x =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">6</span>)), <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y), <span class="at">size =</span> <span class="fl">0.5</span>, <span class="at">color =</span> <span class="st">&quot;#607D8B&quot;</span>) <span class="sc">+</span></span>
+<span id="cb76-7"><a href="#cb76-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>(<span class="at">data =</span> <span class="fu">data.frame</span>(<span class="at">y =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">0.02</span>, <span class="sc">-</span><span class="fl">0.02</span>), <span class="at">x =</span> <span class="fu">c</span>(<span class="dv">7</span>, <span class="dv">31</span>)), <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y), <span class="at">size =</span> <span class="fl">0.5</span>, <span class="at">color =</span> <span class="st">&quot;#607D8B&quot;</span>) <span class="sc">+</span></span>
+<span id="cb76-8"><a href="#cb76-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>(<span class="at">data =</span> <span class="fu">data.frame</span>(<span class="at">y =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">0.02</span>, <span class="sc">-</span><span class="fl">0.02</span>), <span class="at">x =</span> <span class="fu">c</span>(<span class="dv">32</span>, <span class="dv">42</span>)), <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y), <span class="at">size =</span> <span class="fl">0.5</span>, <span class="at">color =</span> <span class="st">&quot;#607D8B&quot;</span>) </span></code></pre></div>
+<p><img src="figures/unnamed-chunk-43-1.png" width="5824.92235949962" /></p>
 </div>
 </div>
 <div id="references" class="section level2 unnumbered">

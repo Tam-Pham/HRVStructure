@@ -21,6 +21,13 @@ clean_names <- function(n) {
   n[n == "CSI_Modified"] <- "CSI (modified)"
   n
 }
+
+assign_clusters <- function(table_clusters, data, clusters, col = "Hclust") {
+  table_clusters[[col]] <- NA
+  table_clusters[[col]][table_clusters$Index %in% row.names(data)] <- clusters
+  table_clusters[[col]][table_clusters[[col]] == "0"] <- seq(length(unique(clusters)),sum(clusters == "0") + length(unique(clusters)) - 1)
+  table_clusters
+}
 ```
 
 #### Dendrogram

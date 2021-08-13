@@ -18,7 +18,7 @@ m <- matrix(data=NA, nrow=nrow(table), ncol=nrow(table), dimnames = list(table$I
 for(row in row.names(m)) {
   for(col in colnames(m)) {
     if(row == col) {
-      m[row, col] <- 1
+      m[row, col] <- 0
       next
     } 
     subset <- table[table$Index %in% c(row, col), ]
@@ -26,7 +26,7 @@ for(row in row.names(m)) {
       if(any(is.na(x))) {
         NA
       } else {
-        ifelse(length(unique(x[!is.na(x)])) == 1, 1, 0)
+        ifelse(length(unique(x[!is.na(x)])) == 1, 0, 1)
       }
       })
     m[row, col] <- sum(rez, na.rm = TRUE) / length(na.omit(rez))
@@ -38,7 +38,7 @@ for(row in row.names(m)) {
 ```{r, message=FALSE, warning=FALSE}
 m <- correlation::cor_sort(m, distance = "raw", hclust_method = "ward.D2")
 
-m %>% 
+abs(m - 1) %>% 
   as.data.frame() %>% 
   rownames_to_column("Index1") %>% 
   datawizard::reshape_longer(cols = hrv_cols, colnames_to = "Index2", values_to = "Probability") %>% 
@@ -49,15 +49,20 @@ m %>%
   theme_minimal() +
   theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
   labs(x = NULL, y = NULL) +
-  scale_fill_gradient2(low = "#80DEEA", mid = "#009688", high = "#43A047", midpoint = 0.5)
+  scale_fill_gradient2(low = "#2196F3", mid = "#9C27B0", high = "#FF5722", midpoint = 0.5) +
+  labs(title = "Metaclustering Heatmap", subtitle = "Probability of being grouped together accross multiple methods.")
 ```
 
 ### Summary
 
 ```{r, message=FALSE, warning=FALSE}
 model <- hclust(as.dist(m)) 
-clusters <- cutree(model, h = 0.6)
+clusters <- cutree(model, h = 0.65)
 
-plot_dendrogram(model, clusters = clusters, ylim = -0.3, nudge_y = -0.02, angle = 90, points = FALSE, h = 0.6)
+plot_dendrogram(model, clusters = clusters, ylim = -0.3, nudge_y = -0.04, angle = 90, points = FALSE, h = 0.65) +
+  # Lines to show "larger" clusters
+    geom_line(data = data.frame(y = c(-0.02, -0.02), x = c(0, 6)), aes(x = x, y = y), size = 0.5, color = "#607D8B") +
+    geom_line(data = data.frame(y = c(-0.02, -0.02), x = c(7, 31)), aes(x = x, y = y), size = 0.5, color = "#607D8B") +
+    geom_line(data = data.frame(y = c(-0.02, -0.02), x = c(32, 42)), aes(x = x, y = y), size = 0.5, color = "#607D8B") 
 ```
 

@@ -46,7 +46,7 @@ as.list(graph)$nodes %>%
 ```{r, message=FALSE, warning=FALSE, fig.width=figwidth, fig.height=figwidth}
 
 graph %>% 
-  ggraph::ggraph(layout = "fr") + 
+  ggraph::ggraph(layout = "graphopt") + 
     geom_edge_arc(aes(colour = link, width = link), strength = 0.05) + 
     geom_node_point(aes(colour = dimension, size = centrality)) + 
     geom_node_text(aes(label = name), fontface = "bold", repel = FALSE) +

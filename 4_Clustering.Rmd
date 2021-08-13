@@ -11,9 +11,9 @@ editor_options:
 ```{r, message=FALSE, warning=FALSE, cache = TRUE}
 # Preprocessing
 z <- standardize(data[hrv_cols])
-z <- z[ , colSums(is.na(z)) < 0.1 * nrow(z)]  # keep only cols with few nans
-z[is.na(z)] <- 0  # mean imputation
 z <- datawizard::data_transpose(z)
+z <- z[ , colSums(is.na(z)) < 0.2 * nrow(z)]  # keep only participants with few nans
+z[is.na(z)] <- 0  # mean imputation
 ```
 
 
@@ -28,7 +28,7 @@ n <- parameters::n_clusters(z,
                             standardize = FALSE, 
                             package= c("NbClust", "easystats", "mclust"), 
                             nbclust_method = "average",
-                            n_max = 15,
+                            n_max = 10,
                             fast = FALSE)
 
 n
@@ -39,14 +39,34 @@ plot(n_clusters_gap(z, standardize = FALSE))
 ```
 
 
-##### 7-K Solution
+##### 4-K Solution
 
 ```{r, message=FALSE, warning=FALSE}
-rez <- parameters::cluster_analysis(z, n = 7, method = "hkmeans")
+set.seed(3)
+
+rez <- parameters::cluster_analysis(z, standardize = FALSE, n = 4, method = "hkmeans")
 
 as.data.frame(rez)[1:3]
 
-cluster_performance(rez)
+insight::display(cluster_performance(rez))
+
+plot(rez)
+
+
+table_clusters$Kmeans_4 <- NA
+table_clusters$Kmeans_4[table_clusters$Index %in% row.names(z)] <- as.character(predict(rez))
+```
+
+##### 8-K Solution
+
+```{r, message=FALSE, warning=FALSE}
+set.seed(3)
+
+rez <- parameters::cluster_analysis(z, n = 8, method = "hkmeans")
+
+as.data.frame(rez)[1:3]
+
+insight::display(cluster_performance(rez))
 
 plot(rez)
 
@@ -55,46 +75,53 @@ table_clusters$Kmeans_8 <- NA
 table_clusters$Kmeans_8[table_clusters$Index %in% row.names(z)] <- as.character(predict(rez))
 ```
 
-##### 5-K Solution
-
-```{r, message=FALSE, warning=FALSE}
-rez <- parameters::cluster_analysis(z, n = 5, method = "hkmeans")
-
-as.data.frame(rez)[1:3]
-
-cluster_performance(rez)
-
-plot(rez)
-
-
-table_clusters$Kmeans_5 <- NA
-table_clusters$Kmeans_5[table_clusters$Index %in% row.names(z)] <- as.character(predict(rez))
-```
-
 #### Hierarchial Clustering
 
-##### Clustering
+##### Clustering (95\%)
 
-```{r, message=FALSE, warning=FALSE}
-rez <- parameters::cluster_analysis(z, n = NULL, standardize = FALSE, method = "hclust", distance_method = "correlation", hclust_method = "average", ci = 0.90)
+```{r, message=FALSE, warning=FALSE, cache = TRUE}
+set.seed(3)
+
+rez <- parameters::cluster_analysis(z, n = NULL, standardize = FALSE, method = "hclust", distance_method = "correlation", hclust_method = "average", ci = 0.95, iterations = 2000)
 
 as.data.frame(rez)[1:3]
 
-cluster_performance(rez)
+insight::display(cluster_performance(rez))
 
 plot(rez)
 
-
-table_clusters$Hclust <- NA
-table_clusters$Hclust[table_clusters$Index %in% row.names(z)] <- as.character(predict(rez))
-table_clusters$Hclust[table_clusters$Hclust == "0"] <- NA
+table_clusters <- assign_clusters(table_clusters, z, clusters = as.character(predict(rez)), col = "Hclust_95")
 ```
 
 
-##### Dendrogram
 
 ```{r, message=FALSE, warning=FALSE}
-clusters <- table_clusters$Hclust
+clusters <- table_clusters$Hclust_95
+names(clusters) <- table_clusters$Index
+
+plot_dendrogram(model = attributes(rez)$model$hclust, clusters = clusters)
+```
+
+##### Clustering (90\%)
+
+```{r, message=FALSE, warning=FALSE, cache = TRUE}
+set.seed(3)
+
+rez <- parameters::cluster_analysis(z, n = NULL, standardize = FALSE, method = "hclust", distance_method = "correlation", hclust_method = "average", ci = 0.90, iterations = 2000)
+
+as.data.frame(rez)[1:3]
+
+insight::display(cluster_performance(rez))
+
+plot(rez)
+
+table_clusters <- assign_clusters(table_clusters, z, clusters = as.character(predict(rez)), col = "Hclust_90")
+```
+
+
+
+```{r, message=FALSE, warning=FALSE}
+clusters <- table_clusters$Hclust_90
 names(clusters) <- table_clusters$Index
 
 plot_dendrogram(model = attributes(rez)$model$hclust, clusters = clusters)
@@ -112,17 +139,15 @@ plot(n)
 ##### DBSCAN
 
 ```{r, message=FALSE, warning=FALSE}
-rez <- parameters::cluster_analysis(z, n = NULL, standardize = FALSE, method = "dbscan", dbscan_eps = 16, min_size = 2, borderPoints = TRUE)
+rez <- parameters::cluster_analysis(z, n = NULL, standardize = FALSE, method = "dbscan", dbscan_eps = 10, min_size = 2, borderPoints = TRUE)
 
 as.data.frame(rez)[1:3]
 
-cluster_performance(rez)
+insight::display(cluster_performance(rez))
 
 plot(rez)
 
-table_clusters$DBSCAN <- NA
-table_clusters$DBSCAN[table_clusters$Index %in% row.names(z)] <- as.character(predict(rez))
-table_clusters$DBSCAN[table_clusters$DBSCAN == "0"] <- NA
+table_clusters <- assign_clusters(table_clusters, z, clusters = as.character(predict(rez)), col = "DBSCAN")
 ```
 
 ##### HDBSCAN
@@ -132,13 +157,11 @@ rez <- parameters::cluster_analysis(z, n = NULL, standardize = FALSE, method = "
 
 as.data.frame(rez)[1:3]
 
-cluster_performance(rez)
+insight::display(cluster_performance(rez))
 
 plot(rez)
 
-table_clusters$HDBSCAN <- NA
-table_clusters$HDBSCAN[table_clusters$Index %in% row.names(z)] <- as.character(predict(rez))
-table_clusters$HDBSCAN[table_clusters$HDBSCAN == "0"] <- NA
+table_clusters <- assign_clusters(table_clusters, z, clusters = as.character(predict(rez)), col = "HDBSCAN")
 ```
 
 #### Mixture Modelling
@@ -151,12 +174,10 @@ rez <- parameters::cluster_analysis(z, method = "mixture")
 
 as.data.frame(rez)[1:3]
 
-cluster_performance(rez)
+insight::display(cluster_performance(rez))
 
 plot(rez)
 
 
-table_clusters$Mixture <- NA
-table_clusters$Mixture[table_clusters$Index %in% row.names(z)] <- as.character(predict(rez))
-table_clusters$Mixture[table_clusters$Mixture == "0"] <- NA
+table_clusters <- assign_clusters(table_clusters, z, clusters = as.character(predict(rez)), col = "Mixture")
 ```
