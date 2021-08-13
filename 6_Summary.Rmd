@@ -5,7 +5,7 @@ editor_options:
 ---
 
 
-### Comparison of Structures
+### Metaclustering Matrix
 
 
 ```{r, message=FALSE, warning=FALSE, cache = TRUE}
@@ -53,7 +53,7 @@ abs(m - 1) %>%
   labs(title = "Metaclustering Heatmap", subtitle = "Probability of being grouped together accross multiple methods.")
 ```
 
-### Summary
+### Hierarchical Structure of Metaclustering
 
 ```{r, message=FALSE, warning=FALSE}
 model <- hclust(as.dist(m)) 
@@ -67,3 +67,48 @@ plot_dendrogram(model, clusters = clusters, ylim = -0.3, nudge_y = -0.04, angle 
   labs(title = "Metaclustering Solution", subtitle = "Represent the hierachical structure of the probability of being grouped together over a variety of methods.")
 ```
 
+
+### Metaclustering Network
+
+#### Centrality
+```{r, message=FALSE, warning=FALSE}
+nodes <- data.frame(name = row.names(m),
+                    Cluster = as.character(clusters))
+row.names(nodes) <- NULL
+
+edges <- m %>%
+  as.data.frame() %>% 
+  datawizard::data_rename_rows(NULL) %>% 
+  datawizard::data_rename(NULL) %>% 
+  datawizard::reshape_longer(rows_to = "from", 
+                             names_to = "to",
+                             values_to = "Probability") %>% 
+  mutate(to = as.numeric(to)) %>% 
+  filter(Probability > 0.8)
+
+
+graph <- tidygraph::tbl_graph(nodes = nodes, edges = edges, directed = FALSE) %>% 
+  tidygraph::activate(nodes) %>%
+  mutate(Centrality = tidygraph::centrality_authority()) 
+
+as.list(graph)$nodes %>% 
+  group_by(Cluster) %>% 
+  arrange(desc(Centrality)) %>% 
+  knitr::kable()
+```
+
+
+#### Network Graph
+
+```{r, message=FALSE, warning=FALSE, fig.width=figwidth, fig.height=figwidth}
+graph %>% 
+  ggraph::ggraph(layout = "graphopt") + 
+    geom_edge_arc(aes(colour = Probability, width = Probability), strength = 0.05) + 
+    geom_node_point(aes(colour = Cluster, size = Centrality)) + 
+    geom_node_text(aes(label = name), fontface = "bold", repel = FALSE) +
+    ggraph::theme_graph() +
+    scale_edge_width(range = c(0.05, 0.5), guide = "none") +
+    scale_color_material_d(palette = "rainbow", guide = "none") +
+    scale_edge_color_gradientn(limits = c(0, 1), colours=c("#607D8B", "#263238"), guide = "none") +
+    scale_size_continuous(range = c(4, 20), guide = "none")
+```
