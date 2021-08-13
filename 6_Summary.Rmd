@@ -63,6 +63,7 @@ plot_dendrogram(model, clusters = clusters, ylim = -0.3, nudge_y = -0.04, angle 
   # Lines to show "larger" clusters
     geom_line(data = data.frame(y = c(-0.02, -0.02), x = c(0, 6)), aes(x = x, y = y), size = 0.5, color = "#607D8B") +
     geom_line(data = data.frame(y = c(-0.02, -0.02), x = c(7, 31)), aes(x = x, y = y), size = 0.5, color = "#607D8B") +
-    geom_line(data = data.frame(y = c(-0.02, -0.02), x = c(32, 42)), aes(x = x, y = y), size = 0.5, color = "#607D8B") 
+    geom_line(data = data.frame(y = c(-0.02, -0.02), x = c(32, 42)), aes(x = x, y = y), size = 0.5, color = "#607D8B") +
+  labs(title = "Metaclustering Solution", subtitle = "Represent the hierachical structure of the probability of being grouped together over a variety of methods.")
 ```
 
