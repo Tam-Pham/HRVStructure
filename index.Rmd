@@ -68,10 +68,29 @@ if (!knitr::is_latex_output() && knitr::is_html_output()) {
 ```
 
 
+<!-- introduce hrv -->
 
-The aim of this study is to explore the factor structure of HRV indices.
+Heart rate variability (HRV), which is defined as the fluctuations in intervals between consecutive heartbeats, has demonstrated substantial significance in the assessment of health and pathology outcomes [e.g., cardiac complications, @laitio2007role, diabetes, @kudat2006heart, mood disorders, @bassett2016literature, cognitive functioning, @forte2019heart]. This variation is attributed to the dynamic interplay between the sympathetic and parasympathetic branches of the autonomic nervous system, and thus, HRV has been said to represent the heart's ability to effectively regulate and adapt to internal and external environmental changes. Conventionally, the various measures of HRV can be broadly categorized as *time-domain* analysis, *frequency-domain* analysis, and *nonlinear dynamics*, all of which provide some information about the status of an individual's autonomic functioning [@shaffer2017overview].
+
+<!-- main categories -->
+
+Time-domain analysis presents the simplest and most straightforward method of quantifying HRV from the original normal (i.e., excluding abnormal beats such as ectopic beats) heartbeat intervals, henceforth referred to as NN intervals. Some commonly derived indices include *SDNN*, the standard deviation of all NN intervals, *SDSD*, the standard deviation of differences between adjacent NN intervals, *RMSSD*, the root mean square of the sum of successive differences of NN intervals, and *pNN50*, the percentage of adjacent NN intervals separated by more than 50ms.
+
+While time-domain methods offers computational ease, they are unable to distinguish between the contributions of sympathetic and parasympathetic branches. Frequency-domain analysis, on the other hand, targets the assessment of these different regulatory mechanisms by investigating how the HRV power spectrum distributes across different frequency bands. The low frequency (*LF*; 0.04--0.15Hz) and high frequency (*HF*; 0.15--0.4 Hz) components, the two main indicators of ANS activity [@acharya2006heart], predominantly reflect sympathetic and parasympathetic activity respectively. The other two components measured at very low frequencies (*VLF*; 0.0033--0.04 Hz) and ultra low frequencies (*ULF* low frequency $\leq$ 0.003 Hz) are less clear in regards to their associated physiological mechanisms [@kleiger2005heart], though some evidence has linked the former to long-term regulatory mechanisms [@akselrod1981power] and the latter to circadian and metabolic activity [@shaffer2014healthy]. Other indices that fall under the frequency domain include derivatives of the aforementioned components, such as the ratio of *LF* to *HF* (*LF/HF*) power and their normalized (e.g., *LFn*, *HFn*) and natural logarithmic variants (e.g., *LnHF*).
+
+Finally, drawn from concepts of non-linear dynamics and chaos theory [@golberger1996non], non-linear analysis was later introduced to better characterize the complex physiological mechanisms underlying HRV regulation. Prominent indices include measures obtained from a Poincaré plot where an ellipse is fitted to a scatterplot of each NN interval against its preceding one, specifically, the standard deviation of the short-term (*SD1*; width of ellipse) and long-term (*SD2* ; length of ellipse) NN interval variability [@brennan2001existing] as well as its corresponding ratio (*SD1*/*SD2*). Other non-linear indices that fall under this category, such as Detrended Fluctuation Analysis (*DFA*), multi-fractal *DFA* (*MF-DFA*) and correlation dimension (*CD*) account for the fractal properties of HRV, while entropy measures like approximate entropy (*ApEn*), sample entropy (*SampEn*), and multiscale entropy (*MSE*) quantify the amount of regularity in the HR time series [@voss2009methods]. 
+
+<!-- overlap and duplicates in indices, aim of study -->
+
+Despite the rising popularity of HRV analysis as a real-time, noninvasive technique for investigating health and disease, there are some shared similarities (and even overlaps) between the multitude of HRV indices that are not yet well understood. Early studies have investigated the relationships between time-domain and frequency-domain indices, showing that not only were *RMSSD* and *pNN50* strongly correlated with each other [above 0.9, @bigger1989comparison], they were also highly associated with *HF* power [@bigger1989comparison; @kleiger2005heart; @otzenberger1998dynamic], suggesting that these measures could be treated as surrogates for each other in assessing the parasympathetic modulation of HRV. This observation is warranted given that the former is computed from the differences across consecutive NN intervals, and hence, they reflect mainly high frequency oscillatory patterns in HR and are independent of long-term changes. On the other hand, *SDNN*, which has been thought to reflect both sympathetic and parasympathetic activity, is correlated to total power (*TP*) in HRV power spectrum [@bigger1989comparison]. Recent years also witnessed the emergence of debates regarding the traditional conceptualization of *SD1* and *SD2* as non-linear indices, particularly when @ciccone2017reminder proposed that *RMSSD* and *SD1* were mathematically equivalent. Many studies that report both of these short-term HRV indices independently often arrive at identical statistical results without addressing this equivalence [e.g., @rossi2015impact, @peng2015extraction, @leite2015correlation]. Additionally, other studies have also drawn similarities between *SD1/SD2* and *LF/HF* in their indexing of the balance between short- and long-term HRV [@brennan2002poincare; @guzik2007correlations]. 
+
+Overall, there is a need for a greater data-driven understanding of the relationship between the multitude of HRV indices and their respective groupings. Although there have been attempts at investigating the association between HRV indices [e.g., @nguyen2019improving], there exists a large number of clustering analysis techniques and their usecases, limitations, and advantages are not clear. Moreover, these algorithms comprise of multiple parameters, for which there is no gold standard or clear guidelines for their specification. As such, choosing one method and presenting its solution as a definitive one can be misleading. Hence, the aim of this study is to explore the factor structure of HRV indices by using a more inclusive and probabilistic approach that we will refer to as meta-clustering.
+
+<!--may be useful to have glossary of indices-->
 
 # Methods
+
+In total, the ECG data of 496 participants were extracted from 11 databases. The raw data as well as the entire analysis script (including details and additional analyses) can be found at this GitHub repository (<https://github.com/Tam-Pham/HRVStructure>).
 
 Concept of **"METACLUSTERING"**, i.e., assessing the proximity based on multiple clustering solutions. Aka ENSEMBLE CLUSTERING.
 
@@ -105,6 +124,12 @@ The script to download and format the database using the can be found [**here**]
 
 The Fantasia database [@iyengar1996age] consists of twenty young and twenty elderly healthy subjects. All subjects remained in a resting state in sinus rhythm while watching the movie Fantasia (Disney, 1940) to help maintain wakefulness. The continuous ECG signals were digitized at 250 Hz. Each heartbeat was annotated using an automated arrhythmia detection algorithm, and each beat annotation was verified by visual inspection.
 
+
+## Data Analysis
+
+First, we correlated the HRV indices [using the `correlations` function from the *correlation* package, see @makowski2020methods] and removed indices that were perfected correlated with each other, before removing outliers based on the median absolute deviation from the median [see the `check_outliers` function in the *performance* R package; @ludecke2019performance]. Using a meta-clustering approach, multiple clustering methods were used to analyze the associations between the HRV indices, namely, factor analysis, k-means clustering, density-based spatial clustering of applications with noise (DBSCAN), hierarchical density-based spatial clustering of applications with noise (HBSCAN), and exploratory graph analysis (EGA). We then jointly considered the results obtained from these multiple methods, by estimating the probability for each pair of indices to be clustered together, in order to provide a more robust overview of the clustering results and facilitate a more thorough conceptual understanding of these patterns.
+
+Data processing was carried out with R [@R-base] and the *easystats* ecosystem [@ludecke2019insight; @makowski2019bayestestr]. The raw data, as well as the full reproducible analysis script, including the solutions of each individual clustering method, are available in **Supplementary Materials 1**.
 
 
 
@@ -227,6 +252,8 @@ lapply(find_cache(), lazyLoad, environment())
 
 
 
+# Discussion
 
+<!-- which indices most central -->
 
-## References
+# References
