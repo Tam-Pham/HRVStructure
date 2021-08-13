@@ -73,7 +73,7 @@ The aim of this study is to explore the factor structure of HRV indices.
 
 # Methods
 
-Concept of **"METACLUSTERING"**, i.e., assessing the proximity based on multiple clustering solutions.
+Concept of **"METACLUSTERING"**, i.e., assessing the proximity based on multiple clustering solutions. Aka ENSEMBLE CLUSTERING.
 
 ## Databases
 
