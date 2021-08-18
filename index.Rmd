@@ -67,6 +67,9 @@ if (!knitr::is_latex_output() && knitr::is_html_output()) {
 }
 ```
 
+<!-- ABSTRACT -->
+
+Heart Rate Variability (HRV) can be estimated using a myriad of mathematical indices, for which the lack of comparison renders results' interpretation and evaluation tedious. In this study, we assessed the relationship between 42 HRV metrics collected from Human recordings (n = 400) using various structure-analysis algorithms. We then applied a metaclustering approach by combining their results to obtain a robust and reliable picture of the observed relationships. We found that HRV metrics can be clustered into 4 groups, representing .... From there, we derived recommendations on which indices to prioritize for parsimonious, yet comprehensive data analysis and reporting.
 
 <!-- introduce hrv -->
 
