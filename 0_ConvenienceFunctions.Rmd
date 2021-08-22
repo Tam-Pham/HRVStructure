@@ -33,7 +33,7 @@ assign_clusters <- function(table_clusters, data, clusters, col = "Hclust") {
 #### Dendrogram
 
 ```{r eval=TRUE, class.source = "fold-hide"}
-plot_dendrogram <- function(model, clusters = NULL, points = TRUE, ylim = -0.3, nudge_y = -0.02, angle = 90, h = NULL, edges = "elbow") {
+plot_dendrogram <- function(model, clusters = NULL, points = TRUE, dis = NULL, ylim = -0.3, nudge_y = -0.02, angle = 90, h = NULL, edges = "elbow") {
   if(is.null(clusters)) {
     data <- tidygraph::as_tbl_graph(model)
   } else {
@@ -61,7 +61,7 @@ plot_dendrogram <- function(model, clusters = NULL, points = TRUE, ylim = -0.3, 
     if(is.null(clusters)) {
       p <- p + geom_node_point(aes(filter=leaf))
     } else {
-      p <- p + geom_node_point(aes(color = cluster, filter=leaf))
+      p <- p + geom_node_point(aes(color = cluster, filter = leaf, size = dis))
     }
   }
   

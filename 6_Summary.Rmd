@@ -51,22 +51,36 @@ abs(m - 1) %>%
   labs(x = NULL, y = NULL) +
   scale_fill_gradient2(low = "#2196F3", mid = "#9C27B0", high = "#FF5722", midpoint = 0.5) +
   labs(title = "Metaclustering Heatmap", subtitle = "Probability of being grouped together accross multiple methods.")
+
 ```
 
 ### Hierarchical Structure of Metaclustering
 
 ```{r, message=FALSE, warning=FALSE}
-model <- hclust(as.dist(m)) 
+model <- hclust(as.dist(m), method="mcquitty") 
 clusters <- cutree(model, h = 0.65)
 
-plot_dendrogram(model, clusters = clusters, ylim = -0.3, nudge_y = -0.04, angle = 90, points = FALSE, h = 0.65) +
+# identify center of each cluster 
+dis <- c()
+
+for(c in unique(clusters)) {
+  members <- row.names(data.frame(clusters[clusters == c]))
+  subset <- m[members, members]
+  dist_center <- subset[which.min(rowSums(subset)), ] # distance from each member to center
+  dis <- c(dis, dist_center)
+}
+
+dis = (1 - dis) * 30
+
+plot_dendrogram(model, clusters = clusters, ylim = -0.3, nudge_y = -0.04, angle = 90, points = TRUE, h = 0.65, dis = dis) +
   # Lines to show "larger" clusters
-    geom_line(data = data.frame(y = c(-0.02, -0.02), x = c(0, 6)), aes(x = x, y = y), size = 0.5, color = "#607D8B") +
-    geom_line(data = data.frame(y = c(-0.02, -0.02), x = c(7, 31)), aes(x = x, y = y), size = 0.5, color = "#607D8B") +
-    geom_line(data = data.frame(y = c(-0.02, -0.02), x = c(32, 42)), aes(x = x, y = y), size = 0.5, color = "#607D8B") +
+    geom_line(data = data.frame(y = c(-0.02, -0.02), x = c(0, 5)), aes(x = x, y = y), size = 0.5, color = "#607D8B") +
+    geom_line(data = data.frame(y = c(-0.02, -0.02), x = c(6, 15)), aes(x = x, y = y), size = 0.5, color = "#607D8B") +
+    geom_line(data = data.frame(y = c(-0.02, -0.02), x = c(16, 22)), aes(x = x, y = y), size = 0.5, color = "#607D8B") +
+    geom_line(data = data.frame(y = c(-0.02, -0.02), x = c(23, 34)), aes(x = x, y = y), size = 0.5, color = "#607D8B") +
+    geom_line(data = data.frame(y = c(-0.02, -0.02), x = c(35, 42)), aes(x = x, y = y), size = 0.5, color = "#607D8B") +
   labs(title = "Metaclustering Solution", subtitle = "Represent the hierachical structure of the probability of being grouped together over a variety of methods.")
 ```
-
 
 ### Metaclustering Network
 
@@ -89,7 +103,7 @@ edges <- m %>%
 
 graph <- tidygraph::tbl_graph(nodes = nodes, edges = edges, directed = FALSE) %>% 
   tidygraph::activate(nodes) %>%
-  mutate(Centrality = tidygraph::centrality_authority()) 
+  mutate(Centrality = tidygraph::centrality_degree()) 
 
 as.list(graph)$nodes %>% 
   group_by(Cluster) %>% 

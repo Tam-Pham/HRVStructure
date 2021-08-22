@@ -10,7 +10,7 @@ editor_options:
 
 ```{r, message=FALSE, warning=FALSE, cache = TRUE}
 # Preprocessing
-z <- standardize(data[hrv_cols])
+z <- effectsize::standardize(data[hrv_cols])
 z <- datawizard::data_transpose(z)
 z <- z[ , colSums(is.na(z)) < 0.2 * nrow(z)]  # keep only participants with few nans
 z[is.na(z)] <- 0  # mean imputation
@@ -46,13 +46,12 @@ rez <- parameters::cluster_analysis(z, standardize = FALSE, n = 4, method = "hkm
 
 as.data.frame(rez)[1:3]
 
-insight::display(cluster_performance(rez))
+insight::display(parameters::cluster_performance(rez))
 
 plot(rez)
 
 
-table_clusters$Kmeans_4 <- NA
-table_clusters$Kmeans_4[table_clusters$Index %in% row.names(z)] <- as.character(predict(rez))
+table_clusters <- assign_clusters(table_clusters, z, clusters = as.character(predict(rez)), col = "Kmeans_4")
 ```
 
 ##### 8-K Solution
@@ -64,13 +63,40 @@ rez <- parameters::cluster_analysis(z, n = 8, method = "hkmeans")
 
 as.data.frame(rez)[1:3]
 
-insight::display(cluster_performance(rez))
+insight::display(parameters::cluster_performance(rez))
 
 plot(rez)
 
+table_clusters <- assign_clusters(table_clusters, z, clusters = as.character(predict(rez)), col = "Kmeans_8")
+```
 
-table_clusters$Kmeans_8 <- NA
-table_clusters$Kmeans_8[table_clusters$Index %in% row.names(z)] <- as.character(predict(rez))
+##### 2-K Solution
+
+```{r, message=FALSE, warning=FALSE}
+set.seed(3)
+
+rez <- parameters::cluster_analysis(z, standardize = FALSE, n = 2, method = "hkmeans")
+
+as.data.frame(rez)[1:3]
+
+insight::display(parameters::cluster_performance(rez))
+
+plot(rez)
+
+table_clusters <- assign_clusters(table_clusters, z, clusters = as.character(predict(rez)), col = "Kmeans_2")
+```
+
+#### K-meloid
+```{r, message=FALSE, warning=FALSE, cache = TRUE}
+rez <- parameters::cluster_analysis(z, method = "pamk", distance_method = "manhattan")
+
+as.data.frame(rez)[1:3]
+
+insight::display(parameters::cluster_performance(rez))
+
+plot(rez)
+
+table_clusters <- assign_clusters(table_clusters, z, clusters = as.character(predict(rez)), col = "Kmeloid")
 ```
 
 #### Hierarchial Clustering
@@ -80,11 +106,13 @@ table_clusters$Kmeans_8[table_clusters$Index %in% row.names(z)] <- as.character(
 ```{r, message=FALSE, warning=FALSE, cache = TRUE}
 set.seed(3)
 
-rez <- parameters::cluster_analysis(z, n = NULL, standardize = FALSE, method = "hclust", distance_method = "correlation", hclust_method = "average", ci = 0.95, iterations = 2000)
+# rez <- parameters::cluster_analysis(z, n = NULL, standardize = FALSE, method = "hclust", distance_method = "correlation", hclust_method = "average", ci = 0.95, iterations = 2000)
+
+rez <- parameters::cluster_analysis(z, n = NULL, standardize = FALSE, method = "hclust", distance_method = "manhattan", hclust_method = "ward.D", ci = 0.95, iterations = 2000) # better fit R2 higher
 
 as.data.frame(rez)[1:3]
 
-insight::display(cluster_performance(rez))
+insight::display(parameters::cluster_performance(rez))
 
 plot(rez)
 
@@ -97,6 +125,7 @@ table_clusters <- assign_clusters(table_clusters, z, clusters = as.character(pre
 clusters <- table_clusters$Hclust_95
 names(clusters) <- table_clusters$Index
 
+library(ggraph)
 plot_dendrogram(model = attributes(rez)$model$hclust, clusters = clusters)
 ```
 
@@ -105,11 +134,14 @@ plot_dendrogram(model = attributes(rez)$model$hclust, clusters = clusters)
 ```{r, message=FALSE, warning=FALSE, cache = TRUE}
 set.seed(3)
 
-rez <- parameters::cluster_analysis(z, n = NULL, standardize = FALSE, method = "hclust", distance_method = "correlation", hclust_method = "average", ci = 0.90, iterations = 2000)
+# rez <- parameters::cluster_analysis(z, n = NULL, standardize = FALSE, method = "hclust", distance_method = "correlation", hclust_method = "average", ci = 0.90, iterations = 2000)
+
+rez <- parameters::cluster_analysis(z, n = NULL, standardize = FALSE, method = "hclust", distance_method = "manhattan", hclust_method = "ward.D", ci = 0.90, iterations = 2000) # better fit R2 higher
+
 
 as.data.frame(rez)[1:3]
 
-insight::display(cluster_performance(rez))
+insight::display(parameters::cluster_performance(rez))
 
 plot(rez)
 
@@ -141,7 +173,7 @@ rez <- parameters::cluster_analysis(z, n = NULL, standardize = FALSE, method = "
 
 as.data.frame(rez)[1:3]
 
-insight::display(cluster_performance(rez))
+insight::display(parameters::cluster_performance(rez))
 
 plot(rez)
 
@@ -155,7 +187,7 @@ rez <- parameters::cluster_analysis(z, n = NULL, standardize = FALSE, method = "
 
 as.data.frame(rez)[1:3]
 
-insight::display(cluster_performance(rez))
+insight::display(parameters::cluster_performance(rez))
 
 plot(rez)
 
@@ -167,12 +199,12 @@ table_clusters <- assign_clusters(table_clusters, z, clusters = as.character(pre
 
 ```{r, message=FALSE, warning=FALSE}
 suppressMessages(library(mclust))
-
+library(mclust)
 rez <- parameters::cluster_analysis(z, method = "mixture")
 
 as.data.frame(rez)[1:3]
 
-insight::display(cluster_performance(rez))
+insight::display(parameters::cluster_performance(rez))
 
 plot(rez)
 

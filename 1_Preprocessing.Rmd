@@ -12,6 +12,7 @@ editor_options:
 #### Remove Equivalent
 
 ```{r, message=FALSE, warning=FALSE}
+# TODO: find a way to remove identical vars
 data %>% 
   select(-Participant, -Recording_Length, -Database) %>% 
   correlation::correlation() %>% 
