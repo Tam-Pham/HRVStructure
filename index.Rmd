@@ -69,13 +69,17 @@ if (!knitr::is_latex_output() && knitr::is_html_output()) {
 
 <!-- ABSTRACT -->
 
-Heart Rate Variability (HRV) can be estimated using a myriad of mathematical indices, for which the lack of comparison renders results' interpretation and evaluation tedious. In this study, we assessed the relationship between 42 HRV metrics collected from Human recordings (n = 400) using various structure-analysis algorithms. We then applied a metaclustering approach by combining their results to obtain a robust and reliable picture of the observed relationships. We found that HRV metrics can be clustered into 4 groups, representing .... From there, we derived recommendations on which indices to prioritize for parsimonious, yet comprehensive data analysis and reporting.
+Heart Rate Variability (HRV) can be estimated using a myriad of mathematical indices, for which the lack of comparison renders results' interpretation and evaluation tedious. In this study, we assessed the relationship between 42 HRV metrics collected from Human recordings (n = 531) using various structure-analysis algorithms. We then applied a metaclustering approach that combines their results to obtain a robust and reliable view of the observed relationships. We found that HRV metrics can be clustered into 4 groups, representing .... From there, we derived recommendations on which indices to prioritize for parsimonious, yet comprehensive HRV-related data analysis and reporting.
 
 <!-- introduce hrv -->
 
-Heart rate variability (HRV), which is defined as the fluctuations in intervals between consecutive heartbeats, has demonstrated substantial significance in the assessment of health and pathology outcomes [e.g., cardiac complications, @laitio2007role, diabetes, @kudat2006heart, mood disorders, @bassett2016literature, cognitive functioning, @forte2019heart]. This variation is attributed to the dynamic interplay between the sympathetic and parasympathetic branches of the autonomic nervous system, and thus, HRV has been said to represent the heart's ability to effectively regulate and adapt to internal and external environmental changes. Conventionally, the various measures of HRV can be broadly categorized as *time-domain* analysis, *frequency-domain* analysis, and *nonlinear dynamics*, all of which provide some information about the status of an individual's autonomic functioning [@shaffer2017overview].
+Heart Rate Variability (HRV), reflecting the heart's ability to effectively regulate and adapt to internal and external environmental changes, has been linked with many physical and mental health outcomes [e.g., cardiac complications, @laitio2007role, diabetes, @kudat2006heart, mood disorders, @bassett2016literature, cognitive functioning, @forte2019heart]. Conventionally, the various indices used in the assessment of HRV were broadly categorized based on the nature of their mathematical approach, in categories including *time-domain*, *frequency-domain*, and *nonlinear dynamics*.
+
+<!-- is attributed to the dynamic interplay between the sympathetic and parasympathetic branches of the autonomic nervous system -->
 
 <!-- main categories -->
+
+<!-- DOM: summarize the 3 paragraphs below into 1; No need to present all the indices, just list some and say "for a comprehensive description of all indices, see Pham 2021. -->
 
 Time-domain analysis presents the simplest and most straightforward method of quantifying HRV from the original normal (i.e., excluding abnormal beats such as ectopic beats) heartbeat intervals, henceforth referred to as NN intervals. Some commonly derived indices include *SDNN*, the standard deviation of all NN intervals, *SDSD*, the standard deviation of differences between adjacent NN intervals, *RMSSD*, the root mean square of the sum of successive differences of NN intervals, and *pNN50*, the percentage of adjacent NN intervals separated by more than 50ms.
 
