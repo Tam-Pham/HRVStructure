@@ -1,0 +1,74 @@
+## ---- message=FALSE, warning=FALSE------------
+r <- correlation::correlation(data[hrv_cols]) %>% 
+  as.matrix() %>% 
+  correlation::cor_smooth(verbose = FALSE)
+
+set.seed(3)
+n <- parameters::n_components(data[hrv_cols], cor=r, rotation = "promax")
+
+n
+
+plot(n) 
+
+
+## ---- message=FALSE, warning=FALSE, fig.width=15, fig.height=15----
+library(GPArotation)
+set.seed(3)
+
+pca <- parameters::principal_components(data[hrv_cols], n=3, rotation = "promax")
+
+insight::display(pca, threshold="max", sort=TRUE)
+
+plot(pca)
+
+table_clusters <- parameters::closest_component(pca) %>% 
+  data.frame(Index = names(.),
+             PCA_3 = .) %>% 
+  mutate(PCA_3 = as.character(PCA_3)) %>% 
+  datawizard::data_rename_rows()
+
+
+## ---- message=FALSE, warning=FALSE, fig.width=15, fig.height=15----
+set.seed(3)
+
+pca <- parameters::principal_components(data[hrv_cols], n=9, rotation = "promax")
+
+insight::display(pca, threshold="max", sort=TRUE)
+
+plot(pca)
+
+table_clusters$PCA_9 <- as.character(parameters::closest_component(pca))
+
+
+
+## ---- message=FALSE, warning=FALSE------------
+n <- parameters::n_factors(data[hrv_cols], cor=r, type = "FA", package = "all")
+
+n
+
+plot(n) 
+
+
+## ---- message=FALSE, warning=FALSE, fig.width=15, fig.height=15----
+set.seed(3)
+
+efa <- parameters::factor_analysis(data[hrv_cols], cor=r, n=3, rotation="oblimin", fm="ml")
+
+insight::display(efa, threshold="max", sort=TRUE)
+
+plot(efa)
+
+table_clusters$EFA_3 <- as.character(parameters::closest_component(efa))
+
+
+## ---- message=FALSE, warning=FALSE, fig.width=15, fig.height=15----
+set.seed(3)
+
+efa <- parameters::factor_analysis(data[hrv_cols], cor=r, n=9, rotation="oblimin", fm="ml")
+
+insight::display(efa, threshold="max", sort=TRUE)
+
+plot(efa)
+
+table_clusters$EFA_9 <- as.character(parameters::closest_component(efa))
+
