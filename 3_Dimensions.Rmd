@@ -5,12 +5,30 @@ editor_options:
 ---
 
 
+<!-- ```{r, message=FALSE, warning=FALSE} -->
+<!-- nans <- data |>  -->
+<!--   group_by(Database) |>  -->
+<!--   select(one_of(hrv_cols)) |>  -->
+<!--   summarise_all(function(x) sum(is.na(x)) / n())  -->
+<!-- nans <- nans[sapply(nans, function(x) if(is.character(x)) return(TRUE) else sum(x) > 0)] -->
+<!-- nans -->
+<!-- ``` -->
+
+
+
 ### Dimension Reduction
 
 #### Principal Component Analysis
 
+
 ##### How many components
 ```{r, message=FALSE, warning=FALSE}
+nans <- data |> 
+  group_by(Database) |> 
+  select(one_of(hrv_cols)) |> 
+  summarise_all(function(x) sum(is.na(x)) / n()) |> 
+  select(Database)
+
 r <- correlation::correlation(data[hrv_cols]) %>% 
   as.matrix() %>% 
   correlation::cor_smooth(verbose = FALSE)
