@@ -58,21 +58,13 @@ abs(m - 1) %>%
 
 ```{r, message=FALSE, warning=FALSE}
 model <- hclust(as.dist(m), method="mcquitty") 
-clusters <- cutree(model, h = 0.65)
+clusters <- cutree(model, h = 0.70)
 
 # identify center of each cluster 
-dis <- c()
+dis <- parameters::cluster_centers(datawizard::data_transpose(z), clusters)
 
-for(c in unique(clusters)) {
-  members <- row.names(data.frame(clusters[clusters == c]))
-  subset <- m[members, members]
-  dist_center <- subset[which.min(rowSums(subset)), ] # distance from each member to center
-  dis <- c(dis, dist_center)
-}
 
-dis_size <- (1 - dis) * 50
-
-plot_dendrogram(model, clusters = clusters, ylim = -0.3, nudge_y = -0.04, angle = 90, points = TRUE, h = 0.65, dis = dis_size) +
+plot_dendrogram(model, clusters = clusters, ylim = -0.3, nudge_y = -0.04, angle = 90, points = TRUE, h = 0.65, dis = attributes(dis)$distance) +
   # Lines to show "larger" clusters
     geom_line(data = data.frame(y = c(-0.02, -0.02), x = c(0, 5)), aes(x = x, y = y), size = 0.5, color = "#607D8B") +
     geom_line(data = data.frame(y = c(-0.02, -0.02), x = c(6, 15)), aes(x = x, y = y), size = 0.5, color = "#607D8B") +

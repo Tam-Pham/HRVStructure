@@ -6,12 +6,16 @@ editor_options:
 
 
 <!-- ```{r, message=FALSE, warning=FALSE} -->
-<!-- nans <- data |>  -->
-<!--   group_by(Database) |>  -->
-<!--   select(one_of(hrv_cols)) |>  -->
-<!--   summarise_all(function(x) sum(is.na(x)) / n())  -->
+<!-- nans <- data %>%  -->
+<!--   group_by(Database) %>%  -->
+<!--   select(one_of(hrv_cols)) %>%  -->
+<!--   summarise_all(function(x) sum(is.na(x)) / n()) -->
 <!-- nans <- nans[sapply(nans, function(x) if(is.character(x)) return(TRUE) else sum(x) > 0)] -->
 <!-- nans -->
+
+<!-- data %>%  -->
+<!--   filter(is.na(RMSSD)) %>%  -->
+<!--   select(Participant, Database) -->
 <!-- ``` -->
 
 
@@ -19,16 +23,8 @@ editor_options:
 ### Dimension Reduction
 
 #### Principal Component Analysis
-
-
 ##### How many components
 ```{r, message=FALSE, warning=FALSE}
-nans <- data |> 
-  group_by(Database) |> 
-  select(one_of(hrv_cols)) |> 
-  summarise_all(function(x) sum(is.na(x)) / n()) |> 
-  select(Database)
-
 r <- correlation::correlation(data[hrv_cols]) %>% 
   as.matrix() %>% 
   correlation::cor_smooth(verbose = FALSE)
@@ -59,17 +55,17 @@ table_clusters <- parameters::closest_component(pca) %>%
   datawizard::data_rename_rows()
 ```
 
-##### 9-components
+##### 11-components
 ```{r, message=FALSE, warning=FALSE, fig.width=15, fig.height=15}
 set.seed(3)
 
-pca <- parameters::principal_components(data[hrv_cols], n=9, rotation = "promax")
+pca <- parameters::principal_components(data[hrv_cols], n=11, rotation = "promax")
 
 insight::display(pca, threshold="max", sort=TRUE)
 
 plot(pca)
 
-table_clusters$PCA_9 <- as.character(parameters::closest_component(pca))
+table_clusters$PCA_11 <- as.character(parameters::closest_component(pca))
 
 ```
 
@@ -99,17 +95,17 @@ plot(efa)
 table_clusters$EFA_3 <- as.character(parameters::closest_component(efa))
 ```
 
-##### 9-factors
+##### 11-factors
 
 ```{r, message=FALSE, warning=FALSE, fig.width=15, fig.height=15}
 set.seed(3)
 
-efa <- parameters::factor_analysis(data[hrv_cols], cor=r, n=9, rotation="oblimin", fm="ml")
+efa <- parameters::factor_analysis(data[hrv_cols], cor=r, n=11, rotation="oblimin", fm="ml")
 
 insight::display(efa, threshold="max", sort=TRUE)
 
 plot(efa)
 
-table_clusters$EFA_9 <- as.character(parameters::closest_component(efa))
+table_clusters$EFA_11 <- as.character(parameters::closest_component(efa))
 ```
 

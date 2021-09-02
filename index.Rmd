@@ -181,7 +181,10 @@ library(tidyverse)
 library(easystats)
 
 data <- read.csv("data/data_combined.csv", stringsAsFactors = FALSE) %>% 
+  filter(Database != "Fiction_RestingState") %>% 
   select(-HRV_ULF, -HRV_VLF) %>%  # Empty
+  select(-HRV_SDANN1, -HRV_SDANN2, -HRV_SDANN5, 
+         -HRV_SDNNI1, -HRV_SDNNI2, -HRV_SDNNI5) %>% 
   # filter(Database != "LUDB") %>% # too short recordings, many indices didn't converge
   setNames(stringr::str_remove(names(.), "HRV_")) %>% 
   mutate_all(function(x) {
@@ -210,14 +213,8 @@ source_rmd("0_ConvenienceFunctions.Rmd")
 source_rmd("1_Preprocessing.Rmd")
 source_rmd("3_Dimensions.Rmd")
 source_rmd("4_Clustering.Rmd")
-
-find_cache <- function(pattern = "") {
-  files <- paste0("index_cache/html/", list.files("index_cache/html/", pattern = "\\.rdx$"))
-  files <- files[stringr::str_detect(files, pattern)]
-  stringr::str_remove(files, ".rdx")
-}
-
-lapply(find_cache(), lazyLoad, environment())
+source_rmd("5_Network.Rmd")
+source_rmd("6_Summary.Rmd")
 ```
 
 

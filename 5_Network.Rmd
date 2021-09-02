@@ -13,7 +13,7 @@ EGA is a newly introduced method which applies the network modeling framework to
 
 Simulation data has not only shown that EGA has higher accuracy than most PCA and FA methods
 
-```{r eval=FALSE, message=FALSE, warning=FALSE, include=FALSE, results='asis'}
+```{r, message=FALSE, warning=FALSE}
 # Preprocessing
 z <- effectsize::standardize(data[hrv_cols])
 z <- z[rowSums(is.na(z)) < 0.2 * ncol(z), ]  # keep only participants with few nans
@@ -46,10 +46,6 @@ ega_glasso <- EGAnet::EGA(z, model = "glasso", algorithm = "louvain", plot.EGA =
 # ega_TMFG <- EGAnet::EGA(r, n = nrow(data), model = "TMFG", algorithm = "louvain", plot.EGA = FALSE)
 ega_TMFG <- EGAnet::EGA(z, model = "TMFG", algorithm = "louvain", plot.EGA = FALSE)
 
-```
-
-```{r eval=FALSE, message=FALSE, warning=FALSE, include=FALSE, results='asis'}
-# methods.section(ega, output = "markdown")  # Prints ugly
 ```
 
 ```{r, message=FALSE, warning=FALSE, cache = TRUE}

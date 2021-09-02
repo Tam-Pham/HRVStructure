@@ -39,8 +39,11 @@ plot_dendrogram <- function(model, clusters = NULL, points = TRUE, dis = NULL, y
   } else {
     data <- tidygraph::as_tbl_graph(model) %>% 
       tidygraph::activate(nodes) %>% 
-      mutate(cluster = as.character(clusters[label]), 
-             distance = as.character(dis[label]))
+      mutate(cluster = as.character(clusters[label]))
+  }
+  if(!is.null(dis)) {
+    data <- data %>% 
+      mutate(dis = as.character(dis[label]))
   }
   
   # Tree
@@ -62,7 +65,7 @@ plot_dendrogram <- function(model, clusters = NULL, points = TRUE, dis = NULL, y
     if(is.null(clusters)) {
       p <- p + geom_node_point(aes(filter=leaf))
     } else {
-      p <- p + geom_node_point(aes(color = cluster, filter = leaf, size = distance))
+      p <- p + geom_node_point(aes(color = cluster, filter = leaf, size = dis))
     }
   }
   
