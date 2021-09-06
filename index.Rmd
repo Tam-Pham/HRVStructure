@@ -181,7 +181,6 @@ library(tidyverse)
 library(easystats)
 
 data <- read.csv("data/data_combined.csv", stringsAsFactors = FALSE) %>% 
-  filter(Database != "Fiction_RestingState") %>% 
   select(-HRV_ULF, -HRV_VLF) %>%  # Empty
   select(-HRV_SDANN1, -HRV_SDANN2, -HRV_SDANN5, 
          -HRV_SDNNI1, -HRV_SDNNI2, -HRV_SDNNI5) %>% 

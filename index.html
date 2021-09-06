@@ -4047,13 +4047,12 @@ div.tocify {
 </div>
 <div id="k-meloid" class="section level4">
 <h4>K-meloid</h4>
-<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>rez <span class="ot">&lt;-</span> parameters<span class="sc">::</span><span class="fu">cluster_analysis</span>(z, <span class="at">method =</span> <span class="st">&quot;pamk&quot;</span>, <span class="at">distance_method =</span> <span class="st">&quot;manhattan&quot;</span>)</span>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>rez <span class="ot">&lt;-</span> parameters<span class="sc">::</span><span class="fu">cluster_analysis</span>(z, <span class="at">method =</span> <span class="st">&quot;pamk&quot;</span>, <span class="at">distance_method =</span> <span class="st">&quot;euclidean&quot;</span>)</span>
 <span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb55-3"><a href="#cb55-3" aria-hidden="true" tabindex="-1"></a><span class="fu">as.data.frame</span>(rez)[<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>]</span></code></pre></div>
 <pre><code>&gt;   Cluster n_Obs Sum_Squares
-&gt; 1       1    26        6764
-&gt; 2       2    19        4460
-&gt; 3       3    12        2741</code></pre>
+&gt; 1       1    35        8339
+&gt; 2       2    22        5625</code></pre>
 <div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a>insight<span class="sc">::</span><span class="fu">display</span>(parameters<span class="sc">::</span><span class="fu">cluster_performance</span>(rez))</span></code></pre></div>
 <table>
 <caption>Indices of model performance</caption>
@@ -4067,10 +4066,10 @@ div.tocify {
 </thead>
 <tbody>
 <tr class="odd">
-<td align="left">18368.00</td>
-<td align="center">4403.24</td>
-<td align="center">13964.76</td>
-<td align="center">0.24</td>
+<td align="left">16464.00</td>
+<td align="center">2499.51</td>
+<td align="center">13964.49</td>
+<td align="center">0.15</td>
 </tr>
 </tbody>
 </table>
@@ -4084,25 +4083,23 @@ div.tocify {
 <h5>Clustering (95%)</h5>
 <div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">3</span>)</span>
 <span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-3"><a href="#cb60-3" aria-hidden="true" tabindex="-1"></a><span class="co"># rez &lt;- parameters::cluster_analysis(z, n = NULL, standardize = FALSE, method = &quot;hclust&quot;, distance_method = &quot;correlation&quot;, hclust_method = &quot;average&quot;, ci = 0.95, iterations = 2000)</span></span>
+<span id="cb60-3"><a href="#cb60-3" aria-hidden="true" tabindex="-1"></a>rez <span class="ot">&lt;-</span> parameters<span class="sc">::</span><span class="fu">cluster_analysis</span>(z, <span class="at">n =</span> <span class="cn">NULL</span>, <span class="at">standardize =</span> <span class="cn">FALSE</span>, <span class="at">method =</span> <span class="st">&quot;hclust&quot;</span>, <span class="at">distance_method =</span> <span class="st">&quot;euclidean&quot;</span>, <span class="at">hclust_method =</span> <span class="st">&quot;average&quot;</span>, <span class="at">ci =</span> <span class="fl">0.95</span>, <span class="at">iterations =</span> <span class="dv">2000</span>)</span>
 <span id="cb60-4"><a href="#cb60-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-5"><a href="#cb60-5" aria-hidden="true" tabindex="-1"></a>rez <span class="ot">&lt;-</span> parameters<span class="sc">::</span><span class="fu">cluster_analysis</span>(z, <span class="at">n =</span> <span class="cn">NULL</span>, <span class="at">standardize =</span> <span class="cn">FALSE</span>, <span class="at">method =</span> <span class="st">&quot;hclust&quot;</span>, <span class="at">distance_method =</span> <span class="st">&quot;manhattan&quot;</span>, <span class="at">hclust_method =</span> <span class="st">&quot;ward.D&quot;</span>, <span class="at">ci =</span> <span class="fl">0.95</span>, <span class="at">iterations =</span> <span class="dv">2000</span>) <span class="co"># better fit R2 higher</span></span>
+<span id="cb60-5"><a href="#cb60-5" aria-hidden="true" tabindex="-1"></a><span class="co"># rez &lt;- parameters::cluster_analysis(z, n = NULL, standardize = FALSE, method = &quot;hclust&quot;, distance_method = &quot;correlation&quot;, hclust_method = &quot;mcquitty&quot;, ci = 0.95, iterations = 2000) # better fit R2 higher</span></span>
 <span id="cb60-6"><a href="#cb60-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb60-7"><a href="#cb60-7" aria-hidden="true" tabindex="-1"></a><span class="fu">as.data.frame</span>(rez)[<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>]</span></code></pre></div>
 <pre><code>&gt;    Cluster n_Obs Sum_Squares
-&gt; 1        0    29      8219.6
+&gt; 1        0    33      9260.9
 &gt; 2        1     2         3.9
-&gt; 3       10     2       109.4
-&gt; 4       11     3       193.1
-&gt; 5       12     4       180.3
-&gt; 6        2     2         6.0
-&gt; 7        3     2        49.3
-&gt; 8        4     2        27.3
-&gt; 9        5     2        40.7
-&gt; 10       6     2        80.7
-&gt; 11       7     2        58.2
-&gt; 12       8     3       247.4
-&gt; 13       9     2       113.3</code></pre>
+&gt; 3       10     3       247.4
+&gt; 4        2     2         6.0
+&gt; 5        3     2        27.3
+&gt; 6        4     2        40.7
+&gt; 7        5     2        58.2
+&gt; 8        6     4       180.3
+&gt; 9        7     3       193.1
+&gt; 10       8     2       109.4
+&gt; 11       9     2       113.3</code></pre>
 <div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a>insight<span class="sc">::</span><span class="fu">display</span>(parameters<span class="sc">::</span><span class="fu">cluster_performance</span>(rez))</span></code></pre></div>
 <table>
 <caption>Indices of model performance</caption>
@@ -4117,9 +4114,9 @@ div.tocify {
 <tbody>
 <tr class="odd">
 <td align="left">16769.50</td>
-<td align="center">7440.62</td>
-<td align="center">1109.31</td>
-<td align="center">0.44</td>
+<td align="center">6529.28</td>
+<td align="center">979.34</td>
+<td align="center">0.39</td>
 </tr>
 </tbody>
 </table>
@@ -4137,27 +4134,26 @@ div.tocify {
 <h5>Clustering (90%)</h5>
 <div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">3</span>)</span>
 <span id="cb66-2"><a href="#cb66-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb66-3"><a href="#cb66-3" aria-hidden="true" tabindex="-1"></a><span class="co"># rez &lt;- parameters::cluster_analysis(z, n = NULL, standardize = FALSE, method = &quot;hclust&quot;, distance_method = &quot;correlation&quot;, hclust_method = &quot;average&quot;, ci = 0.90, iterations = 2000)</span></span>
+<span id="cb66-3"><a href="#cb66-3" aria-hidden="true" tabindex="-1"></a>rez <span class="ot">&lt;-</span> parameters<span class="sc">::</span><span class="fu">cluster_analysis</span>(z, <span class="at">n =</span> <span class="cn">NULL</span>, <span class="at">standardize =</span> <span class="cn">FALSE</span>, <span class="at">method =</span> <span class="st">&quot;hclust&quot;</span>, <span class="at">distance_method =</span> <span class="st">&quot;euclidean&quot;</span>, <span class="at">hclust_method =</span> <span class="st">&quot;average&quot;</span>, <span class="at">ci =</span> <span class="fl">0.90</span>, <span class="at">iterations =</span> <span class="dv">2000</span>)</span>
 <span id="cb66-4"><a href="#cb66-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb66-5"><a href="#cb66-5" aria-hidden="true" tabindex="-1"></a>rez <span class="ot">&lt;-</span> parameters<span class="sc">::</span><span class="fu">cluster_analysis</span>(z, <span class="at">n =</span> <span class="cn">NULL</span>, <span class="at">standardize =</span> <span class="cn">FALSE</span>, <span class="at">method =</span> <span class="st">&quot;hclust&quot;</span>, <span class="at">distance_method =</span> <span class="st">&quot;manhattan&quot;</span>, <span class="at">hclust_method =</span> <span class="st">&quot;ward.D&quot;</span>, <span class="at">ci =</span> <span class="fl">0.90</span>, <span class="at">iterations =</span> <span class="dv">2000</span>) <span class="co"># better fit R2 higher</span></span>
+<span id="cb66-5"><a href="#cb66-5" aria-hidden="true" tabindex="-1"></a><span class="co"># rez &lt;- parameters::cluster_analysis(z, n = NULL, standardize = FALSE, method = &quot;hclust&quot;, distance_method = &quot;correlation&quot;, hclust_method = &quot;mcquitty&quot;, ci = 0.90, iterations = 2000) # better fit R2 higher</span></span>
 <span id="cb66-6"><a href="#cb66-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb66-7"><a href="#cb66-7" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb66-8"><a href="#cb66-8" aria-hidden="true" tabindex="-1"></a><span class="fu">as.data.frame</span>(rez)[<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>]</span></code></pre></div>
 <pre><code>&gt;    Cluster n_Obs Sum_Squares
-&gt; 1        0    27      7441.7
+&gt; 1        0    29      8219.6
 &gt; 2        1     2         3.9
-&gt; 3       10     2       113.3
-&gt; 4       11     2       109.4
-&gt; 5       12     3       193.1
-&gt; 6       13     4       180.3
-&gt; 7        2     2         6.0
-&gt; 8        3     2        49.3
-&gt; 9        4     2        27.3
-&gt; 10       5     2        40.7
-&gt; 11       6     2        80.7
-&gt; 12       7     2        58.2
-&gt; 13       8     2        66.4
-&gt; 14       9     3       247.4</code></pre>
+&gt; 3       10     2       109.4
+&gt; 4       11     2       113.3
+&gt; 5       12     3       247.4
+&gt; 6        2     2         6.0
+&gt; 7        3     2        27.3
+&gt; 8        4     2        40.7
+&gt; 9        5     2        49.3
+&gt; 10       6     2        58.2
+&gt; 11       7     2        80.7
+&gt; 12       8     4       180.3
+&gt; 13       9     3       193.1</code></pre>
 <div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a>insight<span class="sc">::</span><span class="fu">display</span>(parameters<span class="sc">::</span><span class="fu">cluster_performance</span>(rez))</span></code></pre></div>
 <table>
 <caption>Indices of model performance</caption>
@@ -4172,9 +4168,9 @@ div.tocify {
 <tbody>
 <tr class="odd">
 <td align="left">16769.50</td>
-<td align="center">8152.05</td>
-<td align="center">1175.70</td>
-<td align="center">0.49</td>
+<td align="center">7440.62</td>
+<td align="center">1109.31</td>
+<td align="center">0.44</td>
 </tr>
 </tbody>
 </table>
@@ -4523,7 +4519,7 @@ div.tocify {
 <span id="cb96-21"><a href="#cb96-21" aria-hidden="true" tabindex="-1"></a>    m[row, col] <span class="ot">&lt;-</span> <span class="fu">sum</span>(rez, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="sc">/</span> <span class="fu">length</span>(<span class="fu">na.omit</span>(rez))</span>
 <span id="cb96-22"><a href="#cb96-22" aria-hidden="true" tabindex="-1"></a>  }</span>
 <span id="cb96-23"><a href="#cb96-23" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
-<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb97-1"><a href="#cb97-1" aria-hidden="true" tabindex="-1"></a>m <span class="ot">&lt;-</span> correlation<span class="sc">::</span><span class="fu">cor_sort</span>(m, <span class="at">distance =</span> <span class="st">&quot;raw&quot;</span>, <span class="at">hclust_method =</span> <span class="st">&quot;ward.D2&quot;</span>)</span>
+<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb97-1"><a href="#cb97-1" aria-hidden="true" tabindex="-1"></a>m <span class="ot">&lt;-</span> correlation<span class="sc">::</span><span class="fu">cor_sort</span>(m, <span class="at">distance =</span> <span class="st">&quot;raw&quot;</span>, <span class="at">hclust_method =</span> <span class="st">&quot;average&quot;</span>)</span>
 <span id="cb97-2"><a href="#cb97-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb97-3"><a href="#cb97-3" aria-hidden="true" tabindex="-1"></a><span class="fu">abs</span>(m <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span> </span>
 <span id="cb97-4"><a href="#cb97-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.data.frame</span>() <span class="sc">%&gt;%</span> </span>
@@ -4542,7 +4538,7 @@ div.tocify {
 </div>
 <div id="hierarchical-structure-of-metaclustering" class="section level3">
 <h3>Hierarchical Structure of Metaclustering</h3>
-<div class="sourceCode" id="cb98"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb98-1"><a href="#cb98-1" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">hclust</span>(<span class="fu">as.dist</span>(m), <span class="at">method=</span><span class="st">&quot;mcquitty&quot;</span>) </span>
+<div class="sourceCode" id="cb98"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb98-1"><a href="#cb98-1" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">hclust</span>(<span class="fu">as.dist</span>(m), <span class="at">method=</span><span class="st">&quot;average&quot;</span>) </span>
 <span id="cb98-2"><a href="#cb98-2" aria-hidden="true" tabindex="-1"></a>clusters <span class="ot">&lt;-</span> <span class="fu">cutree</span>(model, <span class="at">h =</span> <span class="fl">0.70</span>)</span>
 <span id="cb98-3"><a href="#cb98-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb98-4"><a href="#cb98-4" aria-hidden="true" tabindex="-1"></a><span class="co"># identify center of each cluster </span></span>
@@ -4598,287 +4594,287 @@ div.tocify {
 <tbody>
 <tr class="odd">
 <td align="left">PSS</td>
-<td align="left">5</td>
+<td align="left">2</td>
 <td align="right">96</td>
 </tr>
 <tr class="even">
 <td align="left">SI</td>
-<td align="left">6</td>
+<td align="left">4</td>
 <td align="right">92</td>
 </tr>
 <tr class="odd">
 <td align="left">PAS</td>
-<td align="left">5</td>
+<td align="left">2</td>
 <td align="right">88</td>
 </tr>
 <tr class="even">
 <td align="left">PIP</td>
-<td align="left">5</td>
+<td align="left">2</td>
 <td align="right">88</td>
 </tr>
 <tr class="odd">
 <td align="left">IALS</td>
-<td align="left">5</td>
+<td align="left">2</td>
 <td align="right">88</td>
 </tr>
 <tr class="even">
 <td align="left">Ca</td>
-<td align="left">6</td>
+<td align="left">3</td>
 <td align="right">88</td>
 </tr>
 <tr class="odd">
 <td align="left">PI</td>
-<td align="left">6</td>
+<td align="left">3</td>
 <td align="right">88</td>
 </tr>
 <tr class="even">
 <td align="left">C2a</td>
-<td align="left">6</td>
+<td align="left">3</td>
 <td align="right">88</td>
 </tr>
 <tr class="odd">
-<td align="left">MadNN</td>
+<td align="left">DFA_alpha1_DimMean</td>
 <td align="left">1</td>
 <td align="right">84</td>
 </tr>
 <tr class="even">
-<td align="left">IQRNN</td>
+<td align="left">DFA_alpha2_ExpRange</td>
 <td align="left">1</td>
 <td align="right">84</td>
 </tr>
 <tr class="odd">
-<td align="left">MCVNN</td>
+<td align="left">DFA_alpha2_DimRange</td>
 <td align="left">1</td>
 <td align="right">84</td>
 </tr>
 <tr class="even">
-<td align="left">HTI</td>
-<td align="left">1</td>
+<td align="left">GI</td>
+<td align="left">4</td>
 <td align="right">84</td>
 </tr>
 <tr class="odd">
 <td align="left">S</td>
-<td align="left">1</td>
+<td align="left">5</td>
 <td align="right">84</td>
 </tr>
 <tr class="even">
-<td align="left">SDNN</td>
-<td align="left">1</td>
+<td align="left">HTI</td>
+<td align="left">5</td>
 <td align="right">84</td>
 </tr>
 <tr class="odd">
-<td align="left">SD2</td>
-<td align="left">1</td>
+<td align="left">MCVNN</td>
+<td align="left">5</td>
+<td align="right">84</td>
+</tr>
+<tr class="even">
+<td align="left">MadNN</td>
+<td align="left">5</td>
+<td align="right">84</td>
+</tr>
+<tr class="odd">
+<td align="left">IQRNN</td>
+<td align="left">5</td>
 <td align="right">84</td>
 </tr>
 <tr class="even">
 <td align="left">pNN50</td>
-<td align="left">1</td>
+<td align="left">5</td>
 <td align="right">84</td>
 </tr>
 <tr class="odd">
 <td align="left">CVI</td>
-<td align="left">1</td>
+<td align="left">5</td>
 <td align="right">84</td>
 </tr>
 <tr class="even">
-<td align="left">DFA_alpha1_DimMean</td>
-<td align="left">4</td>
+<td align="left">SDNN</td>
+<td align="left">5</td>
 <td align="right">84</td>
 </tr>
 <tr class="odd">
-<td align="left">DFA_alpha2_ExpRange</td>
-<td align="left">4</td>
-<td align="right">84</td>
-</tr>
-<tr class="even">
-<td align="left">DFA_alpha2_DimRange</td>
-<td align="left">4</td>
-<td align="right">84</td>
-</tr>
-<tr class="odd">
-<td align="left">GI</td>
-<td align="left">6</td>
+<td align="left">SD2</td>
+<td align="left">5</td>
 <td align="right">84</td>
 </tr>
 <tr class="even">
 <td align="left">DFA_alpha2</td>
-<td align="left">4</td>
+<td align="left">1</td>
 <td align="right">82</td>
 </tr>
 <tr class="odd">
 <td align="left">DFA_alpha2_ExpMean</td>
-<td align="left">4</td>
+<td align="left">1</td>
 <td align="right">82</td>
 </tr>
 <tr class="even">
 <td align="left">LFHF</td>
-<td align="left">4</td>
+<td align="left">1</td>
 <td align="right">82</td>
 </tr>
 <tr class="odd">
 <td align="left">LFn</td>
-<td align="left">4</td>
+<td align="left">1</td>
 <td align="right">82</td>
 </tr>
 <tr class="even">
 <td align="left">DFA_alpha1</td>
-<td align="left">4</td>
+<td align="left">1</td>
 <td align="right">82</td>
 </tr>
 <tr class="odd">
 <td align="left">C1a</td>
-<td align="left">4</td>
+<td align="left">1</td>
 <td align="right">80</td>
 </tr>
 <tr class="even">
 <td align="left">CSI</td>
-<td align="left">4</td>
+<td align="left">1</td>
 <td align="right">80</td>
 </tr>
 <tr class="odd">
 <td align="left">RMSSD</td>
-<td align="left">1</td>
+<td align="left">5</td>
 <td align="right">78</td>
 </tr>
 <tr class="even">
 <td align="left">RCMSE</td>
-<td align="left">2</td>
+<td align="left">6</td>
 <td align="right">78</td>
 </tr>
 <tr class="odd">
 <td align="left">AI</td>
-<td align="left">6</td>
+<td align="left">4</td>
 <td align="right">76</td>
 </tr>
 <tr class="even">
 <td align="left">CVNN</td>
-<td align="left">1</td>
+<td align="left">5</td>
 <td align="right">74</td>
 </tr>
 <tr class="odd">
 <td align="left">CMSE</td>
-<td align="left">2</td>
+<td align="left">6</td>
 <td align="right">74</td>
 </tr>
 <tr class="even">
 <td align="left">TINN</td>
-<td align="left">2</td>
+<td align="left">6</td>
 <td align="right">74</td>
 </tr>
 <tr class="odd">
 <td align="left">VHF</td>
-<td align="left">2</td>
+<td align="left">6</td>
 <td align="right">72</td>
 </tr>
 <tr class="even">
 <td align="left">HF</td>
-<td align="left">2</td>
+<td align="left">6</td>
 <td align="right">72</td>
 </tr>
 <tr class="odd">
 <td align="left">LnHF</td>
-<td align="left">2</td>
+<td align="left">6</td>
 <td align="right">72</td>
 </tr>
 <tr class="even">
 <td align="left">CD</td>
-<td align="left">2</td>
+<td align="left">6</td>
 <td align="right">72</td>
 </tr>
 <tr class="odd">
 <td align="left">SampEn</td>
-<td align="left">2</td>
+<td align="left">6</td>
 <td align="right">72</td>
 </tr>
 <tr class="even">
 <td align="left">FuzzyEn</td>
-<td align="left">2</td>
+<td align="left">6</td>
 <td align="right">72</td>
 </tr>
 <tr class="odd">
 <td align="left">SD1SD2</td>
-<td align="left">3</td>
+<td align="left">7</td>
 <td align="right">72</td>
 </tr>
 <tr class="even">
-<td align="left">LZC</td>
-<td align="left">2</td>
+<td align="left">DFA_alpha1_ExpMean</td>
+<td align="left">6</td>
 <td align="right">70</td>
 </tr>
 <tr class="odd">
-<td align="left">DFA_alpha1_ExpMean</td>
-<td align="left">2</td>
+<td align="left">LZC</td>
+<td align="left">6</td>
 <td align="right">70</td>
 </tr>
 <tr class="even">
 <td align="left">LF</td>
-<td align="left">2</td>
+<td align="left">6</td>
+<td align="right">68</td>
+</tr>
+<tr class="odd">
+<td align="left">DFA_alpha1_ExpRange</td>
+<td align="left">7</td>
+<td align="right">68</td>
+</tr>
+<tr class="even">
+<td align="left">DFA_alpha2_DimMean</td>
+<td align="left">7</td>
 <td align="right">68</td>
 </tr>
 <tr class="odd">
 <td align="left">KFD</td>
-<td align="left">3</td>
-<td align="right">68</td>
-</tr>
-<tr class="even">
-<td align="left">DFA_alpha1_ExpRange</td>
-<td align="left">3</td>
-<td align="right">68</td>
-</tr>
-<tr class="odd">
-<td align="left">DFA_alpha2_DimMean</td>
-<td align="left">3</td>
+<td align="left">7</td>
 <td align="right">68</td>
 </tr>
 <tr class="even">
 <td align="left">MeanNN</td>
-<td align="left">1</td>
+<td align="left">5</td>
 <td align="right">66</td>
 </tr>
 <tr class="odd">
 <td align="left">MedianNN</td>
-<td align="left">1</td>
+<td align="left">5</td>
 <td align="right">66</td>
 </tr>
 <tr class="even">
-<td align="left">HFD</td>
-<td align="left">3</td>
+<td align="left">DFA_alpha1_DimRange</td>
+<td align="left">7</td>
 <td align="right">66</td>
 </tr>
 <tr class="odd">
-<td align="left">DFA_alpha1_DimRange</td>
-<td align="left">3</td>
+<td align="left">HFD</td>
+<td align="left">7</td>
 <td align="right">66</td>
 </tr>
 <tr class="even">
 <td align="left">ApEn</td>
-<td align="left">3</td>
+<td align="left">7</td>
 <td align="right">64</td>
 </tr>
 <tr class="odd">
 <td align="left">MSE</td>
-<td align="left">3</td>
+<td align="left">7</td>
 <td align="right">62</td>
 </tr>
 <tr class="even">
 <td align="left">ShanEn</td>
-<td align="left">3</td>
+<td align="left">7</td>
 <td align="right">58</td>
 </tr>
 <tr class="odd">
 <td align="left">HFn</td>
-<td align="left">3</td>
+<td align="left">7</td>
 <td align="right">56</td>
 </tr>
 <tr class="even">
 <td align="left">CSI_Modified</td>
-<td align="left">4</td>
+<td align="left">1</td>
 <td align="right">54</td>
 </tr>
 <tr class="odd">
 <td align="left">pNN20</td>
-<td align="left">1</td>
+<td align="left">5</td>
 <td align="right">50</td>
 </tr>
 </tbody>

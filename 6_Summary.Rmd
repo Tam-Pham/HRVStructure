@@ -36,7 +36,7 @@ for(row in row.names(m)) {
 
 
 ```{r, message=FALSE, warning=FALSE}
-m <- correlation::cor_sort(m, distance = "raw", hclust_method = "ward.D2")
+m <- correlation::cor_sort(m, distance = "raw", hclust_method = "average")
 
 abs(m - 1) %>% 
   as.data.frame() %>% 
@@ -57,7 +57,7 @@ abs(m - 1) %>%
 ### Hierarchical Structure of Metaclustering
 
 ```{r, message=FALSE, warning=FALSE}
-model <- hclust(as.dist(m), method="mcquitty") 
+model <- hclust(as.dist(m), method="average") 
 clusters <- cutree(model, h = 0.70)
 
 # identify center of each cluster 
