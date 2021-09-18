@@ -1,0 +1,191 @@
+---
+title: '**Conceptual vs. Observed Structure of Heart Rate Variability (HRV) Indices**'
+shorttitle        : "Structure of HRV indices"
+author:
+  - name          : "Tam Pham"
+    affiliation   : " 1"
+    address       : "HSS 04-18, 48 Nanyang Avenue, Singapore"
+    email         : "phamtt@ntu.edu.sg"
+  - name          : "Zen J. Lau"
+    affiliation   : " 1"
+  - name          : "S.H. Annabel Chen"
+    affiliation   : " 1, 2, 3, 4, *"
+    corresponding : yes    # Define only one corresponding author
+    address       : "HSS 04-19, 48 Nanyang Avenue, Singapore"
+    email         : "annabelchen@ntu.edu.sg"
+  - name          : "Dominique Makowski"
+    affiliation   : " 1, *"
+affiliation:
+  - id            : "1"
+    institution   : "School of Social Sciences, Nanyang Technological University, Singapore"
+  - id            : "2"
+    institution   : "Centre for Research and Development in Learning, Nanyang Technological University, Singapore"
+  - id            : "3"
+    institution   : "Lee Kong Chian School of Medicine, Nanyang Technological University, Singapore"
+  - id            : "4"
+    institution   : "National Institute of Education, Nanyang Technological University, Singapore"
+authornote: |
+abstract: |
+  Heart Rate Variability (HRV) can be estimated using a myriad of mathematical indices, for which the lack of comparison renders results' interpretation and evaluation tedious. In this study, we assessed the relationship between 57 HRV metrics collected from Human recordings (n = 330) using various structure-analysis algorithms. We then applied a metaclustering approach that combines their results to obtain a robust and reliable view of the observed relationships. We found that HRV metrics can be clustered into 4 groups, representing .... From there, we derived recommendations on which indices to prioritize for parsimonious, yet comprehensive HRV-related data analysis and reporting.
+output:
+  papaja::apa6_word:
+    keep_tex: yes
+  papaja::apa6_pdf:
+    keep_tex: yes
+keywords: "HRV, ECG, Clustering"
+wordcount: '7567'
+bibliography: ["references.bib"]
+floatsintext: yes
+figsintext: yes
+figurelist: no
+tablelist: no
+footnotelist: no
+linenumbers: yes
+mask: no
+draft: no
+documentclass: "apa6"
+classoption: "man"
+header-includes:
+- \usepackage[labelfont=bf, font={color=gray,small}]{caption}
+- \usepackage{float}
+- \usepackage[document]{ragged2e}
+csl: utils/apa.csl
+---
+
+\justify
+
+<!-- introduce hrv -->
+
+Heart Rate Variability (HRV), reflecting the heart's ability to effectively regulate and adapt to internal and external environmental changes, has been linked with many physical and mental health outcomes [e.g., cardiac complications, @laitio2007role, diabetes, @kudat2006heart, mood disorders, @bassett2016literature, cognitive functioning, @forte2019heart]. Conventionally, the various indices used in the assessment of HRV were broadly categorized based on the nature of their mathematical approach, in categories including *time-domain*, *frequency-domain*, and *nonlinear dynamics*.
+
+<!-- is attributed to the dynamic interplay between the sympathetic and parasympathetic branches of the autonomic nervous system -->
+
+<!-- main categories -->
+
+Time-domain analysis presents the simplest and most straightforward method of quantifying HRV from the original normal (i.e., excluding abnormal beats such as ectopic beats) heartbeat intervals or NN intervals (NNIs). Some commonly derived indices include *SDNN*, the standard deviation of all NN intervals, *RMSSD*, the root mean square of the sum of successive differences of NN intervals, and *pNN50*, the percentage of adjacent NN intervals separated by more than 50ms. While time-domain methods offers computational ease, they are unable to distinguish between the contributions of sympathetic and parasympathetic branches. Frequency-domain analysis, on the other hand, targets the assessment of these different regulatory mechanisms by investigating how the HRV power spectrum distributes across different frequency bands (e.g, low frequency, *LF* or high frequency, *HF*). Other indices that fall under the frequency domain include derivatives of the aforementioned components, such as the ratio of *LF* to *HF* (*LF/HF*) power and their normalized (e.g., *LFn*, *HFn*) and natural logarithmic variants (e.g., *LnHF*). Finally, drawn from concepts of non-linear dynamics and chaos theory [@golberger1996non], non-linear analysis was later introduced to better characterize the complex physiological mechanisms underlying HRV regulation. Prominent indices include measures obtained from a Poincaré plot where an ellipse is fitted to a scatterplot of each NN interval against its preceding one [e.g., the standard deviation of the short-term, *SD1* and long-term, *SD2* NN interval variability, as well as its corresponding ratio, *SD1/SD2*, @brennan2001existing]. Other non-linear indices that fall under this category, such as Detrended Fluctuation Analysis (*DFA*), multi-fractal *DFA* (*MF-DFA*) and correlation dimension (*CD*), account for the fractal properties of HRV, while entropy measures like approximate entropy (*ApEn*), sample entropy (*SampEn*), and multiscale entropy (*MSE*) quantify the amount of regularity in the HR time series [@voss2009methods]. For a more comprehensive description of all HRV indices, see @pham2021heart.
+
+<!-- The low frequency (*LF*; 0.04--0.15Hz) and high frequency (*HF*; 0.15--0.4 Hz) components, the two main indicators of ANS activity [@acharya2006heart], predominantly reflect sympathetic and parasympathetic activity respectively. The other two components measured at very low frequencies (*VLF*; 0.0033--0.04 Hz) and ultra low frequencies (*ULF* low frequency $\leq$ 0.003 Hz) are less clear in regards to their associated physiological mechanisms [@kleiger2005heart], though some evidence has linked the former to long-term regulatory mechanisms [@akselrod1981power] and the latter to circadian and metabolic activity [@shaffer2014healthy]. -->
+
+<!-- overlap and duplicates in indices, aim of study -->
+
+Despite the rising popularity of HRV analysis as a real-time, noninvasive technique for investigating health and disease, there are some shared similarities (and even overlaps) between the multitude of HRV indices that are not yet well understood. Early studies have investigated the relationships between time-domain and frequency-domain indices, showing that not only were *RMSSD* and *pNN50* strongly correlated with each other [above 0.9, @bigger1989comparison], they were also highly associated with *HF* power [@bigger1989comparison; @kleiger2005heart; @otzenberger1998dynamic], suggesting that these measures could be treated as surrogates for each other in assessing the parasympathetic modulation of HRV. This observation is warranted given that the former is computed from the differences across consecutive NN intervals, and hence, they reflect mainly high frequency oscillatory patterns in HR and are independent of long-term changes. On the other hand, *SDNN*, which has been thought to reflect both sympathetic and parasympathetic activity, is correlated to total power (*TP*) in HRV power spectrum [@bigger1989comparison]. Recent years also witnessed the emergence of debates regarding the traditional conceptualization of *SD1* and *SD2* as non-linear indices, particularly when @ciccone2017reminder proposed that *RMSSD* and *SD1* were mathematically equivalent. Many studies that report both of these short-term HRV indices independently often arrive at identical statistical results without addressing this equivalence [e.g., @rossi2015impact, @peng2015extraction, @leite2015correlation]. Additionally, other studies have also drawn similarities between *SD1/SD2* and *LF/HF* in their indexing of the balance between short- and long-term HRV [@brennan2002poincare; @guzik2007correlations].
+
+Overall, there is a need for a greater data-driven understanding of the relationship between the multitude of HRV indices and their respective groupings. While there exist different approaches to assign data to different groups based on their level of associations [see @nguyen2019improving], there is no gold standard or clear guidelines to determine the most appropriate method for grouping of physiological indices. As such, choosing one method and presenting its solution as a definitive one can be uninformative or even misleading. The aim of this study is to explore the structure of HRV indices by using a consensus-based methodology [@kuncheva2014combining; @monti2003consensus; @bhattacharjee2001classification], hereafter referred to as *meta-clustering*, where the results of multiple structure analysis approaches are systematically combined to highlight the most robust associations between the indices.
+
+<!--may be useful to have glossary of indices-->
+
+# Methods
+
+In total, the electrocardiogram (ECG) data of 330 participants were extracted from 5 databases. The raw data as well as the entire analysis script (including details and additional analyses) can be found at this GitHub repository (<https://github.com/Tam-Pham/HRVStructure>).
+
+## Databases
+
+### Glasgow University Database (GUDB)
+
+This database [@howell2018high] contains 25 ECG recordings from 25 participants. All participants were 18 year-old and above and had no known cardiovascular conditions. Each participant was recorded performing five different tasks for two-minute (sitting, doing a maths test on a tablet, walking on a treadmill, running on a treadmill, using a hand bike). All recordings were sampled at 250Hz. The script to download and format the database using the [**ECG-GUDB**](https://github.com/berndporr/ECG-GUDB) Python package by @howell2018high can be found [**here**](https://github.com/neuropsychology/NeuroKit/blob/dev/data/gudb/download_gudb.py).
+
+### MIT-BIH Arrhythmia Database (MIT-Arrhythmia)
+
+This database [@moody2001impact] contains 48 ECG recordings of two-channel ambulatory ECG recordings from 47 participants (25 men, 32-89 year-old; 22 women, 23-89 year-old). 23 recordings were from a mixed population of patients and 25 recordings were taken from the same population but included less common and more clinically significant arrhythmia (denoted as the `MIT-Arrhythmia-x` database). All recordings were sampled 360Hz and lasted for 30-minute. The script to download and format the database can be found [**here**](https://github.com/neuropsychology/NeuroKit/blob/dev/data/mit_arrhythmia/download_mit_arrhythmia.py).
+
+### MIT-BIH Normal Sinus Rhythm Database (MIT-Normal)
+
+This database [@goldberger2000physiobank] contains 18 clean long-term ECG recordings from 18 participants (5 men, 26-45 year-old; 13 women, 20-50 year-old). All recordings were sampled at 128Hz and due to memory limits, we only kept the second hour of each recording. The script to download and format the database can be found [**here**](https://github.com/neuropsychology/NeuroKit/blob/dev/data/mit_normal/download_mit_normal.py).
+
+<!-- ### Lobachevsky University Electrocardiography Database -->
+
+<!-- The Lobachevsky University Electrocardiography Database [LUDB; @kalyakulina2018lu] consists of 200 10-second 12-lead ECG signal records representing different morphologies of the ECG signal. The ECGs were collected from healthy volunteers and patients, which had various cardiovascular diseases. The boundaries of P, T waves and QRS complexes were manually annotated by cardiologists for all 200 records. -->
+
+### Fantasia Database
+
+This database [@iyengar1996age] contains 40 recordings from 20 young (21-34 year-old) and 20 elderly (68-85 years old) healthy participants. All participants remained in a resting state in sinus rhythm while watching the movie Fantasia (Disney, 1940) to help maintain wakefulness. All recordings were sampled at 250 Hz and lasted for 120 minutes. The script to download and format the database can be found [**here**](https://github.com/neuropsychology/NeuroKit/blob/master/data/fantasia/download_fantasia.py).
+
+### Resting-state Dataset
+
+The remaining of the data came from resting-state recordings of authors' other empirical studies [**CITE COCON1**]. This dataset contains 79 recordings from 79 participants. All participants (23 men and 56 woman) were 18 year-old and above and had no known cardiovascular conditions. All recordings were sampled at 4000Hz and lasted for 8-minute during which participants remained in a resting state with their eyes closed.
+
+## Data Processing
+
+The default processing pipeline of NeuroKit2 [@makowski2021neurokit2] was used for cleaning and processing of raw ECG recordings as well as for the computation of all HRV indices. Note that except for the resting-state dataset, data from online database was not in the form of ECG recordings but sample locations of annotated heartbeats (R-peaks).
+
+Based on the correlation matrix of all HRV indices, identical variables with absolute pairwise correlation of 1 were identified for further examination. As expected, the most prominent group of identical indices included *RMSSD*, *SDSD*, *SD1* and its other derived indices, *SD1a* and *SD1d* [@brennan2001existing; @ciccone2017reminder]. Given the popular usage of *RMSSD* in the literature, it was kept for further analysis while the remaining identical indices were removed. In addition, due to their perfect correlations with other indices, *SDNNa* and *SDNNd* (to *SDNN*), *SD2a* and *SD2d* (to *SD2*), *Cd* (to *Ca*), *C1a* and *C1d* (to *C2a* and *C2d*) were also removed.
+
+Additionally, for each remaining HRV indices, the standard z-scores were calculated for each of their data points and the most extreme values, identified as those that lie beyond the 99.99 percentile, were removed [@iglewicz1993detect].
+
+## Data Analysis
+
+One of the core "issues" of statistical clustering is that, in many cases, different methods will give different results. The **meta-clustering** approach proposed by *easystats* [that finds echoes in *consensus clustering*; see @monti2003consensus] consists of treating the unique clustering solutions as a ensemble, from which we can derive a probability matrix. This matrix contains, for each pair of observations, the probability of being in the same cluster. For instance, if the 6th and the 9th row of a dataframe has been assigned to a similar cluster by 5 out of 10 clustering methods, then its probability of being grouped together is 0.5. Essentially, *meta-clustering* approach is based on the hypothesis that, as each clustering algorithm embodies a different prism by which it sees the data, running an infinite amount of algorithms would result in the emergence of the "true" clusters. As the number of algorithms and parameters is finite, the probabilistic perspective is a useful proxy. This method is interesting where there is no obvious reasons to prefer one over another clustering method, as well as to investigate how robust some clusters are under different algorithms.
+
+In this analysis, we first correlated the HRV indices [using the `correlations` function from the *correlation* package, see @makowski2020methods] and removed indices that were perfectly correlated with each other, before removing outliers based on the median absolute deviation from the median [see the `check_outliers` function in the *performance* R package; @ludecke2019performance]. Following the *meta-clustering* approach, multiple clustering methods were used to analyze the associations between the HRV indices, namely, factor analysis (including Principal Component Analysis, PCA, and Exploratory Factor Analysis, EFA), k-means clustering, k-medoids clustering, hierarchical clustering, density-based spatial clustering of applications with noise (DBSCAN), hierarchical density-based spatial clustering of applications with noise (HBSCAN), mixture model approach, and exploratory graph analysis (EGA). We then jointly considered the results obtained from these multiple methods by estimating the probability for each pair of indices to be clustered together. Ultimately, the analysis aimed to to provide a more robust overview of the clustering results and facilitate a more thorough conceptual understanding of these patterns.
+
+Data processing was carried out with R [@R-base] and the *easystats* ecosystem [@ludecke2019insight; @makowski2019bayestestr]. The raw data, as well as the full reproducible analysis script, including additional description of each approach and the solutions of each individual clustering method, are available at this GitHub repository (<https://github.com/Tam-Pham/HRVStructure>).
+
+# Results
+
+<!-- Dimension Reduction Approaches -->
+
+Two structure solutions of three-component and eleven-component were identified as optimal [see `n_components` function; @makowski2020describe] and extracted using PCA; they respectively accounted for 53.40% and 87.32% of total variance of the HRV dataset. Following a similar optimizing procedure, two structure solutions of three-factor and eleven-factor were extracted using EFA and they respectively accounted for 48.48% and 77.82% of the total variance. See Table **TODO: INDICES TABLE** in the *Supplementary Material 1* for the item loadings of each solutions.
+
+<!-- Clustering Approaches -->
+
+Three optimal structure solutions of two-cluster, seven-cluster, and ten-cluster were identified [see `n_clusters` function; @makowski2020describe] for k-means clustering and a three-cluster solution was extracted for k-medoids clustering [see `pamk` function; @hennig2015package]. Two structural solutions were constructed with hierarchical cluster analysis using *euclidean* distance method and *average* linkage method. However, they had different confidence intervals of 90% and 95% and identified ten and twelve significant clusters respectively [see @suzuki2006pvclust for more information about uncertainty in hierarchical cluster analysis]. Other unsupervised clustering approaches, DBSCAN and HDBSCAN, suggested two additional structure solutions of six and thirteen significant clusters respectively and the mixture model-based clustering suggested a structure solution of seven clusters. See Figure **TODO: clustergram and dendogram** in *Supplementary Material 1* for the results of each clustering solution.
+
+<!-- Network-based approaches -->
+
+Last but not least, two structure solutions were extracted from the EGA approach using two network estimation algorithms, *GLASSO* and *TMFG*, in combination with the *louvian* network community detection algorithm [@golino2020eganet]. The *GLASSO* and *TMFG* networks identified the structures of seven and six dimensions (clusters) respectively. See Figure **TODO: networks** in *Supplementary Material 1* for the results of network solutions.
+
+<!-- Meta-Clustering -->
+
+Using the fifteen structure solutions from the aforementioned methods, we computed a *meta-clustering* matrix which summarized the probability of each pair of HRV indices being assigned to the same cluster. The matrix is presented by the probability heatmap in **Figure 1**. The correlation-based distance matrix was computed from the *meta-clustering* matrix and submitted to the hierarchical cluster analysis with *average* linkage method. The results of the *meta-clustering* approach are presented in **Figure 2**.
+
+<!-- Fig 1 (heatmap)-->
+
+<!-- Fig 2 (heatmap)-->
+
+Three main clusters of HRV indices emerged in the final hierarchical structure and based on the characteristics of their members, the clusters were labeled as (1) *general dispersion* indices, (2) *slow-fluctuation* indices, and (3) *fast-fluctuation* indices. The *general dispersion* cluster mainly consisted of time-domain indices where we observed clear distinctions between a sub-cluster of more statistically robust indices (e.g., *MadNN*, *MCVNN*), a sub-cluster of indices that could be more sensitive to the presence of outliers in the signals (e.g., *SDNN*, *SD2*), a sub-cluster of those that capture a general variability from every NNI (e.g., *RMSSD*, *S* ), and a sub-cluster of indices that measure the central or average NNI value of the entire signal (e.g. *MeanNN*, *MedianNN*). The *pNN20* appeared isolated from the rest of the *general dispersion* cluster members. The *slow-fluctuation* cluster showed a clear structure of two sub-cluster, one of heart rate asymmetry indices (*HRA*) and the other of indices that capture the proportion of low-frequency components in the signal. The *HRA* sub-cluster could be further broken down into two groups, one with indices that are sensitive to the asymmetric contribution of HR deceleration (e.g., *AI*, *GI*) and one to that of HR acceleration (e.g., *PI*, *Ca*). The structure of the low-frequency components sub-cluster was not as distinct and its members were mainly indices quantifying the amount of changes in HR that occur over a slower time scale (e.g., *LFHF*, *LFn*). Similar to the *slow-fluctuation* cluster, the *fast-fluctuation* cluster had two main sub-clusters. The first sub-cluster included only the heart rate fragmentation indices (*HRF*) and the second had a combination of frequency-domain and non-linear indices. Within the second sub-cluster, the frequency-domain indices seemed to be assigned into two distinct groups based on their formulations where the absolute high-frequency indices (e.g., *VHF*, *HF*, *LnHF*) are in one group and the measure of relative high-frequency components (e.g., *HFn*) in the other. See *Figure 2* **TODO: final dendogram** for more information about the cluster memberships and their labels. 
+
+# Discussion
+This is the first study that applied a statistically robust approach to explore the relationships between the most up-to-date HRV indices. The final structure suggested three main clusters which were labeled to represent the shared characteristics of their members as *general dispersion*, *slow-fluctuation*, and *fast-fluctuation*. In this study, the *general dispersion* cluster, mainly made up of time-domain indices, is observed to be more closely related to the *fast-fluctuation* cluster. This aligns with the current understanding that HRV in short-term recordings, which were the majority of the excerpts examined in this work (duration range = [2, 120] minutes), are primarily influenced by the relatively fast-paced parasympathetically-mediated activities [@shaffer2017overview; @shaffer2014healthy]. Within the *general dispersion* cluster, the indices are further grouped by their statistical properties or more specifically their level of sensitivity to the presence of outliers [see @pham2021hrv for further discussion]. Given the shared statistical origin of *pNN20* and *pNN50* [@kim2009pnnx], we expected them to be closely related. However, as these indices were not consistently assigned to the same group across different structure solutions, they appear distant in the final structure which seems to suggest their particular volatile association in healthy populations.
+
+Within the *slow-fluctuation* cluster, two distinct sub-clusters emerged. The high level of similarity between *DFA* and frequency-weighted spectral indices in the first sub-cluster aligns with previous literature that has theoretically demonstrated and empirically verified their close resemblance [@francis2002physiological; @captur2017fractal]. Specifically, \alpha1 component has been shown to be particularly sensitive to the proportion of low-frequency fluctuations (e.g., *LFn*, *LFHF*) in the signal and \alpha2 component to that of very-low-frequency variabilities [@francis2002physiological; @captur2017fractal]. Nevertheless, *VLF* indices could not be examined in this study due to the constraint of recording lengths. The final structure also suggests a strong association between *MDFA* indices and other members in *slow-fluctuation* cluster. However, as these indices are relatively new non-linear quantification of HRV, future studies are required to confirm and investigate the underlying reason for the observed relationships. The second sub-cluster within the *slow-fluctuation* cluster is entirely made up of *HRA* indices which capture the asymmetric contribution of HR acceleration and deceleration to HRV [@guzik2006heart; @piskorski2011asymmetric; @yan2017area]. This sub-cluster is further divided into two groups depending on whether acceleration (e.g., *PI*, *Ca*) or deceleration (e.g., *AI*, *GI*, *SI*) is the target of measurement. Various physiological mechanisms have been proposed to account for the *HRA* phenomenon and the baroreflex asymmetry - baroreflex has greater response to blood pressure rises than drops - as well as the unequal duration of inspiration and expiration related to respiratory sinus arrhythmia (*RSA*) are believed to be the most plausible causes [@piskorski2011asymmetric; @de2019cardiac; @guzik2020asymmetric]. Extrapolating from the notions that baroreflex activity and *RSA* during periods of slow respiration rates such as resting states are often captured by the low-frequency components [@vaschillo2006characteristics; @lehrer2014heart; @shaffer2017overview; @hayano2019pitfalls], this cluster is accordingly named to potentially reflect the shared underlying mechanisms of its members.
+
+The name given to the last cluster, *fast-fluctuation*, was likewise based on the potential overlapping between the different indices. One of the two distinct sub-clusters within the *fast-fluctuation* solely includes the *HRF* indices which were developed to capture the "erratic" behaviours in heart rhythm that could manifest as abrupt and high frequency switching between the increases and decreases of HR [@costa2017heart; @costa2018heart]. Given the nature of its formulation, it is unsurprising that *HRF* shows high level of similarity with the other indices that measure high-frequency components in this cluster. The second sub-cluster is predominantly made up of non-linear indices that have only been recently applied to the study of HRV. Therefore, their relationships with others cannot be easily inferred from or explained by existing literature. However, the data-driven final structure seems to suggest that certain non-linear indices such as *LZC*, *SampEn* or *FuzzyEn* are more sensitive to the absolute values of fast-changing variability in HR while the others such as *KFD* or *HFD* are more sensitive to the relative amount of fast fluctuations present in the signal. As these associations are observed for the first time in this paper, they warrant further investigation to confirm and understand the relationships.
+
+# Limitation
+<!-- not taking into account recording lengths-->
+<!-- will the relationships hold for 24h recordings -->
+<!-- given equal weights to all methods -->
+# Conclusion
+The question of which HRV indices are appropriate for respective research or specific clinical assessments is not one with a straightforward answer, especially when the number of HRV indices has grown significantly over the past years. As it would be rather resource-intensive to compute and discuss the results of every indices, most studies opt to report a few of them, often without a clear justification for the choices. This conundrum therefore calls for a more in-depth understanding of the relationship between the HRV indices which could in turn helps to identify groups of measures that potentially capture similar information from HR signal. Such knowledge could guide the development of a more parsimonious categorization of HRV indices that is based on their actual level of similarity or shared physiological origins, above and beyond their mathematical associations.
+
+
+
+# Author Contributions
+
+DM conceived and TP coordinated the study. TP and ZL participated in the manuscript drafting. DM and AC performed a critical review of the manuscript. All authors read and approved the final manuscript.
+
+# Funding
+
+The authors did not receive support from any organization for the submitted work.
+
+# Conflict of Interest Statement
+
+The authors declare that the research was conducted in the absence of any commercial or financial relationships that could be construed as a potential conflict of interest.
+
+\newpage
+
+# References
+
+```{r create_r-references}
+r_refs(file = "references.bib")
+```
+
+```{=tex}
+\begingroup
+\setlength{\parindent}{-0.5in}
+\setlength{\leftskip}{0.5in}
+```
+::: {#refs}
+:::
+
+\endgroup

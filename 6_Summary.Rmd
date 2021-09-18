@@ -58,7 +58,7 @@ abs(m - 1) %>%
 
 ```{r, message=FALSE, warning=FALSE}
 model <- hclust(as.dist(m), method="average") 
-clusters <- cutree(model, h = 0.70)
+clusters <- cutree(model, h = 0.50)
 
 # identify center of each cluster 
 dis <- parameters::cluster_centers(datawizard::data_transpose(z), clusters)
@@ -74,6 +74,7 @@ plot_dendrogram(model, clusters = clusters, ylim = -0.3, nudge_y = -0.04, angle 
   theme(legend.position = "none") +
   labs(title = "Metaclustering Solution", subtitle = "Represent the hierachical structure of the probability of being grouped together over a variety of methods.")
 ```
+
 
 ### Metaclustering Network
 
@@ -107,7 +108,7 @@ as.list(graph)$nodes %>%
 
 #### Network Graph
 
-```{r, message=FALSE, warning=FALSE, fig.width=figwidth, fig.height=figwidth}
+```{r, message=FALSE, warning=FALSE}
 graph %>% 
   ggraph::ggraph(layout = "graphopt") + 
     geom_edge_arc(aes(colour = Probability, width = Probability), strength = 0.05) + 

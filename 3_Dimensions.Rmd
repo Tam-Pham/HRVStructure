@@ -21,6 +21,7 @@ editor_options:
 
 
 ### Dimension Reduction
+PCA and EFA are both dimension reduction techniques that aim to group the observed variables into smaller sets of constructs. While PCA aims to extract the sets/ components that can explain all or most of the variance present in the observed variables, EFA focuses on the variance that is shared among the variables and looks for sets/ factors that could explain the correlations among them.
 
 #### Principal Component Analysis
 ##### How many components
@@ -38,8 +39,7 @@ plot(n)
 ```
 
 ##### 3-components
-```{r, message=FALSE, warning=FALSE, fig.width=15, fig.height=15}
-library(GPArotation)
+```{r, message=FALSE, warning=FALSE}
 set.seed(3)
 
 pca <- parameters::principal_components(data[hrv_cols], n=3, rotation = "promax")
@@ -56,7 +56,7 @@ table_clusters <- parameters::closest_component(pca) %>%
 ```
 
 ##### 11-components
-```{r, message=FALSE, warning=FALSE, fig.width=15, fig.height=15}
+```{r, message=FALSE, warning=FALSE}
 set.seed(3)
 
 pca <- parameters::principal_components(data[hrv_cols], n=11, rotation = "promax")
@@ -83,7 +83,7 @@ plot(n)
 
 ##### 3-factors
 
-```{r, message=FALSE, warning=FALSE, fig.width=15, fig.height=15}
+```{r, message=FALSE, warning=FALSE}
 set.seed(3)
 
 efa <- parameters::factor_analysis(data[hrv_cols], cor=r, n=3, rotation="oblimin", fm="ml")
@@ -97,7 +97,7 @@ table_clusters$EFA_3 <- as.character(parameters::closest_component(efa))
 
 ##### 11-factors
 
-```{r, message=FALSE, warning=FALSE, fig.width=15, fig.height=15}
+```{r, message=FALSE, warning=FALSE}
 set.seed(3)
 
 efa <- parameters::factor_analysis(data[hrv_cols], cor=r, n=11, rotation="oblimin", fm="ml")

@@ -2,7 +2,7 @@
 title: '**Conceptual vs. Observed Structure of Heart Rate Variability (HRV) Indices**'
 subtitle: "Data Analysis"
 output:
-  html_document:
+  bookdown::html_document2:
     self_contained: false
     theme: cerulean
     highlight: pygments
@@ -23,7 +23,7 @@ output:
   rmarkdown::html_vignette:
     toc: yes
     toc_depth: 3
-  pdf_document:
+  html_document:
     toc: yes
     toc_depth: '2'
     latex_engine: xelatex
@@ -87,15 +87,13 @@ Time-domain analysis presents the simplest and most straightforward method of qu
 
 Despite the rising popularity of HRV analysis as a real-time, noninvasive technique for investigating health and disease, there are some shared similarities (and even overlaps) between the multitude of HRV indices that are not yet well understood. Early studies have investigated the relationships between time-domain and frequency-domain indices, showing that not only were *RMSSD* and *pNN50* strongly correlated with each other [above 0.9, @bigger1989comparison], they were also highly associated with *HF* power [@bigger1989comparison; @kleiger2005heart; @otzenberger1998dynamic], suggesting that these measures could be treated as surrogates for each other in assessing the parasympathetic modulation of HRV. This observation is warranted given that the former is computed from the differences across consecutive NN intervals, and hence, they reflect mainly high frequency oscillatory patterns in HR and are independent of long-term changes. On the other hand, *SDNN*, which has been thought to reflect both sympathetic and parasympathetic activity, is correlated to total power (*TP*) in HRV power spectrum [@bigger1989comparison]. Recent years also witnessed the emergence of debates regarding the traditional conceptualization of *SD1* and *SD2* as non-linear indices, particularly when @ciccone2017reminder proposed that *RMSSD* and *SD1* were mathematically equivalent. Many studies that report both of these short-term HRV indices independently often arrive at identical statistical results without addressing this equivalence [e.g., @rossi2015impact, @peng2015extraction, @leite2015correlation]. Additionally, other studies have also drawn similarities between *SD1/SD2* and *LF/HF* in their indexing of the balance between short- and long-term HRV [@brennan2002poincare; @guzik2007correlations]. 
 
-Overall, there is a need for a greater data-driven understanding of the relationship between the multitude of HRV indices and their respective groupings. While there exist different approaches to assign data to different groups based on their level of associations [see @nguyen2019improving], there is no gold standard or clear guidelines to determine the most appropriate method for grouping of physiological indices. As such, choosing one method and presenting its solution as a definitive one can be uninformative or even misleading. Building upon the existing idea of combining "opinions" of different approaches [@kuncheva2014combining; @monti2003consensus; @bhattacharjee2001classification], the aim of this study is to explore the structure of HRV indices by using a consensus-based methodology, hereafter referred to as meta-clustering, where the final relationships of the indices are represented by the combined results of different approaches, including factor analysis, hierarchical and non-hierarchical clustering, and network analysis.
+Overall, there is a need for a greater data-driven understanding of the relationship between the multitude of HRV indices and their respective groupings. While there exist different approaches to assign data to different groups based on their level of associations [see @nguyen2019improving], there is no gold standard or clear guidelines to determine the most appropriate method for grouping of physiological indices. As such, choosing one method and presenting its solution as a definitive one can be uninformative or even misleading. The aim of this study is to explore the structure of HRV indices by using a consensus-based methodology [@kuncheva2014combining; @monti2003consensus; @bhattacharjee2001classification], hereafter referred to as *meta-clustering*, where the results of multiple structure analysis approaches are systematically combined to highlight the most robust associations between the indices. 
 
 <!--may be useful to have glossary of indices-->
 
 # Methods
 
 In total, the electrocardiogram (ECG) data of 330 participants were extracted from 5 databases. The raw data as well as the entire analysis script (including details and additional analyses) can be found at this GitHub repository (<https://github.com/Tam-Pham/HRVStructure>).
-
-Concept of **"METACLUSTERING"**, i.e., assessing the proximity based on multiple clustering solutions. Aka ENSEMBLE CLUSTERING.
 
 ## Databases
 
@@ -123,7 +121,7 @@ This database [@iyengar1996age] contains 40 recordings from 20 young (21-34 year
 
 ### Resting-state Dataset
 
-The remaining of the data came from resting-state recordings of authors' other empirical studies. This dataset contains 79 recordings from 79 participants. All participants (23 men and 56 woman) were 18 year-old and above and had no known cardiovascular conditions. All recordings were sampled at 4000Hz and lasted for 8-minute during which participants remained in a resting state with their eyes closed.  
+The remaining of the data came from resting-state recordings of authors' other empirical studies [**CITE COCON1**]. This dataset contains 79 recordings from 79 participants. All participants (23 men and 56 woman) were 18 year-old and above and had no known cardiovascular conditions. All recordings were sampled at 4000Hz and lasted for 8-minute during which participants remained in a resting state with their eyes closed.  
 
 ## Data Processing
 
@@ -131,11 +129,11 @@ The default processing pipeline of NeuroKit2 [@makowski2021neurokit2] was used f
 
 ## Data Analysis
 
-First, we correlated the HRV indices [using the `correlations` function from the *correlation* package, see @makowski2020methods] and removed indices that were perfectly correlated with each other, before removing outliers based on the median absolute deviation from the median [see the `check_outliers` function in the *performance* R package; @ludecke2019performance]. Using a meta-clustering approach, multiple clustering methods were used to analyze the associations between the HRV indices, namely, factor analysis, k-means clustering, density-based spatial clustering of applications with noise (DBSCAN), hierarchical density-based spatial clustering of applications with noise (HBSCAN), and exploratory graph analysis (EGA). We then jointly considered the results obtained from these multiple methods, by estimating the probability for each pair of indices to be clustered together, in order to provide a more robust overview of the clustering results and facilitate a more thorough conceptual understanding of these patterns.
+One of the core "issues" of statistical clustering is that, in many cases, different methods will give different results. The **meta-clustering** approach proposed by *easystats* [that finds echoes in *consensus clustering*; see @monti2003consensus] consists of treating the unique clustering solutions as a ensemble, from which we can derive a probability matrix. This matrix contains, for each pair of observations, the probability of being in the same cluster. For instance, if the 6th and the 9th row of a dataframe has been assigned to a similar cluster by 5 out of 10 clustering methods, then its probability of being grouped together is 0.5. Essentially, *meta-clustering* approach is based on the hypothesis that, as each clustering algorithm embodies a different prism by which it sees the data, running an infinite amount of algorithms would result in the emergence of the "true" clusters. As the number of algorithms and parameters is finite, the probabilistic perspective is a useful proxy. This method is interesting where there is no obvious reasons to prefer one over another clustering method, as well as to investigate how robust some clusters are under different algorithms.
 
-Data processing was carried out with R [@R-base] and the *easystats* ecosystem [@ludecke2019insight; @makowski2019bayestestr]. The raw data, as well as the full reproducible analysis script, including the solutions of each individual clustering method, are available in **Supplementary Materials 1**.
+In this analysis, we first correlated the HRV indices [using the `correlations` function from the *correlation* package, see @makowski2020methods] and removed indices that were perfectly correlated with each other, before removing outliers based on the median absolute deviation from the median [see the `check_outliers` function in the *performance* R package; @ludecke2019performance]. Following the *meta-clustering* approach, multiple clustering methods were used to analyze the associations between the HRV indices, namely, factor analysis, k-means clustering, k-meloids clustering, hierarchical clustering, density-based spatial clustering of applications with noise (DBSCAN), hierarchical density-based spatial clustering of applications with noise (HBSCAN), mixture model approach, and exploratory graph analysis (EGA). We then jointly considered the results obtained from these multiple methods by estimating the probability for each pair of indices to be clustered together. Ultimately, the analysis aimed to to provide a more robust overview of the clustering results and facilitate a more thorough conceptual understanding of these patterns.
 
-
+Data processing was carried out with R [@R-base] and the *easystats* ecosystem [@ludecke2019insight; @makowski2019bayestestr]. The raw data, as well as the full reproducible analysis script, including additional description of each approach and the solutions of each individual clustering method, are available at this GitHub repository (<https://github.com/Tam-Pham/HRVStructure>).
 
 ## Procedure
 
@@ -222,11 +220,6 @@ source_rmd("6_Summary.Rmd")
 
 
 ```{r child='1_Preprocessing.Rmd'}
-```
-
-## Effect of Recording Length
-
-```{r child='2_RecordingLength.Rmd'}
 ```
 
 

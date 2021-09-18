@@ -9,9 +9,9 @@ editor_options:
 
 #### EGA 
 Traditionally, PCA and FA are the two most common factor analytic methods that were used to estimate the number of underlying factors in the observed data. 
-EGA is a newly introduced method which applies the network modeling framework to estimate a network based on the relationships between the variables (estimate GLM with GLASSO) and subsequently identify the clusters of the variables in the network (community detection algorithms: louvain or walktrap). 
+EGA is a newly introduced method which applies the network modeling framework to estimate a network based on the relationships between the variables and subsequently identify the clusters of the variables in the network (community detection algorithms: louvain or walktrap). Simulation data has not only shown that EGA has higher accuracy than most PCA and FA methods. 
 
-Simulation data has not only shown that EGA has higher accuracy than most PCA and FA methods
+In this paper, `GLASSO` and `TMFG` were used to estimate two separate networks or two partial correlation matrices. The `louvian` algorithm is then used to find the number of clusters based on the correlation matrices. 
 
 ```{r, message=FALSE, warning=FALSE}
 # Preprocessing
@@ -82,7 +82,7 @@ as.list(graph_TMFG)$nodes %>%
 
 #### Network Graph
 
-```{r, message=FALSE, warning=FALSE, fig.width=figwidth, fig.height=figwidth}
+```{r, message=FALSE, warning=FALSE}
 
 graph_glasso %>% 
   ggraph::ggraph(layout = "graphopt") + 

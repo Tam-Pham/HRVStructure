@@ -6,6 +6,13 @@ editor_options:
 
 
 ### Clustering
+Clustering is the process of assigning data to different groupings according to their similarity. Each approach under the clustering group will have different set of criteria to determine the association between data points. However, they rely on the same set of distance and linkage methods where the formal determines how the distance (similarity) between two points are calculated and the later determines how inter-cluster distance can be derived. 
+
+In this paper, two non-hierarchical clustering methods employed are k-means and k-medoids in which data points are partitioned into *k* sets (clusters). The optimal *k* value is determined by the `n_factor` function from the *parameters* package where the solution with the maximum consensus of a large number of methods is chosen as the final outcome. The hierarchical clustering relied on *euclidean* distance method (shortest distance between two data points) and *average* linkage method (average of all inter-cluster's distances while compensating for the number of points in each cluster) to partition the data into clusters. 
+
+For the density-based clustering, the *epsilon* value (maximum distance between two points to be in assigned to the same cluster) in DBSCAN clustering is determined by the `n_clusters_dbscan` function in *parameters* package. The minimum number of points of a cluster is set to 2 for both DBSCAN and HDBSCAN.
+
+Last but not least, the model-based clustering, based on finite Gaussian mixture modelling, was applied to the dataset to estimate the probability of each data being assigned to different cluster solutions. An advantage of this method is that it automatically identifies the optimal number of clusters and thus no parameters were required as pre-requisites. 
 
 
 ```{r, message=FALSE, warning=FALSE}
@@ -99,7 +106,7 @@ plot(rez)
 table_clusters <- assign_clusters(table_clusters, z, clusters = as.character(predict(rez)), col = "Kmeloid")
 ```
 
-#### Hierarchial Clustering
+#### Hierarchical Clustering
 
 ##### Clustering (95\%)
 

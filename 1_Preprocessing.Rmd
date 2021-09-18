@@ -17,7 +17,7 @@ data %>%
   select(-Participant, -Recording_Length, -Database) %>% 
   correlation::correlation() %>% 
   filter(abs(r) > 0.999) %>% 
-  arrange(Parameter1, desc(abs(r))) %>% 
+  arrange(Parameter1, desc(abs(r))) %>%
   format()
 
 data <- data %>% 
