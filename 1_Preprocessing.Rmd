@@ -8,11 +8,9 @@ editor_options:
 
 ### Indices Selection
 
-
 #### Remove Equivalent
 
 ```{r, message=FALSE, warning=FALSE}
-# TODO: find a way to remove identical vars
 data %>% 
   select(-Participant, -Recording_Length, -Database) %>% 
   correlation::correlation() %>% 
@@ -66,17 +64,27 @@ data[hrv_cols] %>%
 #### After Removal
 
 ```{r, message=FALSE, warning=FALSE}
-for(i in hrv_cols) {
-  outliers <- as.logical(performance::check_outliers(data[[i]], method = "zscore_robust", threshold = qnorm(0.9999)))
-  data[outliers, i] <- NA
+df_outliers <- data.frame(hrv_cols = vector(mode = "character", length = length(hrv_cols)),
+                         outliers = vector(mode = "integer", length = length(hrv_cols)))
+
+for(i in 1:length(hrv_cols)) {
+  col <- hrv_cols[i]
+  outliers <- as.logical(performance::check_outliers(data[[col]], method = "zscore_robust", threshold = qnorm(0.9999)))
+  data[outliers, col] <- NA
+  df_outliers$hrv_cols[i] <- col
+  df_outliers$outliers[i] <- insight::format_value(sum(outliers) / nrow(data))
   cat(paste0("\n-", 
-             i, ": ", 
+             col, ": ", 
              sum(outliers), 
              " outliers (",
              insight::format_value(sum(outliers) / nrow(data), as_percent = TRUE),
              ") detected and removed."))
 }
-```
+cat(paste0("On average, " ,
+  insight::format_value(sum(as.double(df_outliers$outliers)) / length(hrv_cols), as_percent = TRUE),
+  " of data was detected as outliers and removed."))
+
+``` 
 
 ```{r, message=FALSE, warning=FALSE}
 data[hrv_cols] %>% 

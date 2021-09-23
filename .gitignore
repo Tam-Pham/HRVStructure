@@ -1011,3 +1011,7 @@ data/online_database/mit_normal/mit-bih-normal-sinus-rhythm-database-1.0.0/ANNOT
 data/online_database/mit_normal/mit-bih-normal-sinus-rhythm-database-1.0.0/RECORDS
 data/online_database/mit_normal/mit-bih-normal-sinus-rhythm-database-1.0.0/SHA256SUMS.txt
 data/online_database/mit_normal/Rpeaks.csv
+data/online_database/mit_long-term/ECGs.csv
+*.atr
+*.hea
+*.xws

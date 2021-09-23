@@ -95,6 +95,8 @@ table_clusters <- assign_clusters(table_clusters, z, clusters = as.character(pre
 
 #### K-meloid
 ```{r, message=FALSE, warning=FALSE, cache = TRUE}
+set.seed(3)
+
 rez <- parameters::cluster_analysis(z, method = "pamk", distance_method = "euclidean")
 
 as.data.frame(rez)[1:3]
@@ -115,8 +117,6 @@ set.seed(3)
 
 rez <- parameters::cluster_analysis(z, n = NULL, standardize = FALSE, method = "hclust", distance_method = "euclidean", hclust_method = "average", ci = 0.95, iterations = 2000)
 
-# rez <- parameters::cluster_analysis(z, n = NULL, standardize = FALSE, method = "hclust", distance_method = "correlation", hclust_method = "mcquitty", ci = 0.95, iterations = 2000) # better fit R2 higher
-
 as.data.frame(rez)[1:3]
 
 insight::display(parameters::cluster_performance(rez))
@@ -133,7 +133,7 @@ clusters <- table_clusters$Hclust_95
 names(clusters) <- table_clusters$Index
 
 library(ggraph)
-plot_dendrogram(model = attributes(rez)$model$hclust, clusters = clusters, ylim=-1500, nudge_y = -100)
+plot_dendrogram(model = attributes(rez)$model$hclust, clusters = clusters, ylim = -10, nudge_y = -0.05, angle = 90)
 ```
 
 ##### Clustering (90\%)
@@ -142,9 +142,6 @@ plot_dendrogram(model = attributes(rez)$model$hclust, clusters = clusters, ylim=
 set.seed(3)
 
 rez <- parameters::cluster_analysis(z, n = NULL, standardize = FALSE, method = "hclust", distance_method = "euclidean", hclust_method = "average", ci = 0.90, iterations = 2000)
-
-# rez <- parameters::cluster_analysis(z, n = NULL, standardize = FALSE, method = "hclust", distance_method = "correlation", hclust_method = "mcquitty", ci = 0.90, iterations = 2000) # better fit R2 higher
-
 
 as.data.frame(rez)[1:3]
 
@@ -161,7 +158,7 @@ table_clusters <- assign_clusters(table_clusters, z, clusters = as.character(pre
 clusters <- table_clusters$Hclust_90
 names(clusters) <- table_clusters$Index
 
-plot_dendrogram(model = attributes(rez)$model$hclust, clusters = clusters, ylim=-1500, nudge_y = -100)
+plot_dendrogram(model = attributes(rez)$model$hclust, clusters = clusters, ylim = -10, nudge_y = -0.05, angle = 90,)
 ```
 
 #### DBSCAN

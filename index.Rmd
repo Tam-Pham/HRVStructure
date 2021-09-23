@@ -39,10 +39,10 @@ csl: utils/apa.csl
 -->
 
 ```{r setup, warning=FALSE, message=TRUE, include=FALSE}
+fast <- FALSE  # Make this false to skip the chunks
+
 # Set up the environment (or use local alternative `source("utils/config.R")`)
 source("https://raw.githubusercontent.com/RealityBending/TemplateResults/main/utils/config.R")  
-
-fast <- FALSE  # Make this false to skip the chunks
 
 # Set theme
 ggplot2::theme_set(see::theme_modern())

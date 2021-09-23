@@ -17,10 +17,31 @@ library(ggraph)
 
 ```{r eval=TRUE, class.source = "fold-hide"}
 clean_names <- function(n) {
-  n[n == "Recording_Length"] <- "Recording Length"
+  n[n == "DFA_alpha1_ExpMean"] <- "DFA α1 ExpMean"
+
+  n[n == "DFA_alpha2_ExpMean"] <- "DFA α2 ExpMean"
+
+  n[n == "DFA_alpha1_ExpRange"] <- "DFA α1 ExpRange"
+
+  n[n == "DFA_alpha2_ExpRange"] <- "DFA α2 ExpRange"
+
+  n[n == "DFA_alpha1_DimMean"] <- "DFA α1 DimMean"
+
+  n[n == "DFA_alpha2_DimMean"] <- "DFA α2 DimMean"
+
+  n[n == "DFA_alpha1_DimRange"] <- "DFA α1 DimRange"
+  
+  n[n == "DFA_alpha2_DimRange"] <- "DFA α2 DimRange"
+  
+  n[n == "DFA_alpha1"] <- "DFA α1"
+  
+  n[n == "DFA_alpha2"] <- "DFA α2"
+
   n[n == "CSI_Modified"] <- "CSI (modified)"
+
   n
 }
+
 
 assign_clusters <- function(table_clusters, data, clusters, col = "Hclust") {
   table_clusters[[col]] <- NA
@@ -28,6 +49,8 @@ assign_clusters <- function(table_clusters, data, clusters, col = "Hclust") {
   table_clusters[[col]][table_clusters[[col]] == "0"] <- seq(length(unique(clusters)),sum(clusters == "0") + length(unique(clusters)) - 1)
   table_clusters
 }
+
+
 ```
 
 #### Dendrogram

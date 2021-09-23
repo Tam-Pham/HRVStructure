@@ -38,11 +38,28 @@ n
 plot(n) 
 ```
 
-##### 3-components
+<!-- #### 1-components -->
+<!-- ```{r, message=FALSE, warning=FALSE} -->
+<!-- set.seed(3) -->
+
+<!-- pca <- parameters::principal_components(data[hrv_cols], n=1, rotation = "promax") -->
+
+<!-- insight::display(pca, threshold="max", sort=TRUE) -->
+
+<!-- plot(pca) -->
+
+<!-- table_clusters <- parameters::closest_component(pca) %>% -->
+<!--   data.frame(Index = names(.), -->
+<!--              PCA_1 = .) %>%  -->
+<!--   mutate(PCA_1 = as.character(PCA_1)) %>%  -->
+<!--   atawizard::data_rename_rows() -->
+<!-- ``` -->
+
+##### 12-components
 ```{r, message=FALSE, warning=FALSE}
 set.seed(3)
 
-pca <- parameters::principal_components(data[hrv_cols], n=3, rotation = "promax")
+pca <- parameters::principal_components(data[hrv_cols], n=12, rotation = "promax")
 
 insight::display(pca, threshold="max", sort=TRUE)
 
@@ -50,22 +67,10 @@ plot(pca)
 
 table_clusters <- parameters::closest_component(pca) %>% 
   data.frame(Index = names(.),
-             PCA_3 = .) %>% 
-  mutate(PCA_3 = as.character(PCA_3)) %>% 
+             PCA_12 = .) %>%
+  mutate(PCA_12 = as.character(PCA_12)) %>%
   datawizard::data_rename_rows()
-```
-
-##### 11-components
-```{r, message=FALSE, warning=FALSE}
-set.seed(3)
-
-pca <- parameters::principal_components(data[hrv_cols], n=11, rotation = "promax")
-
-insight::display(pca, threshold="max", sort=TRUE)
-
-plot(pca)
-
-table_clusters$PCA_11 <- as.character(parameters::closest_component(pca))
+# table_clusters$PCA_12 <- as.character(parameters::closest_component(pca))
 
 ```
 
@@ -74,6 +79,7 @@ table_clusters$PCA_11 <- as.character(parameters::closest_component(pca))
 ##### How many factors
 
 ```{r, message=FALSE, warning=FALSE}
+set.seed(3)
 n <- parameters::n_factors(data[hrv_cols], cor=r, type = "FA", package = "all")
 
 n
@@ -81,31 +87,31 @@ n
 plot(n) 
 ```
 
-##### 3-factors
+##### 9-factors
 
 ```{r, message=FALSE, warning=FALSE}
 set.seed(3)
-
-efa <- parameters::factor_analysis(data[hrv_cols], cor=r, n=3, rotation="oblimin", fm="ml")
+library(GPArotation)
+efa <- parameters::factor_analysis(data[hrv_cols], cor=r, n=9, rotation="promax", fm="ml")
 
 insight::display(efa, threshold="max", sort=TRUE)
 
 plot(efa)
 
-table_clusters$EFA_3 <- as.character(parameters::closest_component(efa))
+table_clusters$EFA_9 <- as.character(parameters::closest_component(efa))
 ```
 
-##### 11-factors
+##### 12-factors
 
 ```{r, message=FALSE, warning=FALSE}
 set.seed(3)
 
-efa <- parameters::factor_analysis(data[hrv_cols], cor=r, n=11, rotation="oblimin", fm="ml")
+efa <- parameters::factor_analysis(data[hrv_cols], cor=r, n=12, rotation="promax", fm="ml")
 
 insight::display(efa, threshold="max", sort=TRUE)
 
 plot(efa)
 
-table_clusters$EFA_11 <- as.character(parameters::closest_component(efa))
+table_clusters$EFA_12 <- as.character(parameters::closest_component(efa))
 ```
 
