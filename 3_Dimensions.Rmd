@@ -31,29 +31,31 @@ r <- correlation::correlation(data[hrv_cols]) %>%
   correlation::cor_smooth(verbose = FALSE)
 
 set.seed(3)
-n <- parameters::n_components(data[hrv_cols], cor=r, rotation = "promax")
+# n_max to 28 to have at least 2 var per component
+n <- parameters::n_components(data[hrv_cols], cor=r, rotation = "promax", package = "all", n_max = 28)
 
 n
 
 plot(n) 
 ```
 
-<!-- #### 1-components -->
-<!-- ```{r, message=FALSE, warning=FALSE} -->
-<!-- set.seed(3) -->
+##### 9-components
+```{r, message=FALSE, warning=FALSE}
+set.seed(3)
 
-<!-- pca <- parameters::principal_components(data[hrv_cols], n=1, rotation = "promax") -->
+pca <- parameters::principal_components(data[hrv_cols], n=9, rotation = "promax")
 
-<!-- insight::display(pca, threshold="max", sort=TRUE) -->
+insight::display(pca, threshold="max", sort=TRUE)
 
-<!-- plot(pca) -->
+plot(pca)
 
-<!-- table_clusters <- parameters::closest_component(pca) %>% -->
-<!--   data.frame(Index = names(.), -->
-<!--              PCA_1 = .) %>%  -->
-<!--   mutate(PCA_1 = as.character(PCA_1)) %>%  -->
-<!--   atawizard::data_rename_rows() -->
-<!-- ``` -->
+table_clusters <- parameters::closest_component(pca) %>%
+  data.frame(Index = names(.),
+             PCA_9 = .) %>%
+  mutate(PCA_9 = as.character(PCA_9)) %>%
+  datawizard::data_rename_rows()
+
+```
 
 ##### 12-components
 ```{r, message=FALSE, warning=FALSE}
@@ -65,12 +67,7 @@ insight::display(pca, threshold="max", sort=TRUE)
 
 plot(pca)
 
-table_clusters <- parameters::closest_component(pca) %>% 
-  data.frame(Index = names(.),
-             PCA_12 = .) %>%
-  mutate(PCA_12 = as.character(PCA_12)) %>%
-  datawizard::data_rename_rows()
-# table_clusters$PCA_12 <- as.character(parameters::closest_component(pca))
+table_clusters$PCA_12 <- as.character(parameters::closest_component(pca))
 
 ```
 
@@ -80,18 +77,20 @@ table_clusters <- parameters::closest_component(pca) %>%
 
 ```{r, message=FALSE, warning=FALSE}
 set.seed(3)
-n <- parameters::n_factors(data[hrv_cols], cor=r, type = "FA", package = "all")
+# n_max to 28 to have at least 2 var per component
+n <- parameters::n_factors(data[hrv_cols], cor=r, type = "FA", package = "all", n_max = 28)
 
 n
 
 plot(n) 
 ```
 
+
+
 ##### 9-factors
 
 ```{r, message=FALSE, warning=FALSE}
 set.seed(3)
-library(GPArotation)
 efa <- parameters::factor_analysis(data[hrv_cols], cor=r, n=9, rotation="promax", fm="ml")
 
 insight::display(efa, threshold="max", sort=TRUE)

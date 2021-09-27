@@ -80,7 +80,7 @@ for(i in 1:length(hrv_cols)) {
              insight::format_value(sum(outliers) / nrow(data), as_percent = TRUE),
              ") detected and removed."))
 }
-cat(paste0("On average, " ,
+cat(paste0("\n-On average, " ,
   insight::format_value(sum(as.double(df_outliers$outliers)) / length(hrv_cols), as_percent = TRUE),
   " of data was detected as outliers and removed."))
 

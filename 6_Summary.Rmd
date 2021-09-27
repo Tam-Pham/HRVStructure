@@ -40,6 +40,7 @@ m <- correlation::cor_sort(m, distance = "raw", hclust_method = "average")
 colnames(m) <- clean_names(colnames(m))
 rownames(m) <- clean_names(rownames(m))
 hrv_cols <- clean_names(hrv_cols)
+colnames(z) <- clean_names(colnames(z))
 
 abs(m - 1) %>% 
   as.data.frame() %>% 
@@ -61,21 +62,22 @@ abs(m - 1) %>%
 
 ```{r, message=FALSE, warning=FALSE}
 model <- hclust(as.dist(m), method="average") 
-clusters <- cutree(model, h = 0.60)
+clusters <- cutree(model, h = 0.5)
 
 # identify center of each cluster 
 dis <- parameters::cluster_centers(datawizard::data_transpose(z), clusters)
 
 
-plot_dendrogram(model, clusters = clusters, ylim = -0.2, nudge_y = -0.04, angle = 90, points = TRUE, dis = attributes(dis)$distance) +
+dendro <- plot_dendrogram(model, clusters = clusters, ylim = -0.2, nudge_y = -0.03, angle = 90, points = TRUE, dis = attributes(dis)$distance, h=0.15) +
   # Lines to show "larger" clusters
     # geom_line(data = data.frame(y = c(-0.02, -0.02), x = c(0, 5)), aes(x = x, y = y), size = 0.5, color = "#607D8B") +
     # geom_line(data = data.frame(y = c(-0.02, -0.02), x = c(6, 15)), aes(x = x, y = y), size = 0.5, color = "#607D8B") +
     # geom_line(data = data.frame(y = c(-0.02, -0.02), x = c(16, 22)), aes(x = x, y = y), size = 0.5, color = "#607D8B") +
     # geom_line(data = data.frame(y = c(-0.02, -0.02), x = c(23, 34)), aes(x = x, y = y), size = 0.5, color = "#607D8B") +
     # geom_line(data = data.frame(y = c(-0.02, -0.02), x = c(35, 42)), aes(x = x, y = y), size = 0.5, color = "#607D8B") +
-  theme(legend.position = "none") +
-  labs(title = "Metaclustering Solution", subtitle = "Represent the hierachical structure of the probability of being grouped together over a variety of methods.")
+  theme(legend.position = "none")
+dendro
+ggsave(file = "figures/meta-dendrogram.svg", plot=dendro, width=15, height=10)
 ```
 
 
