@@ -8,7 +8,7 @@ editor_options:
 ### Metaclustering Matrix
 
 
-```{r, message=FALSE, warning=FALSE, cache = TRUE}
+```{r, message=FALSE, warning=FALSE}
 table <- table_clusters # [c("Index", "EGA", "EFA_3", "Mixture")]
 
 # Initialize matrix
