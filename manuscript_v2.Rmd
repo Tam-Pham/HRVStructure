@@ -95,7 +95,7 @@ The MIT-BIH Normal Sinus Rhythm Database (MIT-Normal) database [@goldberger2000p
 
 The MIT-BIH Long-term ECG Database (MIT-Long-term) database [@goldberger2000physiobank] contains long-term (14 to 22 hours each) ECG recordings from 7 participants (6 men, 46-88 years old; 1 woman, 71 years old). All recordings were sampled at 128 Hz and due to memory limits, we kept only the second and third hours of each recording.
 
-The last dataset came from resting-state [we can cite this repo https://github.com/neuropsychology/RestingState] recordings of authors' other empirical studies. This dataset contains ECG recordings sampled at 4000 Hz from 43 healthy participants (\> 18 years old) that underwent 8 minutes of eyes-closed, seated position, resting state.
+The last dataset came from resting-state <https://github.com/neuropsychology/RestingState> recordings of authors' other empirical studies. This dataset contains ECG recordings sampled at 4000 Hz from 43 healthy participants (\> 18 years old) that underwent 8 minutes of eyes-closed, seated position, resting state.
 
 ## Data Analysis
 
@@ -116,7 +116,7 @@ Indices that were appeared as redundant in the correlation analysis, and subsequ
 
 <!-- Dimension Reduction Approaches -->
 
-PCA solutions with 9 and 12 components were deemed suitable [see the `n_components` function in the *parameters* package; @ludecke2020extracting] and extracted, and each component was treated as a cluster containing indices with the highest loadings. Following a similar optimizing procedure, two solutions of 9 factors and 12 factors were extracted using EFA. See **Tables 1-4** in *Supplementary Material* for the item loadings of dimension solutions.
+PCA solutions with 9 and 12 components were deemed suitable [see the `n_components` function in the *parameters* package, @ludecke2020extracting] and extracted, and each component was treated as a cluster containing indices with the highest loadings. Following a similar optimizing procedure, two solutions of 9 factors and 12 factors were extracted using EFA. See **Tables 1-4** in *Supplementary Material* for the item loadings of dimension solutions.
 
 <!-- Clustering Approaches -->
 
