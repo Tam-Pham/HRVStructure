@@ -40,14 +40,21 @@ plot(n)
 ```
 
 ##### 9-components
-```{r, message=FALSE, warning=FALSE}
+```{r, message=FALSE, warning=FALSE, fig.cap="PCA 9-component Rotated Loadings"}
 set.seed(3)
 
 pca <- parameters::principal_components(data[hrv_cols], n=9, rotation = "promax")
 
-insight::display(pca, threshold="max", sort=TRUE)
+knitr::kable(pca,
+  booktabs = TRUE,
+  caption = "Item loadings for PCA 9-component solutions."
+)
 
-plot(pca)
+# insight::display(pca, threshold="max", sort=TRUE)
+
+plot(pca, size_text = 3) +
+  theme(axis.text.y=element_text(size=5))
+
 
 table_clusters <- parameters::closest_component(pca) %>%
   data.frame(Index = names(.),
@@ -58,20 +65,27 @@ table_clusters <- parameters::closest_component(pca) %>%
 ```
 
 ##### 12-components
-```{r, message=FALSE, warning=FALSE}
+```{r, message=FALSE, warning=FALSE, fig.cap="PCA 12-component Rotated Loadings"}
 set.seed(3)
 
 pca <- parameters::principal_components(data[hrv_cols], n=12, rotation = "promax")
 
-insight::display(pca, threshold="max", sort=TRUE)
+knitr::kable(pca,
+  booktabs = TRUE,
+  caption = "Item loadings for PCA 12-component solutions."
+)
 
-plot(pca)
+
+# insight::display(pca, threshold="max", sort=TRUE)
+
+plot(pca, size_text = 3) +
+  theme(axis.text.y=element_text(size=5))
 
 table_clusters$PCA_12 <- as.character(parameters::closest_component(pca))
 
 ```
 
-#### Factor Analysis 
+#### Factor Analysis
 
 ##### How many factors
 
@@ -82,34 +96,47 @@ n <- parameters::n_factors(data[hrv_cols], cor=r, type = "FA", package = "all", 
 
 n
 
-plot(n) 
+plot(n)
 ```
 
 
 
 ##### 9-factors
 
-```{r, message=FALSE, warning=FALSE}
+```{r, message=FALSE, warning=FALSE, fig.cap="EFA 9-factor Rotated Loadings"}
 set.seed(3)
 efa <- parameters::factor_analysis(data[hrv_cols], cor=r, n=9, rotation="promax", fm="ml")
 
-insight::display(efa, threshold="max", sort=TRUE)
+knitr::kable(efa,
+  booktabs = TRUE,
+  caption = "Item loadings for EFA 9-factor solutions."
+)
 
-plot(efa)
+# insight::display(efa, threshold="max", sort=TRUE)
+
+plot(efa, size_text = 3) +
+  theme(axis.text.y=element_text(size=5))
 
 table_clusters$EFA_9 <- as.character(parameters::closest_component(efa))
 ```
 
 ##### 12-factors
 
-```{r, message=FALSE, warning=FALSE}
+```{r, message=FALSE, warning=FALSE, fig.cap="EFA 12-factor Rotated Loadings"}
 set.seed(3)
 
 efa <- parameters::factor_analysis(data[hrv_cols], cor=r, n=12, rotation="promax", fm="ml")
 
-insight::display(efa, threshold="max", sort=TRUE)
+knitr::kable(efa,
+  booktabs = TRUE,
+  caption = "Item loadings for EFA 12-factor solutions."
+)
 
-plot(efa)
+# insight::display(efa, threshold="max", sort=TRUE)
+
+plot(efa, size_text = 3) +
+  theme(axis.text.y=element_text(size=5))
+
 
 table_clusters$EFA_12 <- as.character(parameters::closest_component(efa))
 ```

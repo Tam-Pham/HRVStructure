@@ -243,10 +243,3 @@ source_rmd("6_Summary.Rmd")
 ```{r child='6_Summary.Rmd'}
 ```
 
-
-
-# Discussion
-
-<!-- which indices most central -->
-
-# References

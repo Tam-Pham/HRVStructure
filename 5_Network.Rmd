@@ -21,28 +21,18 @@ z[is.na(z)] <- 0
 ```
 
 ##### EGA glasso
-```{r, message=FALSE, warning=FALSE}
+```{r, message=FALSE, warning=FALSE, fig.cap="EGA with GLASSO 7-cluster network solution"}
 suppressMessages(library(EGAnet))
 
 # Run EGA
-ega_glasso <- EGAnet::EGA(z, model = "glasso", algorithm = "louvain", plot.EGA = FALSE)
+ega_glasso <- EGAnet::EGA(z, model = "glasso", algorithm = "louvain", plot.EGA = TRUE)
 
-
-# Run Boot EGA
-# ega_glasso_booth <- EGAnet::bootEGA(z, model = "glasso", algorithm = "louvain", plot.EGA = TRUE, iter = 500)
-# ega_glasso_booth$summary.table
-# # Frequency of each dimension solution
-# ega_glasso_booth$frequency
-# # Structural consistency
-# stability <- EGAnet::dimensionStability(ega_glasso_booth)
-# stability$dimension.stability$structural.consistency
-# stability$item.stability$item.stability$all.dimensions
 ```
 
 ##### EGA TMFG
-```{r, message=FALSE, warning=FALSE}
+```{r, message=FALSE, warning=FALSE, fig.cap="EGA with TMFG 6-cluster network solution"}
 # Run EGA
-ega_TMFG <- EGAnet::EGA(z, model = "TMFG", algorithm = "louvain", plot.EGA = FALSE)
+ega_TMFG <- EGAnet::EGA(z, model = "TMFG", algorithm = "louvain", plot.EGA = TRUE)
 
 ```
 
@@ -78,7 +68,7 @@ as.list(graph_TMFG)$nodes %>%
   knitr::kable()
 ```
 
-#### Network Graph
+#### Network Graph with Centrality
 
 ```{r, message=FALSE, warning=FALSE}
 

@@ -14,7 +14,7 @@ editor_options:
 data %>% 
   select(-Participant, -Recording_Length, -Database) %>% 
   correlation::correlation() %>% 
-  filter(abs(r) > 0.999) %>% 
+  filter(abs(r) > 0.999) %>%
   arrange(Parameter1, desc(abs(r))) %>%
   format()
 
@@ -27,23 +27,6 @@ data <- data %>%
 
 hrv_cols <- names(select(data, -Participant, -Recording_Length, -Database))
 ```
-
-<!-- #### Remove Strongly Correlated (r higher than .98) -->
-
-<!-- ```{r, message=FALSE, warning=FALSE, fig.width=17, fig.height=17} -->
-<!-- data %>% -->
-<!--   correlation::correlation() %>% -->
-<!--   filter(abs(r) > 0.95) %>% -->
-<!--   arrange(Parameter1, desc(abs(r))) %>% -->
-<!--   format() -->
-
-<!-- data <- data %>% -->
-<!--   select(-GI, -SI) %>%  # Same as AI -->
-<!--   select(-SD2) %>%  # Same as SDNN -->
-<!--   select(-MedianNN) %>%  # Same as MeanNN -->
-<!--   select(-IALS) %>%  # Same as PIP -->
-<!--   select(-SDNN, -CVNN) # Same as RMSSD -->
-<!-- ``` -->
 
 ### Outliers Removal
 
