@@ -33,7 +33,7 @@ output:
   papaja::apa6_pdf:
     keep_tex: yes
 keywords: "HRV, ECG, Clustering"
-wordcount: '3984'
+wordcount: '4018'
 bibliography: ["references.bib"]
 floatsintext: yes
 figsintext: yes
