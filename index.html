@@ -5376,7 +5376,7 @@ Figure 15: EGA with TMFG 6-cluster network solution
 <div id="hierarchical-structure-of-metaclustering" class="section level3">
 <h3>Hierarchical Structure of Metaclustering</h3>
 <div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb97-1"><a href="#cb97-1" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">hclust</span>(<span class="fu">as.dist</span>(m), <span class="at">method=</span><span class="st">&quot;average&quot;</span>) </span>
-<span id="cb97-2"><a href="#cb97-2" aria-hidden="true" tabindex="-1"></a>clusters <span class="ot">&lt;-</span> <span class="fu">cutree</span>(model, <span class="at">h =</span> <span class="fl">0.6</span>)</span>
+<span id="cb97-2"><a href="#cb97-2" aria-hidden="true" tabindex="-1"></a>clusters <span class="ot">&lt;-</span> <span class="fu">cutree</span>(model, <span class="at">h =</span> <span class="fl">0.8</span>)</span>
 <span id="cb97-3"><a href="#cb97-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb97-4"><a href="#cb97-4" aria-hidden="true" tabindex="-1"></a>clusters</span></code></pre></div>
 <pre><code>&gt;               pNN50               pNN20                 CVI               RMSSD 
@@ -5386,63 +5386,64 @@ Figure 15: EGA with TMFG 6-cluster network solution
 &gt;               IQRNN                CVNN                SDNN                 SD2 
 &gt;                   1                   1                   1                   1 
 &gt;              MeanNN            MedianNN                ApEn              ShanEn 
-&gt;                   2                   2                   3                   3 
+&gt;                   2                   2                   2                   2 
 &gt;                 MSE  DFA_alpha2_DimMean                  LF                 VHF 
-&gt;                   3                   4                   5                   6 
+&gt;                   2                   3                   3                   3 
 &gt;                  HF                LnHF                CMSE               RCMSE 
-&gt;                   6                   6                   7                   7 
+&gt;                   3                   3                   3                   3 
 &gt;                 LZC              SampEn             FuzzyEn                TINN 
-&gt;                   8                   8                   8                   8 
+&gt;                   3                   3                   3                   3 
 &gt;  DFA_alpha1_ExpMean                  CD DFA_alpha1_ExpRange                 KFD 
-&gt;                   8                   8                   8                   8 
+&gt;                   3                   3                   3                   3 
 &gt;              SD1SD2                 HFn                 HFD  DFA_alpha1_DimMean 
-&gt;                   9                   9                   9                  10 
+&gt;                   4                   4                   4                   4 
 &gt; DFA_alpha2_ExpRange DFA_alpha2_DimRange          DFA_alpha2  DFA_alpha2_ExpMean 
-&gt;                  10                  10                  11                  11 
+&gt;                   4                   4                   4                   4 
 &gt;        CSI_Modified                 CSI                 LFn                LFHF 
-&gt;                  11                  11                  11                  11 
+&gt;                   4                   4                   4                   4 
 &gt;          DFA_alpha1                 PAS                 PSS                 PIP 
-&gt;                  11                  12                  12                  12 
+&gt;                   4                   5                   5                   5 
 &gt;                IALS                 C1a                  Ca                  PI 
-&gt;                  12                  13                  13                  13 
+&gt;                   5                   6                   6                   6 
 &gt;                 C2a DFA_alpha1_DimRange                  AI                  GI 
-&gt;                  13                  14                  15                  15 
+&gt;                   6                   6                   6                   6 
 &gt;                  SI 
-&gt;                  15</code></pre>
-<div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb99-1"><a href="#cb99-1" aria-hidden="true" tabindex="-1"></a>clusters2 <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
-<span id="cb99-2"><a href="#cb99-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">pNN50 =</span> <span class="dv">1</span>, <span class="at">pNN20 =</span> <span class="dv">1</span>, <span class="at">CVI =</span> <span class="dv">1</span>, <span class="at">RMSSD =</span> <span class="dv">1</span>, <span class="at">S =</span> <span class="dv">1</span>, <span class="at">HTI =</span> <span class="dv">1</span>,  <span class="at">MCVNN =</span> <span class="dv">1</span>,</span>
-<span id="cb99-3"><a href="#cb99-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">MadNN =</span> <span class="dv">1</span>, <span class="at">IQRNN =</span> <span class="dv">1</span>, <span class="at">CVNN =</span> <span class="dv">1</span>, <span class="at">SDNN =</span> <span class="dv">1</span>, <span class="at">SD2 =</span> <span class="dv">1</span>, </span>
-<span id="cb99-4"><a href="#cb99-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">MeanNN =</span> <span class="dv">2</span>, <span class="at">MedianNN =</span> <span class="dv">2</span>,</span>
-<span id="cb99-5"><a href="#cb99-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">ApEn =</span> <span class="dv">3</span>, <span class="at">ShanEn =</span> <span class="dv">3</span>, <span class="at">MSE =</span> <span class="dv">3</span>,</span>
-<span id="cb99-6"><a href="#cb99-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">DFA_alpha2_DimMean =</span> <span class="dv">4</span>,</span>
-<span id="cb99-7"><a href="#cb99-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">LF =</span> <span class="dv">5</span>, <span class="at">VHF =</span> <span class="dv">5</span>, <span class="at">HF =</span> <span class="dv">5</span>, <span class="at">LnHF =</span> <span class="dv">5</span>,</span>
-<span id="cb99-8"><a href="#cb99-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">CMSE =</span> <span class="dv">6</span>, <span class="at">RCMSE =</span> <span class="dv">6</span>,</span>
-<span id="cb99-9"><a href="#cb99-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">LZC =</span> <span class="dv">6</span>, <span class="at">SampEn =</span> <span class="dv">6</span>, <span class="at">FuzzyEn =</span> <span class="dv">6</span>, <span class="at">TINN =</span> <span class="dv">6</span>,</span>
-<span id="cb99-10"><a href="#cb99-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">DFA_alpha1_ExpMean =</span> <span class="dv">6</span>, <span class="at">CD =</span> <span class="dv">6</span>, <span class="at">DFA_alpha1_ExpRange =</span> <span class="dv">6</span>, <span class="at">KFD =</span> <span class="dv">6</span>, </span>
-<span id="cb99-11"><a href="#cb99-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">SD1SD2 =</span> <span class="dv">7</span>, <span class="at">HFn =</span> <span class="dv">7</span>, <span class="at">HFD =</span> <span class="dv">7</span>,</span>
-<span id="cb99-12"><a href="#cb99-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">DFA_alpha1_DimMean =</span> <span class="dv">8</span>, <span class="at">DFA_alpha2_ExpRange =</span> <span class="dv">8</span>, <span class="at">DFA_alpha2_DimRange =</span> <span class="dv">8</span>,</span>
-<span id="cb99-13"><a href="#cb99-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">DFA_alpha2 =</span> <span class="dv">8</span>, <span class="at">DFA_alpha2_ExpMean =</span> <span class="dv">8</span>, <span class="at">CSI_Modified =</span> <span class="dv">8</span>,</span>
-<span id="cb99-14"><a href="#cb99-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">CSI =</span> <span class="dv">8</span>, <span class="at">LFn =</span> <span class="dv">8</span>, <span class="at">LFHF =</span> <span class="dv">8</span>, <span class="at">DFA_alpha1 =</span> <span class="dv">8</span>, </span>
-<span id="cb99-15"><a href="#cb99-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">PAS =</span> <span class="dv">9</span>, <span class="at">PSS =</span> <span class="dv">9</span>, <span class="at">PIP =</span> <span class="dv">9</span>, <span class="at">IALS =</span> <span class="dv">9</span>,</span>
-<span id="cb99-16"><a href="#cb99-16" aria-hidden="true" tabindex="-1"></a>  <span class="at">C1a =</span> <span class="dv">11</span>, <span class="at">Ca =</span> <span class="dv">11</span>, <span class="at">PI =</span> <span class="dv">11</span>, <span class="at">C2a =</span> <span class="dv">11</span>,</span>
-<span id="cb99-17"><a href="#cb99-17" aria-hidden="true" tabindex="-1"></a>  <span class="at">DFA_alpha1_DimRange =</span> <span class="dv">12</span>,</span>
-<span id="cb99-18"><a href="#cb99-18" aria-hidden="true" tabindex="-1"></a>  <span class="at">AI =</span> <span class="dv">13</span>, <span class="at">GI =</span> <span class="dv">13</span>, <span class="at">SI =</span> <span class="dv">13</span>)</span>
-<span id="cb99-19"><a href="#cb99-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb99-20"><a href="#cb99-20" aria-hidden="true" tabindex="-1"></a><span class="co"># identify center of each cluster </span></span>
-<span id="cb99-21"><a href="#cb99-21" aria-hidden="true" tabindex="-1"></a>dis <span class="ot">&lt;-</span> parameters<span class="sc">::</span><span class="fu">cluster_centers</span>(datawizard<span class="sc">::</span><span class="fu">data_transpose</span>(z), clusters2)</span>
-<span id="cb99-22"><a href="#cb99-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb99-23"><a href="#cb99-23" aria-hidden="true" tabindex="-1"></a><span class="co"># reverse dis to have larger value for more central params</span></span>
-<span id="cb99-24"><a href="#cb99-24" aria-hidden="true" tabindex="-1"></a>centrality <span class="ot">&lt;-</span> datawizard<span class="sc">::</span><span class="fu">data_rescale</span>(<span class="fu">attributes</span>(dis)<span class="sc">$</span>distance, <span class="at">to =</span> <span class="fu">c</span>(<span class="fu">max</span>(<span class="fu">attributes</span>(dis)<span class="sc">$</span>distance), <span class="fu">min</span>(<span class="fu">attributes</span>(dis)<span class="sc">$</span>distance)))</span>
-<span id="cb99-25"><a href="#cb99-25" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(centrality) <span class="ot">&lt;-</span> hrv_cols</span>
-<span id="cb99-26"><a href="#cb99-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb99-27"><a href="#cb99-27" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_dendrogram</span>(model, <span class="at">clusters =</span> clusters2, <span class="at">ylim =</span> <span class="sc">-</span><span class="fl">0.2</span>, <span class="at">nudge_y =</span> <span class="sc">-</span><span class="fl">0.03</span>, <span class="at">angle =</span> <span class="dv">90</span>, <span class="at">points =</span> <span class="cn">TRUE</span>, <span class="at">dis =</span> centrality) <span class="sc">+</span></span>
-<span id="cb99-28"><a href="#cb99-28" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Lines to show &quot;larger&quot; clusters</span></span>
-<span id="cb99-29"><a href="#cb99-29" aria-hidden="true" tabindex="-1"></a>    <span class="co"># geom_line(data = data.frame(y = c(-0.02, -0.02), x = c(0, 5)), aes(x = x, y = y), size = 0.5, color = &quot;#607D8B&quot;) +</span></span>
-<span id="cb99-30"><a href="#cb99-30" aria-hidden="true" tabindex="-1"></a>    <span class="co"># geom_line(data = data.frame(y = c(-0.02, -0.02), x = c(6, 15)), aes(x = x, y = y), size = 0.5, color = &quot;#607D8B&quot;) +</span></span>
-<span id="cb99-31"><a href="#cb99-31" aria-hidden="true" tabindex="-1"></a>    <span class="co"># geom_line(data = data.frame(y = c(-0.02, -0.02), x = c(16, 22)), aes(x = x, y = y), size = 0.5, color = &quot;#607D8B&quot;) +</span></span>
-<span id="cb99-32"><a href="#cb99-32" aria-hidden="true" tabindex="-1"></a>    <span class="co"># geom_line(data = data.frame(y = c(-0.02, -0.02), x = c(23, 34)), aes(x = x, y = y), size = 0.5, color = &quot;#607D8B&quot;) +</span></span>
-<span id="cb99-33"><a href="#cb99-33" aria-hidden="true" tabindex="-1"></a>    <span class="co"># geom_line(data = data.frame(y = c(-0.02, -0.02), x = c(35, 42)), aes(x = x, y = y), size = 0.5, color = &quot;#607D8B&quot;) +</span></span>
-<span id="cb99-34"><a href="#cb99-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;none&quot;</span>)</span></code></pre></div>
+&gt;                   6</code></pre>
+<div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb99-1"><a href="#cb99-1" aria-hidden="true" tabindex="-1"></a><span class="co"># clusters2 &lt;- c(</span></span>
+<span id="cb99-2"><a href="#cb99-2" aria-hidden="true" tabindex="-1"></a><span class="co">#   pNN50 = 1, pNN20 = 1, CVI = 1, RMSSD = 1, S = 1, HTI = 1,  MCVNN = 1,</span></span>
+<span id="cb99-3"><a href="#cb99-3" aria-hidden="true" tabindex="-1"></a><span class="co">#   MadNN = 1, IQRNN = 1, CVNN = 1, SDNN = 1, SD2 = 1, </span></span>
+<span id="cb99-4"><a href="#cb99-4" aria-hidden="true" tabindex="-1"></a><span class="co">#   MeanNN = 2, MedianNN = 2,</span></span>
+<span id="cb99-5"><a href="#cb99-5" aria-hidden="true" tabindex="-1"></a><span class="co">#   ApEn = 2, ShanEn = 2, MSE = 2,</span></span>
+<span id="cb99-6"><a href="#cb99-6" aria-hidden="true" tabindex="-1"></a><span class="co">#   DFA_alpha2_DimMean = 3,</span></span>
+<span id="cb99-7"><a href="#cb99-7" aria-hidden="true" tabindex="-1"></a><span class="co">#   LF = 3, VHF = 3, HF = 3, LnHF = 3,</span></span>
+<span id="cb99-8"><a href="#cb99-8" aria-hidden="true" tabindex="-1"></a><span class="co">#   CMSE = 3, RCMSE = 3,</span></span>
+<span id="cb99-9"><a href="#cb99-9" aria-hidden="true" tabindex="-1"></a><span class="co">#   LZC = 3, SampEn = 3, </span></span>
+<span id="cb99-10"><a href="#cb99-10" aria-hidden="true" tabindex="-1"></a><span class="co">#   FuzzyEn = 3, TINN = 3,</span></span>
+<span id="cb99-11"><a href="#cb99-11" aria-hidden="true" tabindex="-1"></a><span class="co">#   DFA_alpha1_ExpMean = 3, CD = 3, DFA_alpha1_ExpRange = 3, KFD = 3, </span></span>
+<span id="cb99-12"><a href="#cb99-12" aria-hidden="true" tabindex="-1"></a><span class="co">#   SD1SD2 = 4, HFn = 4, HFD = 4,</span></span>
+<span id="cb99-13"><a href="#cb99-13" aria-hidden="true" tabindex="-1"></a><span class="co">#   DFA_alpha1_DimMean = 4, DFA_alpha2_ExpRange = 4, DFA_alpha2_DimRange = 4,</span></span>
+<span id="cb99-14"><a href="#cb99-14" aria-hidden="true" tabindex="-1"></a><span class="co">#   DFA_alpha2 = 4, DFA_alpha2_ExpMean = 4, CSI_Modified = 4,</span></span>
+<span id="cb99-15"><a href="#cb99-15" aria-hidden="true" tabindex="-1"></a><span class="co">#   CSI = 4, LFn = 4, LFHF = 4, DFA_alpha1 = 4, </span></span>
+<span id="cb99-16"><a href="#cb99-16" aria-hidden="true" tabindex="-1"></a><span class="co">#   PAS = 5, PSS = 5, PIP = 5, IALS = 5,</span></span>
+<span id="cb99-17"><a href="#cb99-17" aria-hidden="true" tabindex="-1"></a><span class="co">#   C1a = 6, Ca = 6, PI = 6, C2a = 6,</span></span>
+<span id="cb99-18"><a href="#cb99-18" aria-hidden="true" tabindex="-1"></a><span class="co">#   DFA_alpha1_DimRange = 6,</span></span>
+<span id="cb99-19"><a href="#cb99-19" aria-hidden="true" tabindex="-1"></a><span class="co">#   AI = 6, GI = 6, SI = 6)</span></span>
+<span id="cb99-20"><a href="#cb99-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb99-21"><a href="#cb99-21" aria-hidden="true" tabindex="-1"></a><span class="co"># identify center of each cluster </span></span>
+<span id="cb99-22"><a href="#cb99-22" aria-hidden="true" tabindex="-1"></a>dis <span class="ot">&lt;-</span> parameters<span class="sc">::</span><span class="fu">cluster_centers</span>(datawizard<span class="sc">::</span><span class="fu">data_transpose</span>(z), clusters)</span>
+<span id="cb99-23"><a href="#cb99-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb99-24"><a href="#cb99-24" aria-hidden="true" tabindex="-1"></a><span class="co"># reverse dis to have larger value for more central params</span></span>
+<span id="cb99-25"><a href="#cb99-25" aria-hidden="true" tabindex="-1"></a>centrality <span class="ot">&lt;-</span> datawizard<span class="sc">::</span><span class="fu">data_rescale</span>(<span class="fu">attributes</span>(dis)<span class="sc">$</span>distance, <span class="at">to =</span> <span class="fu">c</span>(<span class="fu">max</span>(<span class="fu">attributes</span>(dis)<span class="sc">$</span>distance), <span class="fu">min</span>(<span class="fu">attributes</span>(dis)<span class="sc">$</span>distance)))</span>
+<span id="cb99-26"><a href="#cb99-26" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(centrality) <span class="ot">&lt;-</span> hrv_cols</span>
+<span id="cb99-27"><a href="#cb99-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb99-28"><a href="#cb99-28" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_dendrogram</span>(model, <span class="at">clusters =</span> clusters, <span class="at">ylim =</span> <span class="sc">-</span><span class="fl">0.2</span>, <span class="at">nudge_y =</span> <span class="sc">-</span><span class="fl">0.03</span>, <span class="at">angle =</span> <span class="dv">90</span>, <span class="at">points =</span> <span class="cn">TRUE</span>, <span class="at">dis =</span> centrality, <span class="at">h=</span><span class="fl">0.8</span>) <span class="sc">+</span></span>
+<span id="cb99-29"><a href="#cb99-29" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Lines to show &quot;larger&quot; clusters</span></span>
+<span id="cb99-30"><a href="#cb99-30" aria-hidden="true" tabindex="-1"></a>    <span class="co"># geom_line(data = data.frame(y = c(-0.02, -0.02), x = c(0, 5)), aes(x = x, y = y), size = 0.5, color = &quot;#607D8B&quot;) +</span></span>
+<span id="cb99-31"><a href="#cb99-31" aria-hidden="true" tabindex="-1"></a>    <span class="co"># geom_line(data = data.frame(y = c(-0.02, -0.02), x = c(6, 15)), aes(x = x, y = y), size = 0.5, color = &quot;#607D8B&quot;) +</span></span>
+<span id="cb99-32"><a href="#cb99-32" aria-hidden="true" tabindex="-1"></a>    <span class="co"># geom_line(data = data.frame(y = c(-0.02, -0.02), x = c(16, 22)), aes(x = x, y = y), size = 0.5, color = &quot;#607D8B&quot;) +</span></span>
+<span id="cb99-33"><a href="#cb99-33" aria-hidden="true" tabindex="-1"></a>    <span class="co"># geom_line(data = data.frame(y = c(-0.02, -0.02), x = c(23, 34)), aes(x = x, y = y), size = 0.5, color = &quot;#607D8B&quot;) +</span></span>
+<span id="cb99-34"><a href="#cb99-34" aria-hidden="true" tabindex="-1"></a>    <span class="co"># geom_line(data = data.frame(y = c(-0.02, -0.02), x = c(35, 42)), aes(x = x, y = y), size = 0.5, color = &quot;#607D8B&quot;) +</span></span>
+<span id="cb99-35"><a href="#cb99-35" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;none&quot;</span>)</span></code></pre></div>
 <p><img src="figures/unnamed-chunk-46-1.png" width="5824.92235949962" /></p>
 <div class="sourceCode" id="cb100"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb100-1"><a href="#cb100-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ggsave(file = &quot;figures/meta-dendrogram.svg&quot;, plot=dendro, width=15, height=10)</span></span></code></pre></div>
 </div>
@@ -5484,57 +5485,57 @@ Figure 15: EGA with TMFG 6-cluster network solution
 <tbody>
 <tr class="odd">
 <td align="left">PAS</td>
-<td align="left">12</td>
+<td align="left">5</td>
 <td align="right">102</td>
 </tr>
 <tr class="even">
 <td align="left">PSS</td>
-<td align="left">12</td>
+<td align="left">5</td>
 <td align="right">102</td>
 </tr>
 <tr class="odd">
 <td align="left">PIP</td>
-<td align="left">12</td>
+<td align="left">5</td>
 <td align="right">102</td>
 </tr>
 <tr class="even">
 <td align="left">IALS</td>
-<td align="left">12</td>
+<td align="left">5</td>
 <td align="right">102</td>
 </tr>
 <tr class="odd">
 <td align="left">Ca</td>
-<td align="left">13</td>
+<td align="left">6</td>
 <td align="right">100</td>
 </tr>
 <tr class="even">
 <td align="left">PI</td>
-<td align="left">13</td>
+<td align="left">6</td>
 <td align="right">100</td>
 </tr>
 <tr class="odd">
 <td align="left">C2a</td>
-<td align="left">13</td>
+<td align="left">6</td>
 <td align="right">100</td>
 </tr>
 <tr class="even">
 <td align="left">AI</td>
-<td align="left">15</td>
+<td align="left">6</td>
 <td align="right">92</td>
 </tr>
 <tr class="odd">
 <td align="left">GI</td>
-<td align="left">15</td>
+<td align="left">6</td>
 <td align="right">92</td>
 </tr>
 <tr class="even">
 <td align="left">SI</td>
-<td align="left">15</td>
+<td align="left">6</td>
 <td align="right">92</td>
 </tr>
 <tr class="odd">
 <td align="left">DFA_alpha1_DimRange</td>
-<td align="left">14</td>
+<td align="left">6</td>
 <td align="right">90</td>
 </tr>
 <tr class="even">
@@ -5589,27 +5590,27 @@ Figure 15: EGA with TMFG 6-cluster network solution
 </tr>
 <tr class="even">
 <td align="left">MSE</td>
-<td align="left">3</td>
+<td align="left">2</td>
 <td align="right">86</td>
 </tr>
 <tr class="odd">
 <td align="left">CSI_Modified</td>
-<td align="left">11</td>
+<td align="left">4</td>
 <td align="right">86</td>
 </tr>
 <tr class="even">
 <td align="left">ShanEn</td>
-<td align="left">3</td>
+<td align="left">2</td>
 <td align="right">82</td>
 </tr>
 <tr class="odd">
 <td align="left">DFA_alpha2</td>
-<td align="left">11</td>
+<td align="left">4</td>
 <td align="right">82</td>
 </tr>
 <tr class="even">
 <td align="left">LFn</td>
-<td align="left">11</td>
+<td align="left">4</td>
 <td align="right">82</td>
 </tr>
 <tr class="odd">
@@ -5629,132 +5630,132 @@ Figure 15: EGA with TMFG 6-cluster network solution
 </tr>
 <tr class="even">
 <td align="left">DFA_alpha1_ExpMean</td>
-<td align="left">8</td>
+<td align="left">3</td>
 <td align="right">80</td>
 </tr>
 <tr class="odd">
 <td align="left">CD</td>
-<td align="left">8</td>
+<td align="left">3</td>
 <td align="right">80</td>
 </tr>
 <tr class="even">
 <td align="left">DFA_alpha1_DimMean</td>
-<td align="left">10</td>
+<td align="left">4</td>
 <td align="right">80</td>
 </tr>
 <tr class="odd">
 <td align="left">CSI</td>
-<td align="left">11</td>
+<td align="left">4</td>
 <td align="right">80</td>
 </tr>
 <tr class="even">
 <td align="left">LFHF</td>
-<td align="left">11</td>
+<td align="left">4</td>
 <td align="right">80</td>
 </tr>
 <tr class="odd">
 <td align="left">DFA_alpha1</td>
-<td align="left">11</td>
+<td align="left">4</td>
 <td align="right">80</td>
 </tr>
 <tr class="even">
 <td align="left">C1a</td>
-<td align="left">13</td>
+<td align="left">6</td>
 <td align="right">80</td>
 </tr>
 <tr class="odd">
 <td align="left">TINN</td>
-<td align="left">8</td>
+<td align="left">3</td>
 <td align="right">78</td>
 </tr>
 <tr class="even">
 <td align="left">DFA_alpha2_DimMean</td>
-<td align="left">4</td>
+<td align="left">3</td>
 <td align="right">76</td>
 </tr>
 <tr class="odd">
 <td align="left">LZC</td>
-<td align="left">8</td>
+<td align="left">3</td>
 <td align="right">76</td>
 </tr>
 <tr class="even">
 <td align="left">SampEn</td>
-<td align="left">8</td>
+<td align="left">3</td>
 <td align="right">76</td>
 </tr>
 <tr class="odd">
 <td align="left">FuzzyEn</td>
-<td align="left">8</td>
+<td align="left">3</td>
 <td align="right">76</td>
 </tr>
 <tr class="even">
 <td align="left">KFD</td>
-<td align="left">8</td>
+<td align="left">3</td>
 <td align="right">76</td>
 </tr>
 <tr class="odd">
 <td align="left">DFA_alpha2_ExpRange</td>
-<td align="left">10</td>
+<td align="left">4</td>
 <td align="right">76</td>
 </tr>
 <tr class="even">
 <td align="left">DFA_alpha2_DimRange</td>
-<td align="left">10</td>
+<td align="left">4</td>
 <td align="right">76</td>
 </tr>
 <tr class="odd">
 <td align="left">DFA_alpha2_ExpMean</td>
-<td align="left">11</td>
+<td align="left">4</td>
 <td align="right">76</td>
 </tr>
 <tr class="even">
 <td align="left">CMSE</td>
-<td align="left">7</td>
+<td align="left">3</td>
 <td align="right">74</td>
 </tr>
 <tr class="odd">
 <td align="left">ApEn</td>
-<td align="left">3</td>
+<td align="left">2</td>
 <td align="right">72</td>
 </tr>
 <tr class="even">
 <td align="left">LF</td>
-<td align="left">5</td>
+<td align="left">3</td>
 <td align="right">72</td>
 </tr>
 <tr class="odd">
 <td align="left">HF</td>
-<td align="left">6</td>
+<td align="left">3</td>
 <td align="right">72</td>
 </tr>
 <tr class="even">
 <td align="left">LnHF</td>
-<td align="left">6</td>
+<td align="left">3</td>
 <td align="right">72</td>
 </tr>
 <tr class="odd">
 <td align="left">SD1SD2</td>
-<td align="left">9</td>
+<td align="left">4</td>
 <td align="right">72</td>
 </tr>
 <tr class="even">
 <td align="left">VHF</td>
-<td align="left">6</td>
+<td align="left">3</td>
 <td align="right">70</td>
 </tr>
 <tr class="odd">
 <td align="left">RCMSE</td>
-<td align="left">7</td>
+<td align="left">3</td>
 <td align="right">70</td>
 </tr>
 <tr class="even">
 <td align="left">HFn</td>
-<td align="left">9</td>
+<td align="left">4</td>
 <td align="right">70</td>
 </tr>
 <tr class="odd">
 <td align="left">DFA_alpha1_ExpRange</td>
-<td align="left">8</td>
+<td align="left">3</td>
 <td align="right">68</td>
 </tr>
 <tr class="even">
@@ -5764,7 +5765,7 @@ Figure 15: EGA with TMFG 6-cluster network solution
 </tr>
 <tr class="odd">
 <td align="left">HFD</td>
-<td align="left">9</td>
+<td align="left">4</td>
 <td align="right">66</td>
 </tr>
 </tbody>
@@ -5789,8 +5790,7 @@ Figure 15: EGA with TMFG 6-cluster network solution
 <!--              rep("Frequency/Complexity", 28), -->
 <!--              rep("Extreme Variabilities Features", 12)) -->
 <!-- level_2 <- c(rep("Dispersion", 12), -->
-<!--              rep("Centrality", 2), -->
-<!--              rep("Entropy", 3), -->
+<!--              rep("Centrality", 5), -->
 <!--              rep("Absolute Frequency/Complexity", 15), -->
 <!--              rep("Relative Frequency/Complexity", 13), -->
 <!--              rep("Heart Rate Fragmentation", 4), -->
@@ -5811,48 +5811,48 @@ Figure 15: EGA with TMFG 6-cluster network solution
 <!--              "C1a", "C2a", "Ca", "PI", -->
 <!--              "DFA α1 DimRange", -->
 <!--              "AI", "GI", "SI") -->
-<!-- labels <- c("Proportion of successive NN interval differences larger than 50ms",  -->
+<!-- labels <- c("Proportion of successive NN interval differences larger than 50ms", -->
 <!--             "Proportion of successive NN interval differences larger than 20ms", -->
-<!--             "Cardiac Vagal Index",  -->
-<!--             "Root mean square of successive NN interval differences",  -->
-<!--             "Area of ellipse in Poincaré plot",  -->
-<!--             "Integral of the density of the NN interval histogram divided by its height",  -->
+<!--             "Cardiac Vagal Index", -->
+<!--             "Root mean square of successive NN interval differences", -->
+<!--             "Area of ellipse in Poincaré plot", -->
+<!--             "Integral of the density of the NN interval histogram divided by its height", -->
 <!--             "MadNN divided by MedianNN", -->
-<!--             "The median absolute deviation of the NN intervals",  -->
-<!--             "The interquartile range (IQR) of the NN intervals",  -->
+<!--             "The median absolute deviation of the NN intervals", -->
+<!--             "The interquartile range (IQR) of the NN intervals", -->
 <!--             "SDNN divided by MeanNN", "The standard deviation of the RR intervals", -->
 <!--             "The spread of NN intervals on the Poincaré plot along the line of identity.", -->
 <!--              "The mean of the NN intervals.", "The median of the NN intervals.", -->
 <!--              "The Approximate Entropy", "The Shannon Entropy", "The Multiscale Entropy", -->
 <!--              "The multifractal detrended fluctuation analysis (MDFA) corresponding to long-term correlations. Dimmean is the mean of singularity dimensions", -->
-<!--              "Power spectrum in the frequency range of 0.04-0.15 Hz",  -->
-<!--              "Power spectrum in the frequency range of 0.4-0.5 Hz",  -->
+<!--              "Power spectrum in the frequency range of 0.04-0.15 Hz", -->
+<!--              "Power spectrum in the frequency range of 0.4-0.5 Hz", -->
 <!--              "Power spectrum in the frequency range of 0.15-0.4 Hz", -->
 <!--              "The natural logarithm of HF", -->
-<!--              "The Composite Multiscale Entropy", "The Refined Composite Multiscale Entropy",  -->
+<!--              "The Composite Multiscale Entropy", "The Refined Composite Multiscale Entropy", -->
 <!--              "The Lempel-Ziv complexity", "The Sample Entropy", "The Fuzzy Entropy", -->
-<!--              "The baseline width of the NN interval histogram",  -->
+<!--              "The baseline width of the NN interval histogram", -->
 <!--              "The MDFA corresponding to short-term correlation. ExpMean is the mean of singularity exponents", -->
-<!--              "Correlation Dimension", "The MDFA corresponding to short-term correlation. ExpRange is the range of singularity exponents",  -->
+<!--              "Correlation Dimension", "The MDFA corresponding to short-term correlation. ExpRange is the range of singularity exponents", -->
 <!--              "Katz Fractal Dimension", -->
 <!--              "The ratio between short and long term fluctuations of the NN intervals", "The normalized HF", "Higuchi Fractal Dimension", -->
 <!--              "The MDFA corresponding to short-term correlation. DimMean is the mean of singularity dimensions", "The MDFA corresponding to long-term correlation. ExpRange is the range of singularity exponents", "The MDFA corresponding to long-term correlation. DimRange is the range of singularity dimensions", -->
 <!--              "The DFA corresponding to long-term correlation", "The MDFA corresponding to long-term correlation. ExpMean is the mean of singularity exponents", "The Cardiac Symapathetic Index (modified)", -->
 <!--              "The normalized LF", "The Cardiac Sympathetic Index", "The ratio between LF and HF", "The DFA corresponding to short-term corrleation", -->
 <!--              "The percentage of NN intervals in alternation segments", -->
-<!--              "The inverse of the average length of the acceleration/deceleration segments",  -->
+<!--              "The inverse of the average length of the acceleration/deceleration segments", -->
 <!--              "The percentage of short segments", -->
 <!--              "The percentage of inflection points of the NN intervals series", -->
-<!--              "The contributions of heart rate accelerations to short-term HRV",  -->
-<!--             "The contributions of heart rate accelerations to long-term HRV",  -->
-<!--             "The total contributions of heart rate accelerations to HRV",  -->
+<!--              "The contributions of heart rate accelerations to short-term HRV", -->
+<!--             "The contributions of heart rate accelerations to long-term HRV", -->
+<!--             "The total contributions of heart rate accelerations to HRV", -->
 <!--             "The Porta's Index", -->
 <!--              "The MDFA corresponding to short-term correlation. DimRange is the range of singularity dimensions", -->
 <!--              "The Area Index", "The Guzik's Index", "The Slope Index") -->
 <!-- df_summary <- data.frame(level_1, level_2, indices, labels) -->
 <!-- df_summary$Centrality <- as.data.frame(centrality)[df_summary$indices, ] -->
-<!-- df_summary <- df_summary %>%  -->
-<!--   group_by(level_1, level_2) %>%  -->
+<!-- df_summary <- df_summary %>% -->
+<!--   group_by(level_1, level_2) %>% -->
 <!--   arrange(desc(Centrality), .by_group = TRUE) -->
 <!--   # rename("Level 1" = "level_1", -->
 <!--   #        "Level 2" = "level_2", -->
