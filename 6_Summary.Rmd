@@ -63,37 +63,38 @@ abs(m - 1) %>%
 
 ```{r, message=FALSE, warning=FALSE}
 model <- hclust(as.dist(m), method="average") 
-clusters <- cutree(model, h = 0.6)
+clusters <- cutree(model, h = 0.8)
 
 clusters
 
-clusters2 <- c(
-  pNN50 = 1, pNN20 = 1, CVI = 1, RMSSD = 1, S = 1, HTI = 1,  MCVNN = 1,
-  MadNN = 1, IQRNN = 1, CVNN = 1, SDNN = 1, SD2 = 1, 
-  MeanNN = 2, MedianNN = 2,
-  ApEn = 3, ShanEn = 3, MSE = 3,
-  DFA_alpha2_DimMean = 4,
-  LF = 5, VHF = 5, HF = 5, LnHF = 5,
-  CMSE = 6, RCMSE = 6,
-  LZC = 6, SampEn = 6, FuzzyEn = 6, TINN = 6,
-  DFA_alpha1_ExpMean = 6, CD = 6, DFA_alpha1_ExpRange = 6, KFD = 6, 
-  SD1SD2 = 7, HFn = 7, HFD = 7,
-  DFA_alpha1_DimMean = 8, DFA_alpha2_ExpRange = 8, DFA_alpha2_DimRange = 8,
-  DFA_alpha2 = 8, DFA_alpha2_ExpMean = 8, CSI_Modified = 8,
-  CSI = 8, LFn = 8, LFHF = 8, DFA_alpha1 = 8, 
-  PAS = 9, PSS = 9, PIP = 9, IALS = 9,
-  C1a = 11, Ca = 11, PI = 11, C2a = 11,
-  DFA_alpha1_DimRange = 12,
-  AI = 13, GI = 13, SI = 13)
+# clusters2 <- c(
+#   pNN50 = 1, pNN20 = 1, CVI = 1, RMSSD = 1, S = 1, HTI = 1,  MCVNN = 1,
+#   MadNN = 1, IQRNN = 1, CVNN = 1, SDNN = 1, SD2 = 1, 
+#   MeanNN = 2, MedianNN = 2,
+#   ApEn = 2, ShanEn = 2, MSE = 2,
+#   DFA_alpha2_DimMean = 3,
+#   LF = 3, VHF = 3, HF = 3, LnHF = 3,
+#   CMSE = 3, RCMSE = 3,
+#   LZC = 3, SampEn = 3, 
+#   FuzzyEn = 3, TINN = 3,
+#   DFA_alpha1_ExpMean = 3, CD = 3, DFA_alpha1_ExpRange = 3, KFD = 3, 
+#   SD1SD2 = 4, HFn = 4, HFD = 4,
+#   DFA_alpha1_DimMean = 4, DFA_alpha2_ExpRange = 4, DFA_alpha2_DimRange = 4,
+#   DFA_alpha2 = 4, DFA_alpha2_ExpMean = 4, CSI_Modified = 4,
+#   CSI = 4, LFn = 4, LFHF = 4, DFA_alpha1 = 4, 
+#   PAS = 5, PSS = 5, PIP = 5, IALS = 5,
+#   C1a = 6, Ca = 6, PI = 6, C2a = 6,
+#   DFA_alpha1_DimRange = 6,
+#   AI = 6, GI = 6, SI = 6)
 
 # identify center of each cluster 
-dis <- parameters::cluster_centers(datawizard::data_transpose(z), clusters2)
+dis <- parameters::cluster_centers(datawizard::data_transpose(z), clusters)
 
 # reverse dis to have larger value for more central params
 centrality <- datawizard::data_rescale(attributes(dis)$distance, to = c(max(attributes(dis)$distance), min(attributes(dis)$distance)))
 names(centrality) <- hrv_cols
 
-plot_dendrogram(model, clusters = clusters2, ylim = -0.2, nudge_y = -0.03, angle = 90, points = TRUE, dis = centrality) +
+plot_dendrogram(model, clusters = clusters, ylim = -0.2, nudge_y = -0.03, angle = 90, points = TRUE, dis = centrality, h=0.8) +
   # Lines to show "larger" clusters
     # geom_line(data = data.frame(y = c(-0.02, -0.02), x = c(0, 5)), aes(x = x, y = y), size = 0.5, color = "#607D8B") +
     # geom_line(data = data.frame(y = c(-0.02, -0.02), x = c(6, 15)), aes(x = x, y = y), size = 0.5, color = "#607D8B") +
@@ -159,8 +160,7 @@ graph %>%
 <!--              rep("Extreme Variabilities Features", 12)) -->
 
 <!-- level_2 <- c(rep("Dispersion", 12), -->
-<!--              rep("Centrality", 2), -->
-<!--              rep("Entropy", 3), -->
+<!--              rep("Centrality", 5), -->
 <!--              rep("Absolute Frequency/Complexity", 15), -->
 <!--              rep("Relative Frequency/Complexity", 13), -->
 <!--              rep("Heart Rate Fragmentation", 4), -->
@@ -189,15 +189,15 @@ graph %>%
 <!--              "DFA α1 DimRange", -->
 <!--              "AI", "GI", "SI") -->
 
-<!-- labels <- c("Proportion of successive NN interval differences larger than 50ms",  -->
+<!-- labels <- c("Proportion of successive NN interval differences larger than 50ms", -->
 <!--             "Proportion of successive NN interval differences larger than 20ms", -->
-<!--             "Cardiac Vagal Index",  -->
-<!--             "Root mean square of successive NN interval differences",  -->
-<!--             "Area of ellipse in Poincaré plot",  -->
-<!--             "Integral of the density of the NN interval histogram divided by its height",  -->
+<!--             "Cardiac Vagal Index", -->
+<!--             "Root mean square of successive NN interval differences", -->
+<!--             "Area of ellipse in Poincaré plot", -->
+<!--             "Integral of the density of the NN interval histogram divided by its height", -->
 <!--             "MadNN divided by MedianNN", -->
-<!--             "The median absolute deviation of the NN intervals",  -->
-<!--             "The interquartile range (IQR) of the NN intervals",  -->
+<!--             "The median absolute deviation of the NN intervals", -->
+<!--             "The interquartile range (IQR) of the NN intervals", -->
 <!--             "SDNN divided by MeanNN", "The standard deviation of the RR intervals", -->
 <!--             "The spread of NN intervals on the Poincaré plot along the line of identity.", -->
 
@@ -205,15 +205,15 @@ graph %>%
 <!--              "The Approximate Entropy", "The Shannon Entropy", "The Multiscale Entropy", -->
 
 <!--              "The multifractal detrended fluctuation analysis (MDFA) corresponding to long-term correlations. Dimmean is the mean of singularity dimensions", -->
-<!--              "Power spectrum in the frequency range of 0.04-0.15 Hz",  -->
-<!--              "Power spectrum in the frequency range of 0.4-0.5 Hz",  -->
+<!--              "Power spectrum in the frequency range of 0.04-0.15 Hz", -->
+<!--              "Power spectrum in the frequency range of 0.4-0.5 Hz", -->
 <!--              "Power spectrum in the frequency range of 0.15-0.4 Hz", -->
 <!--              "The natural logarithm of HF", -->
-<!--              "The Composite Multiscale Entropy", "The Refined Composite Multiscale Entropy",  -->
+<!--              "The Composite Multiscale Entropy", "The Refined Composite Multiscale Entropy", -->
 <!--              "The Lempel-Ziv complexity", "The Sample Entropy", "The Fuzzy Entropy", -->
-<!--              "The baseline width of the NN interval histogram",  -->
+<!--              "The baseline width of the NN interval histogram", -->
 <!--              "The MDFA corresponding to short-term correlation. ExpMean is the mean of singularity exponents", -->
-<!--              "Correlation Dimension", "The MDFA corresponding to short-term correlation. ExpRange is the range of singularity exponents",  -->
+<!--              "Correlation Dimension", "The MDFA corresponding to short-term correlation. ExpRange is the range of singularity exponents", -->
 <!--              "Katz Fractal Dimension", -->
 
 <!--              "The ratio between short and long term fluctuations of the NN intervals", "The normalized HF", "Higuchi Fractal Dimension", -->
@@ -222,13 +222,13 @@ graph %>%
 <!--              "The normalized LF", "The Cardiac Sympathetic Index", "The ratio between LF and HF", "The DFA corresponding to short-term corrleation", -->
 
 <!--              "The percentage of NN intervals in alternation segments", -->
-<!--              "The inverse of the average length of the acceleration/deceleration segments",  -->
+<!--              "The inverse of the average length of the acceleration/deceleration segments", -->
 <!--              "The percentage of short segments", -->
 <!--              "The percentage of inflection points of the NN intervals series", -->
 
-<!--              "The contributions of heart rate accelerations to short-term HRV",  -->
-<!--             "The contributions of heart rate accelerations to long-term HRV",  -->
-<!--             "The total contributions of heart rate accelerations to HRV",  -->
+<!--              "The contributions of heart rate accelerations to short-term HRV", -->
+<!--             "The contributions of heart rate accelerations to long-term HRV", -->
+<!--             "The total contributions of heart rate accelerations to HRV", -->
 <!--             "The Porta's Index", -->
 <!--              "The MDFA corresponding to short-term correlation. DimRange is the range of singularity dimensions", -->
 <!--              "The Area Index", "The Guzik's Index", "The Slope Index") -->
@@ -236,8 +236,8 @@ graph %>%
 
 <!-- df_summary <- data.frame(level_1, level_2, indices, labels) -->
 <!-- df_summary$Centrality <- as.data.frame(centrality)[df_summary$indices, ] -->
-<!-- df_summary <- df_summary %>%  -->
-<!--   group_by(level_1, level_2) %>%  -->
+<!-- df_summary <- df_summary %>% -->
+<!--   group_by(level_1, level_2) %>% -->
 <!--   arrange(desc(Centrality), .by_group = TRUE) -->
 <!--   # rename("Level 1" = "level_1", -->
 <!--   #        "Level 2" = "level_2", -->
