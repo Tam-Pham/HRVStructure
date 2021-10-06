@@ -1,0 +1,58 @@
+level_1,level_2,indices,labels,Centrality,Max,Min,Size
+Core Variability Features,Centrality,ApEn,The Approximate Entropy,20.27532718,17,5,15.07
+Core Variability Features,Centrality,ShanEn,The Shannon Entropy,16.91073391,17,5,12.16
+Core Variability Features,Centrality,MeanNN,The mean of the NN intervals.,16.87730097,17,5,12.13
+Core Variability Features,Centrality,MedianNN,The median of the NN intervals.,16.68240744,17,5,11.97
+Core Variability Features,Centrality,MSE,The Multiscale Entropy,11.45625973,17,5,7.45
+Core Variability Features,Dispersion,MadNN,The median absolute deviation of the NN intervals,22.51071787,17,5,17
+Core Variability Features,Dispersion,IQRNN,The interquartile range (IQR) of the NN intervals,22.21687855,17,5,16.75
+Core Variability Features,Dispersion,HTI,Integral of the density of the NN interval histogram divided by its height,21.12667566,17,5,15.8
+Core Variability Features,Dispersion,SDNN,The standard deviation of the RR intervals,20.77340402,17,5,15.5
+Core Variability Features,Dispersion,pNN20,Proportion of successive NN interval differences larger than 20ms,20.62073753,17,5,15.37
+Core Variability Features,Dispersion,pNN50,Proportion of successive NN interval differences larger than 50ms,20.18127808,17,5,14.99
+Core Variability Features,Dispersion,RMSSD,Root mean square of successive NN interval differences,18.58407485,17,5,13.61
+Core Variability Features,Dispersion,MCVNN,MadNN divided by MedianNN,18.32891762,17,5,13.39
+Core Variability Features,Dispersion,CVNN,SDNN divided by MeanNN,16.96891897,17,5,12.21
+Core Variability Features,Dispersion,CVI,Cardiac Vagal Index,16.75083249,17,5,12.02
+Core Variability Features,Dispersion,SD2,The spread of NN intervals on the Poincaré plot along the line of identity.,15.73139321,17,5,11.14
+Core Variability Features,Dispersion,S,Area of ellipse in Poincaré plot,15.60427648,17,5,11.03
+Extreme Variabilities Features,Heart Rate Asymmetry,AI,The Area Index,16.4832542,17,5,11.79
+Extreme Variabilities Features,Heart Rate Asymmetry,GI,The Guzik's Index,15.5504699,17,5,10.99
+Extreme Variabilities Features,Heart Rate Asymmetry,SI,The Slope Index,15.02604233,17,5,10.53
+Extreme Variabilities Features,Heart Rate Asymmetry,Ca,The total contributions of heart rate accelerations to HRV,14.79830866,17,5,10.34
+Extreme Variabilities Features,Heart Rate Asymmetry,PI,The Porta's Index,14.36985152,17,5,9.97
+Extreme Variabilities Features,Heart Rate Asymmetry,C2a,The contributions of heart rate accelerations to long-term HRV,14.23696692,17,5,9.85
+Extreme Variabilities Features,Heart Rate Asymmetry,DFA a1 DimRange,The MDFA corresponding to short-term correlation. DimRange is the range of singularity dimensions,12.12492461,17,5,8.03
+Extreme Variabilities Features,Heart Rate Asymmetry,C1a,The contributions of heart rate accelerations to short-term HRV,11.9957541,17,5,7.92
+Extreme Variabilities Features,Heart Rate Fragmentation,IALS,The inverse of the average length of the acceleration/deceleration segments,16.58942095,17,5,11.88
+Extreme Variabilities Features,Heart Rate Fragmentation,PIP,The percentage of inflection points of the NN intervals series,16.06710464,17,5,11.43
+Extreme Variabilities Features,Heart Rate Fragmentation,PAS,The percentage of NN intervals in alternation segments,15.94278613,17,5,11.33
+Extreme Variabilities Features,Heart Rate Fragmentation,PSS,The percentage of short segments,15.49657096,17,5,10.94
+Frequency/Complexity,Absolute Frequency/Complexity,FuzzyEn,The Fuzzy Entropy,22.13151873,17,5,16.67
+Frequency/Complexity,Absolute Frequency/Complexity,LF,Power spectrum in the frequency range of 0.04-0.15 Hz,20.43351109,17,5,15.21
+Frequency/Complexity,Absolute Frequency/Complexity,SampEn,The Sample Entropy,19.01904174,17,5,13.98
+Frequency/Complexity,Absolute Frequency/Complexity,LZC,The Lempel-Ziv complexity,18.86177008,17,5,13.85
+Frequency/Complexity,Absolute Frequency/Complexity,KFD,Katz Fractal Dimension,18.6201601,17,5,13.64
+Frequency/Complexity,Absolute Frequency/Complexity,CMSE,The Composite Multiscale Entropy,17.87241088,17,5,12.99
+Frequency/Complexity,Absolute Frequency/Complexity,CD,Correlation Dimension,17.59628322,17,5,12.75
+Frequency/Complexity,Absolute Frequency/Complexity,DFA a1 ExpMean,The MDFA corresponding to short-term correlation. ExpMean is the mean of singularity exponents,17.37754521,17,5,12.57
+Frequency/Complexity,Absolute Frequency/Complexity,RCMSE,The Refined Composite Multiscale Entropy,16.58403104,17,5,11.88
+Frequency/Complexity,Absolute Frequency/Complexity,VHF,Power spectrum in the frequency range of 0.4-0.5 Hz,16.57006446,17,5,11.87
+Frequency/Complexity,Absolute Frequency/Complexity,HF,Power spectrum in the frequency range of 0.15-0.4 Hz,15.90409064,17,5,11.29
+Frequency/Complexity,Absolute Frequency/Complexity,DFA a1 ExpRange,The MDFA corresponding to short-term correlation. ExpRange is the range of singularity exponents,15.89328546,17,5,11.28
+Frequency/Complexity,Absolute Frequency/Complexity,DFA a2 DimMean,The multifractal detrended fluctuation analysis (MDFA) corresponding to long-term correlations. Dimmean is the mean of singularity dimensions,15.82794603,17,5,11.23
+Frequency/Complexity,Absolute Frequency/Complexity,LnHF,The natural logarithm of HF,12.2989294,17,5,8.18
+Frequency/Complexity,Absolute Frequency/Complexity,TINN,The baseline width of the NN interval histogram,8.619838182,17,5,5
+Frequency/Complexity,Relative Frequency/Complexity,LFn,The normalized LF,18.61582799,17,5,13.64
+Frequency/Complexity,Relative Frequency/Complexity,DFA a1,The DFA corresponding to short-term corrleation,16.37579008,17,5,11.7
+Frequency/Complexity,Relative Frequency/Complexity,DFA a2,The DFA corresponding to long-term correlation,16.33732348,17,5,11.67
+Frequency/Complexity,Relative Frequency/Complexity,LFHF,The ratio between LF and HF,16.32606584,17,5,11.66
+Frequency/Complexity,Relative Frequency/Complexity,DFA a2 DimRange,The MDFA corresponding to long-term correlation. DimRange is the range of singularity dimensions,15.89847803,17,5,11.29
+Frequency/Complexity,Relative Frequency/Complexity,HFD,Higuchi Fractal Dimension,15.88811694,17,5,11.28
+Frequency/Complexity,Relative Frequency/Complexity,SD1SD2,The ratio between short and long term fluctuations of the NN intervals,15.87193616,17,5,11.26
+Frequency/Complexity,Relative Frequency/Complexity,DFA a2 ExpMean,The MDFA corresponding to long-term correlation. ExpMean is the mean of singularity exponents,15.62139124,17,5,11.05
+Frequency/Complexity,Relative Frequency/Complexity,DFA a1 DimMean,The MDFA corresponding to short-term correlation. DimMean is the mean of singularity dimensions,15.51349228,17,5,10.96
+Frequency/Complexity,Relative Frequency/Complexity,DFA a2 ExpRange,The MDFA corresponding to long-term correlation. ExpRange is the range of singularity exponents,15.44078883,17,5,10.89
+Frequency/Complexity,Relative Frequency/Complexity,CSI (modified),The Cardiac Symapathetic Index (modified),13.51052965,17,5,9.22
+Frequency/Complexity,Relative Frequency/Complexity,HFn,The normalized HF,13.15411588,17,5,8.92
+Frequency/Complexity,Relative Frequency/Complexity,CSI,The Cardiac Sympathetic Index,11.0550513,17,5,7.1
