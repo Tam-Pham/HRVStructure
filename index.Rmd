@@ -1,6 +1,6 @@
 ---
-title: '**Conceptual vs. Observed Structure of Heart Rate Variability (HRV) Indices**'
-subtitle: "Data Analysis"
+title: '**Unveiling the Structure of Heart Rate Variability (HRV) Indices: A Data-driven Meta-clustering Approach**'
+subtitle: "Supplementary Materials"
 output:
   bookdown::html_document2:
     self_contained: false
@@ -59,7 +59,7 @@ source_rmd <- function(x){
 # This chunk is a bit complex so don't worry about it: it's made to add badges to the HTML versions
 # NOTE: You have to replace the links accordingly to have working "buttons" on the HTML versions
 if (!knitr::is_latex_output() && knitr::is_html_output()) {
-  cat("![Build](https://github.com/Tam-Pham/HRVStructure/workflows/Build/badge.svg)
+  cat("
       [![Website](https://img.shields.io/badge/repo-Readme-2196F3)](https://github.com/Tam-Pham/HRVStructure)
       [![Website](https://img.shields.io/badge/visit-website-E91E63)](https://realitybending.github.io/TemplateResults/)
       [![Website](https://img.shields.io/badge/download-.docx-FF5722)](https://github.com/RealityBending/TemplateResults/raw/main/word_and_pdf/SupplementaryMaterials.docx)
@@ -69,19 +69,17 @@ if (!knitr::is_latex_output() && knitr::is_html_output()) {
 
 <!-- ABSTRACT -->
 
-Heart Rate Variability (HRV) can be estimated using a myriad of mathematical indices, for which the lack of comparison renders results' interpretation and evaluation tedious. In this study, we assessed the relationship between 42 HRV metrics collected from Human recordings (n = 531) using various structure-analysis algorithms. We then applied a metaclustering approach that combines their results to obtain a robust and reliable view of the observed relationships. We found that HRV metrics can be clustered into 4 groups, representing .... From there, we derived recommendations on which indices to prioritize for parsimonious, yet comprehensive HRV-related data analysis and reporting.
+Heart Rate Variability (HRV) can be estimated using a myriad of mathematical indices, but the lack of systematic comparison between these indices renders the interpretation and evaluation of results tedious. In this study, we assessed the relationship between 57 HRV metrics collected from 302 human recordings using a variety of structure-analysis algorithms. We then applied a meta-clustering approach that combines their results to obtain a robust and reliable view of the observed relationships. We found that HRV metrics can be clustered into 3 groups, representing the distribution-related features, harmony-related features and frequency/complexity features. From there, we described and discussed their associations, and derived recommendations on which indices to prioritize for parsimonious, yet comprehensive HRV-related data analysis and reporting.
 
 <!-- introduce hrv -->
 
 Heart Rate Variability (HRV), reflecting the heart's ability to effectively regulate and adapt to internal and external environmental changes, has been linked with many physical and mental health outcomes [e.g., cardiac complications, @laitio2007role, diabetes, @kudat2006heart, mood disorders, @bassett2016literature, cognitive functioning, @forte2019heart]. Conventionally, the various indices used in the assessment of HRV were broadly categorized based on the nature of their mathematical approach, in categories including *time-domain*, *frequency-domain*, and *nonlinear dynamics*.
 
-<!-- is attributed to the dynamic interplay between the sympathetic and parasympathetic branches of the autonomic nervous system -->
 
 <!-- main categories -->
 
 Time-domain analysis presents the simplest and most straightforward method of quantifying HRV from the original normal (i.e., excluding abnormal beats such as ectopic beats) heartbeat intervals or NN intervals. Some commonly derived indices include *SDNN*, the standard deviation of all NN intervals, *RMSSD*, the root mean square of the sum of successive differences of NN intervals, and *pNN50*, the percentage of adjacent NN intervals separated by more than 50ms. While time-domain methods offers computational ease, they are unable to distinguish between the contributions of sympathetic and parasympathetic branches. Frequency-domain analysis, on the other hand, targets the assessment of these different regulatory mechanisms by investigating how the HRV power spectrum distributes across different frequency bands (e.g, low frequency, *LF* or high frequency, *HF*). Other indices that fall under the frequency domain include derivatives of the aforementioned components, such as the ratio of *LF* to *HF* (*LF/HF*) power and their normalized (e.g., *LFn*, *HFn*) and natural logarithmic variants (e.g., *LnHF*). Finally, drawn from concepts of non-linear dynamics and chaos theory [@golberger1996non], non-linear analysis was later introduced to better characterize the complex physiological mechanisms underlying HRV regulation. Prominent indices include measures obtained from a Poincaré plot where an ellipse is fitted to a scatterplot of each NN interval against its preceding one [e.g., the standard deviation of the short-term, *SD1* and long-term, *SD2* NN interval variability, as well as its corresponding ratio, *SD1/SD2*, @brennan2001existing]. Other non-linear indices that fall under this category, such as Detrended Fluctuation Analysis (*DFA*), multi-fractal *DFA* (*MF-DFA*) and correlation dimension (*CD*), account for the fractal properties of HRV, while entropy measures like approximate entropy (*ApEn*), sample entropy (*SampEn*), and multiscale entropy (*MSE*) quantify the amount of regularity in the HR time series [@voss2009methods]. For a more comprehensive description of all HRV indices, see @pham2021heart.
 
-<!-- The low frequency (*LF*; 0.04--0.15Hz) and high frequency (*HF*; 0.15--0.4 Hz) components, the two main indicators of ANS activity [@acharya2006heart], predominantly reflect sympathetic and parasympathetic activity respectively. The other two components measured at very low frequencies (*VLF*; 0.0033--0.04 Hz) and ultra low frequencies (*ULF* low frequency $\leq$ 0.003 Hz) are less clear in regards to their associated physiological mechanisms [@kleiger2005heart], though some evidence has linked the former to long-term regulatory mechanisms [@akselrod1981power] and the latter to circadian and metabolic activity [@shaffer2014healthy]. -->
 
 <!-- overlap and duplicates in indices, aim of study -->
 
@@ -89,39 +87,27 @@ Despite the rising popularity of HRV analysis as a real-time, noninvasive techni
 
 Overall, there is a need for a greater data-driven understanding of the relationship between the multitude of HRV indices and their respective groupings. While there exist different approaches to assign data to different groups based on their level of associations [see @nguyen2019improving], there is no gold standard or clear guidelines to determine the most appropriate method for grouping of physiological indices. As such, choosing one method and presenting its solution as a definitive one can be uninformative or even misleading. The aim of this study is to explore the structure of HRV indices by using a consensus-based methodology [@kuncheva2014combining; @monti2003consensus; @bhattacharjee2001classification], hereafter referred to as *meta-clustering*, where the results of multiple structure analysis approaches are systematically combined to highlight the most robust associations between the indices. 
 
-<!--may be useful to have glossary of indices-->
 
 # Methods
 
-In total, the electrocardiogram (ECG) data of 330 participants were extracted from 5 databases. The raw data as well as the entire analysis script (including details and additional analyses) can be found at this GitHub repository (<https://github.com/Tam-Pham/HRVStructure>).
+In total, the electrocardiogram (ECG) data of 302 participants were extracted from 6 databases. The raw data as well as the entire analysis script (including details and additional analyses) can be found at this GitHub repository (<https://github.com/Tam-Pham/HRVStructure>).
 
 ## Databases
 
-### Glasgow University Database (GUDB)
 
-This database [@howell2018high] contains 25 ECG recordings from 25 participants. All participants were 18 year-old and above and had no known cardiovascular conditions. Each participant was recorded performing five different tasks for two-minute (sitting, doing a maths test on a tablet, walking on a treadmill, running on a treadmill, using a hand bike). All recordings were sampled at 250Hz. The script to download and format the database using the [**ECG-GUDB**](https://github.com/berndporr/ECG-GUDB) Python package by @howell2018high can be found [**here**](https://github.com/neuropsychology/NeuroKit/blob/dev/data/gudb/download_gudb.py).
-
-### MIT-BIH Arrhythmia Database (MIT-Arrhythmia)
-
-This database [@moody2001impact] contains 48 ECG recordings of two-channel ambulatory ECG recordings from 47 participants (25 men, 32-89 year-old; 22 women, 23-89 year-old). 23 recordings were from a mixed population of patients and 25 recordings were taken from the same population but included less common and more clinically significant arrhythmia (denoted as the `MIT-Arrhythmia-x` database). All recordings were sampled 360Hz and lasted for 30-minute. The script to download and format the database can be found [**here**](https://github.com/neuropsychology/NeuroKit/blob/dev/data/mit_arrhythmia/download_mit_arrhythmia.py).
+The Glasgow University Database (GUDB) database [@howell2018high] contains ECG recordings from 25 healthy participants (\> 18 years old) performing five different two-minute tasks (sitting, doing a maths test on a tablet, walking on a treadmill, running on a treadmill, using a handbike). All recordings were sampled at 250 Hz.
 
 
-### MIT-BIH Normal Sinus Rhythm Database (MIT-Normal)
+The MIT-BIH Arrhythmia Database (MIT-Arrhythmia and MIT-Arrhythmia-x) database [@moody2001impact] contains 48 ECG recordings (25 men, 32-89 years old; 22 women, 23-89 years old) from a mixed population of patients. All recordings were sampled at 360 Hz and lasted for 30 minutes.
 
-This database [@goldberger2000physiobank] contains 18 clean long-term ECG recordings from 18 participants (5 men, 26-45 year-old; 13 women, 20-50 year-old). All recordings were sampled at 128Hz and due to memory limits, we only kept the second hour of each recording. The script to download and format the database can be found [**here**](https://github.com/neuropsychology/NeuroKit/blob/dev/data/mit_normal/download_mit_normal.py).
+The Fantasia database [@iyengar1996age] contains ECG recordings from 20 young (21-34 years old) and 20 elderly (68-85 years old) healthy participants. All participants remained in a resting state in sinus rhythm while watching the movie Fantasia (Disney, 1940) that helped to maintain wakefulness. All recordings were sampled at 250 Hz and lasted for 120 minutes.
 
 
-<!-- ### Lobachevsky University Electrocardiography Database -->
+The MIT-BIH Normal Sinus Rhythm Database (MIT-Normal) database [@goldberger2000physiobank] contains long-term ($\approx$. 24h) ECG recordings from 18 participants (5 men, 26-45 years old; 13 women, 20-50 years old). All recordings were sampled at 128 Hz and due to memory limits, we kept only the second and third hours of each recording (with the loose assumption that the first hour might be less representative of the rest of the recording and a duration of 120 minutes to match those from Fantasia database).
 
-<!-- The Lobachevsky University Electrocardiography Database [LUDB; @kalyakulina2018lu] consists of 200 10-second 12-lead ECG signal records representing different morphologies of the ECG signal. The ECGs were collected from healthy volunteers and patients, which had various cardiovascular diseases. The boundaries of P, T waves and QRS complexes were manually annotated by cardiologists for all 200 records. -->
+The MIT-BIH Long-term ECG Database (MIT-Long-term) database [@goldberger2000physiobank] contains long-term (14 to 22 hours each) ECG recordings from 7 participants (6 men, 46-88 years old; 1 woman, 71 years old). All recordings were sampled at 128 Hz and due to memory limits, we kept only the second and third hours of each recording.
 
-### Fantasia Database
-
-This database [@iyengar1996age] contains 40 recordings from 20 young (21-34 year-old) and 20 elderly (68-85 years old) healthy participants. All participants remained in a resting state in sinus rhythm while watching the movie Fantasia (Disney, 1940) to help maintain wakefulness. All recordings were sampled at 250 Hz and lasted for 120 minutes. The script to download and format the database can be found [**here**](https://github.com/neuropsychology/NeuroKit/blob/master/data/fantasia/download_fantasia.py).
-
-### Resting-state Dataset
-
-The remaining of the data came from resting-state recordings of authors' other empirical studies [**CITE COCON1**]. This dataset contains 79 recordings from 79 participants. All participants (23 men and 56 woman) were 18 year-old and above and had no known cardiovascular conditions. All recordings were sampled at 4000Hz and lasted for 8-minute during which participants remained in a resting state with their eyes closed.  
+The last dataset came from resting-state <https://github.com/neuropsychology/RestingState> recordings of authors' other empirical studies. This dataset contains ECG recordings sampled at 4000 Hz from 43 healthy participants (\> 18 years old) that underwent 8 minutes of eyes-closed, seated position, resting state.
 
 ## Data Processing
 
@@ -135,40 +121,6 @@ In this analysis, we first correlated the HRV indices [using the `correlations` 
 
 Data processing was carried out with R [@R-base] and the *easystats* ecosystem [@ludecke2019insight; @makowski2019bayestestr]. The raw data, as well as the full reproducible analysis script, including additional description of each approach and the solutions of each individual clustering method, are available at this GitHub repository (<https://github.com/Tam-Pham/HRVStructure>).
 
-## Procedure
-
-```{python, eval=FALSE, echo=FALSE}
-import pandas as pd
-import numpy as np
-import neurokit2 as nk
-
-# Load True R-peaks location
-datafiles = [pd.read_csv("../../data/gudb/Rpeaks.csv"),
-             pd.read_csv("../../data/mit_arrhythmia/Rpeaks.csv"),
-             pd.read_csv("../../data/mit_normal/Rpeaks.csv"),
-             pd.read_csv("../../data/fantasia/Rpeaks.csv")]
-
-# Get results
-all_results = pd.DataFrame()
-
-for file in datafiles:
-    for database in np.unique(file["Database"]):
-        data = file[file["Database"] == database]
-        for participant in np.unique(data["Participant"]):
-            data_participant = data[data["Participant"] == participant]
-            sampling_rate = np.unique(data_participant["Sampling_Rate"])[0]
-            rpeaks = data_participant["Rpeaks"].values
-
-            results = nk.hrv(rpeaks, sampling_rate=sampling_rate)
-            results["Participant"] = participant
-            results["Database"] = database
-            results["Recording_Length"] = rpeaks[-1] / sampling_rate / 60
-
-            all_results = pd.concat([all_results, results], axis=0)
-
-all_results.to_csv("data/data.csv", index=False)
-```
-
 # Results
 
 ```{r, message=FALSE, warning=FALSE, results='hide'}
@@ -176,10 +128,9 @@ library(tidyverse)
 library(easystats)
 
 data <- read.csv("data/data_combined.csv", stringsAsFactors = FALSE) %>% 
-  select(-HRV_ULF, -HRV_VLF) %>%  # Empty
+  select(-HRV_ULF, -HRV_VLF) %>%  # insufficient recording length to compute
   select(-HRV_SDANN1, -HRV_SDANN2, -HRV_SDANN5, 
-         -HRV_SDNNI1, -HRV_SDNNI2, -HRV_SDNNI5) %>% 
-  # filter(Database != "LUDB") %>% # too short recordings, many indices didn't converge
+         -HRV_SDNNI1, -HRV_SDNNI2, -HRV_SDNNI5) %>% # insufficient recording length to compute
   setNames(stringr::str_remove(names(.), "HRV_")) %>% 
   mutate_all(function(x) {
     x[is.infinite(x)] <- NA
@@ -200,9 +151,10 @@ cat("This study includes",
 library(patchwork)
 library(tidyverse)
 library(easystats)
+library(GPArotation)
 
 
-# # To run things locally: CTRL + ALT + SHIFT + P, and then the next two lines
+# To run things locally: CTRL + ALT + SHIFT + P, and then the next two lines
 source_rmd("0_ConvenienceFunctions.Rmd")
 source_rmd("1_Preprocessing.Rmd")
 source_rmd("3_Dimensions.Rmd")

@@ -56,7 +56,7 @@ abs(m - 1) %>%
   scale_fill_gradient2(low = "#2196F3", mid = "#9C27B0", high = "#FF5722", midpoint = 0.5) +
   labs(title = "Metaclustering Heatmap", subtitle = "Probability of being grouped together accross multiple methods.")
 
-# ggsave("figures/figure_probability_matrix.png", width=12, height=9)
+ggsave("figures/figure_probability_matrix.png", width=12*0.9, height=9*0.9, dpi = 450)
 ```
 
 ### Hierarchical Structure of Metaclustering
@@ -155,9 +155,9 @@ graph %>%
 <!-- #### Create table -->
 
 <!-- ```{r, message=FALSE, warning=FALSE, eval=FALSE, echo=FALSE} -->
-<!-- level_1 <- c(rep("Core Variability Features", 17), -->
+<!-- level_1 <- c(rep("Distribution", 17), -->
 <!--              rep("Frequency/Complexity", 28), -->
-<!--              rep("Extreme Variabilities Features", 12)) -->
+<!--              rep("Harmony", 12)) -->
 
 <!-- level_2 <- c(rep("Dispersion", 12), -->
 <!--              rep("Centrality", 5), -->
@@ -238,7 +238,8 @@ graph %>%
 <!-- df_summary$Centrality <- as.data.frame(centrality)[df_summary$indices, ] -->
 <!-- df_summary <- df_summary %>% -->
 <!--   group_by(level_1, level_2) %>% -->
-<!--   arrange(desc(Centrality), .by_group = TRUE) -->
+<!--   arrange(desc(Centrality), .by_group = TRUE) %>%  -->
+<!--   mutate(Centrality = round(Centrality, digits = 1)) -->
 <!--   # rename("Level 1" = "level_1", -->
 <!--   #        "Level 2" = "level_2", -->
 <!--   #        "HRV Indices" = "indices", -->

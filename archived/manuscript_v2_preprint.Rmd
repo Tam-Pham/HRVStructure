@@ -28,12 +28,12 @@ authornote: |
 abstract: |
   Heart Rate Variability (HRV) can be estimated using a myriad of mathematical indices, but the lack of systematic comparison between these indices renders the interpretation and evaluation of results tedious. In this study, we assessed the relationship between 57 HRV metrics collected from 302 human recordings using a variety of structure-analysis algorithms. We then applied a meta-clustering approach that combines their results to obtain a robust and reliable view of the observed relationships. We found that HRV metrics can be clustered into 3 groups, representing the core variability features, extreme variability features and frequency/complexity features. From there, we described and discussed their associations, and derived recommendations on which indices to prioritize for parsimonious, yet comprehensive HRV-related data analysis and reporting.
 output:
-  papaja::apa6_word:
-    keep_tex: yes
   papaja::apa6_pdf:
     keep_tex: yes
+  papaja::apa6_word:
+    keep_tex: yes
 keywords: "HRV, ECG, Clustering"
-wordcount: '4088'
+wordcount: '4301'
 bibliography: ["references.bib"]
 floatsintext: yes
 figsintext: yes
@@ -44,11 +44,13 @@ linenumbers: yes
 mask: no
 draft: no
 documentclass: "apa6"
-classoption: "man"
+classoption: "jou"
 header-includes:
 - \usepackage[labelfont=bf, font={color=gray,small}]{caption}
 - \usepackage{float}
 - \usepackage[document]{ragged2e}
+- \usepackage{booktabs}
+- \usepackage{makecell}
 csl: utils/apa.csl
 ---
 
@@ -105,11 +107,6 @@ We started by identifying indices that were near-perfect duplicates (\|r\| \> 0.
 
 The *meta-clustering* approach [@ludecke2020extracting; which finds echoes in *consensus clustering*; see @monti2003consensus] treats the unique clustering solutions as an ensemble, from which a probability matrix is derived (see **Figure 1**). This matrix contains, for each pair of HRV indices, the probability of being grouped together. For instance, if two indices have been assigned to a similar cluster by 5 out of 10 clustering methods, then the probability associated with this pair is 0.5. This probability matrix is then treated as a distance matrix and submitted to hierarchical clustering. Essentially, this approach is based on the notion that, as each clustering algorithm embodies a different angle by which it sees the data, cross-validating the phenomenon of interest using different angles leads to more accurate results.
 
-```{r Figure1, message=FALSE, warning=FALSE, fig.cap="Probability Matrix that represents the probability each pair of HRV indices being assigned to the same cluster", fig.align='center', echo=FALSE, out.width = "0.95\\textwidth", fig.pos = "!ht"}
-knitr::include_graphics("figures/figure_probability_matrix.png")
-```
-
-
 # Results
 
 Indices that were appeared as redundant in the correlation analysis, and subsequently removed, included 1) *SDSD*, *SD1*, *SD1a* and *SD1d* (duplicates of RMSSD); 2) *SDNNa* and *SDNNd* (duplicates of *SDNN*); 3) *SD2a* and *SD2d* (duplicates of *SD2*); 4) *Cd* (duplicate of *Ca*); 5) *C1d* (duplicate of *C1a*); and 6) *C2d* (duplicate of *C2a*). The indices that were kept were selected based on their higher popularity (e.g., *RMSSD*) or functional meaning (e.g., acceleration for *Ca*).
@@ -128,33 +125,25 @@ Finally, two solutions were extracted from the network-based EGA approach using 
 
 <!-- Meta-Clustering -->
 
-Using the fifteen structure solutions from the aforementioned methods, we computed the probability matrix representing each pair of HRV indices being assigned to the same cluster (see **Figure 1**). The matrix was inverted to form a distance matrix and submitted to hierarchical cluster analysis with average linkage method. The results of the *meta-clustering* approach are presented in **Figure 2**. The most closely related clusters of indices include the cluster of time-domain indices (e.g., *RMSSD*, *pNN50*, *SDNN*, *MadNN*), the cluster of heart rate asymmetry indices (*HRA*; e.g., *PAS*, *PSS*, *PIP*), the cluster of heart rate fragmentation indices (*HRF*; e.g., *PI*, *GI*, *AI*), and the cluster of *DFA* indices with the low-frequency indices (e.g., *LFHF*, *LFn*). The remaining indices, which include the high-frequency indices (e.g., *HF*, *HFn*) and the different non-linear indices (e.g., *CD*, *LZC*, *SampEn*, *FuzzyEn*) were relatively closely related to each other in the final structure. The cluster memberships (Level 2 in **Table 1**) were determined by a vertical height cut at 0.8 and within each cluster, the center was identified as the average value of all members. The relative distances from the center, representing the members' centrality level or degree of cluster representativeness, were calculated and summarized in **Table 1**.
+Using the fifteen structure solutions from the aforementioned methods, we computed the probability matrix representing each pair of HRV indices being assigned to the same cluster (see **Figure 1**). The matrix was inverted to form a distance matrix and submitted to hierarchical cluster analysis with average linkage method. The results of the *meta-clustering* approach are presented in **Figure 2**. The most closely related clusters of indices include the cluster of time-domain indices (e.g., *RMSSD*, *pNN50*, *SDNN*, *MadNN*), the cluster of heart rate asymmetry indices (*HRA*; e.g., *PAS*, *PSS*, *PIP*), the cluster of heart rate fragmentation indices (*HRF*; e.g., *PI*, *GI*, *AI*), and the cluster of *DFA* indices with the low-frequency indices (e.g., *LFHF*, *LFn*). The remaining indices, which include the high-frequency indices (e.g., *HF*, *HFn*) and the different non-linear indices (e.g., *CD*, *LZC*, *SampEn*, *FuzzyEn*) were relatively closely related to each other in the final structure. The cluster memberships (Level 2 in **Table 1**) were determined by a vertical height cut at 0.8 and within each cluster, the center was identified as the average value of all members. The relative distances from the center, representing the members' centrality values or degree of cluster representativeness, were calculated and summarized in **Table 1**.
 
-- Insert FIGURE 2 (dendrogram) about here -
-
-```{r table1word, include=TRUE, eval=TRUE, echo = FALSE, warning=FALSE, message=FALSE}
-# For word
-indices_table <- read.csv("figures/Summary_Table.csv") %>%
-  rename("Level 1" = "level_1",
-         "Level 2" = "level_2",
-         "HRV Indices" = "indices",
-         "Description" = "labels") %>% 
-  mutate(Centrality = round(Centrality, digits = 1))
-knitr::kable(indices_table,
-             format="markdown",
-             caption = "A summary of HRV indices according to their respective cluster memberships in the final meta-clustering dendogram, together with their centrality values.") %>%
-  kableExtra::kable_styling(full_width = FALSE, font_size = 10)
+```{r Figure1, message=FALSE, warning=FALSE, fig.cap="Probability Matrix that represents the probability each pair of HRV indices being assigned to the same cluster. The probability can take any value from 0, which indicates that no solution assigned the two indices to the same cluster, to 1, which indicates that all solutions suggested the two indices belong to the same group. The absolute proximity of every variable with itself is represented by the main diagonal in red (probability = 1). From the heatmap, we can see a clear structure of 6 clusters, corresponding to the Level 2 groupings in Table 1, emerged. As compared to the other clusters, the two big clusters in the centre of the heatmap, `Absolute` and Relative`, are less clear.", echo=FALSE, out.width = "0.50\\textwidth"}
+knitr::include_graphics("figures/figure_probability_matrix.png")
 ```
 
 # Discussion
 
 In this study, we applied various structure analysis techniques to explore the relationships between HRV indices. By combining the domain knowledge from a multitude of statistical methods, the meta-clustering approach maximizes the stability of the final HRV structure and circumvents the lack of objective criteria for the selection of techniques. The meta-clustering solution presented in **Figure 2** yielded an intriguing and complex pattern of associations and groupings, with three overarching clusters observed at the top level (Level 1 in **Table 1**) that we will now describe and discuss. 
 
-The first main group, henceforth labelled as “core variability features”, comprises predominantly time-domain indices. The groupings within this cluster suggest that it includes indices particularly sensitive to two fundamental features to summarize a variable, namely central tendency and dispersion. One can observe the presence of a distinct sub-cluster made of *MeanNN* and *MedianNN*, which describes the centre of the distribution of HR. The second sub-cluster includes different mathematical descriptions of dispersion (e.g., the *SD*, the *IQR* or the *MAD* of NN intervals). These dispersion indices are further grouped in accordance with their statistical properties and formulations. For instance, *pNN20* and *pNN50*, which share the same statistical origin of threshold-based variability [@kim2009pnnx], are the closest to each other. *MCVNN* or *MadNN* are dispersion indices that are more robust against extreme values [@pham2021heart], are closer to the geometrical-based index *HTI*, while *CVNN*, *SDNN* and *SD2*, which are more sensitive to outliers [@leys2013detecting], are in close proximity to each other. Indices that focus on the difference between successive NN intervals, such as *RMSSD*, *CVI* and *S*, are clustered together. These groupings are consistent with the existing literature [@malik1996heart; @guzik2007correlations; @shaffer2014healthy; @pham2021heart; @antink2021accuracy]. Regarding their relative importance, measured by their centrality values, *MadNN*, *IQRNN*, *HTI*, *pNN20*, and *SDNN* appear to be the most representative dispersion indices. However, the difference between their centrality level is marginal (as illustrated by the size of the nodes in **Figure 2** and their centrality values in **Table 1**). Consequently, choosing to prioritize the most commonly used dispersion indices, such as *SDNN* and *RMSSD* [@billman2011heart] can be seen as appropriate. An alternative option would be to focus on *MadNN*, *pNN20*, and *RMSSD*, which together offer better coverage of the fine-grained sub-groupings.
+```{r Figure2, message=FALSE, warning=FALSE, fig.cap="Meta-Clustering Hierarchical Structure. The Level 1 clusters, determined at a vertical height cut of 0.9, include Distribution, Frequency/Complexity and Harmony. The Level 2 clusters, determined at a vertical height cut of 0.8, include Dispersion, Centrality, Absolute, Relative, Fragmentation and Asymmetry. The Level 3 clusters were only determined for groups where literature corrborates the associations between the indices. The hierarchical links are grey for associations that are less clear. The colors and the sizes of the nodes are according to their Level 2 groupings and their centrality values respectively; the bigger the nodes, the closer the indices to the cluster centres and the more representative they are of the indices's shared characteristics.", echo=FALSE, out.width = "0.50\\textwidth"}
+knitr::include_graphics("figures/figure_dendrogram.png")
+```
 
-The second main group, henceforth labelled as “extreme variability features”, comprises indices that are formulated to capture the abnormal variants of sinus rhythm. One of the two sub-clusters in this group includes only *HRA* indices which measure the asymmetric contribution of HR acceleration and deceleration to HRV [@guzik2006heart; @piskorski2011asymmetric; @yan2017area]. At the lower level in the hierarchical structure, depending on the asymmetric focus of the indices, the *HRA* sub-cluster is further divided into two groups, namely acceleration (e.g., *PI*, *Ca*) or deceleration (e.g., *AI*, *GI*, *SI*). At the higher level, this sub-cluster is joined with a distinct group of *HRF* indices, which measure the "erratic" behaviours in heart rhythm, manifesting as abrupt and high frequency switching between the increases and decreases of HR [@costa2017heart; @costa2018heart]. This study is the first that examined the relationships between *HRA* and *HRF* indices and therefore, the specific physiological mechanisms underlying their close proximity should be further investigated. Nevertheless, as existing literature has highlighted the diagnostic values of both indices, especially for cardiac disorders [@bergfeldt2003power; @karmakar2012investigating; @guzik2013obstructive; @costa2017heart; @costa2018heart; @costa2019heart; @rohila2020asymmetric], possible explanations for their close associations could stem from their ability to capture specific shared cardiac abnormalities. The centrality values of the indices in this group suggest that *PI* and *AI* are the most representative indices of *HRA*. While there exists only a minute difference between the centrality values of *HRF* indices, given that *PAS* quantifying a sub-type of fragmentation that is not always accordant with the other values [@costa2017heart], we recommend reporting *PAS* with at least another *HRF* indices to more comprehensively capture the nature of fragmentation.
+The first main group, henceforth labelled as “distribution”, comprises predominantly time-domain indices. The groupings within this cluster suggest that it includes indices particularly sensitive to two fundamental statistical features of a variable distribution [@cardinal2015central], namely central tendency and dispersion. One can observe the presence of a distinct sub-cluster made of *MeanNN* and *MedianNN*, which describes the centre of the distribution of HR. The second sub-cluster includes different mathematical descriptions of dispersion (e.g., the *SD*, the *IQR* or the *MAD* of NN intervals). These dispersion indices are further grouped in accordance with their statistical properties and formulations. For instance, *pNN20* and *pNN50*, which share the same statistical origin of threshold-based variability [@kim2009pnnx], are the closest to each other. *MCVNN* or *MadNN* are dispersion indices that are more robust against extreme values [@pham2021heart], are closer to the geometrical-based index *HTI*, while *CVNN*, *SDNN* and *SD2*, which are more sensitive to outliers [@leys2013detecting], are in close proximity to each other. Indices that focus on the difference between successive NN intervals, such as *RMSSD*, *CVI* and *S*, are clustered together. These groupings are consistent with the existing literature [@malik1996heart; @guzik2007correlations; @shaffer2014healthy; @pham2021heart; @antink2021accuracy]. Regarding their relative importance, measured by their centrality values, *MadNN*, *IQRNN*, *HTI*, *pNN20*, and *SDNN* appear to be the most representative dispersion indices. However, the difference between their centrality level is marginal (as illustrated by the size of the nodes in **Figure 2** and their centrality values in **Table 1**). Consequently, choosing to prioritize the most commonly used dispersion indices, such as *SDNN* and *RMSSD* [@billman2011heart] can be seen as appropriate. An alternative option would be to focus on *MadNN*, *pNN20*, and *RMSSD*, which together offer better coverage of the fine-grained sub-groupings.
 
-The third high-level cluster comprises mainly frequency-domain and complexity-based HRV indices, and is henceforth descriptively labelled as “frequency/complexity”. The high level of similarity between *DFA* and frequency-weighted spectral indices align with previous literature that has theoretically demonstrated and empirically verified their proximity [@francis2002physiological; @young2015we; @captur2017fractal; @lensen2020heart]. Specifically, \alpha1 component has been shown to be particularly sensitive to the proportion of low-frequency fluctuations (e.g., *LFn*, *LFHF*) in the signal and \alpha2 component to that of very-low-frequency variabilities [@francis2002physiological; @captur2017fractal]. Nevertheless, due to the constraint of recording lengths, *VLF* indices could not be properly examined in this study to verify their relationship with \alpha2. The sub-cluster of *DFA* and low-frequency components also includes some *MDFA* indices such as multi-fractal dimensional ranges and dimensional means. These indices are relatively new quantifications of HRV, and thus future studies should attempt to explore them in tandem with more traditional HRV indices to better understand the underlying reason for these observed relationships. Except for three entropy-based measures - *ApEn*, *ShanEn* and *MSE* - which seem to be more related to the centrality-based indices in the core variability features, all complexity-based indices appear to fall within this frequency-complexity cluster. To our knowledge, given the novelty of complexity-based indices in the study of HRV, only one study has examined their relationships with other HRV indices. In line with our results, @rohila2020correlation similarly observed a strong association between frequency-based and complexity-based measures. Further investigation is thus needed to understand the origins underlying their stable associations.
+The second main group, henceforth labelled as “harmony”, comprises indices that are formulated to capture the abnormal properties of sinus rhythm and are sensitive to the stability of HRV. One of the two sub-clusters in this group includes only *HRA* indices which measure the asymmetric contribution of HR acceleration and deceleration to HRV [@guzik2006heart; @piskorski2011asymmetric; @yan2017area]. At the lower level in the hierarchical structure, depending on the asymmetric focus of the indices, the *HRA* sub-cluster is further divided into two groups, namely acceleration (e.g., *PI*, *Ca*) or deceleration (e.g., *AI*, *GI*, *SI*). At the higher level, this sub-cluster is joined with a distinct group of *HRF* indices, which measure the "erratic" behaviours in heart rhythm, manifesting as abrupt and high frequency switching between the increases and decreases of HR [@costa2017heart; @costa2018heart]. This study is the first that examined the relationships between *HRA* and *HRF* indices and therefore, the specific physiological mechanisms underlying their close proximity should be further investigated. Nevertheless, as existing literature has highlighted the diagnostic values of both indices, especially for cardiac disorders [@bergfeldt2003power; @karmakar2012investigating; @guzik2013obstructive; @costa2017heart; @costa2018heart; @costa2019heart; @rohila2020asymmetric], possible explanations for their close associations could stem from their ability to capture specific shared cardiac abnormalities. The centrality values of the indices in this group suggest that *PI* and *AI* are the most representative indices of *HRA*. While there exists only a minute difference between the centrality values of *HRF* indices, given that *PAS* quantifying a sub-type of fragmentation that is not always accordant with the other values [@costa2017heart], we recommend reporting *PAS* with at least another *HRF* indices to more comprehensively capture the nature of fragmentation.
+
+The third high-level cluster comprises mainly frequency-domain and complexity-based HRV indices, and is henceforth descriptively labelled as “frequency/complexity”. The high level of similarity between *DFA* and frequency-weighted spectral indices align with previous literature that has theoretically demonstrated and empirically verified their proximity [@francis2002physiological; @young2015we; @captur2017fractal; @lensen2020heart]. Specifically, $\alpha1$ component has been shown to be particularly sensitive to the proportion of low-frequency fluctuations (e.g., *LFn*, *LFHF*) in the signal and $\alpha2$ component to that of very-low-frequency variabilities [@francis2002physiological; @captur2017fractal]. Nevertheless, due to the constraint of recording lengths, *VLF* indices could not be properly examined in this study to verify their relationship with $\alpha2$. The sub-cluster of *DFA* and low-frequency components also includes some *MDFA* indices such as multi-fractal dimensional ranges and dimensional means. These indices are relatively new quantifications of HRV, and thus future studies should attempt to explore them in tandem with more traditional HRV indices to better understand the underlying reason for these observed relationships. Except for three entropy-based measures - *ApEn*, *ShanEn* and *MSE* - which seem to be more related to the centrality-based indices in the core variability features, all complexity-based indices appear to fall within this frequency-complexity cluster. To our knowledge, given the novelty of complexity-based indices in the study of HRV, only one study has examined their relationships with other HRV indices. In line with our results, @rohila2020correlation similarly observed a strong association between frequency-based and complexity-based measures. Further investigation is thus needed to understand the origins underlying their stable associations.
 
 A few limitations have to be underlined. Firstly, the lack of data with very long recordings limited the exploration of indices sensitive to very slow rhythms. Additionally, there were substantial discrepancies in the recording lengths of the different databases used. Although recording length can affect the quality and accuracy of several HRV indices [@chou2021effects], our data analysis assumed - by design - that the relationship between indices is invariant across time (i.e., that the proximity of two indices does not change for short and long recordings). Although this assumption seems mathematically justified, the alternative hypothesis remains an avenue opened for exploration. Secondly, the databases involved participants with different characteristics (in terms of health or demographic variables). Similarly, this is not an issue in and of itself, as our study was focused on the relationship between indices, rather than between (groups of) individuals. It is, however, also not impossible that the relationship between indices (and thus, the cluster structure) might marginally change in specific populations (e.g., severe heart diseases), and such speculations could be investigated in further studies. Finally, we treated each clustering approach and solution equally and assigned equal weights to the different methods in our final meta-clustering model. Future studies providing evidence that some approaches are inherently better or worse for the analysis of these physiological indices could be integrated within a meta-clustering approach by assigning different weights to different methods, based on prior knowledge, that was unfortunately not available for the current study.
 
@@ -188,5 +177,34 @@ r_refs(file = "references.bib")
 ```
 ::: {#refs}
 :::
+
+\newpage
+
+```{r table1pdf, eval=TRUE, message=FALSE, warning=FALSE, echo=FALSE, out.width = "\\textwidth", fig.pos = "!ht", results = "asis"}
+indices_table <- read.csv("figures/Summary_Table.csv") %>%
+  rename("Level 1" = "level_1",
+         "Level 2" = "level_2",
+         "HRV Indices" = "indices",
+         "Description" = "labels") %>% 
+  mutate(Centrality = round(Centrality, digits = 1))
+knitr::kable(indices_table,
+             format="latex",
+             booktabs = TRUE,
+             longtable = FALSE,
+             escape = FALSE,
+             align = "l",
+             caption = "A summary of HRV indices according to their respective cluster memberships in the final meta-clustering solution, together with their centrality values which were quantified as their relative distances from the respective cluster centres.") %>%
+  kableExtra::column_spec(1, width = "8em") %>%
+  kableExtra::column_spec(2, width = "9em") %>%
+  kableExtra::collapse_rows(
+    columns = c(1, 2),
+    valign = "top",
+    longtable_clean_cut = FALSE
+  ) %>% 
+  kableExtra::kable_styling(full_width = FALSE,
+                            font_size = 7,
+                            position="center",
+                            latex_options = c("hold_position"))
+```
 
 \endgroup
