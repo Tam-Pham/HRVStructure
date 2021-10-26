@@ -56,7 +56,7 @@ abs(m - 1) %>%
   scale_fill_gradient2(low = "#2196F3", mid = "#9C27B0", high = "#FF5722", midpoint = 0.5) +
   labs(title = "Metaclustering Heatmap", subtitle = "Probability of being grouped together accross multiple methods.")
 
-ggsave("figures/figure_probability_matrix.png", width=12*0.9, height=9*0.9, dpi = 450)
+# ggsave("figures/figure_probability_matrix.png", width=12*0.9, height=9*0.9, dpi = 450)
 ```
 
 ### Hierarchical Structure of Metaclustering

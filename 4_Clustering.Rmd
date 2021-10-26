@@ -47,7 +47,7 @@ plot(n)
 ```{r, message=FALSE, warning=FALSE, fig.cap="K-Means 2-cluster Clustegram solution"}
 set.seed(3)
 
-rez <- cluster_analysis(z, standardize = FALSE, n = 2, method = "hkmeans")
+rez <- parameters::cluster_analysis(z, standardize = FALSE, n = 2, method = "hkmeans")
 
 as.data.frame(rez)[1:3]
 
@@ -63,7 +63,7 @@ table_clusters <- assign_clusters(table_clusters, z, clusters = as.character(pre
 ```{r, message=FALSE, warning=FALSE, fig.cap="K-Means 7-cluster Clustegram solution"}
 set.seed(3)
 
-rez <- cluster_analysis(z, standardize = FALSE, n = 7, method = "hkmeans")
+rez <- parameters::cluster_analysis(z, standardize = FALSE, n = 7, method = "hkmeans")
 
 as.data.frame(rez)[1:3]
 
@@ -80,7 +80,7 @@ table_clusters <- assign_clusters(table_clusters, z, clusters = as.character(pre
 ```{r, message=FALSE, warning=FALSE, fig.cap="K-Means 10-cluster Clustegram solution"}
 set.seed(3)
 
-rez <- cluster_analysis(z, n = 10, method = "hkmeans")
+rez <- parameters::cluster_analysis(z, n = 10, method = "hkmeans")
 
 as.data.frame(rez)[1:3]
 
@@ -96,7 +96,7 @@ table_clusters <- assign_clusters(table_clusters, z, clusters = as.character(pre
 ```{r, message=FALSE, warning=FALSE, cache = TRUE, fig.cap="K-Meloid 3-cluster Clustegram solution"}
 set.seed(3)
 
-rez <- cluster_analysis(z, method = "pamk", distance_method = "euclidean")
+rez <- parameters::cluster_analysis(z, method = "pamk", distance_method = "euclidean")
 
 as.data.frame(rez)[1:3]
 
@@ -114,7 +114,7 @@ table_clusters <- assign_clusters(table_clusters, z, clusters = as.character(pre
 ```{r, message=FALSE, warning=FALSE, cache = TRUE, fig.cap="Hierarchical Clustering 11-cluster dendogram solution"}
 set.seed(3)
 
-rez <- cluster_analysis(z, n = NULL, standardize = FALSE, method = "hclust", distance_method = "euclidean", hclust_method = "average", ci = 0.95, iterations = 2000)
+rez <- parameters::cluster_analysis(z, n = NULL, standardize = FALSE, method = "hclust", distance_method = "euclidean", hclust_method = "average", ci = 0.95, iterations = 2000)
 
 as.data.frame(rez)[1:3]
 
@@ -140,7 +140,7 @@ plot_dendrogram(model = attributes(rez)$model$hclust, clusters = clusters, ylim 
 ```{r, message=FALSE, warning=FALSE, cache = TRUE, fig.cap="Hierarchical Clustering 13-cluster dendogram solution"}
 set.seed(3)
 
-rez <- cluster_analysis(z, n = NULL, standardize = FALSE, method = "hclust", distance_method = "euclidean", hclust_method = "average", ci = 0.90, iterations = 2000)
+rez <- parameters::cluster_analysis(z, n = NULL, standardize = FALSE, method = "hclust", distance_method = "euclidean", hclust_method = "average", ci = 0.90, iterations = 2000)
 
 as.data.frame(rez)[1:3]
 
@@ -172,7 +172,7 @@ plot(n)
 ##### DBSCAN
 
 ```{r, message=FALSE, warning=FALSE, fig.cap="DBSCAN 6-cluster clustergram solution"}
-rez <- cluster_analysis(z, n = NULL, standardize = FALSE, method = "dbscan", dbscan_eps = 10, min_size = 2, borderPoints = TRUE)
+rez <- parameters::cluster_analysis(z, n = NULL, standardize = FALSE, method = "dbscan", dbscan_eps = 10, min_size = 2, borderPoints = TRUE)
 
 as.data.frame(rez)[1:3]
 

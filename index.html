@@ -11,7 +11,7 @@
 
 
 
-<title>Conceptual vs. Observed Structure of Heart Rate Variability (HRV) Indices</title>
+<title>Unveiling the Structure of Heart Rate Variability (HRV) Indices: A Data-driven Meta-clustering Approach</title>
 
 <script src="index_files/header-attrs-2.10/header-attrs.js"></script>
 <script src="index_files/jquery-1.11.3/jquery.min.js"></script>
@@ -373,8 +373,8 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore"><strong>Conceptual vs. Observed Structure of Heart Rate Variability (HRV) Indices</strong></h1>
-<h3 class="subtitle">Data Analysis</h3>
+<h1 class="title toc-ignore"><strong>Unveiling the Structure of Heart Rate Variability (HRV) Indices: A Data-driven Meta-clustering Approach</strong></h1>
+<h3 class="subtitle">Supplementary Materials</h3>
 
 </div>
 
@@ -384,51 +384,31 @@ div.tocify {
 -->
 <div id="introduction" class="section level1">
 <h1>Introduction</h1>
-<p><img src="https://github.com/Tam-Pham/HRVStructure/workflows/Build/badge.svg" alt="Build" />
-<a href="https://github.com/Tam-Pham/HRVStructure"><img src="https://img.shields.io/badge/repo-Readme-2196F3" alt="Website" /></a>
+<p><a href="https://github.com/Tam-Pham/HRVStructure"><img src="https://img.shields.io/badge/repo-Readme-2196F3" alt="Website" /></a>
 <a href="https://realitybending.github.io/TemplateResults/"><img src="https://img.shields.io/badge/visit-website-E91E63" alt="Website" /></a>
 <a href="https://github.com/RealityBending/TemplateResults/raw/main/word_and_pdf/SupplementaryMaterials.docx"><img src="https://img.shields.io/badge/download-.docx-FF5722" alt="Website" /></a>
 <a href="https://github.com/RealityBending/TemplateResults/blob/main/word_and_pdf/SupplementaryMaterials.pdf"><img src="https://img.shields.io/badge/see-.pdf-FF9800" alt="Website" /></a></p>
 <!-- ABSTRACT -->
-<p>Heart Rate Variability (HRV) can be estimated using a myriad of mathematical indices, for which the lack of comparison renders results’ interpretation and evaluation tedious. In this study, we assessed the relationship between 42 HRV metrics collected from Human recordings (n = 531) using various structure-analysis algorithms. We then applied a metaclustering approach that combines their results to obtain a robust and reliable view of the observed relationships. We found that HRV metrics can be clustered into 4 groups, representing …. From there, we derived recommendations on which indices to prioritize for parsimonious, yet comprehensive HRV-related data analysis and reporting.</p>
+<p>Heart Rate Variability (HRV) can be estimated using a myriad of mathematical indices, but the lack of systematic comparison between these indices renders the interpretation and evaluation of results tedious. In this study, we assessed the relationship between 57 HRV metrics collected from 302 human recordings using a variety of structure-analysis algorithms. We then applied a meta-clustering approach that combines their results to obtain a robust and reliable view of the observed relationships. We found that HRV metrics can be clustered into 3 groups, representing the distribution-related features, harmony-related features and frequency/complexity features. From there, we described and discussed their associations, and derived recommendations on which indices to prioritize for parsimonious, yet comprehensive HRV-related data analysis and reporting.</p>
 <!-- introduce hrv -->
-<p>Heart Rate Variability (HRV), reflecting the heart’s ability to effectively regulate and adapt to internal and external environmental changes, has been linked with many physical and mental health outcomes <span class="citation">Forte, Favieri, &amp; Casagrande (2019)</span>. Conventionally, the various indices used in the assessment of HRV were broadly categorized based on the nature of their mathematical approach, in categories including <em>time-domain</em>, <em>frequency-domain</em>, and <em>nonlinear dynamics</em>.</p>
-<!-- is attributed to the dynamic interplay between the sympathetic and parasympathetic branches of the autonomic nervous system -->
+<p>Heart Rate Variability (HRV), reflecting the heart’s ability to effectively regulate and adapt to internal and external environmental changes, has been linked with many physical and mental health outcomes <span class="citation">Forte et al. (2019)</span>. Conventionally, the various indices used in the assessment of HRV were broadly categorized based on the nature of their mathematical approach, in categories including <em>time-domain</em>, <em>frequency-domain</em>, and <em>nonlinear dynamics</em>.</p>
 <!-- main categories -->
-<p>Time-domain analysis presents the simplest and most straightforward method of quantifying HRV from the original normal (i.e., excluding abnormal beats such as ectopic beats) heartbeat intervals or NN intervals. Some commonly derived indices include <em>SDNN</em>, the standard deviation of all NN intervals, <em>RMSSD</em>, the root mean square of the sum of successive differences of NN intervals, and <em>pNN50</em>, the percentage of adjacent NN intervals separated by more than 50ms. While time-domain methods offers computational ease, they are unable to distinguish between the contributions of sympathetic and parasympathetic branches. Frequency-domain analysis, on the other hand, targets the assessment of these different regulatory mechanisms by investigating how the HRV power spectrum distributes across different frequency bands (e.g, low frequency, <em>LF</em> or high frequency, <em>HF</em>). Other indices that fall under the frequency domain include derivatives of the aforementioned components, such as the ratio of <em>LF</em> to <em>HF</em> (<em>LF/HF</em>) power and their normalized (e.g., <em>LFn</em>, <em>HFn</em>) and natural logarithmic variants (e.g., <em>LnHF</em>). Finally, drawn from concepts of non-linear dynamics and chaos theory <span class="citation">(Golberger, 1996)</span>, non-linear analysis was later introduced to better characterize the complex physiological mechanisms underlying HRV regulation. Prominent indices include measures obtained from a Poincaré plot where an ellipse is fitted to a scatterplot of each NN interval against its preceding one <span class="citation">(e.g., the standard deviation of the short-term, <em>SD1</em> and long-term, <em>SD2</em> NN interval variability, as well as its corresponding ratio, <em>SD1/SD2</em>, Brennan, Palaniswami, &amp; Kamen, 2001)</span>. Other non-linear indices that fall under this category, such as Detrended Fluctuation Analysis (<em>DFA</em>), multi-fractal <em>DFA</em> (<em>MF-DFA</em>) and correlation dimension (<em>CD</em>), account for the fractal properties of HRV, while entropy measures like approximate entropy (<em>ApEn</em>), sample entropy (<em>SampEn</em>), and multiscale entropy (<em>MSE</em>) quantify the amount of regularity in the HR time series <span class="citation">(Voss, Schulz, Schroeder, Baumert, &amp; Caminal, 2009)</span>. For a more comprehensive description of all HRV indices, see <span class="citation">Pham, Lau, Chen, &amp; Makowski (2021)</span>.</p>
-<!-- The low frequency (*LF*; 0.04--0.15Hz) and high frequency (*HF*; 0.15--0.4 Hz) components, the two main indicators of ANS activity [@acharya2006heart], predominantly reflect sympathetic and parasympathetic activity respectively. The other two components measured at very low frequencies (*VLF*; 0.0033--0.04 Hz) and ultra low frequencies (*ULF* low frequency $\leq$ 0.003 Hz) are less clear in regards to their associated physiological mechanisms [@kleiger2005heart], though some evidence has linked the former to long-term regulatory mechanisms [@akselrod1981power] and the latter to circadian and metabolic activity [@shaffer2014healthy]. -->
+<p>Time-domain analysis presents the simplest and most straightforward method of quantifying HRV from the original normal (i.e., excluding abnormal beats such as ectopic beats) heartbeat intervals or NN intervals. Some commonly derived indices include <em>SDNN</em>, the standard deviation of all NN intervals, <em>RMSSD</em>, the root mean square of the sum of successive differences of NN intervals, and <em>pNN50</em>, the percentage of adjacent NN intervals separated by more than 50ms. While time-domain methods offers computational ease, they are unable to distinguish between the contributions of sympathetic and parasympathetic branches. Frequency-domain analysis, on the other hand, targets the assessment of these different regulatory mechanisms by investigating how the HRV power spectrum distributes across different frequency bands (e.g, low frequency, <em>LF</em> or high frequency, <em>HF</em>). Other indices that fall under the frequency domain include derivatives of the aforementioned components, such as the ratio of <em>LF</em> to <em>HF</em> (<em>LF/HF</em>) power and their normalized (e.g., <em>LFn</em>, <em>HFn</em>) and natural logarithmic variants (e.g., <em>LnHF</em>). Finally, drawn from concepts of non-linear dynamics and chaos theory <span class="citation">(Golberger, 1996)</span>, non-linear analysis was later introduced to better characterize the complex physiological mechanisms underlying HRV regulation. Prominent indices include measures obtained from a Poincaré plot where an ellipse is fitted to a scatterplot of each NN interval against its preceding one <span class="citation">(e.g., the standard deviation of the short-term, <em>SD1</em> and long-term, <em>SD2</em> NN interval variability, as well as its corresponding ratio, <em>SD1/SD2</em>, Brennan et al., 2001)</span>. Other non-linear indices that fall under this category, such as Detrended Fluctuation Analysis (<em>DFA</em>), multi-fractal <em>DFA</em> (<em>MF-DFA</em>) and correlation dimension (<em>CD</em>), account for the fractal properties of HRV, while entropy measures like approximate entropy (<em>ApEn</em>), sample entropy (<em>SampEn</em>), and multiscale entropy (<em>MSE</em>) quantify the amount of regularity in the HR time series <span class="citation">(Voss et al., 2009)</span>. For a more comprehensive description of all HRV indices, see <span class="citation">Pham et al. (2021)</span>.</p>
 <!-- overlap and duplicates in indices, aim of study -->
-<p>Despite the rising popularity of HRV analysis as a real-time, noninvasive technique for investigating health and disease, there are some shared similarities (and even overlaps) between the multitude of HRV indices that are not yet well understood. Early studies have investigated the relationships between time-domain and frequency-domain indices, showing that not only were <em>RMSSD</em> and <em>pNN50</em> strongly correlated with each other <span class="citation">(above 0.9, Bigger Jr et al., 1989)</span>, they were also highly associated with <em>HF</em> power <span class="citation">(Bigger Jr et al., 1989; Kleiger, Stein, &amp; Bigger Jr, 2005; Otzenberger et al., 1998)</span>, suggesting that these measures could be treated as surrogates for each other in assessing the parasympathetic modulation of HRV. This observation is warranted given that the former is computed from the differences across consecutive NN intervals, and hence, they reflect mainly high frequency oscillatory patterns in HR and are independent of long-term changes. On the other hand, <em>SDNN</em>, which has been thought to reflect both sympathetic and parasympathetic activity, is correlated to total power (<em>TP</em>) in HRV power spectrum <span class="citation">(Bigger Jr et al., 1989)</span>. Recent years also witnessed the emergence of debates regarding the traditional conceptualization of <em>SD1</em> and <em>SD2</em> as non-linear indices, particularly when <span class="citation">Ciccone et al. (2017)</span> proposed that <em>RMSSD</em> and <em>SD1</em> were mathematically equivalent. Many studies that report both of these short-term HRV indices independently often arrive at identical statistical results without addressing this equivalence <span class="citation">Leite et al. (2015)</span>. Additionally, other studies have also drawn similarities between <em>SD1/SD2</em> and <em>LF/HF</em> in their indexing of the balance between short- and long-term HRV <span class="citation">(Brennan, Palaniswami, &amp; Kamen, 2002; Guzik et al., 2007)</span>.</p>
-<p>Overall, there is a need for a greater data-driven understanding of the relationship between the multitude of HRV indices and their respective groupings. While there exist different approaches to assign data to different groups based on their level of associations <span class="citation">(see Nguyen Phuc Thu et al., 2019)</span>, there is no gold standard or clear guidelines to determine the most appropriate method for grouping of physiological indices. As such, choosing one method and presenting its solution as a definitive one can be uninformative or even misleading. The aim of this study is to explore the structure of HRV indices by using a consensus-based methodology <span class="citation">(Bhattacharjee et al., 2001; Kuncheva, 2014; Monti, Tamayo, Mesirov, &amp; Golub, 2003)</span>, hereafter referred to as <em>meta-clustering</em>, where the results of multiple structure analysis approaches are systematically combined to highlight the most robust associations between the indices.</p>
-<!--may be useful to have glossary of indices-->
+<p>Despite the rising popularity of HRV analysis as a real-time, noninvasive technique for investigating health and disease, there are some shared similarities (and even overlaps) between the multitude of HRV indices that are not yet well understood. Early studies have investigated the relationships between time-domain and frequency-domain indices, showing that not only were <em>RMSSD</em> and <em>pNN50</em> strongly correlated with each other <span class="citation">(above 0.9, Bigger Jr et al., 1989)</span>, they were also highly associated with <em>HF</em> power <span class="citation">(Bigger Jr et al., 1989; Kleiger et al., 2005; Otzenberger et al., 1998)</span>, suggesting that these measures could be treated as surrogates for each other in assessing the parasympathetic modulation of HRV. This observation is warranted given that the former is computed from the differences across consecutive NN intervals, and hence, they reflect mainly high frequency oscillatory patterns in HR and are independent of long-term changes. On the other hand, <em>SDNN</em>, which has been thought to reflect both sympathetic and parasympathetic activity, is correlated to total power (<em>TP</em>) in HRV power spectrum <span class="citation">(Bigger Jr et al., 1989)</span>. Recent years also witnessed the emergence of debates regarding the traditional conceptualization of <em>SD1</em> and <em>SD2</em> as non-linear indices, particularly when <span class="citation">Ciccone et al. (2017)</span> proposed that <em>RMSSD</em> and <em>SD1</em> were mathematically equivalent. Many studies that report both of these short-term HRV indices independently often arrive at identical statistical results without addressing this equivalence <span class="citation">Leite et al. (2015)</span>. Additionally, other studies have also drawn similarities between <em>SD1/SD2</em> and <em>LF/HF</em> in their indexing of the balance between short- and long-term HRV <span class="citation">(Brennan et al., 2002; Guzik et al., 2007)</span>.</p>
+<p>Overall, there is a need for a greater data-driven understanding of the relationship between the multitude of HRV indices and their respective groupings. While there exist different approaches to assign data to different groups based on their level of associations <span class="citation">(see Nguyen Phuc Thu et al., 2019)</span>, there is no gold standard or clear guidelines to determine the most appropriate method for grouping of physiological indices. As such, choosing one method and presenting its solution as a definitive one can be uninformative or even misleading. The aim of this study is to explore the structure of HRV indices by using a consensus-based methodology <span class="citation">(Bhattacharjee et al., 2001; Kuncheva, 2014; Monti et al., 2003)</span>, hereafter referred to as <em>meta-clustering</em>, where the results of multiple structure analysis approaches are systematically combined to highlight the most robust associations between the indices.</p>
 </div>
 <div id="methods" class="section level1">
 <h1>Methods</h1>
-<p>In total, the electrocardiogram (ECG) data of 330 participants were extracted from 5 databases. The raw data as well as the entire analysis script (including details and additional analyses) can be found at this GitHub repository (<a href="https://github.com/Tam-Pham/HRVStructure" class="uri">https://github.com/Tam-Pham/HRVStructure</a>).</p>
+<p>In total, the electrocardiogram (ECG) data of 302 participants were extracted from 6 databases. The raw data as well as the entire analysis script (including details and additional analyses) can be found at this GitHub repository (<a href="https://github.com/Tam-Pham/HRVStructure" class="uri">https://github.com/Tam-Pham/HRVStructure</a>).</p>
 <div id="databases" class="section level2">
 <h2>Databases</h2>
-<div id="glasgow-university-database-gudb" class="section level3">
-<h3>Glasgow University Database (GUDB)</h3>
-<p>This database <span class="citation">(Howell &amp; Porr, 2018)</span> contains 25 ECG recordings from 25 participants. All participants were 18 year-old and above and had no known cardiovascular conditions. Each participant was recorded performing five different tasks for two-minute (sitting, doing a maths test on a tablet, walking on a treadmill, running on a treadmill, using a hand bike). All recordings were sampled at 250Hz. The script to download and format the database using the <a href="https://github.com/berndporr/ECG-GUDB"><strong>ECG-GUDB</strong></a> Python package by <span class="citation">Howell &amp; Porr (2018)</span> can be found <a href="https://github.com/neuropsychology/NeuroKit/blob/dev/data/gudb/download_gudb.py"><strong>here</strong></a>.</p>
-</div>
-<div id="mit-bih-arrhythmia-database-mit-arrhythmia" class="section level3">
-<h3>MIT-BIH Arrhythmia Database (MIT-Arrhythmia)</h3>
-<p>This database <span class="citation">(Moody &amp; Mark, 2001)</span> contains 48 ECG recordings of two-channel ambulatory ECG recordings from 47 participants (25 men, 32-89 year-old; 22 women, 23-89 year-old). 23 recordings were from a mixed population of patients and 25 recordings were taken from the same population but included less common and more clinically significant arrhythmia (denoted as the <code>MIT-Arrhythmia-x</code> database). All recordings were sampled 360Hz and lasted for 30-minute. The script to download and format the database can be found <a href="https://github.com/neuropsychology/NeuroKit/blob/dev/data/mit_arrhythmia/download_mit_arrhythmia.py"><strong>here</strong></a>.</p>
-</div>
-<div id="mit-bih-normal-sinus-rhythm-database-mit-normal" class="section level3">
-<h3>MIT-BIH Normal Sinus Rhythm Database (MIT-Normal)</h3>
-<p>This database <span class="citation">(Goldberger et al., 2000)</span> contains 18 clean long-term ECG recordings from 18 participants (5 men, 26-45 year-old; 13 women, 20-50 year-old). All recordings were sampled at 128Hz and due to memory limits, we only kept the second hour of each recording. The script to download and format the database can be found <a href="https://github.com/neuropsychology/NeuroKit/blob/dev/data/mit_normal/download_mit_normal.py"><strong>here</strong></a>.</p>
-<!-- ### Lobachevsky University Electrocardiography Database -->
-<!-- The Lobachevsky University Electrocardiography Database [LUDB; @kalyakulina2018lu] consists of 200 10-second 12-lead ECG signal records representing different morphologies of the ECG signal. The ECGs were collected from healthy volunteers and patients, which had various cardiovascular diseases. The boundaries of P, T waves and QRS complexes were manually annotated by cardiologists for all 200 records. -->
-</div>
-<div id="fantasia-database" class="section level3">
-<h3>Fantasia Database</h3>
-<p>This database <span class="citation">(Iyengar, Peng, Morin, Goldberger, &amp; Lipsitz, 1996)</span> contains 40 recordings from 20 young (21-34 year-old) and 20 elderly (68-85 years old) healthy participants. All participants remained in a resting state in sinus rhythm while watching the movie Fantasia (Disney, 1940) to help maintain wakefulness. All recordings were sampled at 250 Hz and lasted for 120 minutes. The script to download and format the database can be found <a href="https://github.com/neuropsychology/NeuroKit/blob/master/data/fantasia/download_fantasia.py"><strong>here</strong></a>.</p>
-</div>
-<div id="resting-state-dataset" class="section level3">
-<h3>Resting-state Dataset</h3>
-<p>The remaining of the data came from resting-state recordings of authors’ other empirical studies [<strong>CITE COCON1</strong>]. This dataset contains 79 recordings from 79 participants. All participants (23 men and 56 woman) were 18 year-old and above and had no known cardiovascular conditions. All recordings were sampled at 4000Hz and lasted for 8-minute during which participants remained in a resting state with their eyes closed.</p>
-</div>
+<p>The Glasgow University Database (GUDB) database <span class="citation">(Howell &amp; Porr, 2018)</span> contains ECG recordings from 25 healthy participants (&gt; 18 years old) performing five different two-minute tasks (sitting, doing a maths test on a tablet, walking on a treadmill, running on a treadmill, using a handbike). All recordings were sampled at 250 Hz.</p>
+<p>The MIT-BIH Arrhythmia Database (MIT-Arrhythmia and MIT-Arrhythmia-x) database <span class="citation">(Moody &amp; Mark, 2001)</span> contains 48 ECG recordings (25 men, 32-89 years old; 22 women, 23-89 years old) from a mixed population of patients. All recordings were sampled at 360 Hz and lasted for 30 minutes.</p>
+<p>The Fantasia database <span class="citation">(Iyengar et al., 1996)</span> contains ECG recordings from 20 young (21-34 years old) and 20 elderly (68-85 years old) healthy participants. All participants remained in a resting state in sinus rhythm while watching the movie Fantasia (Disney, 1940) that helped to maintain wakefulness. All recordings were sampled at 250 Hz and lasted for 120 minutes.</p>
+<p>The MIT-BIH Normal Sinus Rhythm Database (MIT-Normal) database <span class="citation">(Goldberger et al., 2000)</span> contains long-term (<span class="math inline">\(\approx\)</span>. 24h) ECG recordings from 18 participants (5 men, 26-45 years old; 13 women, 20-50 years old). All recordings were sampled at 128 Hz and due to memory limits, we kept only the second and third hours of each recording (with the loose assumption that the first hour might be less representative of the rest of the recording and a duration of 120 minutes to match those from Fantasia database).</p>
+<p>The MIT-BIH Long-term ECG Database (MIT-Long-term) database <span class="citation">(Goldberger et al., 2000)</span> contains long-term (14 to 22 hours each) ECG recordings from 7 participants (6 men, 46-88 years old; 1 woman, 71 years old). All recordings were sampled at 128 Hz and due to memory limits, we kept only the second and third hours of each recording.</p>
+<p>The last dataset came from resting-state <a href="https://github.com/neuropsychology/RestingState" class="uri">https://github.com/neuropsychology/RestingState</a> recordings of authors’ other empirical studies. This dataset contains ECG recordings sampled at 4000 Hz from 43 healthy participants (&gt; 18 years old) that underwent 8 minutes of eyes-closed, seated position, resting state.</p>
 </div>
 <div id="data-processing" class="section level2">
 <h2>Data Processing</h2>
@@ -436,12 +416,9 @@ div.tocify {
 </div>
 <div id="data-analysis" class="section level2">
 <h2>Data Analysis</h2>
-<p>One of the core “issues” of statistical clustering is that, in many cases, different methods will give different results. The <strong>meta-clustering</strong> approach proposed by <em>easystats</em> <span class="citation">(that finds echoes in <em>consensus clustering</em>; see Monti, Tamayo, Mesirov, &amp; Golub, 2003)</span> consists of treating the unique clustering solutions as a ensemble, from which we can derive a probability matrix. This matrix contains, for each pair of observations, the probability of being in the same cluster. For instance, if the 6th and the 9th row of a dataframe has been assigned to a similar cluster by 5 out of 10 clustering methods, then its probability of being grouped together is 0.5. Essentially, <em>meta-clustering</em> approach is based on the hypothesis that, as each clustering algorithm embodies a different prism by which it sees the data, running an infinite amount of algorithms would result in the emergence of the “true” clusters. As the number of algorithms and parameters is finite, the probabilistic perspective is a useful proxy. This method is interesting where there is no obvious reasons to prefer one over another clustering method, as well as to investigate how robust some clusters are under different algorithms.</p>
-<p>In this analysis, we first correlated the HRV indices <span class="citation">(using the <code>correlations</code> function from the <em>correlation</em> package, see Makowski, Ben-Shachar, Patil, &amp; Lüdecke, 2020)</span> and removed indices that were perfectly correlated with each other, before removing outliers based on the median absolute deviation from the median [see the <code>check_outliers</code> function in the <em>performance</em> R package; <span class="citation">(<strong>ludecke2019performance?</strong>)</span>]. Following the <em>meta-clustering</em> approach, multiple clustering methods were used to analyze the associations between the HRV indices, namely, factor analysis, k-means clustering, k-meloids clustering, hierarchical clustering, density-based spatial clustering of applications with noise (DBSCAN), hierarchical density-based spatial clustering of applications with noise (HBSCAN), mixture model approach, and exploratory graph analysis (EGA). We then jointly considered the results obtained from these multiple methods by estimating the probability for each pair of indices to be clustered together. Ultimately, the analysis aimed to to provide a more robust overview of the clustering results and facilitate a more thorough conceptual understanding of these patterns.</p>
-<p>Data processing was carried out with R <span class="citation">(R Core Team, 2019)</span> and the <em>easystats</em> ecosystem <span class="citation">(Ludecke, Waggoner, &amp; Makowski, 2019; Makowski, Ben-Shachar, &amp; Ludecke, 2019)</span>. The raw data, as well as the full reproducible analysis script, including additional description of each approach and the solutions of each individual clustering method, are available at this GitHub repository (<a href="https://github.com/Tam-Pham/HRVStructure" class="uri">https://github.com/Tam-Pham/HRVStructure</a>).</p>
-</div>
-<div id="procedure" class="section level2">
-<h2>Procedure</h2>
+<p>One of the core “issues” of statistical clustering is that, in many cases, different methods will give different results. The <strong>meta-clustering</strong> approach proposed by <em>easystats</em> <span class="citation">(that finds echoes in <em>consensus clustering</em>; see Monti et al., 2003)</span> consists of treating the unique clustering solutions as a ensemble, from which we can derive a probability matrix. This matrix contains, for each pair of observations, the probability of being in the same cluster. For instance, if the 6th and the 9th row of a dataframe has been assigned to a similar cluster by 5 out of 10 clustering methods, then its probability of being grouped together is 0.5. Essentially, <em>meta-clustering</em> approach is based on the hypothesis that, as each clustering algorithm embodies a different prism by which it sees the data, running an infinite amount of algorithms would result in the emergence of the “true” clusters. As the number of algorithms and parameters is finite, the probabilistic perspective is a useful proxy. This method is interesting where there is no obvious reasons to prefer one over another clustering method, as well as to investigate how robust some clusters are under different algorithms.</p>
+<p>In this analysis, we first correlated the HRV indices <span class="citation">(using the <code>correlations</code> function from the <em>correlation</em> package, see Makowski et al., 2020)</span> and removed indices that were perfectly correlated with each other, before removing outliers based on the median absolute deviation from the median [see the <code>check_outliers</code> function in the <em>performance</em> R package; <span class="citation">(<strong>ludecke2019performance?</strong>)</span>]. Following the <em>meta-clustering</em> approach, multiple clustering methods were used to analyze the associations between the HRV indices, namely, factor analysis, k-means clustering, k-meloids clustering, hierarchical clustering, density-based spatial clustering of applications with noise (DBSCAN), hierarchical density-based spatial clustering of applications with noise (HBSCAN), mixture model approach, and exploratory graph analysis (EGA). We then jointly considered the results obtained from these multiple methods by estimating the probability for each pair of indices to be clustered together. Ultimately, the analysis aimed to to provide a more robust overview of the clustering results and facilitate a more thorough conceptual understanding of these patterns.</p>
+<p>Data processing was carried out with R <span class="citation">(R Core Team, 2019)</span> and the <em>easystats</em> ecosystem <span class="citation">(Ludecke et al., 2019; Makowski et al., 2019)</span>. The raw data, as well as the full reproducible analysis script, including additional description of each approach and the solutions of each individual clustering method, are available at this GitHub repository (<a href="https://github.com/Tam-Pham/HRVStructure" class="uri">https://github.com/Tam-Pham/HRVStructure</a>).</p>
 </div>
 </div>
 <div id="results" class="section level1">
@@ -450,14 +427,13 @@ div.tocify {
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(easystats)</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;data/data_combined.csv&quot;</span>, <span class="at">stringsAsFactors =</span> <span class="cn">FALSE</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>HRV_ULF, <span class="sc">-</span>HRV_VLF) <span class="sc">%&gt;%</span>  <span class="co"># Empty</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>HRV_ULF, <span class="sc">-</span>HRV_VLF) <span class="sc">%&gt;%</span>  <span class="co"># insufficient recording length to compute</span></span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>HRV_SDANN1, <span class="sc">-</span>HRV_SDANN2, <span class="sc">-</span>HRV_SDANN5, </span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>         <span class="sc">-</span>HRV_SDNNI1, <span class="sc">-</span>HRV_SDNNI2, <span class="sc">-</span>HRV_SDNNI5) <span class="sc">%&gt;%</span> </span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># filter(Database != &quot;LUDB&quot;) %&gt;% # too short recordings, many indices didn&#39;t converge</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">setNames</span>(stringr<span class="sc">::</span><span class="fu">str_remove</span>(<span class="fu">names</span>(.), <span class="st">&quot;HRV_&quot;</span>)) <span class="sc">%&gt;%</span> </span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate_all</span>(<span class="cf">function</span>(x) {</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    x[<span class="fu">is.infinite</span>(x)] <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(x) })</span></code></pre></div>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>         <span class="sc">-</span>HRV_SDNNI1, <span class="sc">-</span>HRV_SDNNI2, <span class="sc">-</span>HRV_SDNNI5) <span class="sc">%&gt;%</span> <span class="co"># insufficient recording length to compute</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">setNames</span>(stringr<span class="sc">::</span><span class="fu">str_remove</span>(<span class="fu">names</span>(.), <span class="st">&quot;HRV_&quot;</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate_all</span>(<span class="cf">function</span>(x) {</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    x[<span class="fu">is.infinite</span>(x)] <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(x) })</span></code></pre></div>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;This study includes&quot;</span>, </span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">nrow</span>(data), </span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;participants from&quot;</span>, </span>
@@ -602,6 +578,252 @@ div.tocify {
 <span id="cb6-44"><a href="#cb6-44" aria-hidden="true" tabindex="-1"></a>  </span>
 <span id="cb6-45"><a href="#cb6-45" aria-hidden="true" tabindex="-1"></a>  ggpubr<span class="sc">::</span><span class="fu">ggarrange</span>(<span class="at">plotlist =</span> ps)</span>
 <span id="cb6-46"><a href="#cb6-46" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<!-- #### Cluster Analysis -->
+<!-- ```{r eval=TRUE, class.source = "fold-hide"} -->
+<!-- cluster_analysis <- function(x, -->
+<!--                              n = NULL, -->
+<!--                              method = "kmeans", -->
+<!--                              include_factors = FALSE, -->
+<!--                              standardize = TRUE, -->
+<!--                              verbose = TRUE, -->
+<!--                              distance_method = "euclidean", -->
+<!--                              hclust_method = "complete", -->
+<!--                              kmeans_method = "Hartigan-Wong", -->
+<!--                              dbscan_eps = 15, -->
+<!--                              iterations = 100, -->
+<!--                              ...) { -->
+<!--   # Sanity checks ----------------------------------------------------------- -->
+<!--   insight::check_if_installed("performance") -->
+<!--   # match arguments -->
+<!--   method <- match.arg(method, choices = c("kmeans", "hkmeans", "pam", "pamk", "hclust", "dbscan", "hdbscan", "mixture"), several.ok = TRUE) -->
+<!--   # Preparation ------------------------------------------------------------- -->
+<!--   # Preprocess data -->
+<!--   data <- .prepare_data_clustering(x, include_factors = include_factors, standardize = standardize, ...) -->
+<!--   # Get number of clusters -->
+<!--   if (is.null(n) && any(method %in% c("kmeans", "hkmeans", "pam"))) { -->
+<!--     n <- tryCatch( -->
+<!--       { -->
+<!--         nc <- parameters::n_clusters(data, standardize = FALSE, ...) -->
+<!--         n <- attributes(nc)$n -->
+<!--         if (verbose) { -->
+<!--           insight::print_color(sprintf("Using solution with %i clusters, supported by %i out of %i methods.\n", n, max(summary(nc)$n_Methods), sum(summary(nc)$n_Methods)), "blue") -->
+<!--         } -->
+<!--         n -->
+<!--       }, -->
+<!--       error = function(e) { -->
+<!--         if (isTRUE(verbose)) { -->
+<!--           stop(insight::format_message("Could not extract number of cluster. Please provide argument 'n'."), call. = FALSE) -->
+<!--         } -->
+<!--         2 -->
+<!--       } -->
+<!--     ) -->
+<!--   } -->
+<!--   # Apply clustering -------------------------------------------------------- -->
+<!--   if (any(method == "kmeans")) { -->
+<!--     rez <- .cluster_analysis_kmeans(data, n = n, kmeans_method = kmeans_method, iterations = iterations, ...) -->
+<!--   } else if (any(method %in% c("hkmeans"))) { -->
+<!--     rez <- .cluster_analysis_hkmeans(data, n = n, kmeans_method = kmeans_method, hclust_method = hclust_method, iterations = iterations, ...) -->
+<!--   } else if (any(method %in% c("pam"))) { -->
+<!--     rez <- .cluster_analysis_pam(data, n = n, distance_method = distance_method, ...) -->
+<!--   } else if (any(method %in% c("pamk"))) { -->
+<!--     rez <- .cluster_analysis_pamk(data, distance_method = distance_method, ...) -->
+<!--   } else if (any(method %in% c("hclust"))) { -->
+<!--     rez <- .cluster_analysis_hclust(data, n = n, distance_method = distance_method, hclust_method = hclust_method, iterations = iterations, ...) -->
+<!--   } else if (any(method == "dbscan")) { -->
+<!--     rez <- .cluster_analysis_dbscan(data, dbscan_eps = dbscan_eps, ...) -->
+<!--   } else if (any(method == "hdbscan")) { -->
+<!--     rez <- .cluster_analysis_hdbscan(data, ...) -->
+<!--   } else if (any(method %in% c("mixture", "mclust"))) { -->
+<!--     rez <- .cluster_analysis_mixture(data, ...) -->
+<!--   } else { -->
+<!--     stop("Did not find 'method' argument. Could be misspecified.") -->
+<!--   } -->
+<!--   # Assign clusters to observations -->
+<!--   # Create NA-vector of same length as original data frame -->
+<!--   clusters <- rep(NA, times = nrow(x)) -->
+<!--   # Create vector with cluster group classification (with missing) -->
+<!--   complete_cases <- stats::complete.cases(x[names(data)]) -->
+<!--   clusters[complete_cases] <- rez$clusters -->
+<!--   # Get clustering parameters -->
+<!--   out <- model_parameters(rez$model, data = data, clusters = clusters, ...) -->
+<!--   performance <- cluster_performance(out) -->
+<!--   attr(out, "model") <- rez$model -->
+<!--   attr(out, "method") <- method -->
+<!--   attr(out, "clusters") <- clusters -->
+<!--   attr(out, "data") <- data -->
+<!--   attr(out, "performance") <- performance -->
+<!--   class(out) <- c("cluster_analysis", class(out)) -->
+<!--   out -->
+<!-- } -->
+<!-- # Clustering Methods -------------------------------------------------------- -->
+<!-- #' @keywords internal -->
+<!-- .cluster_analysis_kmeans <- function(data, n = 2, kmeans_method = "Hartigan-Wong", iterations = 100, ...) { -->
+<!--   model <- stats::kmeans(data, centers = n, algorithm = kmeans_method, iter.max = iterations, ...) -->
+<!--   list(model = model, clusters = model$cluster) -->
+<!-- } -->
+<!-- #' @keywords internal -->
+<!-- .cluster_analysis_hkmeans <- function(data, n = 2, kmeans_method = "Hartigan-Wong", hclust_method = "complete", iterations = 100, ...) { -->
+<!--   insight::check_if_installed("factoextra") -->
+<!--   model <- factoextra::hkmeans(data, k = n, km.algorithm = kmeans_method, iter.max = iterations, hc.method = hclust_method, ...) -->
+<!--   list(model = model, clusters = model$cluster) -->
+<!-- } -->
+<!-- #' @keywords internal -->
+<!-- .cluster_analysis_pam <- function(data = NULL, n = 2, distance_method = "euclidean", ...) { -->
+<!--   insight::check_if_installed("cluster") -->
+<!--   model <- cluster::pam(data, k = n, metric = distance_method, ...) -->
+<!--   list(model = model, clusters = model$clustering) -->
+<!-- } -->
+<!-- #' @keywords internal -->
+<!-- .cluster_analysis_pamk <- function(data = NULL, distance_method = "euclidean", pamk_method = "ch", ...) { -->
+<!--   insight::check_if_installed("fpc") -->
+<!--   model <- fpc::pamk(data, metric = distance_method, criterion = pamk_method, ...) -->
+<!--   list(model = model$pamobject, clusters = model$pamobject$clustering) -->
+<!-- } -->
+<!-- #' @keywords internal -->
+<!-- .cluster_analysis_hclust <- function(data, n = 2, distance_method = "euclidean", hclust_method = "complete", iterations = 100, ...) { -->
+<!--   if (is.null(n)) { -->
+<!--     rez <- n_clusters_hclust(data, preprocess = FALSE, distance_method = distance_method, hclust_method = hclust_method, iterations = iterations, ...) -->
+<!--     out <- list(model = attributes(rez)$model, clusters = rez$Cluster) -->
+<!--   } else { -->
+<!--     if (distance_method %in% c("correlation", "uncentered", "abscor")) { -->
+<!--       warning(paste0("method '", distance_method, "' not supported by regular hclust(). Please specify another one or set n = NULL to use pvclust.")) -->
+<!--     } -->
+<!--     dist <- dist(data, method = distance_method, ...) -->
+<!--     model <- stats::hclust(dist, method = hclust_method, ...) -->
+<!--     out <- list(model = model, clusters = stats::cutree(model, k = n)) -->
+<!--   } -->
+<!--   out -->
+<!-- } -->
+<!-- #' @keywords internal -->
+<!-- .cluster_analysis_dbscan <- function(data = NULL, dbscan_eps = 0.15, min_size = 0.1, borderPoints = FALSE, ...) { -->
+<!--   insight::check_if_installed("dbscan") -->
+<!--   if (min_size < 1) min_size <- round(min_size * nrow(data)) -->
+<!--   model <- dbscan::dbscan(data, eps = dbscan_eps, minPts = min_size, borderPoints = borderPoints, ...) -->
+<!--   list(model = model, clusters = model$cluster) -->
+<!-- } -->
+<!-- #' @keywords internal -->
+<!-- .cluster_analysis_hdbscan <- function(data = NULL, min_size = 0.1, ...) { -->
+<!--   insight::check_if_installed("dbscan") -->
+<!--   if (min_size < 1) min_size <- round(min_size * nrow(data)) -->
+<!--   model <- dbscan::hdbscan(data, minPts = min_size, ...) -->
+<!--   list(model = model, clusters = model$cluster) -->
+<!-- } -->
+<!-- #' @keywords internal -->
+<!-- .cluster_analysis_mixture <- function(data = NULL, ...) { -->
+<!--   insight::check_if_installed("mclust") -->
+<!--   model <- mclust::Mclust(data, verbose = FALSE, ...) -->
+<!--   list(model = model, clusters = model$classification) -->
+<!-- } -->
+<!-- # Methods ---------------------------------------------------------------- -->
+<!-- #' @export -->
+<!-- predict.cluster_analysis <- function(object, newdata = NULL, ...) { -->
+<!--   if (is.null(newdata)) { -->
+<!--     attributes(object)$clusters -->
+<!--   } else { -->
+<!--     NextMethod() -->
+<!--   } -->
+<!-- } -->
+<!-- #' @export -->
+<!-- print.cluster_analysis <- function(x, ...) { -->
+<!--   NextMethod() -->
+<!--   cat("\n") -->
+<!--   print(attributes(x)$performance) -->
+<!--   insight::print_color("\n# You can access the predicted clusters via 'predict()'.\n", "yellow") -->
+<!--   invisible(x) -->
+<!-- } -->
+<!-- # Plotting ---------------------------------------------------------------- -->
+<!-- #' @export -->
+<!-- visualisation_recipe.cluster_analysis <- function(x, show_data = "text", type = "bars", ...) { -->
+<!--   type <- match.arg(type, choices = c("bars", "centers")) -->
+<!--   if (type == "bars") { -->
+<!--     vr_cluster_bars(x, ...) -->
+<!--   } else { -->
+<!--     vr_cluster_centers(x, show_data = show_data, ...) -->
+<!--   } -->
+<!-- } -->
+<!-- vr_cluster_bars <- function(x, ...) { -->
+<!--   NULL -->
+<!-- } -->
+<!-- vr_cluster_centers <- function(x, show_data, ...) { -->
+<!--   ori_data <- stats::na.omit(attributes(x)$data) -->
+<!--   # Get 2 PCA Components -->
+<!--   pca <- principal_components(ori_data, n = 2) -->
+<!--   data <- stats::predict(pca) -->
+<!--   names(data) <- c("x", "y") -->
+<!--   data$Cluster <- as.character(stats::na.omit(attributes(x)$clusters)) -->
+<!--   data$label <- row.names(ori_data) -->
+<!--   if (!is.null(show_data) && show_data %in% c("label", "text")) { -->
+<!--     label <- "label" -->
+<!--   } else { -->
+<!--     label <- NULL -->
+<!--   } -->
+<!--   # Centers data (also on the PCA scale) -->
+<!--   data_centers <- stats::predict(pca, newdata = as.data.frame(x)[names(ori_data)], names = c("x", "y")) -->
+<!--   data_centers$Cluster <- as.character(as.data.frame(x)$Cluster) -->
+<!--   # Outliers -->
+<!--   data$Cluster[data$Cluster == "0"] <- NA -->
+<!--   data_centers <- data_centers[data_centers$Cluster != "0", ] -->
+<!--   layers <- list() -->
+<!--   # Layers ----------------------- -->
+<!--   layers[["l1"]] <- list( -->
+<!--     geom = show_data, -->
+<!--     data = data, -->
+<!--     aes = list(x = "x", y = "y", label = label, color = "Cluster") -->
+<!--   ) -->
+<!--   layers[["l2"]] <- list( -->
+<!--     geom = "point", -->
+<!--     data = data_centers, -->
+<!--     aes = list(x = "x", y = "y", color = "Cluster"), -->
+<!--     shape = "+", size = 10 -->
+<!--   ) -->
+<!--   layers[["l3"]] <- list( -->
+<!--     geom = "labs", -->
+<!--     x = "PCA - 1", -->
+<!--     y = "PCA - 2", -->
+<!--     title = "Clustering Solution" -->
+<!--   ) -->
+<!--   # Out -->
+<!--   class(layers) <- c("visualisation_recipe", "see_visualisation_recipe", class(layers)) -->
+<!--   attr(layers, "data") <- data -->
+<!--   layers -->
+<!-- } -->
+<!-- #' @export -->
+<!-- plot.cluster_analysis <- function(x, ...) { -->
+<!--   plot(visualisation_recipe(x, ...)) -->
+<!-- } -->
+<!-- ``` -->
+<!-- #### Utils -->
+<!-- ```{r eval=TRUE, class.source = "fold-hide"} -->
+<!-- .prepare_data_clustering <- function(x, include_factors = FALSE, standardize = FALSE, preprocess = TRUE, ...) { -->
+<!--   if (preprocess == FALSE) { -->
+<!--     return(x) -->
+<!--   } -->
+<!--   # Convert factors to numeric -->
+<!--   # include factors? -->
+<!--   if (include_factors) { -->
+<!--     # ordered factors to numeric -->
+<!--     factors <- sapply(x, is.ordered) -->
+<!--     if (any(factors)) { -->
+<!--       x[factors] <- sapply(x[factors], .factor_to_numeric) -->
+<!--     } -->
+<!--     # character and factors to dummies -->
+<!--     factors <- sapply(x, function(i) is.character(i) | is.factor(i)) -->
+<!--     if (any(factors)) { -->
+<!--       dummies <- lapply(x[factors], .factor_to_dummy) -->
+<!--       x <- cbind(x[!factors], dummies) -->
+<!--     } -->
+<!--   } else { -->
+<!--     # remove factors -->
+<!--     x <- x[sapply(x, is.numeric)] -->
+<!--   } -->
+<!--   # Remove all missing values from data, only use numerics -->
+<!--   x <- stats::na.omit(x) -->
+<!--   if (standardize == TRUE) { -->
+<!--     x <- datawizard::standardize(x, ...) -->
+<!--   } -->
+<!--   x -->
+<!-- } -->
+<!-- ``` -->
 </div>
 </div>
 <div id="indices-selection" class="section level3">
@@ -652,7 +874,7 @@ div.tocify {
 <span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.title.x =</span> <span class="fu">element_blank</span>(),</span>
 <span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.title.y =</span> <span class="fu">element_blank</span>(),</span>
 <span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.text.y =</span> <span class="fu">element_blank</span>())</span></code></pre></div>
-<p><img src="figures/unnamed-chunk-15-1.png" width="5824.92235949962" /></p>
+<p><img src="figures/unnamed-chunk-14-1.png" width="5824.92235949962" /></p>
 </div>
 <div id="after-removal" class="section level4">
 <h4>After Removal</h4>
@@ -744,7 +966,7 @@ div.tocify {
 <span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.title.x =</span> <span class="fu">element_blank</span>(),</span>
 <span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.title.y =</span> <span class="fu">element_blank</span>(),</span>
 <span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.text.y =</span> <span class="fu">element_blank</span>())</span></code></pre></div>
-<p><img src="figures/unnamed-chunk-17-1.png" width="5824.92235949962" /></p>
+<p><img src="figures/unnamed-chunk-16-1.png" width="5824.92235949962" /></p>
 </div>
 </div>
 </div>
@@ -781,7 +1003,7 @@ div.tocify {
 &gt; 
 &gt; The choice of 1 dimensions is supported by 2 (15.38%) methods out of 13 (t, p).</code></pre>
 <div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(n) </span></code></pre></div>
-<p><img src="figures/unnamed-chunk-18-1.png" width="5824.92235949962" /></p>
+<p><img src="figures/unnamed-chunk-17-1.png" width="5824.92235949962" /></p>
 </div>
 <div id="components" class="section level5">
 <h5>9-components</h5>
@@ -794,7 +1016,7 @@ div.tocify {
 <span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">caption =</span> <span class="st">&quot;Item loadings for PCA 9-component solutions.&quot;</span></span>
 <span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
 <table style="width:100%;">
-<caption><span id="tab:unnamed-chunk-19">Table 1: </span>Item loadings for PCA 9-component solutions.</caption>
+<caption><span id="tab:unnamed-chunk-18">Table 1: </span>Item loadings for PCA 9-component solutions.</caption>
 <colgroup>
 <col width="19%" />
 <col width="5%" />
@@ -1689,8 +1911,8 @@ div.tocify {
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(pca, <span class="at">size_text =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
 <span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.y=</span><span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">5</span>))</span></code></pre></div>
-<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-19"></span>
-<img src="figures/unnamed-chunk-19-1.png" alt="PCA 9-component Rotated Loadings" width="5824.92235949962" />
+<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-18"></span>
+<img src="figures/unnamed-chunk-18-1.png" alt="PCA 9-component Rotated Loadings" width="5824.92235949962" />
 <p class="caption">
 Figure 1: PCA 9-component Rotated Loadings
 </p>
@@ -1712,7 +1934,7 @@ Figure 1: PCA 9-component Rotated Loadings
 <span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">caption =</span> <span class="st">&quot;Item loadings for PCA 12-component solutions.&quot;</span></span>
 <span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
 <table>
-<caption><span id="tab:unnamed-chunk-20">Table 2: </span>Item loadings for PCA 12-component solutions.</caption>
+<caption><span id="tab:unnamed-chunk-19">Table 2: </span>Item loadings for PCA 12-component solutions.</caption>
 <colgroup>
 <col width="16%" />
 <col width="5%" />
@@ -2784,8 +3006,8 @@ Figure 1: PCA 9-component Rotated Loadings
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(pca, <span class="at">size_text =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
 <span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.y=</span><span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">5</span>))</span></code></pre></div>
-<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-20"></span>
-<img src="figures/unnamed-chunk-20-1.png" alt="PCA 12-component Rotated Loadings" width="5824.92235949962" />
+<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-19"></span>
+<img src="figures/unnamed-chunk-19-1.png" alt="PCA 12-component Rotated Loadings" width="5824.92235949962" />
 <p class="caption">
 Figure 2: PCA 12-component Rotated Loadings
 </p>
@@ -2806,7 +3028,7 @@ Figure 2: PCA 12-component Rotated Loadings
 &gt; 
 &gt; The choice of 1 dimensions is supported by 4 (25.00%) methods out of 16 (t, p, TLI, RMSEA).</code></pre>
 <div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(n)</span></code></pre></div>
-<p><img src="figures/unnamed-chunk-21-1.png" width="5824.92235949962" /></p>
+<p><img src="figures/unnamed-chunk-20-1.png" width="5824.92235949962" /></p>
 </div>
 <div id="factors" class="section level5">
 <h5>9-factors</h5>
@@ -2818,7 +3040,7 @@ Figure 2: PCA 12-component Rotated Loadings
 <span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">caption =</span> <span class="st">&quot;Item loadings for EFA 9-factor solutions.&quot;</span></span>
 <span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
 <table>
-<caption><span id="tab:unnamed-chunk-22">Table 3: </span>Item loadings for EFA 9-factor solutions.</caption>
+<caption><span id="tab:unnamed-chunk-21">Table 3: </span>Item loadings for EFA 9-factor solutions.</caption>
 <thead>
 <tr class="header">
 <th align="left">Variable</th>
@@ -3640,8 +3862,8 @@ Figure 2: PCA 12-component Rotated Loadings
 <span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(efa, <span class="at">size_text =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
 <span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.y=</span><span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">5</span>))</span></code></pre></div>
-<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-22"></span>
-<img src="figures/unnamed-chunk-22-1.png" alt="EFA 9-factor Rotated Loadings" width="5824.92235949962" />
+<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-21"></span>
+<img src="figures/unnamed-chunk-21-1.png" alt="EFA 9-factor Rotated Loadings" width="5824.92235949962" />
 <p class="caption">
 Figure 3: EFA 9-factor Rotated Loadings
 </p>
@@ -3659,7 +3881,7 @@ Figure 3: EFA 9-factor Rotated Loadings
 <span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">caption =</span> <span class="st">&quot;Item loadings for EFA 12-factor solutions.&quot;</span></span>
 <span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
 <table style="width:100%;">
-<caption><span id="tab:unnamed-chunk-23">Table 4: </span>Item loadings for EFA 12-factor solutions.</caption>
+<caption><span id="tab:unnamed-chunk-22">Table 4: </span>Item loadings for EFA 12-factor solutions.</caption>
 <colgroup>
 <col width="17%" />
 <col width="5%" />
@@ -4672,8 +4894,8 @@ Figure 3: EFA 9-factor Rotated Loadings
 <span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(efa, <span class="at">size_text =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
 <span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.y=</span><span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">5</span>))</span></code></pre></div>
-<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-23"></span>
-<img src="figures/unnamed-chunk-23-1.png" alt="EFA 12-factor Rotated Loadings" width="5824.92235949962" />
+<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-22"></span>
+<img src="figures/unnamed-chunk-22-1.png" alt="EFA 12-factor Rotated Loadings" width="5824.92235949962" />
 <p class="caption">
 Figure 4: EFA 12-factor Rotated Loadings
 </p>
@@ -4713,7 +4935,7 @@ Figure 4: EFA 12-factor Rotated Loadings
 &gt; 
 &gt; The choice of 10 clusters is supported by 6 (24.00%) methods out of 25 (Gap_Dudoit2002, DB, SDindex, SDbw, gamma, gplus).</code></pre>
 <div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(n)</span></code></pre></div>
-<p><img src="figures/unnamed-chunk-25-1.png" width="5824.92235949962" /></p>
+<p><img src="figures/unnamed-chunk-24-1.png" width="5824.92235949962" /></p>
 </div>
 <div id="k-solution" class="section level5">
 <h5>2-K Solution</h5>
@@ -4746,8 +4968,8 @@ Figure 4: EFA 12-factor Rotated Loadings
 </tbody>
 </table>
 <div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(rez)</span></code></pre></div>
-<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-26"></span>
-<img src="figures/unnamed-chunk-26-1.png" alt="K-Means 2-cluster Clustegram solution" width="5824.92235949962" />
+<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-25"></span>
+<img src="figures/unnamed-chunk-25-1.png" alt="K-Means 2-cluster Clustegram solution" width="5824.92235949962" />
 <p class="caption">
 Figure 5: K-Means 2-cluster Clustegram solution
 </p>
@@ -4790,8 +5012,8 @@ Figure 5: K-Means 2-cluster Clustegram solution
 </tbody>
 </table>
 <div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(rez)</span></code></pre></div>
-<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-27"></span>
-<img src="figures/unnamed-chunk-27-1.png" alt="K-Means 7-cluster Clustegram solution" width="5824.92235949962" />
+<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-26"></span>
+<img src="figures/unnamed-chunk-26-1.png" alt="K-Means 7-cluster Clustegram solution" width="5824.92235949962" />
 <p class="caption">
 Figure 6: K-Means 7-cluster Clustegram solution
 </p>
@@ -4837,8 +5059,8 @@ Figure 6: K-Means 7-cluster Clustegram solution
 </tbody>
 </table>
 <div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(rez)</span></code></pre></div>
-<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-28"></span>
-<img src="figures/unnamed-chunk-28-1.png" alt="K-Means 10-cluster Clustegram solution" width="5824.92235949962" />
+<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-27"></span>
+<img src="figures/unnamed-chunk-27-1.png" alt="K-Means 10-cluster Clustegram solution" width="5824.92235949962" />
 <p class="caption">
 Figure 7: K-Means 10-cluster Clustegram solution
 </p>
@@ -4878,8 +5100,8 @@ Figure 7: K-Means 10-cluster Clustegram solution
 </tbody>
 </table>
 <div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(rez)</span></code></pre></div>
-<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-29"></span>
-<img src="figures/unnamed-chunk-29-1.png" alt="K-Meloid 3-cluster Clustegram solution" width="5824.92235949962" />
+<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-28"></span>
+<img src="figures/unnamed-chunk-28-1.png" alt="K-Meloid 3-cluster Clustegram solution" width="5824.92235949962" />
 <p class="caption">
 Figure 8: K-Meloid 3-cluster Clustegram solution
 </p>
@@ -4929,8 +5151,8 @@ Figure 8: K-Meloid 3-cluster Clustegram solution
 </tbody>
 </table>
 <div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(rez)</span></code></pre></div>
-<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-30"></span>
-<img src="figures/unnamed-chunk-30-1.png" alt="Hierarchical Clustering 11-cluster dendogram solution" width="5824.92235949962" />
+<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-29"></span>
+<img src="figures/unnamed-chunk-29-1.png" alt="Hierarchical Clustering 11-cluster dendogram solution" width="5824.92235949962" />
 <p class="caption">
 Figure 9: Hierarchical Clustering 11-cluster dendogram solution
 </p>
@@ -4941,7 +5163,7 @@ Figure 9: Hierarchical Clustering 11-cluster dendogram solution
 <span id="cb63-3"><a href="#cb63-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb63-4"><a href="#cb63-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggraph)</span>
 <span id="cb63-5"><a href="#cb63-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_dendrogram</span>(<span class="at">model =</span> <span class="fu">attributes</span>(rez)<span class="sc">$</span>model<span class="sc">$</span>hclust, <span class="at">clusters =</span> clusters, <span class="at">ylim =</span> <span class="sc">-</span><span class="dv">10</span>, <span class="at">nudge_y =</span> <span class="sc">-</span><span class="fl">0.05</span>, <span class="at">angle =</span> <span class="dv">90</span>)</span></code></pre></div>
-<p><img src="figures/unnamed-chunk-31-1.png" width="5824.92235949962" /></p>
+<p><img src="figures/unnamed-chunk-30-1.png" width="5824.92235949962" /></p>
 </div>
 <div id="clustering-90" class="section level5">
 <h5>Clustering (90%)</h5>
@@ -4986,8 +5208,8 @@ Figure 9: Hierarchical Clustering 11-cluster dendogram solution
 </tbody>
 </table>
 <div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(rez)</span></code></pre></div>
-<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-32"></span>
-<img src="figures/unnamed-chunk-32-1.png" alt="Hierarchical Clustering 13-cluster dendogram solution" width="5824.92235949962" />
+<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-31"></span>
+<img src="figures/unnamed-chunk-31-1.png" alt="Hierarchical Clustering 13-cluster dendogram solution" width="5824.92235949962" />
 <p class="caption">
 Figure 10: Hierarchical Clustering 13-cluster dendogram solution
 </p>
@@ -4997,7 +5219,7 @@ Figure 10: Hierarchical Clustering 13-cluster dendogram solution
 <span id="cb69-2"><a href="#cb69-2" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(clusters) <span class="ot">&lt;-</span> table_clusters<span class="sc">$</span>Index</span>
 <span id="cb69-3"><a href="#cb69-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb69-4"><a href="#cb69-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_dendrogram</span>(<span class="at">model =</span> <span class="fu">attributes</span>(rez)<span class="sc">$</span>model<span class="sc">$</span>hclust, <span class="at">clusters =</span> clusters, <span class="at">ylim =</span> <span class="sc">-</span><span class="dv">10</span>, <span class="at">nudge_y =</span> <span class="sc">-</span><span class="fl">0.05</span>, <span class="at">angle =</span> <span class="dv">90</span>,)</span></code></pre></div>
-<p><img src="figures/unnamed-chunk-33-1.png" width="5824.92235949962" /></p>
+<p><img src="figures/unnamed-chunk-32-1.png" width="5824.92235949962" /></p>
 </div>
 </div>
 <div id="dbscan" class="section level4">
@@ -5006,7 +5228,7 @@ Figure 10: Hierarchical Clustering 13-cluster dendogram solution
 <h5>Parameters Selection</h5>
 <div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">n_clusters_dbscan</span>(z, <span class="at">standardize =</span> <span class="cn">FALSE</span>, <span class="at">eps_range =</span> <span class="fu">c</span>(<span class="fl">0.1</span>, <span class="dv">30</span>), <span class="at">min_size =</span> <span class="dv">2</span>, <span class="at">method =</span> <span class="st">&quot;kNN&quot;</span>)</span>
 <span id="cb70-2"><a href="#cb70-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(n)</span></code></pre></div>
-<p><img src="figures/unnamed-chunk-34-1.png" width="5824.92235949962" /></p>
+<p><img src="figures/unnamed-chunk-33-1.png" width="5824.92235949962" /></p>
 </div>
 <div id="dbscan-1" class="section level5">
 <h5>DBSCAN</h5>
@@ -5042,8 +5264,8 @@ Figure 10: Hierarchical Clustering 13-cluster dendogram solution
 </tbody>
 </table>
 <div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(rez)</span></code></pre></div>
-<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-35"></span>
-<img src="figures/unnamed-chunk-35-1.png" alt="DBSCAN 6-cluster clustergram solution" width="5824.92235949962" />
+<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-34"></span>
+<img src="figures/unnamed-chunk-34-1.png" alt="DBSCAN 6-cluster clustergram solution" width="5824.92235949962" />
 <p class="caption">
 Figure 11: DBSCAN 6-cluster clustergram solution
 </p>
@@ -5093,8 +5315,8 @@ Figure 11: DBSCAN 6-cluster clustergram solution
 </tbody>
 </table>
 <div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb79-1"><a href="#cb79-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(rez)</span></code></pre></div>
-<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-36"></span>
-<img src="figures/unnamed-chunk-36-1.png" alt="HDBSCAN 13-cluster clustergram solution" width="5824.92235949962" />
+<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-35"></span>
+<img src="figures/unnamed-chunk-35-1.png" alt="HDBSCAN 13-cluster clustergram solution" width="5824.92235949962" />
 <p class="caption">
 Figure 12: HDBSCAN 13-cluster clustergram solution
 </p>
@@ -5137,8 +5359,8 @@ Figure 12: HDBSCAN 13-cluster clustergram solution
 </tbody>
 </table>
 <div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb84-1"><a href="#cb84-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(rez)</span></code></pre></div>
-<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-37"></span>
-<img src="figures/unnamed-chunk-37-1.png" alt="Mixture Modelling 6-cluster clustergram solution" width="5824.92235949962" />
+<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-36"></span>
+<img src="figures/unnamed-chunk-36-1.png" alt="Mixture Modelling 6-cluster clustergram solution" width="5824.92235949962" />
 <p class="caption">
 Figure 13: Mixture Modelling 6-cluster clustergram solution
 </p>
@@ -5166,8 +5388,8 @@ EGA is a newly introduced method which applies the network modeling framework to
 <span id="cb87-2"><a href="#cb87-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb87-3"><a href="#cb87-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Run EGA</span></span>
 <span id="cb87-4"><a href="#cb87-4" aria-hidden="true" tabindex="-1"></a>ega_glasso <span class="ot">&lt;-</span> EGAnet<span class="sc">::</span><span class="fu">EGA</span>(z, <span class="at">model =</span> <span class="st">&quot;glasso&quot;</span>, <span class="at">algorithm =</span> <span class="st">&quot;louvain&quot;</span>, <span class="at">plot.EGA =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
-<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-39"></span>
-<img src="figures/unnamed-chunk-39-1.png" alt="EGA with GLASSO 7-cluster network solution" width="5824.92235949962" />
+<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-38"></span>
+<img src="figures/unnamed-chunk-38-1.png" alt="EGA with GLASSO 7-cluster network solution" width="5824.92235949962" />
 <p class="caption">
 Figure 14: EGA with GLASSO 7-cluster network solution
 </p>
@@ -5177,8 +5399,8 @@ Figure 14: EGA with GLASSO 7-cluster network solution
 <h5>EGA TMFG</h5>
 <div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb88-1"><a href="#cb88-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Run EGA</span></span>
 <span id="cb88-2"><a href="#cb88-2" aria-hidden="true" tabindex="-1"></a>ega_TMFG <span class="ot">&lt;-</span> EGAnet<span class="sc">::</span><span class="fu">EGA</span>(z, <span class="at">model =</span> <span class="st">&quot;TMFG&quot;</span>, <span class="at">algorithm =</span> <span class="st">&quot;louvain&quot;</span>, <span class="at">plot.EGA =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
-<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-40"></span>
-<img src="figures/unnamed-chunk-40-1.png" alt="EGA with TMFG 6-cluster network solution" width="5824.92235949962" />
+<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-39"></span>
+<img src="figures/unnamed-chunk-39-1.png" alt="EGA with TMFG 6-cluster network solution" width="5824.92235949962" />
 <p class="caption">
 Figure 15: EGA with TMFG 6-cluster network solution
 </p>
@@ -5309,7 +5531,7 @@ Figure 15: EGA with TMFG 6-cluster network solution
 <span id="cb92-8"><a href="#cb92-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_color_material_d</span>(<span class="at">palette =</span> <span class="st">&quot;rainbow&quot;</span>, <span class="at">guide =</span> <span class="st">&quot;none&quot;</span>) <span class="sc">+</span></span>
 <span id="cb92-9"><a href="#cb92-9" aria-hidden="true" tabindex="-1"></a>    ggraph<span class="sc">::</span><span class="fu">scale_edge_color_gradientn</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">colours=</span><span class="fu">c</span>(<span class="st">&quot;#607D8B&quot;</span>, <span class="st">&quot;#263238&quot;</span>), <span class="at">guide =</span> <span class="st">&quot;none&quot;</span>) <span class="sc">+</span></span>
 <span id="cb92-10"><a href="#cb92-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_size_continuous</span>(<span class="at">range =</span> <span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">20</span>), <span class="at">guide =</span> <span class="st">&quot;none&quot;</span>)</span></code></pre></div>
-<p><img src="figures/unnamed-chunk-43-1.png" width="5824.92235949962" /></p>
+<p><img src="figures/unnamed-chunk-42-1.png" width="5824.92235949962" /></p>
 <div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb93-1"><a href="#cb93-1" aria-hidden="true" tabindex="-1"></a>graph_TMFG <span class="sc">%&gt;%</span> </span>
 <span id="cb93-2"><a href="#cb93-2" aria-hidden="true" tabindex="-1"></a>  ggraph<span class="sc">::</span><span class="fu">ggraph</span>(<span class="at">layout =</span> <span class="st">&quot;graphopt&quot;</span>) <span class="sc">+</span> </span>
 <span id="cb93-3"><a href="#cb93-3" aria-hidden="true" tabindex="-1"></a>    ggraph<span class="sc">::</span><span class="fu">geom_edge_arc</span>(<span class="fu">aes</span>(<span class="at">colour =</span> link, <span class="at">width =</span> link), <span class="at">strength =</span> <span class="fl">0.05</span>) <span class="sc">+</span> </span>
@@ -5320,7 +5542,7 @@ Figure 15: EGA with TMFG 6-cluster network solution
 <span id="cb93-8"><a href="#cb93-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_color_material_d</span>(<span class="at">palette =</span> <span class="st">&quot;rainbow&quot;</span>, <span class="at">guide =</span> <span class="st">&quot;none&quot;</span>) <span class="sc">+</span></span>
 <span id="cb93-9"><a href="#cb93-9" aria-hidden="true" tabindex="-1"></a>    ggraph<span class="sc">::</span><span class="fu">scale_edge_color_gradientn</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">colours=</span><span class="fu">c</span>(<span class="st">&quot;#607D8B&quot;</span>, <span class="st">&quot;#263238&quot;</span>), <span class="at">guide =</span> <span class="st">&quot;none&quot;</span>) <span class="sc">+</span></span>
 <span id="cb93-10"><a href="#cb93-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_size_continuous</span>(<span class="at">range =</span> <span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">20</span>), <span class="at">guide =</span> <span class="st">&quot;none&quot;</span>)</span></code></pre></div>
-<p><img src="figures/unnamed-chunk-43-2.png" width="5824.92235949962" /></p>
+<p><img src="figures/unnamed-chunk-42-2.png" width="5824.92235949962" /></p>
 </div>
 </div>
 </div>
@@ -5370,8 +5592,8 @@ Figure 15: EGA with TMFG 6-cluster network solution
 <span id="cb95-17"><a href="#cb95-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="cn">NULL</span>, <span class="at">y =</span> <span class="cn">NULL</span>) <span class="sc">+</span></span>
 <span id="cb95-18"><a href="#cb95-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_gradient2</span>(<span class="at">low =</span> <span class="st">&quot;#2196F3&quot;</span>, <span class="at">mid =</span> <span class="st">&quot;#9C27B0&quot;</span>, <span class="at">high =</span> <span class="st">&quot;#FF5722&quot;</span>, <span class="at">midpoint =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
 <span id="cb95-19"><a href="#cb95-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Metaclustering Heatmap&quot;</span>, <span class="at">subtitle =</span> <span class="st">&quot;Probability of being grouped together accross multiple methods.&quot;</span>)</span></code></pre></div>
-<p><img src="figures/unnamed-chunk-45-1.png" width="5824.92235949962" /></p>
-<div class="sourceCode" id="cb96"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb96-1"><a href="#cb96-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ggsave(&quot;figures/figure_probability_matrix.png&quot;, width=12, height=9)</span></span></code></pre></div>
+<p><img src="figures/unnamed-chunk-44-1.png" width="5824.92235949962" /></p>
+<div class="sourceCode" id="cb96"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb96-1"><a href="#cb96-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="st">&quot;figures/figure_probability_matrix.png&quot;</span>, <span class="at">width=</span><span class="dv">12</span><span class="sc">*</span><span class="fl">0.9</span>, <span class="at">height=</span><span class="dv">9</span><span class="sc">*</span><span class="fl">0.9</span>, <span class="at">dpi =</span> <span class="dv">450</span>)</span></code></pre></div>
 </div>
 <div id="hierarchical-structure-of-metaclustering" class="section level3">
 <h3>Hierarchical Structure of Metaclustering</h3>
@@ -5444,7 +5666,7 @@ Figure 15: EGA with TMFG 6-cluster network solution
 <span id="cb99-33"><a href="#cb99-33" aria-hidden="true" tabindex="-1"></a>    <span class="co"># geom_line(data = data.frame(y = c(-0.02, -0.02), x = c(23, 34)), aes(x = x, y = y), size = 0.5, color = &quot;#607D8B&quot;) +</span></span>
 <span id="cb99-34"><a href="#cb99-34" aria-hidden="true" tabindex="-1"></a>    <span class="co"># geom_line(data = data.frame(y = c(-0.02, -0.02), x = c(35, 42)), aes(x = x, y = y), size = 0.5, color = &quot;#607D8B&quot;) +</span></span>
 <span id="cb99-35"><a href="#cb99-35" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;none&quot;</span>)</span></code></pre></div>
-<p><img src="figures/unnamed-chunk-46-1.png" width="5824.92235949962" /></p>
+<p><img src="figures/unnamed-chunk-45-1.png" width="5824.92235949962" /></p>
 <div class="sourceCode" id="cb100"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb100-1"><a href="#cb100-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ggsave(file = &quot;figures/meta-dendrogram.svg&quot;, plot=dendro, width=15, height=10)</span></span></code></pre></div>
 </div>
 <div id="metaclustering-network" class="section level3">
@@ -5783,12 +6005,12 @@ Figure 15: EGA with TMFG 6-cluster network solution
 <span id="cb102-8"><a href="#cb102-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_color_material_d</span>(<span class="at">palette =</span> <span class="st">&quot;rainbow&quot;</span>, <span class="at">guide =</span> <span class="st">&quot;none&quot;</span>) <span class="sc">+</span></span>
 <span id="cb102-9"><a href="#cb102-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_edge_color_gradientn</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">colours=</span><span class="fu">c</span>(<span class="st">&quot;#607D8B&quot;</span>, <span class="st">&quot;#263238&quot;</span>), <span class="at">guide =</span> <span class="st">&quot;none&quot;</span>) <span class="sc">+</span></span>
 <span id="cb102-10"><a href="#cb102-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_size_continuous</span>(<span class="at">range =</span> <span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">20</span>), <span class="at">guide =</span> <span class="st">&quot;none&quot;</span>)</span></code></pre></div>
-<p><img src="figures/unnamed-chunk-48-1.png" width="5824.92235949962" /></p>
+<p><img src="figures/unnamed-chunk-47-1.png" width="5824.92235949962" /></p>
 <!-- #### Create table -->
 <!-- ```{r, message=FALSE, warning=FALSE, eval=FALSE, echo=FALSE} -->
-<!-- level_1 <- c(rep("Core Variability Features", 17), -->
+<!-- level_1 <- c(rep("Distribution", 17), -->
 <!--              rep("Frequency/Complexity", 28), -->
-<!--              rep("Extreme Variabilities Features", 12)) -->
+<!--              rep("Harmony", 12)) -->
 <!-- level_2 <- c(rep("Dispersion", 12), -->
 <!--              rep("Centrality", 5), -->
 <!--              rep("Absolute Frequency/Complexity", 15), -->
@@ -5853,7 +6075,8 @@ Figure 15: EGA with TMFG 6-cluster network solution
 <!-- df_summary$Centrality <- as.data.frame(centrality)[df_summary$indices, ] -->
 <!-- df_summary <- df_summary %>% -->
 <!--   group_by(level_1, level_2) %>% -->
-<!--   arrange(desc(Centrality), .by_group = TRUE) -->
+<!--   arrange(desc(Centrality), .by_group = TRUE) %>%  -->
+<!--   mutate(Centrality = round(Centrality, digits = 1)) -->
 <!--   # rename("Level 1" = "level_1", -->
 <!--   #        "Level 2" = "level_2", -->
 <!--   #        "HRV Indices" = "indices", -->
@@ -5865,7 +6088,7 @@ Figure 15: EGA with TMFG 6-cluster network solution
 Bassett, D. (2016). A literature review of heart rate variability in depressive and bipolar disorders. <em>Australian &amp; New Zealand Journal of Psychiatry</em>, <em>50</em>(6), 511–519.
 </div>
 <div id="ref-bhattacharjee2001classification" class="csl-entry">
-Bhattacharjee, A., Richards, W. G., Staunton, J., Li, C., Monti, S., Vasa, P., … others. (2001). Classification of human lung carcinomas by mRNA expression profiling reveals distinct adenocarcinoma subclasses. <em>Proceedings of the National Academy of Sciences</em>, <em>98</em>(24), 13790–13795.
+Bhattacharjee, A., Richards, W. G., Staunton, J., Li, C., Monti, S., Vasa, P., Ladd, C., Beheshti, J., Bueno, R., Gillette, M., &amp; others. (2001). Classification of human lung carcinomas by mRNA expression profiling reveals distinct adenocarcinoma subclasses. <em>Proceedings of the National Academy of Sciences</em>, <em>98</em>(24), 13790–13795.
 </div>
 <div id="ref-bigger1989comparison" class="csl-entry">
 Bigger Jr, J. T., Albrecht, P., Steinman, R. C., Rolnitzky, L. M., Fleiss, J. L., &amp; Cohen, R. J. (1989). Comparison of time-and frequency domain-based measures of cardiac parasympathetic activity in holter recordings after myocardial infarction. <em>The American Journal of Cardiology</em>, <em>64</em>(8), 536–538.
@@ -5886,7 +6109,7 @@ Forte, G., Favieri, F., &amp; Casagrande, M. (2019). Heart rate variability and 
 Golberger, A. (1996). Non-linear dynamics for clinicians: Chaos theory, fractals, and complexity at the bedside. <em>The Lancet</em>, <em>347</em>(9011), 1312–1314.
 </div>
 <div id="ref-goldberger2000physiobank" class="csl-entry">
-Goldberger, A. L., Amaral, L. A., Glass, L., Hausdorff, J. M., Ivanov, P. C., Mark, R. G., … Stanley, H. E. (2000). PhysioBank, PhysioToolkit, and PhysioNet: Components of a new research resource for complex physiologic signals. <em>Circulation</em>, <em>101</em>(23), e215–e220.
+Goldberger, A. L., Amaral, L. A., Glass, L., Hausdorff, J. M., Ivanov, P. C., Mark, R. G., Mietus, J. E., Moody, G. B., Peng, C.-K., &amp; Stanley, H. E. (2000). PhysioBank, PhysioToolkit, and PhysioNet: Components of a new research resource for complex physiologic signals. <em>Circulation</em>, <em>101</em>(23), e215–e220.
 </div>
 <div id="ref-guzik2007correlations" class="csl-entry">
 Guzik, P., Piskorski, J., Krauze, T., Schneider, R., Wesseling, K. H., Wykretowicz, A., &amp; Wysocki, H. (2007). Correlations between poincare plot and conventional heart rate variability parameters assessed during paced breathing. <em>The Journal of Physiological Sciences</em>, 0702020009–0702020009.
@@ -5901,7 +6124,7 @@ Iyengar, N., Peng, C., Morin, R., Goldberger, A. L., &amp; Lipsitz, L. A. (1996)
 Kleiger, R. E., Stein, P. K., &amp; Bigger Jr, J. T. (2005). Heart rate variability: Measurement and clinical utility. <em>Annals of Noninvasive Electrocardiology</em>, <em>10</em>(1), 88–101.
 </div>
 <div id="ref-kudat2006heart" class="csl-entry">
-Kudat, H., Akkaya, V., Sozen, A., Salman, S., Demirel, S., Ozcan, M., … Guven, O. (2006). Heart rate variability in diabetes patients. <em>Journal of International Medical Research</em>, <em>34</em>(3), 291–296.
+Kudat, H., Akkaya, V., Sozen, A., Salman, S., Demirel, S., Ozcan, M., Atilgan, D., Yilmaz, M., &amp; Guven, O. (2006). Heart rate variability in diabetes patients. <em>Journal of International Medical Research</em>, <em>34</em>(3), 291–296.
 </div>
 <div id="ref-kuncheva2014combining" class="csl-entry">
 Kuncheva, L. I. (2014). <em>Combining pattern classifiers: Methods and algorithms</em>. John Wiley &amp; Sons.
@@ -5910,7 +6133,7 @@ Kuncheva, L. I. (2014). <em>Combining pattern classifiers: Methods and algorithm
 Laitio, T., Jalonen, J., Kuusela, T., &amp; Scheinin, H. (2007). The role of heart rate variability in risk stratification for adverse postoperative cardiac events. <em>Anesthesia &amp; Analgesia</em>, <em>105</em>(6), 1548–1560.
 </div>
 <div id="ref-leite2015correlation" class="csl-entry">
-Leite, M. R., Ramos, E. M. C., Kalva-Filho, C. A., Rodrigues, F. M. M., Freire, A. P. C., Tacao, G. Y., … Ramos, D. (2015). Correlation between heart rate variability indexes and aerobic physiological variables in patients with COPD. <em>Respirology</em>, <em>20</em>(2), 273–278.
+Leite, M. R., Ramos, E. M. C., Kalva-Filho, C. A., Rodrigues, F. M. M., Freire, A. P. C., Tacao, G. Y., Toledo, A. C. de, Cecilio, M. J., Vanderlei, L. C. M., &amp; Ramos, D. (2015). Correlation between heart rate variability indexes and aerobic physiological variables in patients with COPD. <em>Respirology</em>, <em>20</em>(2), 273–278.
 </div>
 <div id="ref-ludecke2019insight" class="csl-entry">
 Ludecke, D., Waggoner, P. D., &amp; Makowski, D. (2019). Insight: A unified interface to access information from model objects in r. <em>Journal of Open Source Software</em>, <em>4</em>(38), 1412.
@@ -5922,7 +6145,7 @@ Makowski, D., Ben-Shachar, M. S., &amp; Ludecke, D. (2019). bayestestR: Describi
 Makowski, D., Ben-Shachar, M. S., Patil, I., &amp; Lüdecke, D. (2020). Methods and algorithms for correlation analysis in r. <em>Journal of Open Source Software</em>, <em>5</em>(51), 2306.
 </div>
 <div id="ref-makowski2021neurokit2" class="csl-entry">
-Makowski, D., Pham, T., Lau, Z. J., Brammer, J. C., Lespinasse, F., Pham, H., … Chen, S. A. (2021). NeuroKit2: A python toolbox for neurophysiological signal processing. <em>Behavior Research Methods</em>, 1–8.
+Makowski, D., Pham, T., Lau, Z. J., Brammer, J. C., Lespinasse, F., Pham, H., Schölzel, C., &amp; Chen, S. A. (2021). NeuroKit2: A python toolbox for neurophysiological signal processing. <em>Behavior Research Methods</em>, 1–8.
 </div>
 <div id="ref-monti2003consensus" class="csl-entry">
 Monti, S., Tamayo, P., Mesirov, J., &amp; Golub, T. (2003). Consensus clustering: A resampling-based method for class discovery and visualization of gene expression microarray data. <em>Machine Learning</em>, <em>52</em>(1), 91–118.
@@ -5943,10 +6166,10 @@ Peng, R.-C., Zhou, X.-L., Lin, W.-H., &amp; Zhang, Y.-T. (2015). Extraction of h
 Pham, T., Lau, Z. J., Chen, S., &amp; Makowski, D. (2021). Heart rate variability in psychology: A review of HRV indices and an analysis tutorial. <em>Sensors</em>, <em>21</em>(12), 3998.
 </div>
 <div id="ref-R-base" class="csl-entry">
-R Core Team. (2019). <em>R: A language and environment for statistical computing</em>. Retrieved from <a href="https://www.R-project.org/">https://www.R-project.org/</a>
+R Core Team. (2019). <em>R: A language and environment for statistical computing</em>. R Foundation for Statistical Computing. <a href="https://www.R-project.org/">https://www.R-project.org/</a>
 </div>
 <div id="ref-rossi2015impact" class="csl-entry">
-Rossi, R. C., Vanderlei, L. C. M., Goncalves, A. C. C. R., Vanderlei, F. M., Bernardo, A. F. B., Yamada, K. M. H., … Abreu, L. C. de. (2015). Impact of obesity on autonomic modulation, heart rate and blood pressure in obese young people. <em>Autonomic Neuroscience</em>, <em>193</em>, 138–141.
+Rossi, R. C., Vanderlei, L. C. M., Goncalves, A. C. C. R., Vanderlei, F. M., Bernardo, A. F. B., Yamada, K. M. H., Silva, N. T. da, &amp; Abreu, L. C. de. (2015). Impact of obesity on autonomic modulation, heart rate and blood pressure in obese young people. <em>Autonomic Neuroscience</em>, <em>193</em>, 138–141.
 </div>
 <div id="ref-voss2009methods" class="csl-entry">
 Voss, A., Schulz, S., Schroeder, R., Baumert, M., &amp; Caminal, P. (2009). Methods derived from nonlinear dynamics for analysing heart rate variability. <em>Philosophical Transactions of the Royal Society A: Mathematical, Physical and Engineering Sciences</em>, <em>367</em>(1887), 277–296.
@@ -5957,7 +6180,7 @@ Voss, A., Schulz, S., Schroeder, R., Baumert, M., &amp; Caminal, P. (2009). Meth
 </div>
 </div>
 
-<div id="rmd-source-code">LS0tDQp0aXRsZTogJyoqQ29uY2VwdHVhbCB2cy4gT2JzZXJ2ZWQgU3RydWN0dXJlIG9mIEhlYXJ0IFJhdGUgVmFyaWFiaWxpdHkgKEhSVikgSW5kaWNlcyoqJw0Kc3VidGl0bGU6ICJEYXRhIEFuYWx5c2lzIg0Kb3V0cHV0Og0KICBib29rZG93bjo6aHRtbF9kb2N1bWVudDI6DQogICAgc2VsZl9jb250YWluZWQ6IGZhbHNlDQogICAgdGhlbWU6IGNlcnVsZWFuDQogICAgaGlnaGxpZ2h0OiBweWdtZW50cw0KICAgIHRvYzogeWVzDQogICAgdG9jX2RlcHRoOiAzDQogICAgdG9jX2Zsb2F0OiB5ZXMNCiAgICBudW1iZXJfc2VjdGlvbnM6IG5vDQogICAgZGZfcHJpbnQ6IGRlZmF1bHQNCiAgICBjb2RlX2ZvbGRpbmc6IHNob3cNCiAgICBjb2RlX2Rvd25sb2FkOiB5ZXMNCiAgd29yZF9kb2N1bWVudDoNCiAgICByZWZlcmVuY2VfZG9jeDogdXRpbHMvVGVtcGxhdGVfV29yZC5kb2N4DQogICAgaGlnaGxpZ2h0OiBweWdtZW50cw0KICAgIHRvYzogbm8NCiAgICB0b2NfZGVwdGg6IDMNCiAgICBkZl9wcmludDogZGVmYXVsdA0KICAgIG51bWJlcl9zZWN0aW9uczogeWVzDQogIHJtYXJrZG93bjo6aHRtbF92aWduZXR0ZToNCiAgICB0b2M6IHllcw0KICAgIHRvY19kZXB0aDogMw0KICBodG1sX2RvY3VtZW50Og0KICAgIHRvYzogeWVzDQogICAgdG9jX2RlcHRoOiAnMicNCiAgICBsYXRleF9lbmdpbmU6IHhlbGF0ZXgNCmVkaXRvcl9vcHRpb25zOg0KICBjaHVua19vdXRwdXRfdHlwZTogY29uc29sZQ0KYmlibGlvZ3JhcGh5OiByZWZlcmVuY2VzLmJpYg0KY3NsOiB1dGlscy9hcGEuY3NsDQotLS0NCg0KDQo8IS0tIA0KISEhISBJTVBPUlRBTlQ6IHJ1biBgc291cmNlKCJ1dGlscy9yZW5kZXIuUiIpYCB0byBwdWJsaXNoIGluc3RlYWQgb2YgY2xpY2tpbmcgb24gJ0tuaXQnDQotLT4NCg0KYGBge3Igc2V0dXAsIHdhcm5pbmc9RkFMU0UsIG1lc3NhZ2U9VFJVRSwgaW5jbHVkZT1GQUxTRX0NCmZhc3QgPC0gRkFMU0UgICMgTWFrZSB0aGlzIGZhbHNlIHRvIHNraXAgdGhlIGNodW5rcw0KDQojIFNldCB1cCB0aGUgZW52aXJvbm1lbnQgKG9yIHVzZSBsb2NhbCBhbHRlcm5hdGl2ZSBgc291cmNlKCJ1dGlscy9jb25maWcuUiIpYCkNCnNvdXJjZSgiaHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL1JlYWxpdHlCZW5kaW5nL1RlbXBsYXRlUmVzdWx0cy9tYWluL3V0aWxzL2NvbmZpZy5SIikgIA0KDQojIFNldCB0aGVtZQ0KZ2dwbG90Mjo6dGhlbWVfc2V0KHNlZTo6dGhlbWVfbW9kZXJuKCkpDQoNCnNvdXJjZV9ybWQgPC0gZnVuY3Rpb24oeCl7DQogIGZpbGUgPC0ga25pdHI6OnB1cmwoeCwgcXVpZXQ9VFJVRSkNCiAgc291cmNlKGZpbGUpDQogIGlmIChmaWxlLmV4aXN0cyhmaWxlKSkgZmlsZS5yZW1vdmUoZmlsZSkNCn0NCmBgYA0KDQojIEludHJvZHVjdGlvbg0KYGBge3IgYmFkZ2VzLCBlY2hvPUZBTFNFLCBtZXNzYWdlPVRSVUUsIHdhcm5pbmc9RkFMU0UsIHJlc3VsdHM9J2FzaXMnfQ0KIyBUaGlzIGNodW5rIGlzIGEgYml0IGNvbXBsZXggc28gZG9uJ3Qgd29ycnkgYWJvdXQgaXQ6IGl0J3MgbWFkZSB0byBhZGQgYmFkZ2VzIHRvIHRoZSBIVE1MIHZlcnNpb25zDQojIE5PVEU6IFlvdSBoYXZlIHRvIHJlcGxhY2UgdGhlIGxpbmtzIGFjY29yZGluZ2x5IHRvIGhhdmUgd29ya2luZyAiYnV0dG9ucyIgb24gdGhlIEhUTUwgdmVyc2lvbnMNCmlmICgha25pdHI6OmlzX2xhdGV4X291dHB1dCgpICYmIGtuaXRyOjppc19odG1sX291dHB1dCgpKSB7DQogIGNhdCgiIVtCdWlsZF0oaHR0cHM6Ly9naXRodWIuY29tL1RhbS1QaGFtL0hSVlN0cnVjdHVyZS93b3JrZmxvd3MvQnVpbGQvYmFkZ2Uuc3ZnKQ0KICAgICAgWyFbV2Vic2l0ZV0oaHR0cHM6Ly9pbWcuc2hpZWxkcy5pby9iYWRnZS9yZXBvLVJlYWRtZS0yMTk2RjMpXShodHRwczovL2dpdGh1Yi5jb20vVGFtLVBoYW0vSFJWU3RydWN0dXJlKQ0KICAgICAgWyFbV2Vic2l0ZV0oaHR0cHM6Ly9pbWcuc2hpZWxkcy5pby9iYWRnZS92aXNpdC13ZWJzaXRlLUU5MUU2MyldKGh0dHBzOi8vcmVhbGl0eWJlbmRpbmcuZ2l0aHViLmlvL1RlbXBsYXRlUmVzdWx0cy8pDQogICAgICBbIVtXZWJzaXRlXShodHRwczovL2ltZy5zaGllbGRzLmlvL2JhZGdlL2Rvd25sb2FkLS5kb2N4LUZGNTcyMildKGh0dHBzOi8vZ2l0aHViLmNvbS9SZWFsaXR5QmVuZGluZy9UZW1wbGF0ZVJlc3VsdHMvcmF3L21haW4vd29yZF9hbmRfcGRmL1N1cHBsZW1lbnRhcnlNYXRlcmlhbHMuZG9jeCkNCiAgICAgIFshW1dlYnNpdGVdKGh0dHBzOi8vaW1nLnNoaWVsZHMuaW8vYmFkZ2Uvc2VlLS5wZGYtRkY5ODAwKV0oaHR0cHM6Ly9naXRodWIuY29tL1JlYWxpdHlCZW5kaW5nL1RlbXBsYXRlUmVzdWx0cy9ibG9iL21haW4vd29yZF9hbmRfcGRmL1N1cHBsZW1lbnRhcnlNYXRlcmlhbHMucGRmKSIpDQp9DQpgYGANCg0KPCEtLSBBQlNUUkFDVCAtLT4NCg0KSGVhcnQgUmF0ZSBWYXJpYWJpbGl0eSAoSFJWKSBjYW4gYmUgZXN0aW1hdGVkIHVzaW5nIGEgbXlyaWFkIG9mIG1hdGhlbWF0aWNhbCBpbmRpY2VzLCBmb3Igd2hpY2ggdGhlIGxhY2sgb2YgY29tcGFyaXNvbiByZW5kZXJzIHJlc3VsdHMnIGludGVycHJldGF0aW9uIGFuZCBldmFsdWF0aW9uIHRlZGlvdXMuIEluIHRoaXMgc3R1ZHksIHdlIGFzc2Vzc2VkIHRoZSByZWxhdGlvbnNoaXAgYmV0d2VlbiA0MiBIUlYgbWV0cmljcyBjb2xsZWN0ZWQgZnJvbSBIdW1hbiByZWNvcmRpbmdzIChuID0gNTMxKSB1c2luZyB2YXJpb3VzIHN0cnVjdHVyZS1hbmFseXNpcyBhbGdvcml0aG1zLiBXZSB0aGVuIGFwcGxpZWQgYSBtZXRhY2x1c3RlcmluZyBhcHByb2FjaCB0aGF0IGNvbWJpbmVzIHRoZWlyIHJlc3VsdHMgdG8gb2J0YWluIGEgcm9idXN0IGFuZCByZWxpYWJsZSB2aWV3IG9mIHRoZSBvYnNlcnZlZCByZWxhdGlvbnNoaXBzLiBXZSBmb3VuZCB0aGF0IEhSViBtZXRyaWNzIGNhbiBiZSBjbHVzdGVyZWQgaW50byA0IGdyb3VwcywgcmVwcmVzZW50aW5nIC4uLi4gRnJvbSB0aGVyZSwgd2UgZGVyaXZlZCByZWNvbW1lbmRhdGlvbnMgb24gd2hpY2ggaW5kaWNlcyB0byBwcmlvcml0aXplIGZvciBwYXJzaW1vbmlvdXMsIHlldCBjb21wcmVoZW5zaXZlIEhSVi1yZWxhdGVkIGRhdGEgYW5hbHlzaXMgYW5kIHJlcG9ydGluZy4NCg0KPCEtLSBpbnRyb2R1Y2UgaHJ2IC0tPg0KDQpIZWFydCBSYXRlIFZhcmlhYmlsaXR5IChIUlYpLCByZWZsZWN0aW5nIHRoZSBoZWFydCdzIGFiaWxpdHkgdG8gZWZmZWN0aXZlbHkgcmVndWxhdGUgYW5kIGFkYXB0IHRvIGludGVybmFsIGFuZCBleHRlcm5hbCBlbnZpcm9ubWVudGFsIGNoYW5nZXMsIGhhcyBiZWVuIGxpbmtlZCB3aXRoIG1hbnkgcGh5c2ljYWwgYW5kIG1lbnRhbCBoZWFsdGggb3V0Y29tZXMgW2UuZy4sIGNhcmRpYWMgY29tcGxpY2F0aW9ucywgQGxhaXRpbzIwMDdyb2xlLCBkaWFiZXRlcywgQGt1ZGF0MjAwNmhlYXJ0LCBtb29kIGRpc29yZGVycywgQGJhc3NldHQyMDE2bGl0ZXJhdHVyZSwgY29nbml0aXZlIGZ1bmN0aW9uaW5nLCBAZm9ydGUyMDE5aGVhcnRdLiBDb252ZW50aW9uYWxseSwgdGhlIHZhcmlvdXMgaW5kaWNlcyB1c2VkIGluIHRoZSBhc3Nlc3NtZW50IG9mIEhSViB3ZXJlIGJyb2FkbHkgY2F0ZWdvcml6ZWQgYmFzZWQgb24gdGhlIG5hdHVyZSBvZiB0aGVpciBtYXRoZW1hdGljYWwgYXBwcm9hY2gsIGluIGNhdGVnb3JpZXMgaW5jbHVkaW5nICp0aW1lLWRvbWFpbiosICpmcmVxdWVuY3ktZG9tYWluKiwgYW5kICpub25saW5lYXIgZHluYW1pY3MqLg0KDQo8IS0tIGlzIGF0dHJpYnV0ZWQgdG8gdGhlIGR5bmFtaWMgaW50ZXJwbGF5IGJldHdlZW4gdGhlIHN5bXBhdGhldGljIGFuZCBwYXJhc3ltcGF0aGV0aWMgYnJhbmNoZXMgb2YgdGhlIGF1dG9ub21pYyBuZXJ2b3VzIHN5c3RlbSAtLT4NCg0KPCEtLSBtYWluIGNhdGVnb3JpZXMgLS0+DQoNClRpbWUtZG9tYWluIGFuYWx5c2lzIHByZXNlbnRzIHRoZSBzaW1wbGVzdCBhbmQgbW9zdCBzdHJhaWdodGZvcndhcmQgbWV0aG9kIG9mIHF1YW50aWZ5aW5nIEhSViBmcm9tIHRoZSBvcmlnaW5hbCBub3JtYWwgKGkuZS4sIGV4Y2x1ZGluZyBhYm5vcm1hbCBiZWF0cyBzdWNoIGFzIGVjdG9waWMgYmVhdHMpIGhlYXJ0YmVhdCBpbnRlcnZhbHMgb3IgTk4gaW50ZXJ2YWxzLiBTb21lIGNvbW1vbmx5IGRlcml2ZWQgaW5kaWNlcyBpbmNsdWRlICpTRE5OKiwgdGhlIHN0YW5kYXJkIGRldmlhdGlvbiBvZiBhbGwgTk4gaW50ZXJ2YWxzLCAqUk1TU0QqLCB0aGUgcm9vdCBtZWFuIHNxdWFyZSBvZiB0aGUgc3VtIG9mIHN1Y2Nlc3NpdmUgZGlmZmVyZW5jZXMgb2YgTk4gaW50ZXJ2YWxzLCBhbmQgKnBOTjUwKiwgdGhlIHBlcmNlbnRhZ2Ugb2YgYWRqYWNlbnQgTk4gaW50ZXJ2YWxzIHNlcGFyYXRlZCBieSBtb3JlIHRoYW4gNTBtcy4gV2hpbGUgdGltZS1kb21haW4gbWV0aG9kcyBvZmZlcnMgY29tcHV0YXRpb25hbCBlYXNlLCB0aGV5IGFyZSB1bmFibGUgdG8gZGlzdGluZ3Vpc2ggYmV0d2VlbiB0aGUgY29udHJpYnV0aW9ucyBvZiBzeW1wYXRoZXRpYyBhbmQgcGFyYXN5bXBhdGhldGljIGJyYW5jaGVzLiBGcmVxdWVuY3ktZG9tYWluIGFuYWx5c2lzLCBvbiB0aGUgb3RoZXIgaGFuZCwgdGFyZ2V0cyB0aGUgYXNzZXNzbWVudCBvZiB0aGVzZSBkaWZmZXJlbnQgcmVndWxhdG9yeSBtZWNoYW5pc21zIGJ5IGludmVzdGlnYXRpbmcgaG93IHRoZSBIUlYgcG93ZXIgc3BlY3RydW0gZGlzdHJpYnV0ZXMgYWNyb3NzIGRpZmZlcmVudCBmcmVxdWVuY3kgYmFuZHMgKGUuZywgbG93IGZyZXF1ZW5jeSwgKkxGKiBvciBoaWdoIGZyZXF1ZW5jeSwgKkhGKikuIE90aGVyIGluZGljZXMgdGhhdCBmYWxsIHVuZGVyIHRoZSBmcmVxdWVuY3kgZG9tYWluIGluY2x1ZGUgZGVyaXZhdGl2ZXMgb2YgdGhlIGFmb3JlbWVudGlvbmVkIGNvbXBvbmVudHMsIHN1Y2ggYXMgdGhlIHJhdGlvIG9mICpMRiogdG8gKkhGKiAoKkxGL0hGKikgcG93ZXIgYW5kIHRoZWlyIG5vcm1hbGl6ZWQgKGUuZy4sICpMRm4qLCAqSEZuKikgYW5kIG5hdHVyYWwgbG9nYXJpdGhtaWMgdmFyaWFudHMgKGUuZy4sICpMbkhGKikuIEZpbmFsbHksIGRyYXduIGZyb20gY29uY2VwdHMgb2Ygbm9uLWxpbmVhciBkeW5hbWljcyBhbmQgY2hhb3MgdGhlb3J5IFtAZ29sYmVyZ2VyMTk5Nm5vbl0sIG5vbi1saW5lYXIgYW5hbHlzaXMgd2FzIGxhdGVyIGludHJvZHVjZWQgdG8gYmV0dGVyIGNoYXJhY3Rlcml6ZSB0aGUgY29tcGxleCBwaHlzaW9sb2dpY2FsIG1lY2hhbmlzbXMgdW5kZXJseWluZyBIUlYgcmVndWxhdGlvbi4gUHJvbWluZW50IGluZGljZXMgaW5jbHVkZSBtZWFzdXJlcyBvYnRhaW5lZCBmcm9tIGEgUG9pbmNhcsOpIHBsb3Qgd2hlcmUgYW4gZWxsaXBzZSBpcyBmaXR0ZWQgdG8gYSBzY2F0dGVycGxvdCBvZiBlYWNoIE5OIGludGVydmFsIGFnYWluc3QgaXRzIHByZWNlZGluZyBvbmUgW2UuZy4sIHRoZSBzdGFuZGFyZCBkZXZpYXRpb24gb2YgdGhlIHNob3J0LXRlcm0sICpTRDEqIGFuZCBsb25nLXRlcm0sICpTRDIqIE5OIGludGVydmFsIHZhcmlhYmlsaXR5LCBhcyB3ZWxsIGFzIGl0cyBjb3JyZXNwb25kaW5nIHJhdGlvLCAqU0QxL1NEMiosIEBicmVubmFuMjAwMWV4aXN0aW5nXS4gT3RoZXIgbm9uLWxpbmVhciBpbmRpY2VzIHRoYXQgZmFsbCB1bmRlciB0aGlzIGNhdGVnb3J5LCBzdWNoIGFzIERldHJlbmRlZCBGbHVjdHVhdGlvbiBBbmFseXNpcyAoKkRGQSopLCBtdWx0aS1mcmFjdGFsICpERkEqICgqTUYtREZBKikgYW5kIGNvcnJlbGF0aW9uIGRpbWVuc2lvbiAoKkNEKiksIGFjY291bnQgZm9yIHRoZSBmcmFjdGFsIHByb3BlcnRpZXMgb2YgSFJWLCB3aGlsZSBlbnRyb3B5IG1lYXN1cmVzIGxpa2UgYXBwcm94aW1hdGUgZW50cm9weSAoKkFwRW4qKSwgc2FtcGxlIGVudHJvcHkgKCpTYW1wRW4qKSwgYW5kIG11bHRpc2NhbGUgZW50cm9weSAoKk1TRSopIHF1YW50aWZ5IHRoZSBhbW91bnQgb2YgcmVndWxhcml0eSBpbiB0aGUgSFIgdGltZSBzZXJpZXMgW0B2b3NzMjAwOW1ldGhvZHNdLiBGb3IgYSBtb3JlIGNvbXByZWhlbnNpdmUgZGVzY3JpcHRpb24gb2YgYWxsIEhSViBpbmRpY2VzLCBzZWUgQHBoYW0yMDIxaGVhcnQuDQoNCjwhLS0gVGhlIGxvdyBmcmVxdWVuY3kgKCpMRio7IDAuMDQtLTAuMTVIeikgYW5kIGhpZ2ggZnJlcXVlbmN5ICgqSEYqOyAwLjE1LS0wLjQgSHopIGNvbXBvbmVudHMsIHRoZSB0d28gbWFpbiBpbmRpY2F0b3JzIG9mIEFOUyBhY3Rpdml0eSBbQGFjaGFyeWEyMDA2aGVhcnRdLCBwcmVkb21pbmFudGx5IHJlZmxlY3Qgc3ltcGF0aGV0aWMgYW5kIHBhcmFzeW1wYXRoZXRpYyBhY3Rpdml0eSByZXNwZWN0aXZlbHkuIFRoZSBvdGhlciB0d28gY29tcG9uZW50cyBtZWFzdXJlZCBhdCB2ZXJ5IGxvdyBmcmVxdWVuY2llcyAoKlZMRio7IDAuMDAzMy0tMC4wNCBIeikgYW5kIHVsdHJhIGxvdyBmcmVxdWVuY2llcyAoKlVMRiogbG93IGZyZXF1ZW5jeSAkXGxlcSQgMC4wMDMgSHopIGFyZSBsZXNzIGNsZWFyIGluIHJlZ2FyZHMgdG8gdGhlaXIgYXNzb2NpYXRlZCBwaHlzaW9sb2dpY2FsIG1lY2hhbmlzbXMgW0BrbGVpZ2VyMjAwNWhlYXJ0XSwgdGhvdWdoIHNvbWUgZXZpZGVuY2UgaGFzIGxpbmtlZCB0aGUgZm9ybWVyIHRvIGxvbmctdGVybSByZWd1bGF0b3J5IG1lY2hhbmlzbXMgW0Bha3NlbHJvZDE5ODFwb3dlcl0gYW5kIHRoZSBsYXR0ZXIgdG8gY2lyY2FkaWFuIGFuZCBtZXRhYm9saWMgYWN0aXZpdHkgW0BzaGFmZmVyMjAxNGhlYWx0aHldLiAtLT4NCg0KPCEtLSBvdmVybGFwIGFuZCBkdXBsaWNhdGVzIGluIGluZGljZXMsIGFpbSBvZiBzdHVkeSAtLT4NCg0KRGVzcGl0ZSB0aGUgcmlzaW5nIHBvcHVsYXJpdHkgb2YgSFJWIGFuYWx5c2lzIGFzIGEgcmVhbC10aW1lLCBub25pbnZhc2l2ZSB0ZWNobmlxdWUgZm9yIGludmVzdGlnYXRpbmcgaGVhbHRoIGFuZCBkaXNlYXNlLCB0aGVyZSBhcmUgc29tZSBzaGFyZWQgc2ltaWxhcml0aWVzIChhbmQgZXZlbiBvdmVybGFwcykgYmV0d2VlbiB0aGUgbXVsdGl0dWRlIG9mIEhSViBpbmRpY2VzIHRoYXQgYXJlIG5vdCB5ZXQgd2VsbCB1bmRlcnN0b29kLiBFYXJseSBzdHVkaWVzIGhhdmUgaW52ZXN0aWdhdGVkIHRoZSByZWxhdGlvbnNoaXBzIGJldHdlZW4gdGltZS1kb21haW4gYW5kIGZyZXF1ZW5jeS1kb21haW4gaW5kaWNlcywgc2hvd2luZyB0aGF0IG5vdCBvbmx5IHdlcmUgKlJNU1NEKiBhbmQgKnBOTjUwKiBzdHJvbmdseSBjb3JyZWxhdGVkIHdpdGggZWFjaCBvdGhlciBbYWJvdmUgMC45LCBAYmlnZ2VyMTk4OWNvbXBhcmlzb25dLCB0aGV5IHdlcmUgYWxzbyBoaWdobHkgYXNzb2NpYXRlZCB3aXRoICpIRiogcG93ZXIgW0BiaWdnZXIxOTg5Y29tcGFyaXNvbjsgQGtsZWlnZXIyMDA1aGVhcnQ7IEBvdHplbmJlcmdlcjE5OThkeW5hbWljXSwgc3VnZ2VzdGluZyB0aGF0IHRoZXNlIG1lYXN1cmVzIGNvdWxkIGJlIHRyZWF0ZWQgYXMgc3Vycm9nYXRlcyBmb3IgZWFjaCBvdGhlciBpbiBhc3Nlc3NpbmcgdGhlIHBhcmFzeW1wYXRoZXRpYyBtb2R1bGF0aW9uIG9mIEhSVi4gVGhpcyBvYnNlcnZhdGlvbiBpcyB3YXJyYW50ZWQgZ2l2ZW4gdGhhdCB0aGUgZm9ybWVyIGlzIGNvbXB1dGVkIGZyb20gdGhlIGRpZmZlcmVuY2VzIGFjcm9zcyBjb25zZWN1dGl2ZSBOTiBpbnRlcnZhbHMsIGFuZCBoZW5jZSwgdGhleSByZWZsZWN0IG1haW5seSBoaWdoIGZyZXF1ZW5jeSBvc2NpbGxhdG9yeSBwYXR0ZXJucyBpbiBIUiBhbmQgYXJlIGluZGVwZW5kZW50IG9mIGxvbmctdGVybSBjaGFuZ2VzLiBPbiB0aGUgb3RoZXIgaGFuZCwgKlNETk4qLCB3aGljaCBoYXMgYmVlbiB0aG91Z2h0IHRvIHJlZmxlY3QgYm90aCBzeW1wYXRoZXRpYyBhbmQgcGFyYXN5bXBhdGhldGljIGFjdGl2aXR5LCBpcyBjb3JyZWxhdGVkIHRvIHRvdGFsIHBvd2VyICgqVFAqKSBpbiBIUlYgcG93ZXIgc3BlY3RydW0gW0BiaWdnZXIxOTg5Y29tcGFyaXNvbl0uIFJlY2VudCB5ZWFycyBhbHNvIHdpdG5lc3NlZCB0aGUgZW1lcmdlbmNlIG9mIGRlYmF0ZXMgcmVnYXJkaW5nIHRoZSB0cmFkaXRpb25hbCBjb25jZXB0dWFsaXphdGlvbiBvZiAqU0QxKiBhbmQgKlNEMiogYXMgbm9uLWxpbmVhciBpbmRpY2VzLCBwYXJ0aWN1bGFybHkgd2hlbiBAY2ljY29uZTIwMTdyZW1pbmRlciBwcm9wb3NlZCB0aGF0ICpSTVNTRCogYW5kICpTRDEqIHdlcmUgbWF0aGVtYXRpY2FsbHkgZXF1aXZhbGVudC4gTWFueSBzdHVkaWVzIHRoYXQgcmVwb3J0IGJvdGggb2YgdGhlc2Ugc2hvcnQtdGVybSBIUlYgaW5kaWNlcyBpbmRlcGVuZGVudGx5IG9mdGVuIGFycml2ZSBhdCBpZGVudGljYWwgc3RhdGlzdGljYWwgcmVzdWx0cyB3aXRob3V0IGFkZHJlc3NpbmcgdGhpcyBlcXVpdmFsZW5jZSBbZS5nLiwgQHJvc3NpMjAxNWltcGFjdCwgQHBlbmcyMDE1ZXh0cmFjdGlvbiwgQGxlaXRlMjAxNWNvcnJlbGF0aW9uXS4gQWRkaXRpb25hbGx5LCBvdGhlciBzdHVkaWVzIGhhdmUgYWxzbyBkcmF3biBzaW1pbGFyaXRpZXMgYmV0d2VlbiAqU0QxL1NEMiogYW5kICpMRi9IRiogaW4gdGhlaXIgaW5kZXhpbmcgb2YgdGhlIGJhbGFuY2UgYmV0d2VlbiBzaG9ydC0gYW5kIGxvbmctdGVybSBIUlYgW0BicmVubmFuMjAwMnBvaW5jYXJlOyBAZ3V6aWsyMDA3Y29ycmVsYXRpb25zXS4gDQoNCk92ZXJhbGwsIHRoZXJlIGlzIGEgbmVlZCBmb3IgYSBncmVhdGVyIGRhdGEtZHJpdmVuIHVuZGVyc3RhbmRpbmcgb2YgdGhlIHJlbGF0aW9uc2hpcCBiZXR3ZWVuIHRoZSBtdWx0aXR1ZGUgb2YgSFJWIGluZGljZXMgYW5kIHRoZWlyIHJlc3BlY3RpdmUgZ3JvdXBpbmdzLiBXaGlsZSB0aGVyZSBleGlzdCBkaWZmZXJlbnQgYXBwcm9hY2hlcyB0byBhc3NpZ24gZGF0YSB0byBkaWZmZXJlbnQgZ3JvdXBzIGJhc2VkIG9uIHRoZWlyIGxldmVsIG9mIGFzc29jaWF0aW9ucyBbc2VlIEBuZ3V5ZW4yMDE5aW1wcm92aW5nXSwgdGhlcmUgaXMgbm8gZ29sZCBzdGFuZGFyZCBvciBjbGVhciBndWlkZWxpbmVzIHRvIGRldGVybWluZSB0aGUgbW9zdCBhcHByb3ByaWF0ZSBtZXRob2QgZm9yIGdyb3VwaW5nIG9mIHBoeXNpb2xvZ2ljYWwgaW5kaWNlcy4gQXMgc3VjaCwgY2hvb3Npbmcgb25lIG1ldGhvZCBhbmQgcHJlc2VudGluZyBpdHMgc29sdXRpb24gYXMgYSBkZWZpbml0aXZlIG9uZSBjYW4gYmUgdW5pbmZvcm1hdGl2ZSBvciBldmVuIG1pc2xlYWRpbmcuIFRoZSBhaW0gb2YgdGhpcyBzdHVkeSBpcyB0byBleHBsb3JlIHRoZSBzdHJ1Y3R1cmUgb2YgSFJWIGluZGljZXMgYnkgdXNpbmcgYSBjb25zZW5zdXMtYmFzZWQgbWV0aG9kb2xvZ3kgW0BrdW5jaGV2YTIwMTRjb21iaW5pbmc7IEBtb250aTIwMDNjb25zZW5zdXM7IEBiaGF0dGFjaGFyamVlMjAwMWNsYXNzaWZpY2F0aW9uXSwgaGVyZWFmdGVyIHJlZmVycmVkIHRvIGFzICptZXRhLWNsdXN0ZXJpbmcqLCB3aGVyZSB0aGUgcmVzdWx0cyBvZiBtdWx0aXBsZSBzdHJ1Y3R1cmUgYW5hbHlzaXMgYXBwcm9hY2hlcyBhcmUgc3lzdGVtYXRpY2FsbHkgY29tYmluZWQgdG8gaGlnaGxpZ2h0IHRoZSBtb3N0IHJvYnVzdCBhc3NvY2lhdGlvbnMgYmV0d2VlbiB0aGUgaW5kaWNlcy4gDQoNCjwhLS1tYXkgYmUgdXNlZnVsIHRvIGhhdmUgZ2xvc3Nhcnkgb2YgaW5kaWNlcy0tPg0KDQojIE1ldGhvZHMNCg0KSW4gdG90YWwsIHRoZSBlbGVjdHJvY2FyZGlvZ3JhbSAoRUNHKSBkYXRhIG9mIDMzMCBwYXJ0aWNpcGFudHMgd2VyZSBleHRyYWN0ZWQgZnJvbSA1IGRhdGFiYXNlcy4gVGhlIHJhdyBkYXRhIGFzIHdlbGwgYXMgdGhlIGVudGlyZSBhbmFseXNpcyBzY3JpcHQgKGluY2x1ZGluZyBkZXRhaWxzIGFuZCBhZGRpdGlvbmFsIGFuYWx5c2VzKSBjYW4gYmUgZm91bmQgYXQgdGhpcyBHaXRIdWIgcmVwb3NpdG9yeSAoPGh0dHBzOi8vZ2l0aHViLmNvbS9UYW0tUGhhbS9IUlZTdHJ1Y3R1cmU+KS4NCg0KIyMgRGF0YWJhc2VzDQoNCiMjIyBHbGFzZ293IFVuaXZlcnNpdHkgRGF0YWJhc2UgKEdVREIpDQoNClRoaXMgZGF0YWJhc2UgW0Bob3dlbGwyMDE4aGlnaF0gY29udGFpbnMgMjUgRUNHIHJlY29yZGluZ3MgZnJvbSAyNSBwYXJ0aWNpcGFudHMuIEFsbCBwYXJ0aWNpcGFudHMgd2VyZSAxOCB5ZWFyLW9sZCBhbmQgYWJvdmUgYW5kIGhhZCBubyBrbm93biBjYXJkaW92YXNjdWxhciBjb25kaXRpb25zLiBFYWNoIHBhcnRpY2lwYW50IHdhcyByZWNvcmRlZCBwZXJmb3JtaW5nIGZpdmUgZGlmZmVyZW50IHRhc2tzIGZvciB0d28tbWludXRlIChzaXR0aW5nLCBkb2luZyBhIG1hdGhzIHRlc3Qgb24gYSB0YWJsZXQsIHdhbGtpbmcgb24gYSB0cmVhZG1pbGwsIHJ1bm5pbmcgb24gYSB0cmVhZG1pbGwsIHVzaW5nIGEgaGFuZCBiaWtlKS4gQWxsIHJlY29yZGluZ3Mgd2VyZSBzYW1wbGVkIGF0IDI1MEh6LiBUaGUgc2NyaXB0IHRvIGRvd25sb2FkIGFuZCBmb3JtYXQgdGhlIGRhdGFiYXNlIHVzaW5nIHRoZSBbKipFQ0ctR1VEQioqXShodHRwczovL2dpdGh1Yi5jb20vYmVybmRwb3JyL0VDRy1HVURCKSBQeXRob24gcGFja2FnZSBieSBAaG93ZWxsMjAxOGhpZ2ggY2FuIGJlIGZvdW5kIFsqKmhlcmUqKl0oaHR0cHM6Ly9naXRodWIuY29tL25ldXJvcHN5Y2hvbG9neS9OZXVyb0tpdC9ibG9iL2Rldi9kYXRhL2d1ZGIvZG93bmxvYWRfZ3VkYi5weSkuDQoNCiMjIyBNSVQtQklIIEFycmh5dGhtaWEgRGF0YWJhc2UgKE1JVC1BcnJoeXRobWlhKQ0KDQpUaGlzIGRhdGFiYXNlIFtAbW9vZHkyMDAxaW1wYWN0XSBjb250YWlucyA0OCBFQ0cgcmVjb3JkaW5ncyBvZiB0d28tY2hhbm5lbCBhbWJ1bGF0b3J5IEVDRyByZWNvcmRpbmdzIGZyb20gNDcgcGFydGljaXBhbnRzICgyNSBtZW4sIDMyLTg5IHllYXItb2xkOyAyMiB3b21lbiwgMjMtODkgeWVhci1vbGQpLiAyMyByZWNvcmRpbmdzIHdlcmUgZnJvbSBhIG1peGVkIHBvcHVsYXRpb24gb2YgcGF0aWVudHMgYW5kIDI1IHJlY29yZGluZ3Mgd2VyZSB0YWtlbiBmcm9tIHRoZSBzYW1lIHBvcHVsYXRpb24gYnV0IGluY2x1ZGVkIGxlc3MgY29tbW9uIGFuZCBtb3JlIGNsaW5pY2FsbHkgc2lnbmlmaWNhbnQgYXJyaHl0aG1pYSAoZGVub3RlZCBhcyB0aGUgYE1JVC1BcnJoeXRobWlhLXhgIGRhdGFiYXNlKS4gQWxsIHJlY29yZGluZ3Mgd2VyZSBzYW1wbGVkIDM2MEh6IGFuZCBsYXN0ZWQgZm9yIDMwLW1pbnV0ZS4gVGhlIHNjcmlwdCB0byBkb3dubG9hZCBhbmQgZm9ybWF0IHRoZSBkYXRhYmFzZSBjYW4gYmUgZm91bmQgWyoqaGVyZSoqXShodHRwczovL2dpdGh1Yi5jb20vbmV1cm9wc3ljaG9sb2d5L05ldXJvS2l0L2Jsb2IvZGV2L2RhdGEvbWl0X2Fycmh5dGhtaWEvZG93bmxvYWRfbWl0X2Fycmh5dGhtaWEucHkpLg0KDQoNCiMjIyBNSVQtQklIIE5vcm1hbCBTaW51cyBSaHl0aG0gRGF0YWJhc2UgKE1JVC1Ob3JtYWwpDQoNClRoaXMgZGF0YWJhc2UgW0Bnb2xkYmVyZ2VyMjAwMHBoeXNpb2JhbmtdIGNvbnRhaW5zIDE4IGNsZWFuIGxvbmctdGVybSBFQ0cgcmVjb3JkaW5ncyBmcm9tIDE4IHBhcnRpY2lwYW50cyAoNSBtZW4sIDI2LTQ1IHllYXItb2xkOyAxMyB3b21lbiwgMjAtNTAgeWVhci1vbGQpLiBBbGwgcmVjb3JkaW5ncyB3ZXJlIHNhbXBsZWQgYXQgMTI4SHogYW5kIGR1ZSB0byBtZW1vcnkgbGltaXRzLCB3ZSBvbmx5IGtlcHQgdGhlIHNlY29uZCBob3VyIG9mIGVhY2ggcmVjb3JkaW5nLiBUaGUgc2NyaXB0IHRvIGRvd25sb2FkIGFuZCBmb3JtYXQgdGhlIGRhdGFiYXNlIGNhbiBiZSBmb3VuZCBbKipoZXJlKipdKGh0dHBzOi8vZ2l0aHViLmNvbS9uZXVyb3BzeWNob2xvZ3kvTmV1cm9LaXQvYmxvYi9kZXYvZGF0YS9taXRfbm9ybWFsL2Rvd25sb2FkX21pdF9ub3JtYWwucHkpLg0KDQoNCjwhLS0gIyMjIExvYmFjaGV2c2t5IFVuaXZlcnNpdHkgRWxlY3Ryb2NhcmRpb2dyYXBoeSBEYXRhYmFzZSAtLT4NCg0KPCEtLSBUaGUgTG9iYWNoZXZza3kgVW5pdmVyc2l0eSBFbGVjdHJvY2FyZGlvZ3JhcGh5IERhdGFiYXNlIFtMVURCOyBAa2FseWFrdWxpbmEyMDE4bHVdIGNvbnNpc3RzIG9mIDIwMCAxMC1zZWNvbmQgMTItbGVhZCBFQ0cgc2lnbmFsIHJlY29yZHMgcmVwcmVzZW50aW5nIGRpZmZlcmVudCBtb3JwaG9sb2dpZXMgb2YgdGhlIEVDRyBzaWduYWwuIFRoZSBFQ0dzIHdlcmUgY29sbGVjdGVkIGZyb20gaGVhbHRoeSB2b2x1bnRlZXJzIGFuZCBwYXRpZW50cywgd2hpY2ggaGFkIHZhcmlvdXMgY2FyZGlvdmFzY3VsYXIgZGlzZWFzZXMuIFRoZSBib3VuZGFyaWVzIG9mIFAsIFQgd2F2ZXMgYW5kIFFSUyBjb21wbGV4ZXMgd2VyZSBtYW51YWxseSBhbm5vdGF0ZWQgYnkgY2FyZGlvbG9naXN0cyBmb3IgYWxsIDIwMCByZWNvcmRzLiAtLT4NCg0KIyMjIEZhbnRhc2lhIERhdGFiYXNlDQoNClRoaXMgZGF0YWJhc2UgW0BpeWVuZ2FyMTk5NmFnZV0gY29udGFpbnMgNDAgcmVjb3JkaW5ncyBmcm9tIDIwIHlvdW5nICgyMS0zNCB5ZWFyLW9sZCkgYW5kIDIwIGVsZGVybHkgKDY4LTg1IHllYXJzIG9sZCkgaGVhbHRoeSBwYXJ0aWNpcGFudHMuIEFsbCBwYXJ0aWNpcGFudHMgcmVtYWluZWQgaW4gYSByZXN0aW5nIHN0YXRlIGluIHNpbnVzIHJoeXRobSB3aGlsZSB3YXRjaGluZyB0aGUgbW92aWUgRmFudGFzaWEgKERpc25leSwgMTk0MCkgdG8gaGVscCBtYWludGFpbiB3YWtlZnVsbmVzcy4gQWxsIHJlY29yZGluZ3Mgd2VyZSBzYW1wbGVkIGF0IDI1MCBIeiBhbmQgbGFzdGVkIGZvciAxMjAgbWludXRlcy4gVGhlIHNjcmlwdCB0byBkb3dubG9hZCBhbmQgZm9ybWF0IHRoZSBkYXRhYmFzZSBjYW4gYmUgZm91bmQgWyoqaGVyZSoqXShodHRwczovL2dpdGh1Yi5jb20vbmV1cm9wc3ljaG9sb2d5L05ldXJvS2l0L2Jsb2IvbWFzdGVyL2RhdGEvZmFudGFzaWEvZG93bmxvYWRfZmFudGFzaWEucHkpLg0KDQojIyMgUmVzdGluZy1zdGF0ZSBEYXRhc2V0DQoNClRoZSByZW1haW5pbmcgb2YgdGhlIGRhdGEgY2FtZSBmcm9tIHJlc3Rpbmctc3RhdGUgcmVjb3JkaW5ncyBvZiBhdXRob3JzJyBvdGhlciBlbXBpcmljYWwgc3R1ZGllcyBbKipDSVRFIENPQ09OMSoqXS4gVGhpcyBkYXRhc2V0IGNvbnRhaW5zIDc5IHJlY29yZGluZ3MgZnJvbSA3OSBwYXJ0aWNpcGFudHMuIEFsbCBwYXJ0aWNpcGFudHMgKDIzIG1lbiBhbmQgNTYgd29tYW4pIHdlcmUgMTggeWVhci1vbGQgYW5kIGFib3ZlIGFuZCBoYWQgbm8ga25vd24gY2FyZGlvdmFzY3VsYXIgY29uZGl0aW9ucy4gQWxsIHJlY29yZGluZ3Mgd2VyZSBzYW1wbGVkIGF0IDQwMDBIeiBhbmQgbGFzdGVkIGZvciA4LW1pbnV0ZSBkdXJpbmcgd2hpY2ggcGFydGljaXBhbnRzIHJlbWFpbmVkIGluIGEgcmVzdGluZyBzdGF0ZSB3aXRoIHRoZWlyIGV5ZXMgY2xvc2VkLiAgDQoNCiMjIERhdGEgUHJvY2Vzc2luZw0KDQpUaGUgZGVmYXVsdCBwcm9jZXNzaW5nIHBpcGVsaW5lIG9mIE5ldXJvS2l0MiBbQG1ha293c2tpMjAyMW5ldXJva2l0Ml0gd2FzIHVzZWQgZm9yIGNsZWFuaW5nIGFuZCBwcm9jZXNzaW5nIG9mIHJhdyBFQ0cgcmVjb3JkaW5ncyBhcyB3ZWxsIGFzIGZvciB0aGUgY29tcHV0YXRpb24gb2YgYWxsIEhSViBpbmRpY2VzLiBOb3RlIHRoYXQgZXhjZXB0IGZvciB0aGUgcmVzdGluZy1zdGF0ZSBkYXRhc2V0LCBkYXRhIGZyb20gb25saW5lIGRhdGFiYXNlIHdhcyBub3QgaW4gdGhlIGZvcm0gb2YgRUNHIHJlY29yZGluZ3MgYnV0IHNhbXBsZSBsb2NhdGlvbnMgb2YgYW5ub3RhdGVkIGhlYXJ0YmVhdHMgKFItcGVha3MpLg0KDQojIyBEYXRhIEFuYWx5c2lzDQoNCk9uZSBvZiB0aGUgY29yZSAiaXNzdWVzIiBvZiBzdGF0aXN0aWNhbCBjbHVzdGVyaW5nIGlzIHRoYXQsIGluIG1hbnkgY2FzZXMsIGRpZmZlcmVudCBtZXRob2RzIHdpbGwgZ2l2ZSBkaWZmZXJlbnQgcmVzdWx0cy4gVGhlICoqbWV0YS1jbHVzdGVyaW5nKiogYXBwcm9hY2ggcHJvcG9zZWQgYnkgKmVhc3lzdGF0cyogW3RoYXQgZmluZHMgZWNob2VzIGluICpjb25zZW5zdXMgY2x1c3RlcmluZyo7IHNlZSBAbW9udGkyMDAzY29uc2Vuc3VzXSBjb25zaXN0cyBvZiB0cmVhdGluZyB0aGUgdW5pcXVlIGNsdXN0ZXJpbmcgc29sdXRpb25zIGFzIGEgZW5zZW1ibGUsIGZyb20gd2hpY2ggd2UgY2FuIGRlcml2ZSBhIHByb2JhYmlsaXR5IG1hdHJpeC4gVGhpcyBtYXRyaXggY29udGFpbnMsIGZvciBlYWNoIHBhaXIgb2Ygb2JzZXJ2YXRpb25zLCB0aGUgcHJvYmFiaWxpdHkgb2YgYmVpbmcgaW4gdGhlIHNhbWUgY2x1c3Rlci4gRm9yIGluc3RhbmNlLCBpZiB0aGUgNnRoIGFuZCB0aGUgOXRoIHJvdyBvZiBhIGRhdGFmcmFtZSBoYXMgYmVlbiBhc3NpZ25lZCB0byBhIHNpbWlsYXIgY2x1c3RlciBieSA1IG91dCBvZiAxMCBjbHVzdGVyaW5nIG1ldGhvZHMsIHRoZW4gaXRzIHByb2JhYmlsaXR5IG9mIGJlaW5nIGdyb3VwZWQgdG9nZXRoZXIgaXMgMC41LiBFc3NlbnRpYWxseSwgKm1ldGEtY2x1c3RlcmluZyogYXBwcm9hY2ggaXMgYmFzZWQgb24gdGhlIGh5cG90aGVzaXMgdGhhdCwgYXMgZWFjaCBjbHVzdGVyaW5nIGFsZ29yaXRobSBlbWJvZGllcyBhIGRpZmZlcmVudCBwcmlzbSBieSB3aGljaCBpdCBzZWVzIHRoZSBkYXRhLCBydW5uaW5nIGFuIGluZmluaXRlIGFtb3VudCBvZiBhbGdvcml0aG1zIHdvdWxkIHJlc3VsdCBpbiB0aGUgZW1lcmdlbmNlIG9mIHRoZSAidHJ1ZSIgY2x1c3RlcnMuIEFzIHRoZSBudW1iZXIgb2YgYWxnb3JpdGhtcyBhbmQgcGFyYW1ldGVycyBpcyBmaW5pdGUsIHRoZSBwcm9iYWJpbGlzdGljIHBlcnNwZWN0aXZlIGlzIGEgdXNlZnVsIHByb3h5LiBUaGlzIG1ldGhvZCBpcyBpbnRlcmVzdGluZyB3aGVyZSB0aGVyZSBpcyBubyBvYnZpb3VzIHJlYXNvbnMgdG8gcHJlZmVyIG9uZSBvdmVyIGFub3RoZXIgY2x1c3RlcmluZyBtZXRob2QsIGFzIHdlbGwgYXMgdG8gaW52ZXN0aWdhdGUgaG93IHJvYnVzdCBzb21lIGNsdXN0ZXJzIGFyZSB1bmRlciBkaWZmZXJlbnQgYWxnb3JpdGhtcy4NCg0KSW4gdGhpcyBhbmFseXNpcywgd2UgZmlyc3QgY29ycmVsYXRlZCB0aGUgSFJWIGluZGljZXMgW3VzaW5nIHRoZSBgY29ycmVsYXRpb25zYCBmdW5jdGlvbiBmcm9tIHRoZSAqY29ycmVsYXRpb24qIHBhY2thZ2UsIHNlZSBAbWFrb3dza2kyMDIwbWV0aG9kc10gYW5kIHJlbW92ZWQgaW5kaWNlcyB0aGF0IHdlcmUgcGVyZmVjdGx5IGNvcnJlbGF0ZWQgd2l0aCBlYWNoIG90aGVyLCBiZWZvcmUgcmVtb3Zpbmcgb3V0bGllcnMgYmFzZWQgb24gdGhlIG1lZGlhbiBhYnNvbHV0ZSBkZXZpYXRpb24gZnJvbSB0aGUgbWVkaWFuIFtzZWUgdGhlIGBjaGVja19vdXRsaWVyc2AgZnVuY3Rpb24gaW4gdGhlICpwZXJmb3JtYW5jZSogUiBwYWNrYWdlOyBAbHVkZWNrZTIwMTlwZXJmb3JtYW5jZV0uIEZvbGxvd2luZyB0aGUgKm1ldGEtY2x1c3RlcmluZyogYXBwcm9hY2gsIG11bHRpcGxlIGNsdXN0ZXJpbmcgbWV0aG9kcyB3ZXJlIHVzZWQgdG8gYW5hbHl6ZSB0aGUgYXNzb2NpYXRpb25zIGJldHdlZW4gdGhlIEhSViBpbmRpY2VzLCBuYW1lbHksIGZhY3RvciBhbmFseXNpcywgay1tZWFucyBjbHVzdGVyaW5nLCBrLW1lbG9pZHMgY2x1c3RlcmluZywgaGllcmFyY2hpY2FsIGNsdXN0ZXJpbmcsIGRlbnNpdHktYmFzZWQgc3BhdGlhbCBjbHVzdGVyaW5nIG9mIGFwcGxpY2F0aW9ucyB3aXRoIG5vaXNlIChEQlNDQU4pLCBoaWVyYXJjaGljYWwgZGVuc2l0eS1iYXNlZCBzcGF0aWFsIGNsdXN0ZXJpbmcgb2YgYXBwbGljYXRpb25zIHdpdGggbm9pc2UgKEhCU0NBTiksIG1peHR1cmUgbW9kZWwgYXBwcm9hY2gsIGFuZCBleHBsb3JhdG9yeSBncmFwaCBhbmFseXNpcyAoRUdBKS4gV2UgdGhlbiBqb2ludGx5IGNvbnNpZGVyZWQgdGhlIHJlc3VsdHMgb2J0YWluZWQgZnJvbSB0aGVzZSBtdWx0aXBsZSBtZXRob2RzIGJ5IGVzdGltYXRpbmcgdGhlIHByb2JhYmlsaXR5IGZvciBlYWNoIHBhaXIgb2YgaW5kaWNlcyB0byBiZSBjbHVzdGVyZWQgdG9nZXRoZXIuIFVsdGltYXRlbHksIHRoZSBhbmFseXNpcyBhaW1lZCB0byB0byBwcm92aWRlIGEgbW9yZSByb2J1c3Qgb3ZlcnZpZXcgb2YgdGhlIGNsdXN0ZXJpbmcgcmVzdWx0cyBhbmQgZmFjaWxpdGF0ZSBhIG1vcmUgdGhvcm91Z2ggY29uY2VwdHVhbCB1bmRlcnN0YW5kaW5nIG9mIHRoZXNlIHBhdHRlcm5zLg0KDQpEYXRhIHByb2Nlc3Npbmcgd2FzIGNhcnJpZWQgb3V0IHdpdGggUiBbQFItYmFzZV0gYW5kIHRoZSAqZWFzeXN0YXRzKiBlY29zeXN0ZW0gW0BsdWRlY2tlMjAxOWluc2lnaHQ7IEBtYWtvd3NraTIwMTliYXllc3Rlc3RyXS4gVGhlIHJhdyBkYXRhLCBhcyB3ZWxsIGFzIHRoZSBmdWxsIHJlcHJvZHVjaWJsZSBhbmFseXNpcyBzY3JpcHQsIGluY2x1ZGluZyBhZGRpdGlvbmFsIGRlc2NyaXB0aW9uIG9mIGVhY2ggYXBwcm9hY2ggYW5kIHRoZSBzb2x1dGlvbnMgb2YgZWFjaCBpbmRpdmlkdWFsIGNsdXN0ZXJpbmcgbWV0aG9kLCBhcmUgYXZhaWxhYmxlIGF0IHRoaXMgR2l0SHViIHJlcG9zaXRvcnkgKDxodHRwczovL2dpdGh1Yi5jb20vVGFtLVBoYW0vSFJWU3RydWN0dXJlPikuDQoNCiMjIFByb2NlZHVyZQ0KDQpgYGB7cHl0aG9uLCBldmFsPUZBTFNFLCBlY2hvPUZBTFNFfQ0KaW1wb3J0IHBhbmRhcyBhcyBwZA0KaW1wb3J0IG51bXB5IGFzIG5wDQppbXBvcnQgbmV1cm9raXQyIGFzIG5rDQoNCiMgTG9hZCBUcnVlIFItcGVha3MgbG9jYXRpb24NCmRhdGFmaWxlcyA9IFtwZC5yZWFkX2NzdigiLi4vLi4vZGF0YS9ndWRiL1JwZWFrcy5jc3YiKSwNCiAgICAgICAgICAgICBwZC5yZWFkX2NzdigiLi4vLi4vZGF0YS9taXRfYXJyaHl0aG1pYS9ScGVha3MuY3N2IiksDQogICAgICAgICAgICAgcGQucmVhZF9jc3YoIi4uLy4uL2RhdGEvbWl0X25vcm1hbC9ScGVha3MuY3N2IiksDQogICAgICAgICAgICAgcGQucmVhZF9jc3YoIi4uLy4uL2RhdGEvZmFudGFzaWEvUnBlYWtzLmNzdiIpXQ0KDQojIEdldCByZXN1bHRzDQphbGxfcmVzdWx0cyA9IHBkLkRhdGFGcmFtZSgpDQoNCmZvciBmaWxlIGluIGRhdGFmaWxlczoNCiAgICBmb3IgZGF0YWJhc2UgaW4gbnAudW5pcXVlKGZpbGVbIkRhdGFiYXNlIl0pOg0KICAgICAgICBkYXRhID0gZmlsZVtmaWxlWyJEYXRhYmFzZSJdID09IGRhdGFiYXNlXQ0KICAgICAgICBmb3IgcGFydGljaXBhbnQgaW4gbnAudW5pcXVlKGRhdGFbIlBhcnRpY2lwYW50Il0pOg0KICAgICAgICAgICAgZGF0YV9wYXJ0aWNpcGFudCA9IGRhdGFbZGF0YVsiUGFydGljaXBhbnQiXSA9PSBwYXJ0aWNpcGFudF0NCiAgICAgICAgICAgIHNhbXBsaW5nX3JhdGUgPSBucC51bmlxdWUoZGF0YV9wYXJ0aWNpcGFudFsiU2FtcGxpbmdfUmF0ZSJdKVswXQ0KICAgICAgICAgICAgcnBlYWtzID0gZGF0YV9wYXJ0aWNpcGFudFsiUnBlYWtzIl0udmFsdWVzDQoNCiAgICAgICAgICAgIHJlc3VsdHMgPSBuay5ocnYocnBlYWtzLCBzYW1wbGluZ19yYXRlPXNhbXBsaW5nX3JhdGUpDQogICAgICAgICAgICByZXN1bHRzWyJQYXJ0aWNpcGFudCJdID0gcGFydGljaXBhbnQNCiAgICAgICAgICAgIHJlc3VsdHNbIkRhdGFiYXNlIl0gPSBkYXRhYmFzZQ0KICAgICAgICAgICAgcmVzdWx0c1siUmVjb3JkaW5nX0xlbmd0aCJdID0gcnBlYWtzWy0xXSAvIHNhbXBsaW5nX3JhdGUgLyA2MA0KDQogICAgICAgICAgICBhbGxfcmVzdWx0cyA9IHBkLmNvbmNhdChbYWxsX3Jlc3VsdHMsIHJlc3VsdHNdLCBheGlzPTApDQoNCmFsbF9yZXN1bHRzLnRvX2NzdigiZGF0YS9kYXRhLmNzdiIsIGluZGV4PUZhbHNlKQ0KYGBgDQoNCiMgUmVzdWx0cw0KDQpgYGB7ciwgbWVzc2FnZT1GQUxTRSwgd2FybmluZz1GQUxTRSwgcmVzdWx0cz0naGlkZSd9DQpsaWJyYXJ5KHRpZHl2ZXJzZSkNCmxpYnJhcnkoZWFzeXN0YXRzKQ0KDQpkYXRhIDwtIHJlYWQuY3N2KCJkYXRhL2RhdGFfY29tYmluZWQuY3N2Iiwgc3RyaW5nc0FzRmFjdG9ycyA9IEZBTFNFKSAlPiUgDQogIHNlbGVjdCgtSFJWX1VMRiwgLUhSVl9WTEYpICU+JSAgIyBFbXB0eQ0KICBzZWxlY3QoLUhSVl9TREFOTjEsIC1IUlZfU0RBTk4yLCAtSFJWX1NEQU5ONSwgDQogICAgICAgICAtSFJWX1NETk5JMSwgLUhSVl9TRE5OSTIsIC1IUlZfU0ROTkk1KSAlPiUgDQogICMgZmlsdGVyKERhdGFiYXNlICE9ICJMVURCIikgJT4lICMgdG9vIHNob3J0IHJlY29yZGluZ3MsIG1hbnkgaW5kaWNlcyBkaWRuJ3QgY29udmVyZ2UNCiAgc2V0TmFtZXMoc3RyaW5ncjo6c3RyX3JlbW92ZShuYW1lcyguKSwgIkhSVl8iKSkgJT4lIA0KICBtdXRhdGVfYWxsKGZ1bmN0aW9uKHgpIHsNCiAgICB4W2lzLmluZmluaXRlKHgpXSA8LSBOQQ0KICAgIHJldHVybih4KSB9KQ0KYGBgDQoNCg0KYGBge3Igd2FybmluZz1GQUxTRSwgbWVzc2FnZT1UUlVFLCByZXN1bHRzPSdhc2lzJ30NCmNhdCgiVGhpcyBzdHVkeSBpbmNsdWRlcyIsIA0KICAgIG5yb3coZGF0YSksIA0KICAgICJwYXJ0aWNpcGFudHMgZnJvbSIsIA0KICAgIGxlbmd0aCh1bmlxdWUoZGF0YSREYXRhYmFzZSkpLCANCiAgICAiZGF0YWJhc2VzLiIpDQpgYGANCg0KDQpgYGB7ciBjb252ZW5pZW5jZV9jaHVua19mb3JfbG9jYWxfcnVubmluZywgaW5jbHVkZSA9IEZBTFNFLCBldmFsID0gRkFMU0V9DQpsaWJyYXJ5KHBhdGNod29yaykNCmxpYnJhcnkodGlkeXZlcnNlKQ0KbGlicmFyeShlYXN5c3RhdHMpDQoNCg0KIyAjIFRvIHJ1biB0aGluZ3MgbG9jYWxseTogQ1RSTCArIEFMVCArIFNISUZUICsgUCwgYW5kIHRoZW4gdGhlIG5leHQgdHdvIGxpbmVzDQpzb3VyY2Vfcm1kKCIwX0NvbnZlbmllbmNlRnVuY3Rpb25zLlJtZCIpDQpzb3VyY2Vfcm1kKCIxX1ByZXByb2Nlc3NpbmcuUm1kIikNCnNvdXJjZV9ybWQoIjNfRGltZW5zaW9ucy5SbWQiKQ0Kc291cmNlX3JtZCgiNF9DbHVzdGVyaW5nLlJtZCIpDQpzb3VyY2Vfcm1kKCI1X05ldHdvcmsuUm1kIikNCnNvdXJjZV9ybWQoIjZfU3VtbWFyeS5SbWQiKQ0KYGBgDQoNCg0KDQojIyBQcmVwcm9jZXNzaW5nDQoNCmBgYHtyIGNoaWxkPScwX0NvbnZlbmllbmNlRnVuY3Rpb25zLlJtZCd9DQpgYGANCg0KDQpgYGB7ciBjaGlsZD0nMV9QcmVwcm9jZXNzaW5nLlJtZCd9DQpgYGANCg0KDQojIyBEaW1lbnNpb25hbCBTdHJ1Y3R1cmUNCg0KYGBge3IgY2hpbGQ9JzNfRGltZW5zaW9ucy5SbWQnfQ0KYGBgDQoNCiMjIENsdXN0ZXIgU3RydWN0dXJlDQoNCmBgYHtyIGNoaWxkPSc0X0NsdXN0ZXJpbmcuUm1kJ30NCmBgYA0KDQojIyBOZXR3b3JrIFN0cnVjdHVyZQ0KDQpgYGB7ciBjaGlsZD0nNV9OZXR3b3JrLlJtZCd9DQpgYGANCg0KIyMgU3VtbWFyeQ0KDQpgYGB7ciBjaGlsZD0nNl9TdW1tYXJ5LlJtZCd9DQpgYGANCg0K</div>
+<div id="rmd-source-code">LS0tDQp0aXRsZTogJyoqVW52ZWlsaW5nIHRoZSBTdHJ1Y3R1cmUgb2YgSGVhcnQgUmF0ZSBWYXJpYWJpbGl0eSAoSFJWKSBJbmRpY2VzOiBBIERhdGEtZHJpdmVuIE1ldGEtY2x1c3RlcmluZyBBcHByb2FjaCoqJw0Kc3VidGl0bGU6ICJTdXBwbGVtZW50YXJ5IE1hdGVyaWFscyINCm91dHB1dDoNCiAgYm9va2Rvd246Omh0bWxfZG9jdW1lbnQyOg0KICAgIHNlbGZfY29udGFpbmVkOiBmYWxzZQ0KICAgIHRoZW1lOiBjZXJ1bGVhbg0KICAgIGhpZ2hsaWdodDogcHlnbWVudHMNCiAgICB0b2M6IHllcw0KICAgIHRvY19kZXB0aDogMw0KICAgIHRvY19mbG9hdDogeWVzDQogICAgbnVtYmVyX3NlY3Rpb25zOiBubw0KICAgIGRmX3ByaW50OiBkZWZhdWx0DQogICAgY29kZV9mb2xkaW5nOiBzaG93DQogICAgY29kZV9kb3dubG9hZDogeWVzDQogIHdvcmRfZG9jdW1lbnQ6DQogICAgcmVmZXJlbmNlX2RvY3g6IHV0aWxzL1RlbXBsYXRlX1dvcmQuZG9jeA0KICAgIGhpZ2hsaWdodDogcHlnbWVudHMNCiAgICB0b2M6IG5vDQogICAgdG9jX2RlcHRoOiAzDQogICAgZGZfcHJpbnQ6IGRlZmF1bHQNCiAgICBudW1iZXJfc2VjdGlvbnM6IHllcw0KICBybWFya2Rvd246Omh0bWxfdmlnbmV0dGU6DQogICAgdG9jOiB5ZXMNCiAgICB0b2NfZGVwdGg6IDMNCiAgaHRtbF9kb2N1bWVudDoNCiAgICB0b2M6IHllcw0KICAgIHRvY19kZXB0aDogJzInDQogICAgbGF0ZXhfZW5naW5lOiB4ZWxhdGV4DQplZGl0b3Jfb3B0aW9uczoNCiAgY2h1bmtfb3V0cHV0X3R5cGU6IGNvbnNvbGUNCmJpYmxpb2dyYXBoeTogcmVmZXJlbmNlcy5iaWINCmNzbDogdXRpbHMvYXBhLmNzbA0KLS0tDQoNCg0KPCEtLSANCiEhISEgSU1QT1JUQU5UOiBydW4gYHNvdXJjZSgidXRpbHMvcmVuZGVyLlIiKWAgdG8gcHVibGlzaCBpbnN0ZWFkIG9mIGNsaWNraW5nIG9uICdLbml0Jw0KLS0+DQoNCmBgYHtyIHNldHVwLCB3YXJuaW5nPUZBTFNFLCBtZXNzYWdlPVRSVUUsIGluY2x1ZGU9RkFMU0V9DQpmYXN0IDwtIEZBTFNFICAjIE1ha2UgdGhpcyBmYWxzZSB0byBza2lwIHRoZSBjaHVua3MNCg0KIyBTZXQgdXAgdGhlIGVudmlyb25tZW50IChvciB1c2UgbG9jYWwgYWx0ZXJuYXRpdmUgYHNvdXJjZSgidXRpbHMvY29uZmlnLlIiKWApDQpzb3VyY2UoImh0dHBzOi8vcmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbS9SZWFsaXR5QmVuZGluZy9UZW1wbGF0ZVJlc3VsdHMvbWFpbi91dGlscy9jb25maWcuUiIpICANCg0KIyBTZXQgdGhlbWUNCmdncGxvdDI6OnRoZW1lX3NldChzZWU6OnRoZW1lX21vZGVybigpKQ0KDQpzb3VyY2Vfcm1kIDwtIGZ1bmN0aW9uKHgpew0KICBmaWxlIDwtIGtuaXRyOjpwdXJsKHgsIHF1aWV0PVRSVUUpDQogIHNvdXJjZShmaWxlKQ0KICBpZiAoZmlsZS5leGlzdHMoZmlsZSkpIGZpbGUucmVtb3ZlKGZpbGUpDQp9DQpgYGANCg0KIyBJbnRyb2R1Y3Rpb24NCmBgYHtyIGJhZGdlcywgZWNobz1GQUxTRSwgbWVzc2FnZT1UUlVFLCB3YXJuaW5nPUZBTFNFLCByZXN1bHRzPSdhc2lzJ30NCiMgVGhpcyBjaHVuayBpcyBhIGJpdCBjb21wbGV4IHNvIGRvbid0IHdvcnJ5IGFib3V0IGl0OiBpdCdzIG1hZGUgdG8gYWRkIGJhZGdlcyB0byB0aGUgSFRNTCB2ZXJzaW9ucw0KIyBOT1RFOiBZb3UgaGF2ZSB0byByZXBsYWNlIHRoZSBsaW5rcyBhY2NvcmRpbmdseSB0byBoYXZlIHdvcmtpbmcgImJ1dHRvbnMiIG9uIHRoZSBIVE1MIHZlcnNpb25zDQppZiAoIWtuaXRyOjppc19sYXRleF9vdXRwdXQoKSAmJiBrbml0cjo6aXNfaHRtbF9vdXRwdXQoKSkgew0KICBjYXQoIlshW1dlYnNpdGVdKGh0dHBzOi8vaW1nLnNoaWVsZHMuaW8vYmFkZ2UvcmVwby1SZWFkbWUtMjE5NkYzKV0oaHR0cHM6Ly9naXRodWIuY29tL1RhbS1QaGFtL0hSVlN0cnVjdHVyZSkNCiAgICAgIFshW1dlYnNpdGVdKGh0dHBzOi8vaW1nLnNoaWVsZHMuaW8vYmFkZ2UvdmlzaXQtd2Vic2l0ZS1FOTFFNjMpXShodHRwczovL3JlYWxpdHliZW5kaW5nLmdpdGh1Yi5pby9UZW1wbGF0ZVJlc3VsdHMvKQ0KICAgICAgWyFbV2Vic2l0ZV0oaHR0cHM6Ly9pbWcuc2hpZWxkcy5pby9iYWRnZS9kb3dubG9hZC0uZG9jeC1GRjU3MjIpXShodHRwczovL2dpdGh1Yi5jb20vUmVhbGl0eUJlbmRpbmcvVGVtcGxhdGVSZXN1bHRzL3Jhdy9tYWluL3dvcmRfYW5kX3BkZi9TdXBwbGVtZW50YXJ5TWF0ZXJpYWxzLmRvY3gpDQogICAgICBbIVtXZWJzaXRlXShodHRwczovL2ltZy5zaGllbGRzLmlvL2JhZGdlL3NlZS0ucGRmLUZGOTgwMCldKGh0dHBzOi8vZ2l0aHViLmNvbS9SZWFsaXR5QmVuZGluZy9UZW1wbGF0ZVJlc3VsdHMvYmxvYi9tYWluL3dvcmRfYW5kX3BkZi9TdXBwbGVtZW50YXJ5TWF0ZXJpYWxzLnBkZikiKQ0KfQ0KYGBgDQoNCjwhLS0gQUJTVFJBQ1QgLS0+DQoNCkhlYXJ0IFJhdGUgVmFyaWFiaWxpdHkgKEhSVikgY2FuIGJlIGVzdGltYXRlZCB1c2luZyBhIG15cmlhZCBvZiBtYXRoZW1hdGljYWwgaW5kaWNlcywgYnV0IHRoZSBsYWNrIG9mIHN5c3RlbWF0aWMgY29tcGFyaXNvbiBiZXR3ZWVuIHRoZXNlIGluZGljZXMgcmVuZGVycyB0aGUgaW50ZXJwcmV0YXRpb24gYW5kIGV2YWx1YXRpb24gb2YgcmVzdWx0cyB0ZWRpb3VzLiBJbiB0aGlzIHN0dWR5LCB3ZSBhc3Nlc3NlZCB0aGUgcmVsYXRpb25zaGlwIGJldHdlZW4gNTcgSFJWIG1ldHJpY3MgY29sbGVjdGVkIGZyb20gMzAyIGh1bWFuIHJlY29yZGluZ3MgdXNpbmcgYSB2YXJpZXR5IG9mIHN0cnVjdHVyZS1hbmFseXNpcyBhbGdvcml0aG1zLiBXZSB0aGVuIGFwcGxpZWQgYSBtZXRhLWNsdXN0ZXJpbmcgYXBwcm9hY2ggdGhhdCBjb21iaW5lcyB0aGVpciByZXN1bHRzIHRvIG9idGFpbiBhIHJvYnVzdCBhbmQgcmVsaWFibGUgdmlldyBvZiB0aGUgb2JzZXJ2ZWQgcmVsYXRpb25zaGlwcy4gV2UgZm91bmQgdGhhdCBIUlYgbWV0cmljcyBjYW4gYmUgY2x1c3RlcmVkIGludG8gMyBncm91cHMsIHJlcHJlc2VudGluZyB0aGUgZGlzdHJpYnV0aW9uLXJlbGF0ZWQgZmVhdHVyZXMsIGhhcm1vbnktcmVsYXRlZCBmZWF0dXJlcyBhbmQgZnJlcXVlbmN5L2NvbXBsZXhpdHkgZmVhdHVyZXMuIEZyb20gdGhlcmUsIHdlIGRlc2NyaWJlZCBhbmQgZGlzY3Vzc2VkIHRoZWlyIGFzc29jaWF0aW9ucywgYW5kIGRlcml2ZWQgcmVjb21tZW5kYXRpb25zIG9uIHdoaWNoIGluZGljZXMgdG8gcHJpb3JpdGl6ZSBmb3IgcGFyc2ltb25pb3VzLCB5ZXQgY29tcHJlaGVuc2l2ZSBIUlYtcmVsYXRlZCBkYXRhIGFuYWx5c2lzIGFuZCByZXBvcnRpbmcuDQoNCjwhLS0gaW50cm9kdWNlIGhydiAtLT4NCg0KSGVhcnQgUmF0ZSBWYXJpYWJpbGl0eSAoSFJWKSwgcmVmbGVjdGluZyB0aGUgaGVhcnQncyBhYmlsaXR5IHRvIGVmZmVjdGl2ZWx5IHJlZ3VsYXRlIGFuZCBhZGFwdCB0byBpbnRlcm5hbCBhbmQgZXh0ZXJuYWwgZW52aXJvbm1lbnRhbCBjaGFuZ2VzLCBoYXMgYmVlbiBsaW5rZWQgd2l0aCBtYW55IHBoeXNpY2FsIGFuZCBtZW50YWwgaGVhbHRoIG91dGNvbWVzIFtlLmcuLCBjYXJkaWFjIGNvbXBsaWNhdGlvbnMsIEBsYWl0aW8yMDA3cm9sZSwgZGlhYmV0ZXMsIEBrdWRhdDIwMDZoZWFydCwgbW9vZCBkaXNvcmRlcnMsIEBiYXNzZXR0MjAxNmxpdGVyYXR1cmUsIGNvZ25pdGl2ZSBmdW5jdGlvbmluZywgQGZvcnRlMjAxOWhlYXJ0XS4gQ29udmVudGlvbmFsbHksIHRoZSB2YXJpb3VzIGluZGljZXMgdXNlZCBpbiB0aGUgYXNzZXNzbWVudCBvZiBIUlYgd2VyZSBicm9hZGx5IGNhdGVnb3JpemVkIGJhc2VkIG9uIHRoZSBuYXR1cmUgb2YgdGhlaXIgbWF0aGVtYXRpY2FsIGFwcHJvYWNoLCBpbiBjYXRlZ29yaWVzIGluY2x1ZGluZyAqdGltZS1kb21haW4qLCAqZnJlcXVlbmN5LWRvbWFpbiosIGFuZCAqbm9ubGluZWFyIGR5bmFtaWNzKi4NCg0KDQo8IS0tIG1haW4gY2F0ZWdvcmllcyAtLT4NCg0KVGltZS1kb21haW4gYW5hbHlzaXMgcHJlc2VudHMgdGhlIHNpbXBsZXN0IGFuZCBtb3N0IHN0cmFpZ2h0Zm9yd2FyZCBtZXRob2Qgb2YgcXVhbnRpZnlpbmcgSFJWIGZyb20gdGhlIG9yaWdpbmFsIG5vcm1hbCAoaS5lLiwgZXhjbHVkaW5nIGFibm9ybWFsIGJlYXRzIHN1Y2ggYXMgZWN0b3BpYyBiZWF0cykgaGVhcnRiZWF0IGludGVydmFscyBvciBOTiBpbnRlcnZhbHMuIFNvbWUgY29tbW9ubHkgZGVyaXZlZCBpbmRpY2VzIGluY2x1ZGUgKlNETk4qLCB0aGUgc3RhbmRhcmQgZGV2aWF0aW9uIG9mIGFsbCBOTiBpbnRlcnZhbHMsICpSTVNTRCosIHRoZSByb290IG1lYW4gc3F1YXJlIG9mIHRoZSBzdW0gb2Ygc3VjY2Vzc2l2ZSBkaWZmZXJlbmNlcyBvZiBOTiBpbnRlcnZhbHMsIGFuZCAqcE5ONTAqLCB0aGUgcGVyY2VudGFnZSBvZiBhZGphY2VudCBOTiBpbnRlcnZhbHMgc2VwYXJhdGVkIGJ5IG1vcmUgdGhhbiA1MG1zLiBXaGlsZSB0aW1lLWRvbWFpbiBtZXRob2RzIG9mZmVycyBjb21wdXRhdGlvbmFsIGVhc2UsIHRoZXkgYXJlIHVuYWJsZSB0byBkaXN0aW5ndWlzaCBiZXR3ZWVuIHRoZSBjb250cmlidXRpb25zIG9mIHN5bXBhdGhldGljIGFuZCBwYXJhc3ltcGF0aGV0aWMgYnJhbmNoZXMuIEZyZXF1ZW5jeS1kb21haW4gYW5hbHlzaXMsIG9uIHRoZSBvdGhlciBoYW5kLCB0YXJnZXRzIHRoZSBhc3Nlc3NtZW50IG9mIHRoZXNlIGRpZmZlcmVudCByZWd1bGF0b3J5IG1lY2hhbmlzbXMgYnkgaW52ZXN0aWdhdGluZyBob3cgdGhlIEhSViBwb3dlciBzcGVjdHJ1bSBkaXN0cmlidXRlcyBhY3Jvc3MgZGlmZmVyZW50IGZyZXF1ZW5jeSBiYW5kcyAoZS5nLCBsb3cgZnJlcXVlbmN5LCAqTEYqIG9yIGhpZ2ggZnJlcXVlbmN5LCAqSEYqKS4gT3RoZXIgaW5kaWNlcyB0aGF0IGZhbGwgdW5kZXIgdGhlIGZyZXF1ZW5jeSBkb21haW4gaW5jbHVkZSBkZXJpdmF0aXZlcyBvZiB0aGUgYWZvcmVtZW50aW9uZWQgY29tcG9uZW50cywgc3VjaCBhcyB0aGUgcmF0aW8gb2YgKkxGKiB0byAqSEYqICgqTEYvSEYqKSBwb3dlciBhbmQgdGhlaXIgbm9ybWFsaXplZCAoZS5nLiwgKkxGbiosICpIRm4qKSBhbmQgbmF0dXJhbCBsb2dhcml0aG1pYyB2YXJpYW50cyAoZS5nLiwgKkxuSEYqKS4gRmluYWxseSwgZHJhd24gZnJvbSBjb25jZXB0cyBvZiBub24tbGluZWFyIGR5bmFtaWNzIGFuZCBjaGFvcyB0aGVvcnkgW0Bnb2xiZXJnZXIxOTk2bm9uXSwgbm9uLWxpbmVhciBhbmFseXNpcyB3YXMgbGF0ZXIgaW50cm9kdWNlZCB0byBiZXR0ZXIgY2hhcmFjdGVyaXplIHRoZSBjb21wbGV4IHBoeXNpb2xvZ2ljYWwgbWVjaGFuaXNtcyB1bmRlcmx5aW5nIEhSViByZWd1bGF0aW9uLiBQcm9taW5lbnQgaW5kaWNlcyBpbmNsdWRlIG1lYXN1cmVzIG9idGFpbmVkIGZyb20gYSBQb2luY2Fyw6kgcGxvdCB3aGVyZSBhbiBlbGxpcHNlIGlzIGZpdHRlZCB0byBhIHNjYXR0ZXJwbG90IG9mIGVhY2ggTk4gaW50ZXJ2YWwgYWdhaW5zdCBpdHMgcHJlY2VkaW5nIG9uZSBbZS5nLiwgdGhlIHN0YW5kYXJkIGRldmlhdGlvbiBvZiB0aGUgc2hvcnQtdGVybSwgKlNEMSogYW5kIGxvbmctdGVybSwgKlNEMiogTk4gaW50ZXJ2YWwgdmFyaWFiaWxpdHksIGFzIHdlbGwgYXMgaXRzIGNvcnJlc3BvbmRpbmcgcmF0aW8sICpTRDEvU0QyKiwgQGJyZW5uYW4yMDAxZXhpc3RpbmddLiBPdGhlciBub24tbGluZWFyIGluZGljZXMgdGhhdCBmYWxsIHVuZGVyIHRoaXMgY2F0ZWdvcnksIHN1Y2ggYXMgRGV0cmVuZGVkIEZsdWN0dWF0aW9uIEFuYWx5c2lzICgqREZBKiksIG11bHRpLWZyYWN0YWwgKkRGQSogKCpNRi1ERkEqKSBhbmQgY29ycmVsYXRpb24gZGltZW5zaW9uICgqQ0QqKSwgYWNjb3VudCBmb3IgdGhlIGZyYWN0YWwgcHJvcGVydGllcyBvZiBIUlYsIHdoaWxlIGVudHJvcHkgbWVhc3VyZXMgbGlrZSBhcHByb3hpbWF0ZSBlbnRyb3B5ICgqQXBFbiopLCBzYW1wbGUgZW50cm9weSAoKlNhbXBFbiopLCBhbmQgbXVsdGlzY2FsZSBlbnRyb3B5ICgqTVNFKikgcXVhbnRpZnkgdGhlIGFtb3VudCBvZiByZWd1bGFyaXR5IGluIHRoZSBIUiB0aW1lIHNlcmllcyBbQHZvc3MyMDA5bWV0aG9kc10uIEZvciBhIG1vcmUgY29tcHJlaGVuc2l2ZSBkZXNjcmlwdGlvbiBvZiBhbGwgSFJWIGluZGljZXMsIHNlZSBAcGhhbTIwMjFoZWFydC4NCg0KDQo8IS0tIG92ZXJsYXAgYW5kIGR1cGxpY2F0ZXMgaW4gaW5kaWNlcywgYWltIG9mIHN0dWR5IC0tPg0KDQpEZXNwaXRlIHRoZSByaXNpbmcgcG9wdWxhcml0eSBvZiBIUlYgYW5hbHlzaXMgYXMgYSByZWFsLXRpbWUsIG5vbmludmFzaXZlIHRlY2huaXF1ZSBmb3IgaW52ZXN0aWdhdGluZyBoZWFsdGggYW5kIGRpc2Vhc2UsIHRoZXJlIGFyZSBzb21lIHNoYXJlZCBzaW1pbGFyaXRpZXMgKGFuZCBldmVuIG92ZXJsYXBzKSBiZXR3ZWVuIHRoZSBtdWx0aXR1ZGUgb2YgSFJWIGluZGljZXMgdGhhdCBhcmUgbm90IHlldCB3ZWxsIHVuZGVyc3Rvb2QuIEVhcmx5IHN0dWRpZXMgaGF2ZSBpbnZlc3RpZ2F0ZWQgdGhlIHJlbGF0aW9uc2hpcHMgYmV0d2VlbiB0aW1lLWRvbWFpbiBhbmQgZnJlcXVlbmN5LWRvbWFpbiBpbmRpY2VzLCBzaG93aW5nIHRoYXQgbm90IG9ubHkgd2VyZSAqUk1TU0QqIGFuZCAqcE5ONTAqIHN0cm9uZ2x5IGNvcnJlbGF0ZWQgd2l0aCBlYWNoIG90aGVyIFthYm92ZSAwLjksIEBiaWdnZXIxOTg5Y29tcGFyaXNvbl0sIHRoZXkgd2VyZSBhbHNvIGhpZ2hseSBhc3NvY2lhdGVkIHdpdGggKkhGKiBwb3dlciBbQGJpZ2dlcjE5ODljb21wYXJpc29uOyBAa2xlaWdlcjIwMDVoZWFydDsgQG90emVuYmVyZ2VyMTk5OGR5bmFtaWNdLCBzdWdnZXN0aW5nIHRoYXQgdGhlc2UgbWVhc3VyZXMgY291bGQgYmUgdHJlYXRlZCBhcyBzdXJyb2dhdGVzIGZvciBlYWNoIG90aGVyIGluIGFzc2Vzc2luZyB0aGUgcGFyYXN5bXBhdGhldGljIG1vZHVsYXRpb24gb2YgSFJWLiBUaGlzIG9ic2VydmF0aW9uIGlzIHdhcnJhbnRlZCBnaXZlbiB0aGF0IHRoZSBmb3JtZXIgaXMgY29tcHV0ZWQgZnJvbSB0aGUgZGlmZmVyZW5jZXMgYWNyb3NzIGNvbnNlY3V0aXZlIE5OIGludGVydmFscywgYW5kIGhlbmNlLCB0aGV5IHJlZmxlY3QgbWFpbmx5IGhpZ2ggZnJlcXVlbmN5IG9zY2lsbGF0b3J5IHBhdHRlcm5zIGluIEhSIGFuZCBhcmUgaW5kZXBlbmRlbnQgb2YgbG9uZy10ZXJtIGNoYW5nZXMuIE9uIHRoZSBvdGhlciBoYW5kLCAqU0ROTiosIHdoaWNoIGhhcyBiZWVuIHRob3VnaHQgdG8gcmVmbGVjdCBib3RoIHN5bXBhdGhldGljIGFuZCBwYXJhc3ltcGF0aGV0aWMgYWN0aXZpdHksIGlzIGNvcnJlbGF0ZWQgdG8gdG90YWwgcG93ZXIgKCpUUCopIGluIEhSViBwb3dlciBzcGVjdHJ1bSBbQGJpZ2dlcjE5ODljb21wYXJpc29uXS4gUmVjZW50IHllYXJzIGFsc28gd2l0bmVzc2VkIHRoZSBlbWVyZ2VuY2Ugb2YgZGViYXRlcyByZWdhcmRpbmcgdGhlIHRyYWRpdGlvbmFsIGNvbmNlcHR1YWxpemF0aW9uIG9mICpTRDEqIGFuZCAqU0QyKiBhcyBub24tbGluZWFyIGluZGljZXMsIHBhcnRpY3VsYXJseSB3aGVuIEBjaWNjb25lMjAxN3JlbWluZGVyIHByb3Bvc2VkIHRoYXQgKlJNU1NEKiBhbmQgKlNEMSogd2VyZSBtYXRoZW1hdGljYWxseSBlcXVpdmFsZW50LiBNYW55IHN0dWRpZXMgdGhhdCByZXBvcnQgYm90aCBvZiB0aGVzZSBzaG9ydC10ZXJtIEhSViBpbmRpY2VzIGluZGVwZW5kZW50bHkgb2Z0ZW4gYXJyaXZlIGF0IGlkZW50aWNhbCBzdGF0aXN0aWNhbCByZXN1bHRzIHdpdGhvdXQgYWRkcmVzc2luZyB0aGlzIGVxdWl2YWxlbmNlIFtlLmcuLCBAcm9zc2kyMDE1aW1wYWN0LCBAcGVuZzIwMTVleHRyYWN0aW9uLCBAbGVpdGUyMDE1Y29ycmVsYXRpb25dLiBBZGRpdGlvbmFsbHksIG90aGVyIHN0dWRpZXMgaGF2ZSBhbHNvIGRyYXduIHNpbWlsYXJpdGllcyBiZXR3ZWVuICpTRDEvU0QyKiBhbmQgKkxGL0hGKiBpbiB0aGVpciBpbmRleGluZyBvZiB0aGUgYmFsYW5jZSBiZXR3ZWVuIHNob3J0LSBhbmQgbG9uZy10ZXJtIEhSViBbQGJyZW5uYW4yMDAycG9pbmNhcmU7IEBndXppazIwMDdjb3JyZWxhdGlvbnNdLiANCg0KT3ZlcmFsbCwgdGhlcmUgaXMgYSBuZWVkIGZvciBhIGdyZWF0ZXIgZGF0YS1kcml2ZW4gdW5kZXJzdGFuZGluZyBvZiB0aGUgcmVsYXRpb25zaGlwIGJldHdlZW4gdGhlIG11bHRpdHVkZSBvZiBIUlYgaW5kaWNlcyBhbmQgdGhlaXIgcmVzcGVjdGl2ZSBncm91cGluZ3MuIFdoaWxlIHRoZXJlIGV4aXN0IGRpZmZlcmVudCBhcHByb2FjaGVzIHRvIGFzc2lnbiBkYXRhIHRvIGRpZmZlcmVudCBncm91cHMgYmFzZWQgb24gdGhlaXIgbGV2ZWwgb2YgYXNzb2NpYXRpb25zIFtzZWUgQG5ndXllbjIwMTlpbXByb3ZpbmddLCB0aGVyZSBpcyBubyBnb2xkIHN0YW5kYXJkIG9yIGNsZWFyIGd1aWRlbGluZXMgdG8gZGV0ZXJtaW5lIHRoZSBtb3N0IGFwcHJvcHJpYXRlIG1ldGhvZCBmb3IgZ3JvdXBpbmcgb2YgcGh5c2lvbG9naWNhbCBpbmRpY2VzLiBBcyBzdWNoLCBjaG9vc2luZyBvbmUgbWV0aG9kIGFuZCBwcmVzZW50aW5nIGl0cyBzb2x1dGlvbiBhcyBhIGRlZmluaXRpdmUgb25lIGNhbiBiZSB1bmluZm9ybWF0aXZlIG9yIGV2ZW4gbWlzbGVhZGluZy4gVGhlIGFpbSBvZiB0aGlzIHN0dWR5IGlzIHRvIGV4cGxvcmUgdGhlIHN0cnVjdHVyZSBvZiBIUlYgaW5kaWNlcyBieSB1c2luZyBhIGNvbnNlbnN1cy1iYXNlZCBtZXRob2RvbG9neSBbQGt1bmNoZXZhMjAxNGNvbWJpbmluZzsgQG1vbnRpMjAwM2NvbnNlbnN1czsgQGJoYXR0YWNoYXJqZWUyMDAxY2xhc3NpZmljYXRpb25dLCBoZXJlYWZ0ZXIgcmVmZXJyZWQgdG8gYXMgKm1ldGEtY2x1c3RlcmluZyosIHdoZXJlIHRoZSByZXN1bHRzIG9mIG11bHRpcGxlIHN0cnVjdHVyZSBhbmFseXNpcyBhcHByb2FjaGVzIGFyZSBzeXN0ZW1hdGljYWxseSBjb21iaW5lZCB0byBoaWdobGlnaHQgdGhlIG1vc3Qgcm9idXN0IGFzc29jaWF0aW9ucyBiZXR3ZWVuIHRoZSBpbmRpY2VzLiANCg0KDQojIE1ldGhvZHMNCg0KSW4gdG90YWwsIHRoZSBlbGVjdHJvY2FyZGlvZ3JhbSAoRUNHKSBkYXRhIG9mIDMwMiBwYXJ0aWNpcGFudHMgd2VyZSBleHRyYWN0ZWQgZnJvbSA2IGRhdGFiYXNlcy4gVGhlIHJhdyBkYXRhIGFzIHdlbGwgYXMgdGhlIGVudGlyZSBhbmFseXNpcyBzY3JpcHQgKGluY2x1ZGluZyBkZXRhaWxzIGFuZCBhZGRpdGlvbmFsIGFuYWx5c2VzKSBjYW4gYmUgZm91bmQgYXQgdGhpcyBHaXRIdWIgcmVwb3NpdG9yeSAoPGh0dHBzOi8vZ2l0aHViLmNvbS9UYW0tUGhhbS9IUlZTdHJ1Y3R1cmU+KS4NCg0KIyMgRGF0YWJhc2VzDQoNCg0KVGhlIEdsYXNnb3cgVW5pdmVyc2l0eSBEYXRhYmFzZSAoR1VEQikgZGF0YWJhc2UgW0Bob3dlbGwyMDE4aGlnaF0gY29udGFpbnMgRUNHIHJlY29yZGluZ3MgZnJvbSAyNSBoZWFsdGh5IHBhcnRpY2lwYW50cyAoXD4gMTggeWVhcnMgb2xkKSBwZXJmb3JtaW5nIGZpdmUgZGlmZmVyZW50IHR3by1taW51dGUgdGFza3MgKHNpdHRpbmcsIGRvaW5nIGEgbWF0aHMgdGVzdCBvbiBhIHRhYmxldCwgd2Fsa2luZyBvbiBhIHRyZWFkbWlsbCwgcnVubmluZyBvbiBhIHRyZWFkbWlsbCwgdXNpbmcgYSBoYW5kYmlrZSkuIEFsbCByZWNvcmRpbmdzIHdlcmUgc2FtcGxlZCBhdCAyNTAgSHouDQoNCg0KVGhlIE1JVC1CSUggQXJyaHl0aG1pYSBEYXRhYmFzZSAoTUlULUFycmh5dGhtaWEgYW5kIE1JVC1BcnJoeXRobWlhLXgpIGRhdGFiYXNlIFtAbW9vZHkyMDAxaW1wYWN0XSBjb250YWlucyA0OCBFQ0cgcmVjb3JkaW5ncyAoMjUgbWVuLCAzMi04OSB5ZWFycyBvbGQ7IDIyIHdvbWVuLCAyMy04OSB5ZWFycyBvbGQpIGZyb20gYSBtaXhlZCBwb3B1bGF0aW9uIG9mIHBhdGllbnRzLiBBbGwgcmVjb3JkaW5ncyB3ZXJlIHNhbXBsZWQgYXQgMzYwIEh6IGFuZCBsYXN0ZWQgZm9yIDMwIG1pbnV0ZXMuDQoNClRoZSBGYW50YXNpYSBkYXRhYmFzZSBbQGl5ZW5nYXIxOTk2YWdlXSBjb250YWlucyBFQ0cgcmVjb3JkaW5ncyBmcm9tIDIwIHlvdW5nICgyMS0zNCB5ZWFycyBvbGQpIGFuZCAyMCBlbGRlcmx5ICg2OC04NSB5ZWFycyBvbGQpIGhlYWx0aHkgcGFydGljaXBhbnRzLiBBbGwgcGFydGljaXBhbnRzIHJlbWFpbmVkIGluIGEgcmVzdGluZyBzdGF0ZSBpbiBzaW51cyByaHl0aG0gd2hpbGUgd2F0Y2hpbmcgdGhlIG1vdmllIEZhbnRhc2lhIChEaXNuZXksIDE5NDApIHRoYXQgaGVscGVkIHRvIG1haW50YWluIHdha2VmdWxuZXNzLiBBbGwgcmVjb3JkaW5ncyB3ZXJlIHNhbXBsZWQgYXQgMjUwIEh6IGFuZCBsYXN0ZWQgZm9yIDEyMCBtaW51dGVzLg0KDQoNClRoZSBNSVQtQklIIE5vcm1hbCBTaW51cyBSaHl0aG0gRGF0YWJhc2UgKE1JVC1Ob3JtYWwpIGRhdGFiYXNlIFtAZ29sZGJlcmdlcjIwMDBwaHlzaW9iYW5rXSBjb250YWlucyBsb25nLXRlcm0gKCRcYXBwcm94JC4gMjRoKSBFQ0cgcmVjb3JkaW5ncyBmcm9tIDE4IHBhcnRpY2lwYW50cyAoNSBtZW4sIDI2LTQ1IHllYXJzIG9sZDsgMTMgd29tZW4sIDIwLTUwIHllYXJzIG9sZCkuIEFsbCByZWNvcmRpbmdzIHdlcmUgc2FtcGxlZCBhdCAxMjggSHogYW5kIGR1ZSB0byBtZW1vcnkgbGltaXRzLCB3ZSBrZXB0IG9ubHkgdGhlIHNlY29uZCBhbmQgdGhpcmQgaG91cnMgb2YgZWFjaCByZWNvcmRpbmcgKHdpdGggdGhlIGxvb3NlIGFzc3VtcHRpb24gdGhhdCB0aGUgZmlyc3QgaG91ciBtaWdodCBiZSBsZXNzIHJlcHJlc2VudGF0aXZlIG9mIHRoZSByZXN0IG9mIHRoZSByZWNvcmRpbmcgYW5kIGEgZHVyYXRpb24gb2YgMTIwIG1pbnV0ZXMgdG8gbWF0Y2ggdGhvc2UgZnJvbSBGYW50YXNpYSBkYXRhYmFzZSkuDQoNClRoZSBNSVQtQklIIExvbmctdGVybSBFQ0cgRGF0YWJhc2UgKE1JVC1Mb25nLXRlcm0pIGRhdGFiYXNlIFtAZ29sZGJlcmdlcjIwMDBwaHlzaW9iYW5rXSBjb250YWlucyBsb25nLXRlcm0gKDE0IHRvIDIyIGhvdXJzIGVhY2gpIEVDRyByZWNvcmRpbmdzIGZyb20gNyBwYXJ0aWNpcGFudHMgKDYgbWVuLCA0Ni04OCB5ZWFycyBvbGQ7IDEgd29tYW4sIDcxIHllYXJzIG9sZCkuIEFsbCByZWNvcmRpbmdzIHdlcmUgc2FtcGxlZCBhdCAxMjggSHogYW5kIGR1ZSB0byBtZW1vcnkgbGltaXRzLCB3ZSBrZXB0IG9ubHkgdGhlIHNlY29uZCBhbmQgdGhpcmQgaG91cnMgb2YgZWFjaCByZWNvcmRpbmcuDQoNClRoZSBsYXN0IGRhdGFzZXQgY2FtZSBmcm9tIHJlc3Rpbmctc3RhdGUgPGh0dHBzOi8vZ2l0aHViLmNvbS9uZXVyb3BzeWNob2xvZ3kvUmVzdGluZ1N0YXRlPiByZWNvcmRpbmdzIG9mIGF1dGhvcnMnIG90aGVyIGVtcGlyaWNhbCBzdHVkaWVzLiBUaGlzIGRhdGFzZXQgY29udGFpbnMgRUNHIHJlY29yZGluZ3Mgc2FtcGxlZCBhdCA0MDAwIEh6IGZyb20gNDMgaGVhbHRoeSBwYXJ0aWNpcGFudHMgKFw+IDE4IHllYXJzIG9sZCkgdGhhdCB1bmRlcndlbnQgOCBtaW51dGVzIG9mIGV5ZXMtY2xvc2VkLCBzZWF0ZWQgcG9zaXRpb24sIHJlc3Rpbmcgc3RhdGUuDQoNCiMjIERhdGEgUHJvY2Vzc2luZw0KDQpUaGUgZGVmYXVsdCBwcm9jZXNzaW5nIHBpcGVsaW5lIG9mIE5ldXJvS2l0MiBbQG1ha293c2tpMjAyMW5ldXJva2l0Ml0gd2FzIHVzZWQgZm9yIGNsZWFuaW5nIGFuZCBwcm9jZXNzaW5nIG9mIHJhdyBFQ0cgcmVjb3JkaW5ncyBhcyB3ZWxsIGFzIGZvciB0aGUgY29tcHV0YXRpb24gb2YgYWxsIEhSViBpbmRpY2VzLiBOb3RlIHRoYXQgZXhjZXB0IGZvciB0aGUgcmVzdGluZy1zdGF0ZSBkYXRhc2V0LCBkYXRhIGZyb20gb25saW5lIGRhdGFiYXNlIHdhcyBub3QgaW4gdGhlIGZvcm0gb2YgRUNHIHJlY29yZGluZ3MgYnV0IHNhbXBsZSBsb2NhdGlvbnMgb2YgYW5ub3RhdGVkIGhlYXJ0YmVhdHMgKFItcGVha3MpLg0KDQojIyBEYXRhIEFuYWx5c2lzDQoNCk9uZSBvZiB0aGUgY29yZSAiaXNzdWVzIiBvZiBzdGF0aXN0aWNhbCBjbHVzdGVyaW5nIGlzIHRoYXQsIGluIG1hbnkgY2FzZXMsIGRpZmZlcmVudCBtZXRob2RzIHdpbGwgZ2l2ZSBkaWZmZXJlbnQgcmVzdWx0cy4gVGhlICoqbWV0YS1jbHVzdGVyaW5nKiogYXBwcm9hY2ggcHJvcG9zZWQgYnkgKmVhc3lzdGF0cyogW3RoYXQgZmluZHMgZWNob2VzIGluICpjb25zZW5zdXMgY2x1c3RlcmluZyo7IHNlZSBAbW9udGkyMDAzY29uc2Vuc3VzXSBjb25zaXN0cyBvZiB0cmVhdGluZyB0aGUgdW5pcXVlIGNsdXN0ZXJpbmcgc29sdXRpb25zIGFzIGEgZW5zZW1ibGUsIGZyb20gd2hpY2ggd2UgY2FuIGRlcml2ZSBhIHByb2JhYmlsaXR5IG1hdHJpeC4gVGhpcyBtYXRyaXggY29udGFpbnMsIGZvciBlYWNoIHBhaXIgb2Ygb2JzZXJ2YXRpb25zLCB0aGUgcHJvYmFiaWxpdHkgb2YgYmVpbmcgaW4gdGhlIHNhbWUgY2x1c3Rlci4gRm9yIGluc3RhbmNlLCBpZiB0aGUgNnRoIGFuZCB0aGUgOXRoIHJvdyBvZiBhIGRhdGFmcmFtZSBoYXMgYmVlbiBhc3NpZ25lZCB0byBhIHNpbWlsYXIgY2x1c3RlciBieSA1IG91dCBvZiAxMCBjbHVzdGVyaW5nIG1ldGhvZHMsIHRoZW4gaXRzIHByb2JhYmlsaXR5IG9mIGJlaW5nIGdyb3VwZWQgdG9nZXRoZXIgaXMgMC41LiBFc3NlbnRpYWxseSwgKm1ldGEtY2x1c3RlcmluZyogYXBwcm9hY2ggaXMgYmFzZWQgb24gdGhlIGh5cG90aGVzaXMgdGhhdCwgYXMgZWFjaCBjbHVzdGVyaW5nIGFsZ29yaXRobSBlbWJvZGllcyBhIGRpZmZlcmVudCBwcmlzbSBieSB3aGljaCBpdCBzZWVzIHRoZSBkYXRhLCBydW5uaW5nIGFuIGluZmluaXRlIGFtb3VudCBvZiBhbGdvcml0aG1zIHdvdWxkIHJlc3VsdCBpbiB0aGUgZW1lcmdlbmNlIG9mIHRoZSAidHJ1ZSIgY2x1c3RlcnMuIEFzIHRoZSBudW1iZXIgb2YgYWxnb3JpdGhtcyBhbmQgcGFyYW1ldGVycyBpcyBmaW5pdGUsIHRoZSBwcm9iYWJpbGlzdGljIHBlcnNwZWN0aXZlIGlzIGEgdXNlZnVsIHByb3h5LiBUaGlzIG1ldGhvZCBpcyBpbnRlcmVzdGluZyB3aGVyZSB0aGVyZSBpcyBubyBvYnZpb3VzIHJlYXNvbnMgdG8gcHJlZmVyIG9uZSBvdmVyIGFub3RoZXIgY2x1c3RlcmluZyBtZXRob2QsIGFzIHdlbGwgYXMgdG8gaW52ZXN0aWdhdGUgaG93IHJvYnVzdCBzb21lIGNsdXN0ZXJzIGFyZSB1bmRlciBkaWZmZXJlbnQgYWxnb3JpdGhtcy4NCg0KSW4gdGhpcyBhbmFseXNpcywgd2UgZmlyc3QgY29ycmVsYXRlZCB0aGUgSFJWIGluZGljZXMgW3VzaW5nIHRoZSBgY29ycmVsYXRpb25zYCBmdW5jdGlvbiBmcm9tIHRoZSAqY29ycmVsYXRpb24qIHBhY2thZ2UsIHNlZSBAbWFrb3dza2kyMDIwbWV0aG9kc10gYW5kIHJlbW92ZWQgaW5kaWNlcyB0aGF0IHdlcmUgcGVyZmVjdGx5IGNvcnJlbGF0ZWQgd2l0aCBlYWNoIG90aGVyLCBiZWZvcmUgcmVtb3Zpbmcgb3V0bGllcnMgYmFzZWQgb24gdGhlIG1lZGlhbiBhYnNvbHV0ZSBkZXZpYXRpb24gZnJvbSB0aGUgbWVkaWFuIFtzZWUgdGhlIGBjaGVja19vdXRsaWVyc2AgZnVuY3Rpb24gaW4gdGhlICpwZXJmb3JtYW5jZSogUiBwYWNrYWdlOyBAbHVkZWNrZTIwMTlwZXJmb3JtYW5jZV0uIEZvbGxvd2luZyB0aGUgKm1ldGEtY2x1c3RlcmluZyogYXBwcm9hY2gsIG11bHRpcGxlIGNsdXN0ZXJpbmcgbWV0aG9kcyB3ZXJlIHVzZWQgdG8gYW5hbHl6ZSB0aGUgYXNzb2NpYXRpb25zIGJldHdlZW4gdGhlIEhSViBpbmRpY2VzLCBuYW1lbHksIGZhY3RvciBhbmFseXNpcywgay1tZWFucyBjbHVzdGVyaW5nLCBrLW1lbG9pZHMgY2x1c3RlcmluZywgaGllcmFyY2hpY2FsIGNsdXN0ZXJpbmcsIGRlbnNpdHktYmFzZWQgc3BhdGlhbCBjbHVzdGVyaW5nIG9mIGFwcGxpY2F0aW9ucyB3aXRoIG5vaXNlIChEQlNDQU4pLCBoaWVyYXJjaGljYWwgZGVuc2l0eS1iYXNlZCBzcGF0aWFsIGNsdXN0ZXJpbmcgb2YgYXBwbGljYXRpb25zIHdpdGggbm9pc2UgKEhCU0NBTiksIG1peHR1cmUgbW9kZWwgYXBwcm9hY2gsIGFuZCBleHBsb3JhdG9yeSBncmFwaCBhbmFseXNpcyAoRUdBKS4gV2UgdGhlbiBqb2ludGx5IGNvbnNpZGVyZWQgdGhlIHJlc3VsdHMgb2J0YWluZWQgZnJvbSB0aGVzZSBtdWx0aXBsZSBtZXRob2RzIGJ5IGVzdGltYXRpbmcgdGhlIHByb2JhYmlsaXR5IGZvciBlYWNoIHBhaXIgb2YgaW5kaWNlcyB0byBiZSBjbHVzdGVyZWQgdG9nZXRoZXIuIFVsdGltYXRlbHksIHRoZSBhbmFseXNpcyBhaW1lZCB0byB0byBwcm92aWRlIGEgbW9yZSByb2J1c3Qgb3ZlcnZpZXcgb2YgdGhlIGNsdXN0ZXJpbmcgcmVzdWx0cyBhbmQgZmFjaWxpdGF0ZSBhIG1vcmUgdGhvcm91Z2ggY29uY2VwdHVhbCB1bmRlcnN0YW5kaW5nIG9mIHRoZXNlIHBhdHRlcm5zLg0KDQpEYXRhIHByb2Nlc3Npbmcgd2FzIGNhcnJpZWQgb3V0IHdpdGggUiBbQFItYmFzZV0gYW5kIHRoZSAqZWFzeXN0YXRzKiBlY29zeXN0ZW0gW0BsdWRlY2tlMjAxOWluc2lnaHQ7IEBtYWtvd3NraTIwMTliYXllc3Rlc3RyXS4gVGhlIHJhdyBkYXRhLCBhcyB3ZWxsIGFzIHRoZSBmdWxsIHJlcHJvZHVjaWJsZSBhbmFseXNpcyBzY3JpcHQsIGluY2x1ZGluZyBhZGRpdGlvbmFsIGRlc2NyaXB0aW9uIG9mIGVhY2ggYXBwcm9hY2ggYW5kIHRoZSBzb2x1dGlvbnMgb2YgZWFjaCBpbmRpdmlkdWFsIGNsdXN0ZXJpbmcgbWV0aG9kLCBhcmUgYXZhaWxhYmxlIGF0IHRoaXMgR2l0SHViIHJlcG9zaXRvcnkgKDxodHRwczovL2dpdGh1Yi5jb20vVGFtLVBoYW0vSFJWU3RydWN0dXJlPikuDQoNCiMgUmVzdWx0cw0KDQpgYGB7ciwgbWVzc2FnZT1GQUxTRSwgd2FybmluZz1GQUxTRSwgcmVzdWx0cz0naGlkZSd9DQpsaWJyYXJ5KHRpZHl2ZXJzZSkNCmxpYnJhcnkoZWFzeXN0YXRzKQ0KDQpkYXRhIDwtIHJlYWQuY3N2KCJkYXRhL2RhdGFfY29tYmluZWQuY3N2Iiwgc3RyaW5nc0FzRmFjdG9ycyA9IEZBTFNFKSAlPiUgDQogIHNlbGVjdCgtSFJWX1VMRiwgLUhSVl9WTEYpICU+JSAgIyBpbnN1ZmZpY2llbnQgcmVjb3JkaW5nIGxlbmd0aCB0byBjb21wdXRlDQogIHNlbGVjdCgtSFJWX1NEQU5OMSwgLUhSVl9TREFOTjIsIC1IUlZfU0RBTk41LCANCiAgICAgICAgIC1IUlZfU0ROTkkxLCAtSFJWX1NETk5JMiwgLUhSVl9TRE5OSTUpICU+JSAjIGluc3VmZmljaWVudCByZWNvcmRpbmcgbGVuZ3RoIHRvIGNvbXB1dGUNCiAgc2V0TmFtZXMoc3RyaW5ncjo6c3RyX3JlbW92ZShuYW1lcyguKSwgIkhSVl8iKSkgJT4lIA0KICBtdXRhdGVfYWxsKGZ1bmN0aW9uKHgpIHsNCiAgICB4W2lzLmluZmluaXRlKHgpXSA8LSBOQQ0KICAgIHJldHVybih4KSB9KQ0KYGBgDQoNCg0KYGBge3Igd2FybmluZz1GQUxTRSwgbWVzc2FnZT1UUlVFLCByZXN1bHRzPSdhc2lzJ30NCmNhdCgiVGhpcyBzdHVkeSBpbmNsdWRlcyIsIA0KICAgIG5yb3coZGF0YSksIA0KICAgICJwYXJ0aWNpcGFudHMgZnJvbSIsIA0KICAgIGxlbmd0aCh1bmlxdWUoZGF0YSREYXRhYmFzZSkpLCANCiAgICAiZGF0YWJhc2VzLiIpDQpgYGANCg0KDQpgYGB7ciBjb252ZW5pZW5jZV9jaHVua19mb3JfbG9jYWxfcnVubmluZywgaW5jbHVkZSA9IEZBTFNFLCBldmFsID0gRkFMU0V9DQpsaWJyYXJ5KHBhdGNod29yaykNCmxpYnJhcnkodGlkeXZlcnNlKQ0KbGlicmFyeShlYXN5c3RhdHMpDQpsaWJyYXJ5KEdQQXJvdGF0aW9uKQ0KDQoNCiMgVG8gcnVuIHRoaW5ncyBsb2NhbGx5OiBDVFJMICsgQUxUICsgU0hJRlQgKyBQLCBhbmQgdGhlbiB0aGUgbmV4dCB0d28gbGluZXMNCnNvdXJjZV9ybWQoIjBfQ29udmVuaWVuY2VGdW5jdGlvbnMuUm1kIikNCnNvdXJjZV9ybWQoIjFfUHJlcHJvY2Vzc2luZy5SbWQiKQ0Kc291cmNlX3JtZCgiM19EaW1lbnNpb25zLlJtZCIpDQpzb3VyY2Vfcm1kKCI0X0NsdXN0ZXJpbmcuUm1kIikNCnNvdXJjZV9ybWQoIjVfTmV0d29yay5SbWQiKQ0Kc291cmNlX3JtZCgiNl9TdW1tYXJ5LlJtZCIpDQpgYGANCg0KDQoNCiMjIFByZXByb2Nlc3NpbmcNCg0KYGBge3IgY2hpbGQ9JzBfQ29udmVuaWVuY2VGdW5jdGlvbnMuUm1kJ30NCmBgYA0KDQoNCmBgYHtyIGNoaWxkPScxX1ByZXByb2Nlc3NpbmcuUm1kJ30NCmBgYA0KDQoNCiMjIERpbWVuc2lvbmFsIFN0cnVjdHVyZQ0KDQpgYGB7ciBjaGlsZD0nM19EaW1lbnNpb25zLlJtZCd9DQpgYGANCg0KIyMgQ2x1c3RlciBTdHJ1Y3R1cmUNCg0KYGBge3IgY2hpbGQ9JzRfQ2x1c3RlcmluZy5SbWQnfQ0KYGBgDQoNCiMjIE5ldHdvcmsgU3RydWN0dXJlDQoNCmBgYHtyIGNoaWxkPSc1X05ldHdvcmsuUm1kJ30NCmBgYA0KDQojIyBTdW1tYXJ5DQoNCmBgYHtyIGNoaWxkPSc2X1N1bW1hcnkuUm1kJ30NCmBgYA0KDQo=</div>
 
 
 </div>
