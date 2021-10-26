@@ -9,7 +9,7 @@
 [![Website](https://img.shields.io/badge/download-.docx-FF5722)](https://github.com/RealityBending/TemplateResults/raw/main/word_and_pdf/SupplementaryMaterials.docx)
 [![Website](https://img.shields.io/badge/see-.pdf-FF9800)](https://github.com/RealityBending/TemplateResults/blob/main/word_and_pdf/SupplementaryMaterials.pdf)
 
-## Introduction
+## Abstract
 
 Heart Rate Variability (HRV) can be estimated using a myriad of mathematical indices, but the lack of systematic comparison between these indices renders the
 interpretation and evaluation of results tedious. In this study, we assessed the relationship between 57 HRV metrics collected from 302 human recordings using a
