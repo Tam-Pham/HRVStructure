@@ -59,10 +59,7 @@ source_rmd <- function(x){
 # This chunk is a bit complex so don't worry about it: it's made to add badges to the HTML versions
 # NOTE: You have to replace the links accordingly to have working "buttons" on the HTML versions
 if (!knitr::is_latex_output() && knitr::is_html_output()) {
-  cat("[![Website](https://img.shields.io/badge/repo-Readme-2196F3)](https://github.com/Tam-Pham/HRVStructure)
-      [![Website](https://img.shields.io/badge/visit-website-E91E63)](https://realitybending.github.io/TemplateResults/)
-      [![Website](https://img.shields.io/badge/download-.docx-FF5722)](https://github.com/RealityBending/TemplateResults/raw/main/word_and_pdf/SupplementaryMaterials.docx)
-      [![Website](https://img.shields.io/badge/see-.pdf-FF9800)](https://github.com/RealityBending/TemplateResults/blob/main/word_and_pdf/SupplementaryMaterials.pdf)")
+  cat("[![Website](https://img.shields.io/badge/repo-Readme-2196F3)](https://github.com/Tam-Pham/HRVStructure)")
 }
 ```
 

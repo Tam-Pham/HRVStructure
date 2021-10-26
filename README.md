@@ -1,13 +1,9 @@
-<!-- 
+<!--
 !!!! IMPORTANT: run `source("utils/render.R")` to publish instead of clicking on 'Knit'
 -->
 
 # Unveiling the Structure of Heart Rate Variability (HRV) Indices: A Data-driven Meta-clustering Approach
 
-[![Website](https://img.shields.io/badge/repo-Readme-2196F3)](https://github.com/Tam-Pham/HRVStructure)
-[![Website](https://img.shields.io/badge/visit-website-E91E63)](https://realitybending.github.io/TemplateResults/)
-[![Website](https://img.shields.io/badge/download-.docx-FF5722)](https://github.com/RealityBending/TemplateResults/raw/main/word_and_pdf/SupplementaryMaterials.docx)
-[![Website](https://img.shields.io/badge/see-.pdf-FF9800)](https://github.com/RealityBending/TemplateResults/blob/main/word_and_pdf/SupplementaryMaterials.pdf)
 
 ## Abstract
 
@@ -20,7 +16,7 @@ yet comprehensive HRV-related data analysis and reporting.
 
 ## Supplementary Materials
 
-Reproducible analysis scripts as well as open-access data files can be found in this repository. 
+Reproducible analysis scripts as well as open-access data files can be found in this repository.
 
 - [Preprint](https://psyarxiv.com/mwa6x/)
 - [Supplementary Materials](https://tam-pham.github.io/HRVStructure/)
