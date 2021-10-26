@@ -22,5 +22,5 @@ yet comprehensive HRV-related data analysis and reporting.
 
 Reproducible analysis scripts as well as open-access data files can be found in this repository. 
 
-- [Preprint](10.31234/osf.io/mwa6x)
+- [Preprint](https://psyarxiv.com/mwa6x/)
 - [Supplementary Materials](https://tam-pham.github.io/HRVStructure/)
